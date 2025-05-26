@@ -9,5 +9,3 @@ Ogni studente lavora sul proprio branch:
 * 1-java-jacopo
 * 1-java-pietro
 * 1-java-gaetano
-
-gaetano.
