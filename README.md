@@ -71,7 +71,7 @@ Sovrascrivere il metodo toString perché scriva "Sono un quadrato con lato X" (d
 * Creare la classe Cerchio che implementa FormaGeometrica, 
 con un costruttore che riceve il raggio e implementa i metodi `perimetro` (2 * Math.PI * raggio) e `area` (Math.PI * raggio * raggio);
 Sovrascrivere il metodo toString perché scriva "Sono un cerchio con raggio X" (dove X è il valore del raggio)
-* Nel mail di MyCodyLabApplication creare un metodo `stampaForme` che riceve una lista di `FormaGeometrica` 
+* Nel `main` di MyCodyLabApplication creare un metodo `stampaForme` che riceve una lista di `FormaGeometrica` 
 e stampa a console quale è l'oggetto corrente (toString), il perimetro e l'area di ogni forma; richiamare questo metodo 
 con una lista di forme geometriche che contiene un rettangolo, un quadrato e un cerchio da main.
 
