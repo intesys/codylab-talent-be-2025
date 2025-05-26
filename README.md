@@ -10,3 +10,4 @@ Ogni studente lavora sul proprio branch:
 * 1-java-pietro
 * 1-java-gaetano
 
+Questa è una prova per fare il primo commit di Git
