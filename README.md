@@ -10,4 +10,3 @@ Ogni studente lavora sul proprio branch:
 * 1-java-pietro
 * 1-java-gaetano
 
-Prova per il funzionamento di Git
