@@ -10,3 +10,6 @@ Ogni studente lavora sul proprio branch:
 * 1-java-pietro
 * 1-java-gaetano
 
+Per poter lavorare da IDE con progetto agganciato in https vi occorre il token.
+Sulla pagina di github, sul vostro profilo, andate su `Settings > Developer Settings`
+e generate un personal access token (classic) dando i permessi `repo` e `workflow`.
