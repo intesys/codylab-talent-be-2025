@@ -1,7 +1,12 @@
 package it.intesys.codylab.it.intesys;
 
-public abstract class Quadrato extends Quadrilatero{
+public  class Quadrato extends Quadrilatero{
     float lato = 4;
+
+    protected Quadrato(float lato1, float lato2, float lato3, float lato4) {
+        super(lato1, lato2, lato3, lato4);
+    }
+
     @Override
     public float area() {
         return lato * lato;
@@ -9,6 +14,6 @@ public abstract class Quadrato extends Quadrilatero{
 
     @Override
     public String toString() {
-        return " Sono un Quadrato con lato " + lato;
+        return "Sono un Quadrato con lato " + lato;
     }
 }

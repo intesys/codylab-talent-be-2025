@@ -1,8 +1,11 @@
 package it.intesys.codylab.it.intesys;
 
-public abstract class Cerchio implements FormaGeometrica {
+public  class Cerchio implements FormaGeometrica {
+    private final float raggio;
 
-    float raggio = 3;
+    public Cerchio(float raggio) {
+        this.raggio = raggio;
+    }
     @Override
     public float perimetro() {
         return (float) (2 * Math.PI * raggio);
