@@ -13,10 +13,15 @@ public class MyCodyLabApplication {
     }
 
     private static void stampaForme (FormaGeometrica [] forme) {
-        for (int i = 0; i < forme.length; i++) {
-            System.out.println(forme[i].toString());
-            System.out.println(forme[i].perimetro());
-            System.out.println(forme[i].area());
+//        for (int i = 0; i < forme.length; i++) {
+//            System.out.println(forme[i].toString());
+//            System.out.println(forme[i].perimetro());
+//            System.out.println(forme[i].area());
+//        }
+        for (FormaGeometrica f : forme) {
+            System.out.println(f.toString());
+            System.out.println(f.area());
+            System.out.println(f.perimetro());
         }
     }
 }
