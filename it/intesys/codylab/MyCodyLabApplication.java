@@ -21,8 +21,15 @@ public class MyCodyLabApplication {
     }
 
     private static void stampaPerimetroArea() {
-        Quadrilatero quadrilatero = new Rettangolo(5, 10);
-        System.out.println("perimetro: " + quadrilatero.perimetro());
-        System.out.println("area: " + quadrilatero.area());
+        FormaGeometrica formaGeometrica1 = new Rettangolo(5, 10);
+        stampaPerimetroArea(formaGeometrica1);
+        formaGeometrica1 = new Quadrato(7);
+        stampaPerimetroArea(formaGeometrica1);
+    }
+
+    private static void stampaPerimetroArea(FormaGeometrica formaGeometrica) {
+        System.out.println("Forma geometrica è " + formaGeometrica);
+        System.out.println("perimetro: " + formaGeometrica.perimetro());
+        System.out.println("area: " + formaGeometrica.area());
     }
 }

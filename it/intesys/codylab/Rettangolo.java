@@ -15,4 +15,8 @@ public class Rettangolo extends Quadrilatero {
     public float area() {
         return base * altezza;
     }
+
+    public float getBase() {
+        return base;
+    }
 }
