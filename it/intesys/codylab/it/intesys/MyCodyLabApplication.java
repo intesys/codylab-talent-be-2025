@@ -12,6 +12,8 @@ public class MyCodyLabApplication {
         FormaGeometrica cerchio = new Cerchio(4);
         FormaGeometrica[] forme = { rettangolo, quadrato, cerchio };
         StampaForme(forme);
+        System.out.println("\n ######################################################\n");
+        StampaForme2(forme);
         }
 
 
@@ -25,5 +27,16 @@ public class MyCodyLabApplication {
             System.out.println("-------------------------------------------------");
         }
     }
+
+    public static void StampaForme2(FormaGeometrica[] forme)
+    {
+        System.out.println("-------------------------------------------------");
+        for (int i = 0; i < forme.length; i++) {
+            System.out.println(forme[i]);
+            System.out.println("l'area è " + forme[i].area());
+            System.out.println("Il perimetro è " + forme[i].perimetro());
+            System.out.println("-------------------------------------------------");
+        }
+}
 }
 
