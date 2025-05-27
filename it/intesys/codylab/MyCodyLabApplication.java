@@ -3,7 +3,7 @@ package it.intesys.codylab;
 public class MyCodyLabApplication {
 
     public static void main(String[] args) {
-        stampa2();
+        stampaPerimetroArea();
     }
 
     private static void stampa1() {
@@ -18,5 +18,11 @@ public class MyCodyLabApplication {
 
         System.out.println("Oggetto2 è " + oggetto2);
         System.out.println("Messaggio2: " + oggetto2.messaggio());
+    }
+
+    private static void stampaPerimetroArea() {
+        Quadrilatero quadrilatero = new Rettangolo(5, 10);
+        System.out.println("perimetro: " + quadrilatero.perimetro());
+        System.out.println("area: " + quadrilatero.area());
     }
 }
