@@ -1,6 +1,6 @@
 package esercizi.codylab.intro;
 
-import java.util.Arrays;
+
 import java.util.List;
 import java.util.ArrayList;
 
