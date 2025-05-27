@@ -6,6 +6,8 @@ public  class Rettangolo extends Quadrilatero{
 
     protected Rettangolo(float lato1, float lato2) {
         super(lato1, lato2, lato1, lato2);
+        base = lato1;
+        altezza = lato2;
     }
 
     @Override

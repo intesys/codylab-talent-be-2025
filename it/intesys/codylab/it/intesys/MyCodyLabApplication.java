@@ -11,8 +11,12 @@ public class MyCodyLabApplication {
         FormaGeometrica quadrato = new Quadrato(7, 3, 4, 5);
         FormaGeometrica cerchio = new Cerchio(2);
         FormaGeometrica[] forme = { rettangolo, quadrato, cerchio };
+        System.out.println("-------------------------------------------------");
         for (FormaGeometrica f : forme) {
             System.out.println(f);
+            System.out.println("l'area è " + f.area());
+            System.out.println("Il perimetro è " + f.perimetro());
+            System.out.println("-------------------------------------------------");
         }
 
 
