@@ -25,6 +25,15 @@ public class MyCodyLabApplication {
             System.out.println("Perimetro: " + f.perimetro());
             System.out.println("Area: " + f.area());
         }
+
+        System.out.println("\nUtilizzo .stream()\n");
+
+        forme.forEach(f -> {
+            System.out.println(f.toString());
+             System.out.println(f.perimetro());
+             System.out.println(f.area());
+                }
+            );
     }
 
 }
