@@ -11,5 +11,10 @@ public class MyCodyLabApplication {
         System.out.println(quadrato.toString());
         System.out.println("Questo è il perimetro: " + quadrato.perimetro());
         System.out.println("Questa è l'area: " + quadrato.area());
+
+        FormaGeometrica cerchio = new Cerchio(4);
+        System.out.println(cerchio.toString());
+        System.out.println("Questo è il perimetro: " + cerchio.perimetro());
+        System.out.println("Questa è l'area: " + cerchio.area());
     }
 }

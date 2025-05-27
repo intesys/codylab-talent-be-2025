@@ -1,0 +1,24 @@
+package it.intesys.codylab;
+
+public class Cerchio implements FormaGeometrica{
+    private final float raggio;
+
+    public Cerchio(float raggio) {
+        this.raggio = raggio;
+    }
+
+    @Override
+    public float perimetro() {
+        return Double.valueOf(Math.PI * 2 * raggio).floatValue();
+    }
+
+    @Override
+    public float area() {
+        return Double.valueOf(Math.PI * raggio * raggio).floatValue();
+    }
+
+    @Override
+    public String toString() {
+        return "Sono un cerchio con raggio " + raggio;
+    }
+}
