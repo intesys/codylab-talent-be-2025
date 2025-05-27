@@ -1,4 +1,4 @@
-package Esercizi.Codylab.Intro;
+package esercizi.codylab.intro;
 
 public class Rettangolo extends Quadrilatero {
     private final float base, altezza;
@@ -9,7 +9,7 @@ public class Rettangolo extends Quadrilatero {
      }
 
     @Override
-    public float Area() {
+    public float area() {
         return base*altezza;
     }
 

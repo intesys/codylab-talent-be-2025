@@ -1,4 +1,4 @@
-package Esercizi.Codylab.Intro;
+package esercizi.codylab.intro;
 
 public class Quadrato extends Quadrilatero{
     private final float lato;
@@ -8,7 +8,7 @@ public class Quadrato extends Quadrilatero{
     }
 
     @Override
-    public float Area() {
+    public float area() {
         return lato*lato;
     }
 

@@ -1,4 +1,4 @@
-package Esercizi.Codylab.Intro;
+package esercizi.codylab.intro;
 
 public class MyCodyLabApplication {
     public static void main(String...args) {
@@ -9,14 +9,14 @@ public class MyCodyLabApplication {
 
         FormaGeometrica cerchio = new Cerchio(5);
         FormaGeometrica [] forme = {rettangolo,quadrato,cerchio};
-        StampaForme(forme);
+        stampaForme(forme);
     }
 
-    private static void StampaForme (FormaGeometrica [] forme) {
+    private static void stampaForme (FormaGeometrica [] forme) {
         for (int i = 0; i < forme.length; i++) {
             System.out.println(forme[i].toString());
-            System.out.println(forme[i].Perimetro());
-            System.out.println(forme[i].Area());
+            System.out.println(forme[i].perimetro());
+            System.out.println(forme[i].area());
         }
     }
 }

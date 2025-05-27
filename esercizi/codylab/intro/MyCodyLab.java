@@ -1,4 +1,4 @@
-package Esercizi.Codylab.Intro;
+package esercizi.codylab.intro;
 
 public class MyCodyLab {
     public String messaggio() {

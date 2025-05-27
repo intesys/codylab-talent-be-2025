@@ -1,4 +1,4 @@
-package Esercizi.Codylab.Intro;
+package esercizi.codylab.intro;
 
 public class Cerchio implements FormaGeometrica {
     private final float raggio;
@@ -7,12 +7,12 @@ public class Cerchio implements FormaGeometrica {
     }
 
     @Override
-    public float Perimetro() {
+    public float perimetro() {
         return (float)(2 * Math.PI * raggio);
     }
 
     @Override
-    public float Area() {
+    public float area() {
         return (float)(Math.PI * raggio * raggio);
     }
 

@@ -1,4 +1,4 @@
-package Esercizi.Codylab.Intro;
+package esercizi.codylab.intro;
 
 public abstract class Quadrilatero implements FormaGeometrica {
     private final float  lato1, lato2, lato3, lato4;
@@ -12,7 +12,7 @@ public abstract class Quadrilatero implements FormaGeometrica {
     }
 
     @Override
-    public float Perimetro() {
+    public float perimetro() {
         return lato1 + lato2 + lato3 + lato4;
     }
 }
