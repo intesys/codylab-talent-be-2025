@@ -6,5 +6,7 @@ public class MyCodyLabApplication {
         System.out.println( MyCodyLab.messaggio());
         FormaGeometrica rettangolo = new Rettangolo(7,9);
         System.out.println(rettangolo);
+        FormaGeometrica quadrato = new Quadrato(5);
+        System.out.println(quadrato);
     }
 }

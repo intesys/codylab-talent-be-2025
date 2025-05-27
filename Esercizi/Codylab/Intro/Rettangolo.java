@@ -15,6 +15,6 @@ public class Rettangolo extends Quadrilatero {
 
     @Override
     public String toString() {
-        return "Sono un rettangolo con base" + base +"e altezza" + altezza;
+        return "Sono un rettangolo con base" +" " + base +" "+"e altezza" +" "+ altezza;
     }
 }
