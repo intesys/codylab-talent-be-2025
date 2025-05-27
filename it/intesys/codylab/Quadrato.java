@@ -13,4 +13,9 @@ public class Quadrato extends Quadrilatero {
     public float area() {
         return lato * lato;
     }
+
+    @Override
+    public String toString() {
+        return "Quadrato con lato " + lato;
+    }
 }

@@ -18,4 +18,9 @@ public abstract class Quadrilatero implements FormaGeometrica {
     public float perimetro() {
         return lato1 + lato2 + lato3 + lato4;
     }
+
+    @Override
+    public String toString() {
+        return "Quadrilatero con lati " + lato1 + ", " + lato2 + ", " + lato3 + ", " + lato4;
+    }
 }

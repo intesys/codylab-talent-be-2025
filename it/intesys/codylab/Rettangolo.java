@@ -16,7 +16,8 @@ public class Rettangolo extends Quadrilatero {
         return base * altezza;
     }
 
-    public float getBase() {
-        return base;
+    @Override
+    public String toString() {
+        return "Rettangolo con base " + base + " e altezza " + altezza;
     }
 }

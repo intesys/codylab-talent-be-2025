@@ -25,10 +25,12 @@ public class MyCodyLabApplication {
         stampaPerimetroArea(formaGeometrica1);
         formaGeometrica1 = new Quadrato(7);
         stampaPerimetroArea(formaGeometrica1);
+        formaGeometrica1 = new Cerchio(10);
+        stampaPerimetroArea(formaGeometrica1);
     }
 
     private static void stampaPerimetroArea(FormaGeometrica formaGeometrica) {
-        System.out.println("Forma geometrica è " + formaGeometrica);
+        System.out.println("Forma geometrica è " + formaGeometrica.toString());
         System.out.println("perimetro: " + formaGeometrica.perimetro());
         System.out.println("area: " + formaGeometrica.area());
     }
