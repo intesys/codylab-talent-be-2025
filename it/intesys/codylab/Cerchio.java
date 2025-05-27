@@ -9,12 +9,12 @@ public class Cerchio implements FormaGeometrica{
 
     @Override
     public float perimetro() {
-        return Double.valueOf(Math.PI * 2 * raggio).floatValue();
+        return (float)(Math.PI * 2 * raggio);
     }
 
     @Override
     public float area() {
-        return Double.valueOf(Math.PI * raggio * raggio).floatValue();
+        return (float)(Math.PI * raggio * raggio);
     }
 
     @Override
