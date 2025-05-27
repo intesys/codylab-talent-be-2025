@@ -2,11 +2,21 @@ package Esercizi.Codylab.Intro;
 
 public class MyCodyLabApplication {
     public static void main(String...args) {
-        MyCodyLab MyCodyLab = new MyCodyLab();
-        System.out.println( MyCodyLab.messaggio());
+
         FormaGeometrica rettangolo = new Rettangolo(7,9);
-        System.out.println(rettangolo);
+
         FormaGeometrica quadrato = new Quadrato(5);
-        System.out.println(quadrato);
+
+        FormaGeometrica cerchio = new Cerchio(5);
+        FormaGeometrica [] forme = {rettangolo,quadrato,cerchio};
+        StampaForme(forme);
+    }
+
+    private static void StampaForme (FormaGeometrica [] forme) {
+        for (int i = 0; i < forme.length; i++) {
+            System.out.println(forme[i].toString());
+            System.out.println(forme[i].Perimetro());
+            System.out.println(forme[i].Area());
+        }
     }
 }
