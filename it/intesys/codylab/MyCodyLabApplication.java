@@ -25,6 +25,8 @@ public class MyCodyLabApplication {
         stampaPerimetroArea(formaGeometrica1);
         formaGeometrica1 = new Quadrato(7);
         stampaPerimetroArea(formaGeometrica1);
+        formaGeometrica1 = new Quadrato(15);
+        stampaPerimetroArea(formaGeometrica1);
         formaGeometrica1 = new Cerchio(10);
         stampaPerimetroArea(formaGeometrica1);
     }
