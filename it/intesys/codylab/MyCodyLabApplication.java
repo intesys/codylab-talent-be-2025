@@ -28,7 +28,7 @@ public class MyCodyLabApplication {
 
         System.out.println("\nUtilizzo .stream()\n");
 
-        forme.forEach(f -> {
+        forme.stream().forEach(f -> {
             System.out.println(f.toString());
              System.out.println(f.perimetro());
              System.out.println(f.area());
