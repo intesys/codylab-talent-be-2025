@@ -1,5 +1,8 @@
 package it.intesys.codylab;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MyCodyLabApplication {
     public static void main(String[] args) {
         FormaGeometrica rettangolo = new Rettangolo(7,4);
@@ -8,15 +11,19 @@ public class MyCodyLabApplication {
 
         FormaGeometrica cerchio = new Cerchio(4);
 
-        FormaGeometrica [] forme = {rettangolo, cerchio, quadrato};
+        List<FormaGeometrica> forme = new ArrayList<>();
+        forme.add(rettangolo);
+        forme.add(quadrato);
+        forme.add(cerchio);
+
         stampaForme(forme);
     }
 
-    private static void stampaForme(FormaGeometrica[] forme) {
-        for (FormaGeometrica forma : forme) {
-            System.out.println("Forma: " + forma.toString());
-            System.out.println("Perimetro: " + forma.perimetro());
-            System.out.println("Area: " + forma.area());
+    private static void stampaForme(List<FormaGeometrica> forme) {
+        for (FormaGeometrica f : forme) {
+            System.out.println("Forma: " + f.toString());
+            System.out.println("Perimetro: " + f.perimetro());
+            System.out.println("Area: " + f.area());
         }
     }
 
