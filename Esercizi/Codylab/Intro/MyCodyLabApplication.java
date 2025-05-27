@@ -2,6 +2,7 @@ package Esercizi.Codylab.Intro;
 
 public class MyCodyLabApplication {
     public static void main(String...args) {
-        System.out.println("Hello CodyLab Talent 2025");
+        MyCodyLab MyCodyLab = new MyCodyLab();
+        System.out.println( MyCodyLab.messaggio());
     }
 }
