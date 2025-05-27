@@ -2,8 +2,9 @@ package it.intesys.codylab;
 
 public class MyCodyLabApplication {
     public static void main(String[] args) {
-        System.out.println("Welcome to My CodyLab Application");
-        MyCodyLab obj = new MyCodyLab();
-        System.out.println(obj.messaggio());
+        FormaGeometrica rettangolo = new Rettangolo(7,4);
+        System.out.println(rettangolo.toString());
+        System.out.println("Questo è il perimetro: " + rettangolo.perimetro());
+        System.out.println("Questo è l'area: " + rettangolo.area());
     }
 }
