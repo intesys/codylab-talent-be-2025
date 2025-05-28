@@ -2,12 +2,12 @@ package it.intesys.codylab.model;
 
 public abstract class Quadrilatero implements FormaGeometrica {
 
-    private final float lato1;
-    private final float lato2;
-    private final float lato3;
-    private final float lato4;
+    private final double lato1;
+    private final double lato2;
+    private final double lato3;
+    private final double lato4;
 
-    protected Quadrilatero(float lato1, float lato2, float lato3, float lato4) {
+    protected Quadrilatero(double lato1, double lato2, double lato3, double lato4) {
         this.lato1 = lato1;
         this.lato2 = lato2;
         this.lato3 = lato3;
@@ -15,7 +15,7 @@ public abstract class Quadrilatero implements FormaGeometrica {
     }
 
     @Override
-    public float perimetro() {
+    public double perimetro() {
         return lato1 + lato2 + lato3 + lato4;
     }
 
