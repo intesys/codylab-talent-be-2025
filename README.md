@@ -181,3 +181,9 @@ Esercizi da completare:
 * Dockerfile
 * Docker Compose
 
+## Parte 11 - Comunicazioni Asincrone
+### Argomenti
+* Thread e Task
+* Comunicazioni asincrone tra microservizi
+* Eventi
+
