@@ -1,4 +1,4 @@
-package it.intesys.codylab;
+package it.intesys.codylab.model;
 
 public class Cerchio implements FormaGeometrica{
 
