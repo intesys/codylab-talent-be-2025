@@ -51,7 +51,7 @@ e generate un personal access token (classic) dando i permessi `repo` e `workflo
   * _I – Interface Segregation Principle (ISP)_
   Meglio avere tante interfacce specifiche che una sola generica.
   I client non dovrebbero dipendere da metodi che non usano.
-  * D – Dependency Inversion Principle (DIP)
+  * _D – Dependency Inversion Principle (DIP)_
   Dipendi da astrazioni, non da classi concrete.
   I moduli di alto livello non dovrebbero dipendere da quelli di basso livello: entrambi dovrebbero dipendere da astrazioni.
 * Liste, stream, interfacce funzionali
