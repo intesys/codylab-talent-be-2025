@@ -77,21 +77,21 @@ Sovrascrivere il metodo toString perché scriva "Sono un cerchio con raggio X" (
 e stampa a console quale è l'oggetto corrente (toString), il perimetro e l'area di ogni forma; richiamare questo metodo 
 con una lista di forme geometriche che contiene un rettangolo, un quadrato e un cerchio da main.
 
-## Parte 2 
+## Parte 2 - Maven + Layer
 Scaricare il branch `2-java-maven`
 ### Argomenti
 * Progetto maven
   * pom.xml
   * struttura cartelle
   * dipendenze
-* I test automatizzati
-  * JUnit
-  * Mockito
 * Ciclo di vita di un progetto
   * clean
   * compile
   * test
   * package
+* I test automatizzati
+  * JUnit
+  * Mockito
 * Basic pom.xml:
 ```xml
   <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -108,6 +108,7 @@ Scaricare il branch `2-java-maven`
 * Layer architetturali
 * Repository
 * Il database (h2) + collegamento a repository da IDE
+* JDBC e Datasources
 * Repository che legge da una tabella
 
 **Esercizi**
@@ -118,9 +119,65 @@ Ogni studente lavora sul proprio branch:
 * `2-java-maven-pietro`
 * `2-java-maven-gaetano`
 
+Esercizi da completare:
 * Trasformare il progetto in un progetto maven (pom.xml + struttura cartelle)
 * Creare un test JUnit per Quadrato che verifica il calcolo di perimetro ed area
 * Eseguire una compilazione con maven
 * Eseguire il  main dal jar
 * Avviare l'applicazione avviando anche un database h2
 * Modificare l'applicazione per fare in modo di leggere le forme geometriche da una tabella del database
+
+## Parte 3 - Introduzione a Spring Boot
+### Argomenti
+* Limiti del main
+* Le applicazioni web 
+  * Server Side Rendering
+  * Client Side Rendering
+* Configurazioni
+* Dependency Injection e Inversione of Control
+* Web App Spring Boot
+  * Controller, Service, Repository
+  * Come cambia la lettura della configurazione
+  * Inizializzazione dei Bean (Singleton)
+
+## Parte 4 - Accesso ai dati
+### Argomenti
+* Spring JDBC Template
+* Hibernate e Spring JPA
+* Pagina web con dati dinamici
+
+## Parte 5 - Microservizi ed API
+### Argomenti
+* Introduzione ai Microservizi
+* Comunicazione sincrona e codici HTTP
+* CRUD, DTO e Mapper
+* OpenAPI (API Last, API First)
+* Creare API Rest con Spring Boot
+* Leggere e scrivere la specifica OpenAPI
+
+## Parte 6 - API First
+### Argomenti
+* Scrittura specifica OpenAPI
+* Generazione del controller REST dalla specifica OpenAPI
+
+## Parte 7 - Testing
+### Argomenti
+* Unit Test
+
+## Parte 8 - Test di integrazione
+### Argomenti
+* Integration test
+
+## Parte 9 - Sicurezza
+### Argomenti
+* Autenticazione e Autorizzazione
+* Ruoli e permessi
+* Json Web Token (JWT)
+* Spring Security
+
+## Parte 10 - DevOps
+### Argomenti
+* Docker
+* Dockerfile
+* Docker Compose
+
