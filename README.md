@@ -3,12 +3,6 @@ Progetto studio java e Spring Boot per CodyLab Talent 2025
 
 ## Parte 1 - Java Intro 
 Eseguire il check-out del progetto https://github.com/intesys/codylab-talent-be-2025.git
-Scaricare il branch `1-java-intro` e verificare quanto fatto
-
-Ogni studente lavora sul proprio branch:
-* `1-java-jacopo`
-* `1-java-pietro`
-* `1-java-gaetano`
 
 Per poter lavorare da IDE con progetto agganciato in https vi occorre il token.
 Sulla pagina di github, sul vostro profilo, andate su `Settings > Developer Settings`
@@ -57,6 +51,14 @@ e generate un personal access token (classic) dando i permessi `repo` e `workflo
 * Liste, stream, interfacce funzionali
 
 **Esercizi**
+Scaricare il branch `1-java-intro` e verificare quanto fatto
+
+Ogni studente lavora sul proprio branch:
+* `1-java-jacopo`
+* `1-java-pietro`
+* `1-java-gaetano`
+
+Esercizi da completare:
 * Creare una classe MyCodyLabApplication che implementa il metodo `main` che stampa a console "Hello CodyLab Talent 2025"
 * Creare una classe MyCodyLab che implementa il metodo `messaggio` che restituisce "Ciao"
 * In MyCodyLabApplication, instanziare un oggetto MyCodyLab e chiamare il metodo `messaggio` per stampare a console il messaggio
@@ -103,11 +105,22 @@ Scaricare il branch `2-java-maven`
 ```
 * Esecuzione di un eseguibile da linea di comando
   * java.exe -cp codylab-talent-2025-1.0-SNAPSHOT.jar it.intesys.codylab.MyCodyLabApplication
+* Layer architetturali
+* Repository
+* Il database (h2) + collegamento a repository da IDE
+* Repository che legge da una tabella
 
 **Esercizi**
+Scaricare il branch `2-java-maven` e verificare quanto fatto.
+
+Ogni studente lavora sul proprio branch:
+* `2-java-maven-jacopo`
+* `2-java-maven-pietro`
+* `2-java-maven-gaetano`
+
 * Trasformare il progetto in un progetto maven (pom.xml + struttura cartelle)
 * Creare un test JUnit per Quadrato che verifica il calcolo di perimetro ed area
-* Creare un test JUnit per Rettangolo che verifica il calcolo di perimetro ed area
-* Creare un test JUnit per Cerchio che verifica il calcolo di perimetro ed area
 * Eseguire una compilazione con maven
 * Eseguire il  main dal jar
+* Avviare l'applicazione avviando anche un database h2
+* Modificare l'applicazione per fare in modo di leggere le forme geometriche da una tabella del database
