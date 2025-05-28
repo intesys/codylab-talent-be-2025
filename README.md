@@ -90,6 +90,19 @@ Scaricare il branch `2-java-maven`
   * compile
   * test
   * package
+* Basic pom.xml:
+```xml
+  <project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>it.intesys.codylab</groupId>
+    <artifactId>codylab-talent-2025</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</project>
+```
+* Esecuzione di un eseguibile da linea di comando
+  * java.exe -cp codylab-talent-2025-1.0-SNAPSHOT.jar it.intesys.codylab.MyCodyLabApplication
 
 **Esercizi**
 * Trasformare il progetto in un progetto maven (pom.xml + struttura cartelle)
@@ -97,3 +110,4 @@ Scaricare il branch `2-java-maven`
 * Creare un test JUnit per Rettangolo che verifica il calcolo di perimetro ed area
 * Creare un test JUnit per Cerchio che verifica il calcolo di perimetro ed area
 * Eseguire una compilazione con maven
+* Eseguire il  main dal jar
