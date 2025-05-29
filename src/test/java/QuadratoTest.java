@@ -1,7 +1,6 @@
 import it.intesys.codylab.Quadrato;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class QuadratoTest {
 
@@ -16,5 +15,4 @@ class QuadratoTest {
         Quadrato quadrato = new Quadrato(5);
         assertEquals(20, quadrato.perimetro(), "Il perimetro del quadrato con lato 5 dovrebbe essere 20");
     }
-
 }
