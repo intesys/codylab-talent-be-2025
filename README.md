@@ -124,14 +124,47 @@ Ogni studente lavora sul proprio branch:
 * `2-java-maven-gaetano`
 
 Esercizi da completare:
-* Trasformare il progetto in un progetto maven (pom.xml + struttura cartelle)
-* Creare un test JUnit per Quadrato che verifica il calcolo di perimetro ed area
+* Trasformare il progetto in un progetto maven (pom.xml + struttura cartelle). 
+Dire all'IDE che il progetto è un progetto maven:
+![addMavenProject.png](addMavenProject.png)
+* Creare un test JUnit per Quadrato che verifica il calcolo di perimetro ed area:
+``` java
+package it.intesys.codylab;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+class QuadratoTest {
+
+    @Test
+    void testArea() {
+        Quadrato quadrato = new Quadrato(5);
+        assertEquals(25, quadrato.area(), "L'area del quadrato con lato 5 dovrebbe essere 25");
+    }
+
+    @Test
+    void testNumberEquals() {
+        Long l1 = new Long("123455667");
+        Long l2 = new Long("123455667");
+//        Long l1 = 3L;
+//        Long l2 = 3L;
+assertTrue(l1.equals(l2));
+}
+
+}
+```
 * Eseguire una compilazione con maven
 * Eseguire il  main dal jar
-* Avviare l'applicazione avviando anche un database h2
-* Modificare l'applicazione per fare in modo di leggere le forme geometriche da una tabella del database
+* Spostare le classi in package diversi
+* Creare il package `repository`, creare l'interfaccia `FormaGeometricaRepository` che 
+restituisce `java.util.List` di `FormaGeometrica`
 * Installare Docker Desktop sul proprio pc
 * Attivare AI Assistant su IDE
+* ~~Avviare l'applicazione avviando anche un database h2~~ -> prossima volta
+* ~~Modificare l'applicazione per fare in modo di leggere le forme geometriche da una tabella del database~~ 
+-> prossima volta
 
 ## Parte 3 - Database relazionali e SQL
 ### Argomenti
@@ -206,4 +239,3 @@ Esercizi da completare:
 * Thread e Task
 * Comunicazioni asincrone tra microservizi
 * Eventi
-
