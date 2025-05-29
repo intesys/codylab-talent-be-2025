@@ -84,11 +84,15 @@ Scaricare il branch `2-java-maven`
   * pom.xml
   * struttura cartelle
   * dipendenze
+* Repository Maven
+  * Maven Central
+  * Repository locali e remoti
 * Ciclo di vita di un progetto
   * clean
   * compile
   * test
   * package
+  * deploy
 * I test automatizzati
   * JUnit
   * Mockito
@@ -126,8 +130,24 @@ Esercizi da completare:
 * Eseguire il  main dal jar
 * Avviare l'applicazione avviando anche un database h2
 * Modificare l'applicazione per fare in modo di leggere le forme geometriche da una tabella del database
+* Installare Docker Desktop sul proprio pc
+* Attivare AI Assistant su IDE
 
-## Parte 3 - Introduzione a Spring Boot
+## Parte 3 - Database relazionali e SQL
+### Argomenti
+* Database relazionali
+* SQL
+  * DDL (Data Definition Language)
+    * CREATE, ALTER, DROP
+  * DML (Data Manipulation Language)
+    * INSERT, UPDATE, DELETE
+  * DQL (Data Query Language)
+    * SELECT
+* Update e Delete da Java
+* Punto di attenzione sulle sql injection
+* Stesso codice per database diversi: avvio di Postgres su docker-compose e test applicazione
+
+## Parte 4 - Introduzione a Spring Boot
 ### Argomenti
 * Limiti del main
 * Le applicazioni web 
@@ -140,13 +160,13 @@ Esercizi da completare:
   * Come cambia la lettura della configurazione
   * Inizializzazione dei Bean (Singleton)
 
-## Parte 4 - Accesso ai dati
+## Parte 5 - Accesso ai dati
 ### Argomenti
 * Spring JDBC Template
 * Hibernate e Spring JPA
 * Pagina web con dati dinamici
 
-## Parte 5 - Microservizi ed API
+## Parte 6 - Microservizi ed API
 ### Argomenti
 * Introduzione ai Microservizi
 * Comunicazione sincrona e codici HTTP
@@ -155,33 +175,33 @@ Esercizi da completare:
 * Creare API Rest con Spring Boot
 * Leggere e scrivere la specifica OpenAPI
 
-## Parte 6 - API First
+## Parte 7 - API First
 ### Argomenti
 * Scrittura specifica OpenAPI
 * Generazione del controller REST dalla specifica OpenAPI
 
-## Parte 7 - Testing
+## Parte 8 - Testing
 ### Argomenti
 * Unit Test
 
-## Parte 8 - Test di integrazione
+## Parte 9 - Test di integrazione
 ### Argomenti
 * Integration test
 
-## Parte 9 - Sicurezza
+## Parte 10 - Sicurezza
 ### Argomenti
 * Autenticazione e Autorizzazione
 * Ruoli e permessi
 * Json Web Token (JWT)
 * Spring Security
 
-## Parte 10 - DevOps
+## Parte 11 - DevOps
 ### Argomenti
 * Docker
 * Dockerfile
 * Docker Compose
 
-## Parte 11 - Comunicazioni Asincrone
+## Parte 12 - Comunicazioni Asincrone
 ### Argomenti
 * Thread e Task
 * Comunicazioni asincrone tra microservizi
