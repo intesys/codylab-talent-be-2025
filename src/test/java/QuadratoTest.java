@@ -12,12 +12,9 @@ class QuadratoTest {
     }
 
     @Test
-    void testNumberEquals() {
-        Long l1 = new Long("123455667");
-        Long l2 = new Long("123455667");
-//        Long l1 = 3L;
-//        Long l2 = 3L;
-        assertTrue(l1.equals(l2));
+    void testPerimetro() {
+        Quadrato quadrato = new Quadrato(5);
+        assertEquals(20, quadrato.perimetro(), "Il perimetro del quadrato con lato 5 dovrebbe essere 20");
     }
 
 }
