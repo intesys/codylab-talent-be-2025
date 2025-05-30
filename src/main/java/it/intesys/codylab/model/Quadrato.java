@@ -1,16 +1,16 @@
-package it.intesys.codylab;
+package it.intesys.codylab.model;
 
 public class Quadrato extends Quadrilatero {
 
-    private final float lato;
+    private final double lato;
 
-    public Quadrato(float lato) {
+    public Quadrato(double lato) {
         super(lato, lato, lato, lato);
         this.lato = lato;
     }
 
     @Override
-    public float area() {
+    public double area() {
         return lato * lato;
     }
 

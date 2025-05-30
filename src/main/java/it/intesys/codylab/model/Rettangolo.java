@@ -1,18 +1,18 @@
-package it.intesys.codylab;
+package it.intesys.codylab.model;
 
 public class Rettangolo extends Quadrilatero {
 
-    private final float base;
-    private final float altezza;
+    private final double base;
+    private final double altezza;
 
-    public Rettangolo(float base, float altezza) {
+    public Rettangolo(double base, double altezza) {
         super(base, altezza, base, altezza);
         this.base = base;
         this.altezza = altezza;
     }
 
     @Override
-    public float area() {
+    public double area() {
         return base * altezza;
     }
 
