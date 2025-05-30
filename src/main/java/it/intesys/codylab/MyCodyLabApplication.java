@@ -13,8 +13,8 @@ public class MyCodyLabApplication {
     }
 
     private StampaFormeGeometricheUseCase initStampaFormeGeometricheUseCase() {
-        // return new StampaFormeGeometricheUseCase(new SqlFormaGeometricaRepository(DataSourceFactory.makeDataSource()));
-        return new StampaFormeGeometricheUseCase(new DummyFormaGeometricaRepository());
+        return new StampaFormeGeometricheUseCase(new SqlFormaGeometricaRepository(DataSourceFactory.makeDataSource()));
+        //return new StampaFormeGeometricheUseCase(new DummyFormaGeometricaRepository());
     }
 
 }
