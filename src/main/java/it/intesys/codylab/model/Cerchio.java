@@ -1,6 +1,6 @@
-package it.intesys.codylab;
+package it.intesys.codylab.model;
 
-public class Cerchio implements FormaGeometrica{
+public class Cerchio implements FormaGeometrica {
 
     private final float raggio;
 

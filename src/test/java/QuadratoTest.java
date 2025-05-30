@@ -1,4 +1,4 @@
-import it.intesys.codylab.Quadrato;
+import it.intesys.codylab.model.Quadrato;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

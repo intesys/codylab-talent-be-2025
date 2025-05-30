@@ -1,5 +1,10 @@
 package it.intesys.codylab;
 
+import it.intesys.codylab.model.Cerchio;
+import it.intesys.codylab.model.FormaGeometrica;
+import it.intesys.codylab.model.Quadrato;
+import it.intesys.codylab.model.Rettangolo;
+
 public class MyCodyLabApplication {
 
     public static void main(String[] args) {
