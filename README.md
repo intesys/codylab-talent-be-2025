@@ -121,6 +121,5 @@ Ogni studente lavora sul proprio branch:
 * Trasformare il progetto in un progetto maven (pom.xml + struttura cartelle)
 * Creare un test JUnit per Quadrato che verifica il calcolo di perimetro ed area
 * Eseguire una compilazione con maven
-* Eseguire il  main dal jar
 * Avviare l'applicazione avviando anche un database h2
 * Modificare l'applicazione per fare in modo di leggere le forme geometriche da una tabella del database

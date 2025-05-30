@@ -3,7 +3,6 @@ package it.intesys.codylab;
 
 
 public class Quadrato extends Quadrilatero {
-
     private final float lato;
 
     public Quadrato(float lato) {
