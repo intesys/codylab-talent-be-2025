@@ -10,4 +10,10 @@ class QuadratoTest {
         Quadrato q = new Quadrato(5);
         assertEquals(25.0f, q.area());
     }
+
+    @Test
+    void testPerimetro() {
+        Quadrato q = new Quadrato(5);
+        assertEquals(20.0f, q.perimetro());
+    }
 }
