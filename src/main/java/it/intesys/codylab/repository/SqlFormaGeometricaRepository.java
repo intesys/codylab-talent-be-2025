@@ -44,7 +44,8 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
     public FormaGeometrica executeFindById(String id) throws SQLException {
 
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select id, tipo, lato1, lato2 from formageometrica where id = " + id)) {
+            try (PreparedStatement statement = connection.prepareStatement("select id, tipo, lato1, lato2 from formageometrica where id = ?")) {
+                statement.setString(1, id);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     FormaGeometrica formaGeometrica = null;
                     while (resultSet.next()) {
