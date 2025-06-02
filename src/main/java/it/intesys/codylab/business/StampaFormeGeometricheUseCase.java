@@ -19,7 +19,7 @@ public class StampaFormeGeometricheUseCase {
         formaGeometricaRepository.findAll().forEach(this::stampaPerimetroArea);
     }
 
-    public void stampaFormaGeometrica(String id) {
+    public void stampaFormaGeometrica(int id) {
         stampaPerimetroArea(formaGeometricaRepository.findById(id));
     }
 

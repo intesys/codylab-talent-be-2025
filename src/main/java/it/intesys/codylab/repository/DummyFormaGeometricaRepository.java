@@ -17,7 +17,7 @@ public class DummyFormaGeometricaRepository implements FormaGeometricaRepository
     }
 
     @Override
-    public FormaGeometrica findById(String id) {
+    public FormaGeometrica findById(int id) {
         return new Quadrato(5);
     }
 

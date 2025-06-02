@@ -32,7 +32,7 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
     }
 
     @Override
-    public FormaGeometrica findById(String id) {
+    public FormaGeometrica findById(int id) {
         try {
             return executeFindById(id);
         } catch (SQLException e) {
@@ -41,11 +41,11 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
         }
     }
 
-    public FormaGeometrica executeFindById(String id) throws SQLException {
+    public FormaGeometrica executeFindById(int id) throws SQLException {
 
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("select id, tipo, lato1, lato2 from formageometrica where id = ?")) {
-                statement.setString(1, id);
+                statement.setInt(1, id);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     FormaGeometrica formaGeometrica = null;
                     while (resultSet.next()) {

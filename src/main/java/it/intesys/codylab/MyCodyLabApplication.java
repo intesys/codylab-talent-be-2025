@@ -10,7 +10,7 @@ public class MyCodyLabApplication {
     public static void main(String[] args) {
         StampaFormeGeometricheUseCase stampaFormeGeometricheUseCase = new MyCodyLabApplication().initStampaFormeGeometricheUseCase();
         //stampaFormeGeometricheUseCase.stampaFormeGeometriche();
-        stampaFormeGeometricheUseCase.stampaFormaGeometrica("3 OR 1=1");
+        stampaFormeGeometricheUseCase.stampaFormaGeometrica(3);
     }
 
     private StampaFormeGeometricheUseCase initStampaFormeGeometricheUseCase() {
