@@ -4,10 +4,14 @@ import it.intesys.codylab.model.Cerchio;
 import it.intesys.codylab.model.FormaGeometrica;
 import it.intesys.codylab.model.Quadrato;
 import it.intesys.codylab.model.Rettangolo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class DummyFormaGeometricaRepository implements FormaGeometricaRepository {
+
+    private static final Logger log = LoggerFactory.getLogger(DummyFormaGeometricaRepository.class);
 
     public List<FormaGeometrica> findAll() {
         return  List.of(new Rettangolo(5, 10),
@@ -19,6 +23,11 @@ public class DummyFormaGeometricaRepository implements FormaGeometricaRepository
     @Override
     public FormaGeometrica findById(int id) {
         return new Quadrato(5);
+    }
+
+    @Override
+    public void deleteById(int id) {
+        log.info("Forma geometrica con id {} eliminata", id);
     }
 
 }

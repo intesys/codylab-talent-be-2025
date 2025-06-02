@@ -10,11 +10,11 @@ public interface FormaGeometricaRepository {
 
     FormaGeometrica findById(int id);
 
-    //FormaGeometrica deleteById(int id);
-
-    //FormaGeometrica save(FormaGeometrica formaGeometrica);
+    void deleteById(int id);
 
     //FormaGeometrica update(FormaGeometrica formaGeometrica);
+
+    //FormaGeometrica save(FormaGeometrica formaGeometrica); //possibile esercizio
 
     //List<FormaGeometrica> findByNome(String nome); //possibile esercizio
 }
