@@ -12,7 +12,7 @@ public interface FormaGeometricaRepository {
 
     void deleteById(int id);
 
-    //FormaGeometrica update(FormaGeometrica formaGeometrica);
+    void update(int id, double lato1, double lato2);
 
     //FormaGeometrica save(FormaGeometrica formaGeometrica); //possibile esercizio
 

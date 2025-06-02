@@ -30,4 +30,9 @@ public class DummyFormaGeometricaRepository implements FormaGeometricaRepository
         log.info("Forma geometrica con id {} eliminata", id);
     }
 
+    @Override
+    public void update(int id, double lato1, double lato2) {
+        log.info("Forma geometrica con id {} aggiornata con lati {} e {}", id, lato1, lato2);
+    }
+
 }

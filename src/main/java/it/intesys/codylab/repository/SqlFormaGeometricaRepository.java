@@ -51,6 +51,32 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
         }
     }
 
+    @Override
+    public void update(int id, double lato1, double lato2) {
+        try {
+            executeUpdate(id, lato1, lato2);
+        } catch (SQLException e) {
+            log.error("Errore aggiornando la forma geometrica con id: {}", id, e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void executeUpdate(int id, double lato1, double lato2) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("update formageometrica set lato1 = ?, lato2 = ? where id = ?")) {
+                statement.setDouble(1, lato1);
+                statement.setDouble(2, lato2);
+                statement.setInt(3, id);
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected > 0) {
+                    log.info("Forma geometrica con id {} aggiornata con lati {}, {}", id, lato1, lato2);
+                } else {
+                    log.warn("Nessuna forma geometrica trovata con id: {}", id);
+                    throw new IllegalArgumentException("Forma geometrica non esistente con id: " + id);
+                }
+            }
+        }
+    }
     private void executeDeleteById(int id) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("delete from formageometrica where id = ?")) {
