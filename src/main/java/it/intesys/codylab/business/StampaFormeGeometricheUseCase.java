@@ -19,6 +19,10 @@ public class StampaFormeGeometricheUseCase {
         formaGeometricaRepository.findAll().forEach(this::stampaPerimetroArea);
     }
 
+    public void stampaFormaGeometrica(String id) {
+        stampaPerimetroArea(formaGeometricaRepository.findById(id));
+    }
+
     private void stampaPerimetroArea(FormaGeometrica formaGeometrica) {
         logger.info("Forma geometrica è {}", formaGeometrica.toString());
         logger.info("perimetro:{} ", formaGeometrica.perimetro());

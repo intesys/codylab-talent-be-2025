@@ -18,3 +18,6 @@ update formageometrica set lato1 = 8 where id = 2;
 
 -- Cancelliamo un rettangolo
 delete from formageometrica where id = 4;
+
+-- Esempio di SQL Injection
+select id, tipo, lato1, lato2 from formageometrica where id = 4 or 1 = 1;

@@ -15,4 +15,10 @@ public class DummyFormaGeometricaRepository implements FormaGeometricaRepository
                 new Quadrato(15),
                 new Cerchio(10));
     }
+
+    @Override
+    public FormaGeometrica findById(String id) {
+        return new Quadrato(5);
+    }
+
 }

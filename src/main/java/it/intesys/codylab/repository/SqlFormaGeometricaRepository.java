@@ -8,10 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +28,49 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
         } catch (SQLException e) {
             log.error("Errore caricando le forma geometriche", e);
             throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public FormaGeometrica findById(String id) {
+        try {
+            return executeFindById(id);
+        } catch (SQLException e) {
+            log.error("Errore caricando la forma geometrica con id: {}", id, e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    public FormaGeometrica executeFindById(String id) throws SQLException {
+
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("select id, tipo, lato1, lato2 from formageometrica where id = " + id)) {
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    FormaGeometrica formaGeometrica = null;
+                    while (resultSet.next()) {
+                        String pk = resultSet.getString("id");
+                        String tipo = resultSet.getString("tipo");
+                        double lato1 = resultSet.getDouble("lato1");
+                        double lato2 = resultSet.getDouble("lato2");
+
+                        log.info("Forma geometrica trovata: id={}, tipo={}, lato1={}, lato2={}", pk, tipo, lato1, lato2);
+                        if ("quadrato".equalsIgnoreCase(tipo)) {
+                            formaGeometrica = mapResultSetToQuadrato(resultSet);
+                        } else if ("rettangolo".equalsIgnoreCase(tipo)) {
+                            formaGeometrica = mapResultSetToRettangolo(resultSet);
+                        } else if ("cerchio".equalsIgnoreCase(tipo)) {
+                            formaGeometrica = mapResultSetToCerchio(resultSet);
+                        } else {
+                            log.warn("Tipo di forma geometrica sconosciuto: {}", tipo);
+                            throw new IllegalArgumentException("Tipo di forma geometrica sconosciuto");
+                        }
+
+                        return formaGeometrica;
+                    }
+                    log.warn("Nessuna forma geometrica trovata con id: {}", id);
+                    throw new IllegalArgumentException("Forma geometrica non esistente con id: " + id);
+                }
+            }
         }
     }
 
