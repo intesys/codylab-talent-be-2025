@@ -42,7 +42,7 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
     }
 
     @Override
-    public FormaGeometrica findByString(String nome) {
+    public List<FormaGeometrica> findByString(String nome) {
         try {
             return executeFindByString(nome);
         } catch (SQLException e) {
@@ -137,11 +137,11 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
         }
     }
 
-    public FormaGeometrica executeFindByString(String nome) throws SQLException {
-
+    public List<FormaGeometrica> executeFindByString(String nome) throws SQLException {
+        List<FormaGeometrica> result = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select id, tipo, lato1, lato2 from formageometrica where tipo = ?");
-            ) {
+            try (PreparedStatement statement = connection.prepareStatement(
+                    "select id, tipo, lato1, lato2 from formageometrica where tipo = ?")) {
                 statement.setString(1, nome);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     FormaGeometrica formaGeometrica = null;
@@ -163,14 +163,20 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
                             throw new IllegalArgumentException("Tipo di forma geometrica sconosciuto");
                         }
 
-                        return formaGeometrica;
+                        result.add(formaGeometrica);
                     }
-                    log.warn("Nessuna forma geometrica trovata con nome: {}", nome);
-                    throw new IllegalArgumentException("Forma geometrica non esistente con nome: " + nome);
+
+                    if (result.isEmpty()) {
+                        log.warn("Nessuna forma geometrica trovata con nome: {}", nome);
+                        throw new IllegalArgumentException("Forma geometrica non esistente con nome: " + nome);
+                    }
+
+                    return result;
                 }
             }
         }
     }
+
 
     private List<FormaGeometrica> executeFindAll() throws SQLException {
         List<FormaGeometrica> result = new ArrayList<>();
