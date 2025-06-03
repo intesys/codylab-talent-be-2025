@@ -11,7 +11,7 @@ public class MyCodyLabApplication {
         //formeGeometricheService.stampaFormeGeometriche();
         //formeGeometricheService.findById(3);
         //formeGeometricheService.findByString("rettangolo");
-        formeGeometricheService.save("rettangolo", 2324, 3546);
+        formeGeometricheService.save("rettangolo", 221, 13d);
     }
 
     private FormeGeometricheService initStampaFormeGeometricheUseCase() {

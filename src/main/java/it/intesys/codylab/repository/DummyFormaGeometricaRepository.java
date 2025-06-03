@@ -36,6 +36,6 @@ public abstract class DummyFormaGeometricaRepository implements FormaGeometricaR
     }
 
     @Override
-    public void save(String tipo, double lato1, double lato2) {
+    public void save(String tipo, double lato1, Double lato2) {
     }
 }

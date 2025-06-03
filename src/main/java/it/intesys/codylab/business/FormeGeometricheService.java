@@ -33,7 +33,7 @@ public class FormeGeometricheService {
         logger.info("area: {}", formaGeometrica.area());
     }
 
-    public void save(String rettangolo, int lato1, int lato2) {
-        formaGeometricaRepository.save(rettangolo, lato1, lato2);
+    public void save(String tipo, int lato1, Double lato2) {
+        formaGeometricaRepository.save(tipo, lato1, lato2);
     }
 }
