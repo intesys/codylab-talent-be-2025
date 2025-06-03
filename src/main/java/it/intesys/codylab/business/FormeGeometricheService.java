@@ -6,12 +6,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class StampaFormeGeometricheUseCase {
+public class FormeGeometricheService {
 
     private final FormaGeometricaRepository formaGeometricaRepository;
-    private static final Logger logger = LoggerFactory.getLogger(StampaFormeGeometricheUseCase.class);
+    private static final Logger logger = LoggerFactory.getLogger(FormeGeometricheService.class);
 
-    public StampaFormeGeometricheUseCase(FormaGeometricaRepository formaGeometricaRepository) {
+    public FormeGeometricheService(FormaGeometricaRepository formaGeometricaRepository) {
         this.formaGeometricaRepository = formaGeometricaRepository;
     }
 
@@ -19,8 +19,8 @@ public class StampaFormeGeometricheUseCase {
         formaGeometricaRepository.findAll().forEach(this::stampaPerimetroArea);
     }
 
-    public void stampaFormaGeometrica(int id) {
-        stampaPerimetroArea(formaGeometricaRepository.findById(id));
+    public void findById(int id) {
+        formaGeometricaRepository.findById(id);
     }
 
     private void stampaPerimetroArea(FormaGeometrica formaGeometrica) {
