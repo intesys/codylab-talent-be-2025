@@ -26,6 +26,14 @@ public class DummyFormaGeometricaRepository implements FormaGeometricaRepository
     }
 
     @Override
+    public List<FormaGeometrica> findByNome(String nome) {
+        return  List.of(new Rettangolo(5, 10),
+                new Quadrato(7),
+                new Quadrato(15),
+                new Cerchio(10));
+    }
+
+    @Override
     public void deleteById(int id) {
         log.info("Forma geometrica con id {} eliminata", id);
     }
