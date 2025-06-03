@@ -41,6 +41,8 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
         }
     }
 
+
+
     @Override
     public void deleteById(int id) {
         try {

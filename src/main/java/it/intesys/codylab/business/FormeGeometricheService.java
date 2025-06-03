@@ -23,6 +23,10 @@ public class FormeGeometricheService {
         formaGeometricaRepository.findById(id);
     }
 
+    public void findByString(String nome) {
+        formaGeometricaRepository.findByString(nome);
+    }
+
     private void stampaPerimetroArea(FormaGeometrica formaGeometrica) {
         logger.info("Forma geometrica è {}", formaGeometrica.toString());
         logger.info("perimetro:{} ", formaGeometrica.perimetro());
