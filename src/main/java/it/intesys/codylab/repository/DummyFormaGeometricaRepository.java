@@ -27,7 +27,7 @@ public class DummyFormaGeometricaRepository implements FormaGeometricaRepository
                 new Cerchio(10));
     }
 
-    public FormaGeometrica save(String tipo, double lato1, double lato2) {
+    public FormaGeometrica save(String tipo, double lato1, Double lato2) {
         return new Quadrato(5);
     }
 

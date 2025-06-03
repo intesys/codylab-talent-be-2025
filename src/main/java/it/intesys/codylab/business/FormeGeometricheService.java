@@ -33,7 +33,7 @@ public class FormeGeometricheService {
         formaGeometricaRepository.findByNome(tipo);
     }
 
-    public void save(String tipo, double lato1, double lato2){
+    public void save(String tipo, double lato1, Double lato2){
         formaGeometricaRepository.save(tipo, lato1, lato2);
     }
 }

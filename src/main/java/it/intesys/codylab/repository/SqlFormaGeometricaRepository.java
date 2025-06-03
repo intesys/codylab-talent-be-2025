@@ -41,7 +41,7 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
         }
     }
     
-    @Override public FormaGeometrica save(String tipo, double lato1, double lato2) {
+    @Override public FormaGeometrica save(String tipo, double lato1, Double lato2) {
         try {
             return executeSave(tipo, lato1, lato2);
         } catch (SQLException e) {
@@ -143,7 +143,7 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
         return result;
 }
 
-    public FormaGeometrica executeSave(String tipo, double lato1, double lato2) throws SQLException {
+    public FormaGeometrica executeSave(String tipo, double lato1, Double lato2) throws SQLException {
         FormaGeometrica formaGeometrica = null;
 
         try (Connection connection = dataSource.getConnection()) {
@@ -151,7 +151,13 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
             try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, tipo);
                 statement.setDouble(2, lato1);
-                statement.setDouble(3, lato2);
+
+                if (lato2 == null) {
+                    statement.setNull(3, Types.DOUBLE);
+                } else {
+                    statement.setDouble(3, lato2);
+                }
+
                 statement.executeUpdate();
 
                 try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -160,7 +166,7 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
 
                         // Crea l’oggetto corretto in base al tipo
                         if ("quadrato".equalsIgnoreCase(tipo)) {
-                            formaGeometrica = new Quadrato(lato1); // quadrato: solo lato1
+                            formaGeometrica = new Quadrato(lato1); // solo lato1
                         } else if ("rettangolo".equalsIgnoreCase(tipo)) {
                             formaGeometrica = new Rettangolo(lato1, lato2);
                         } else if ("cerchio".equalsIgnoreCase(tipo)) {

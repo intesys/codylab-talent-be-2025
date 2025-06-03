@@ -11,7 +11,7 @@ public class MyCodyLabApplication {
         //formeGeometricheService.stampaFormeGeometriche();
 //        formeGeometricheService.findById(3);
 //        formeGeometricheService.findByNome("quadrato");
-        formeGeometricheService.save("rettangolo",5,8);
+        formeGeometricheService.save("cerchio",5,null);
     }
 
     private FormeGeometricheService initStampaFormeGeometricheUseCase() {
