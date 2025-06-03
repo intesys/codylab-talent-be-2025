@@ -9,11 +9,13 @@ public class DataSourceFactory {
 
     public static DataSource makeDataSource() {
         HikariConfig hikariConfig = new HikariConfig();
-        // hikariConfig.setJdbcUrl("jdbc:h2:~/codylab-2025;INIT=RUNSCRIPT FROM 'src/main/resources/codylab.sql';");
-        hikariConfig.setJdbcUrl("jdbc:h2:~/codylab-2025;AUTO_SERVER=TRUE");
-        hikariConfig.setUsername("sa");
-        hikariConfig.setPassword("password");
-        hikariConfig.setDriverClassName("org.h2.Driver");
+        hikariConfig.setJdbcUrl("jdbc:postgresql://localhost:5432/formegeometriche");
+        hikariConfig.setUsername("codylab");
+        hikariConfig.setPassword("cody|_ab2025");
+        hikariConfig.setDriverClassName("org.postgresql.Driver");
+        hikariConfig.addDataSourceProperty("cachePrepStmts", "true");
+        hikariConfig.addDataSourceProperty("prepStmtCacheSize", "250");
+        hikariConfig.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
         return new HikariDataSource(hikariConfig);
     }
 }

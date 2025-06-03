@@ -11,8 +11,8 @@
         <maven.compiler.target>21</maven.compiler.target>
         <slf4j.version>2.0.13</slf4j.version>
         <logback.version>1.5.13</logback.version>
-        <h2.version>2.3.232</h2.version>
         <hikari.version>5.0.1</hikari.version>
+        <pgsql.version>42.6.0</pgsql.version>
     </properties>
     <dependencies>
         <dependency>
@@ -26,9 +26,9 @@
             <version>${logback.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>${h2.version}</version>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${pgsql.version}</version>
         </dependency>
         <dependency>
             <groupId>com.zaxxer</groupId>
