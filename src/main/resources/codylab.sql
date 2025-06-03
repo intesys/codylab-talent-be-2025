@@ -1,9 +1,9 @@
 -- Questo file contiene le istruzioni SQL per creare e gestire una tabella di forme geometriche.
 create table formageometrica(
-                      id identity primary key,
+                      id int8 primary key,
                       tipo varchar(50) not null,
-                      lato1 double not null,
-                      lato2 double
+                      lato1 float4 not null,
+                      lato2 float4
 );
 
 -- Inseriamo alcune forme geometriche
