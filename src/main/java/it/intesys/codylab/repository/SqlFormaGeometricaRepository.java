@@ -70,6 +70,11 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
         }
     }
 
+    @Override
+    public FormaGeometrica save(String tipo, double lato1, double lato2){
+        return null;
+    }
+
     private void executeUpdate(int id, double lato1, double lato2) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("update formageometrica set lato1 = ?, lato2 = ? where id = ?")) {
