@@ -11,6 +11,7 @@ insert into formageometrica (id, tipo, lato1, lato2) values (1, 'quadrato', 4, n
 insert into formageometrica (id, tipo, lato1, lato2) values (2, 'rettangolo', 4, 6);
 insert into formageometrica (id, tipo, lato1, lato2) values (3, 'cerchio', 4, null);
 insert into formageometrica (id, tipo, lato1, lato2) values (4, 'rettangolo', 5, 10);
+insert into formageometrica (id, tipo, lato1, lato2) values (5, 'rettangolo', 33, 11);
 
 -- Modifichiamo i lati di un quadrato e di un rettangolo
 update formageometrica set lato1 = 6 where id = 1;

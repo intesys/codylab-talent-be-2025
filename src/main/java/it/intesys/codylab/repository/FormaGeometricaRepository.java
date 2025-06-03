@@ -14,7 +14,7 @@ public interface FormaGeometricaRepository {
 
     void update(int id, double lato1, double lato2);
 
-    void findByString(String nome);
+    FormaGeometrica findByString(String nome);
 
     //List<FormaGeometrica> findByNome(String nome); //possibile esercizio
 

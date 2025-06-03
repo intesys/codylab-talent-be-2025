@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class DummyFormaGeometricaRepository implements FormaGeometricaRepository {
+public abstract class DummyFormaGeometricaRepository implements FormaGeometricaRepository {
 
     private static final Logger log = LoggerFactory.getLogger(DummyFormaGeometricaRepository.class);
 

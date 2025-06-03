@@ -9,7 +9,8 @@ public class MyCodyLabApplication {
     public static void main(String[] args) {
         FormeGeometricheService formeGeometricheService = new MyCodyLabApplication().initStampaFormeGeometricheUseCase();
         //formeGeometricheService.stampaFormeGeometriche();
-        formeGeometricheService.findById(3);
+        //formeGeometricheService.findById(3);
+        formeGeometricheService.findByString("rettangolo");
     }
 
     private FormeGeometricheService initStampaFormeGeometricheUseCase() {
