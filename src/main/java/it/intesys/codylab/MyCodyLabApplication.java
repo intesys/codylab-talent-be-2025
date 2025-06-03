@@ -9,12 +9,11 @@ public class MyCodyLabApplication {
     public static void main(String[] args) {
         FormeGeometricheService formeGeometricheService = new MyCodyLabApplication().initStampaFormeGeometricheUseCase();
         //formeGeometricheService.stampaFormeGeometriche();
-        formeGeometricheService.findByNome("rettangolo");
+        formeGeometricheService.save("cerchio", 2, 0);
     }
 
     private FormeGeometricheService initStampaFormeGeometricheUseCase() {
         return new FormeGeometricheService(new SqlFormaGeometricaRepository(DataSourceFactory.makeDataSource()));
-        //return new StampaFormeGeometricheUseCase(new DummyFormaGeometricaRepository());
     }
 
 }

@@ -70,6 +70,32 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
         }
     }
 
+    @Override
+    public void save(String tipo, double lato1, double lato2){
+        try {
+            executeSave(tipo, lato1, lato2);
+        } catch (SQLException e){
+            log.error("Errore");
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void executeSave(String tipo, double lato1, double lato2) throws SQLException {
+        try(Connection connection = dataSource.getConnection()){
+            try (PreparedStatement statement = connection.prepareStatement("insert into formageometrica (tipo, lato1, lato2) values (?,?,?)")){
+                statement.setString(1, tipo);
+                statement.setDouble(2, lato1);
+                statement.setDouble(3, lato2);
+                int rows = statement.executeUpdate();
+                if (rows > 0){
+                    log.info("Forma geometrica con tipo {} aggiunta con lati {}, {}", tipo, lato1, lato2);
+                } else {
+                    log.warn("Forma geometrica ");
+                    throw new IllegalArgumentException("Forma geometrica");
+                }
+            }
+        }
+    }
 
     private void executeUpdate(int id, double lato1, double lato2) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {

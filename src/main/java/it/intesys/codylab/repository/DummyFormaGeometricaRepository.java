@@ -43,4 +43,9 @@ public class DummyFormaGeometricaRepository implements FormaGeometricaRepository
         log.info("Forma geometrica con id {} aggiornata con lati {} e {}", id, lato1, lato2);
     }
 
+    @Override
+    public void save(String nome, double lato1, double lato2) {
+        log.info("ciao");
+    }
+
 }

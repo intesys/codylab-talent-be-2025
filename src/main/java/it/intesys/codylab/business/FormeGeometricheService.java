@@ -27,10 +27,15 @@ public class FormeGeometricheService {
         formaGeometricaRepository.findByNome(nome);
     }
 
+
     private void stampaPerimetroArea(FormaGeometrica formaGeometrica) {
         logger.info("Forma geometrica è {}", formaGeometrica.toString());
         logger.info("perimetro:{} ", formaGeometrica.perimetro());
         logger.info("area: {}", formaGeometrica.area());
+    }
+
+    public void save(String nome, double lato1, double lato2) {
+        formaGeometricaRepository.save(nome, lato1, lato2);
     }
 
 }

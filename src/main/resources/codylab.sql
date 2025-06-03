@@ -7,10 +7,11 @@ create table formageometrica(
 );
 
 -- Inseriamo alcune forme geometriche
-insert into formageometrica (id, tipo, lato1, lato2) values (1, 'quadrato', 4, null);
-insert into formageometrica (id, tipo, lato1, lato2) values (2, 'rettangolo', 4, 6);
-insert into formageometrica (id, tipo, lato1, lato2) values (3, 'cerchio', 4, null);
-insert into formageometrica (id, tipo, lato1, lato2) values (4, 'rettangolo', 5, 10);
+insert into formageometrica (tipo, lato1, lato2) values ('quadrato', 4, null);
+insert into formageometrica (tipo, lato1, lato2) values ('rettangolo', 4, 6);
+insert into formageometrica (tipo, lato1, lato2) values ('cerchio', 4, null);
+insert into formageometrica (tipo, lato1, lato2) values ('rettangolo', 5, 10);
+insert into formageometrica (tipo, lato1, lato2) values ('quadrato', 5, null);
 
 -- Modifichiamo i lati di un quadrato e di un rettangolo
 update formageometrica set lato1 = 6 where id = 1;
@@ -21,3 +22,7 @@ delete from formageometrica where id = 4;
 
 -- Esempio di SQL Injection
 select id, tipo, lato1, lato2 from formageometrica where id = 4 or 1 = 1;
+
+
+-- Drop tabella
+drop table formageometrica
