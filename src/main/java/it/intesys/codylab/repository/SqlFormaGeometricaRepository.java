@@ -52,7 +52,7 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
     }
 
     @Override
-    public void save(String tipo, double lato1, Double lato2) {
+    public void save(String tipo, Double lato1, Double lato2) {
         try {
             saveIt(tipo, lato1, lato2);
         } catch (SQLException e) {
@@ -82,7 +82,7 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
         }
     }
 
-    private void executeUpdate(int id, double lato1, double lato2) throws SQLException {
+    private void executeUpdate(int id, Double lato1, Double lato2) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("update formageometrica set lato1 = ?, lato2 = ? where id = ?")) {
                 statement.setDouble(1, lato1);
@@ -113,7 +113,7 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
         }
     }
 
-    private void saveIt(String tipo, double lato1, Double lato2) throws SQLException {
+    private void saveIt(String tipo, Double lato1, Double lato2) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             String sql = "INSERT INTO formageometrica (tipo, lato1, lato2) VALUES (?, ?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -123,7 +123,7 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
                 if (lato2 != null) {
                     statement.setDouble(3, lato2);
                 } else {
-                    statement.setNull(3, java.sql.Types.DOUBLE);
+                    statement.setNull(3, Types.DOUBLE);
                 }
 
                 int rowsAffected = statement.executeUpdate();

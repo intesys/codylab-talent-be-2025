@@ -1,4 +1,4 @@
-package Package_Repository;
+package it.intesys.codylab.repository;
 
 public interface FormaGeometricaRepo {
 

@@ -16,6 +16,6 @@ public interface FormaGeometricaRepository {
 
     List<FormaGeometrica> findByString(String nome);
 
-    void save(String tipo, double lato1, Double lato2);
+    void save(String tipo, Double lato1, Double lato2);
 
 }
