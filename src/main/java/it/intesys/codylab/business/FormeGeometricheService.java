@@ -29,4 +29,7 @@ public class FormeGeometricheService {
         logger.info("area: {}", formaGeometrica.area());
     }
 
+    public void findByNome(String tipo){
+        formaGeometricaRepository.findByNome(tipo);
+    }
 }

@@ -20,10 +20,19 @@ public class DummyFormaGeometricaRepository implements FormaGeometricaRepository
                 new Cerchio(10));
     }
 
+    public List<FormaGeometrica> findByNome(String nome) {
+        return  List.of(new Rettangolo(5, 10),
+                new Quadrato(7),
+                new Quadrato(15),
+                new Cerchio(10));
+    }
+
     @Override
     public FormaGeometrica findById(int id) {
         return new Quadrato(5);
     }
+
+
 
     @Override
     public void deleteById(int id) {
