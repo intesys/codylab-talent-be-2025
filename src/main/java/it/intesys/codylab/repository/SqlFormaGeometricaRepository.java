@@ -51,6 +51,16 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
         }
     }
 
+    @Override
+    public void save(String tipo, double lato1, double lato2) {
+        try {
+            saveIt(tipo, lato1, lato2);
+        } catch (SQLException e) {
+            log.info("Errore nella creazione di una nuova forma geometrica ");
+            throw new RuntimeException(e);
+        }
+    }
+
 
     @Override
     public void deleteById(int id) {
@@ -102,6 +112,27 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
             }
         }
     }
+
+    private void saveIt(String tipo, double lato1, double lato2) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(
+                    "INSERT INTO formageometrica (tipo, lato1, lato2) VALUES (?, ?, ?);")) {
+
+                statement.setString(1, tipo);
+                statement.setDouble(2, lato1);
+                statement.setDouble(3, lato2);
+
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected > 0) {
+                    log.info("Forma geometrica di tipo '{}' aggiunta", tipo);
+                } else {
+                    log.warn("Errore nell'aggiunta della forma geometrica '{}'", tipo);
+                    throw new IllegalArgumentException("Errore");
+                }
+            }
+        }
+    }
+
 
     public FormaGeometrica executeFindById(int id) throws SQLException {
 
