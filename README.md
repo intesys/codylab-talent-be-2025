@@ -180,24 +180,15 @@ restituisce `java.util.List` di `FormaGeometrica`
     * SELECT
 * Update e Delete da Java
 * Punto di attenzione sulle sql injection
-* Stesso codice per database diversi: avvio di Postgres su docker-compose e test applicazione
 
 Esercizi da completare:
-* Introdurre dipendenza h2 e la classe per la creazione della connessione al database
-* Creare la versione sql del Repository, che nel costruttore riceve il datasource e implementa il metodo leggendo i dati
-da una tabella del db
-* Verificare se il database è vuoto
-* Collegarsi da IDE al database locale
-* Creare la tabella se mancante
-* Aggiungere dati alla tabella
-* Provare a eseguire il programma fatto con il database con i dati presenti
-* Eseguire un update da console
-* Implementare un update da codice java (Repository SQL)
-* Docker compose con Postgres
-* Collegarsi al database Postgres da IDE
-* Creare le tabelle e i dati necessari
-* Eseguire il programma con collegamento a postgres su Docker
+* Rivedere quanto fatto nel branch 3-java-sql
+* Completare gli esercizi:
+  * findByNome(String nome)
+  * save(String tipo, double lato1, double lato2) 
 
+In aggiunta:
+* Stesso codice per database diversi: avvio di Postgres su docker-compose e test applicazione
 
 ## Parte 4 - Introduzione a Spring Boot
 ### Argomenti
