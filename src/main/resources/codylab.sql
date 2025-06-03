@@ -6,6 +6,7 @@ create table formageometrica(
                       lato2 double
 );
 
+
 -- Inseriamo alcune forme geometriche
 insert into formageometrica (id, tipo, lato1, lato2) values (1, 'quadrato', 4, null);
 insert into formageometrica (id, tipo, lato1, lato2) values (2, 'rettangolo', 4, 6);
