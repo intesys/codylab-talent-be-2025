@@ -40,6 +40,15 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
             throw new RuntimeException(e);
         }
     }
+    
+    @Override public FormaGeometrica save(String tipo, double lato1, double lato2) {
+        try {
+            return executeSave(tipo, lato1, lato2);
+        } catch (SQLException e) {
+            log.error("Errore salvando la forma geometrica", e);
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public FormaGeometrica findById(int id) {
@@ -133,6 +142,40 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
         }
         return result;
 }
+
+    public FormaGeometrica executeSave(String tipo, double lato1, double lato2) throws SQLException {
+        FormaGeometrica formaGeometrica = null;
+
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "INSERT INTO formageometrica (tipo, lato1, lato2) VALUES (?, ?, ?)";
+            try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                statement.setString(1, tipo);
+                statement.setDouble(2, lato1);
+                statement.setDouble(3, lato2);
+                statement.executeUpdate();
+
+                try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int id = generatedKeys.getInt(1);
+
+                        // Crea l’oggetto corretto in base al tipo
+                        if ("quadrato".equalsIgnoreCase(tipo)) {
+                            formaGeometrica = new Quadrato(lato1); // quadrato: solo lato1
+                        } else if ("rettangolo".equalsIgnoreCase(tipo)) {
+                            formaGeometrica = new Rettangolo(lato1, lato2);
+                        } else if ("cerchio".equalsIgnoreCase(tipo)) {
+                            formaGeometrica = new Cerchio(lato1); // lato1 come raggio
+                        } else {
+                            throw new IllegalArgumentException("Tipo di forma non supportato: " + tipo);
+                        }
+                    }
+                }
+            }
+        }
+
+        return formaGeometrica;
+    }
+
 
     public FormaGeometrica executeFindById(int id) throws SQLException {
 

@@ -22,3 +22,5 @@ delete from formageometrica where id = 4;
 
 -- Esempio di SQL Injection
 select id, tipo, lato1, lato2 from formageometrica where id = 4 or 1 = 1;
+
+drop table FORMAGEOMETRICA;
