@@ -46,7 +46,7 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
         try {
             return executeFindByNome(nome);
         } catch (SQLException e) {
-            log.error("Errore caricando la forma geometrica con id: {}", nome, e);
+            log.error("Errore caricando la forma geometrica con nome: {}", nome, e);
             throw new RuntimeException(e);
         }
     }
@@ -56,6 +56,16 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
             executeDeleteById(id);
         } catch (SQLException e) {
             log.info("Errore eliminando la forma geometrica con id: {}", id, e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void deleteByNome(String nome) {
+        try {
+            executeDeleteByNome(nome);
+        } catch (SQLException e) {
+            log.info("Errore eliminando la forma geometrica con nome: {}", nome, e);
             throw new RuntimeException(e);
         }
     }
@@ -187,6 +197,21 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
                 } else {
                     log.warn("Nessuna forma geometrica trovata con id: {}", id);
                     throw new IllegalArgumentException("Forma geometrica non esistente con id: " + id);
+                }
+            }
+        }
+    }
+
+    private void executeDeleteByNome(String nome) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("delete from formageometrica where tipo = ?")) {
+                statement.setString(1, nome);
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected > 0) {
+                    log.info("Forma geometrica con nome {} eliminata", nome);
+                } else {
+                    log.warn("Nessuna forma geometrica trovata con nome: {}", nome);
+                    throw new IllegalArgumentException("Forma geometrica non esistente con nome: " + nome);
                 }
             }
         }

@@ -48,4 +48,9 @@ public class DummyFormaGeometricaRepository implements FormaGeometricaRepository
         log.info("ciao");
     }
 
+    @Override
+    public void deleteByNome(String nome) {
+        log.info("ciao");
+    }
+
 }

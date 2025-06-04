@@ -12,6 +12,8 @@ public interface FormaGeometricaRepository {
 
     void deleteById(int id);
 
+    void deleteByNome(String nome);
+
     void update(int id, double lato1, double lato2);
 
     List<FormaGeometrica> findByNome(String nome); //possibile esercizio

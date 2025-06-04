@@ -38,4 +38,7 @@ public class FormeGeometricheService {
         formaGeometricaRepository.save(nome, lato1, lato2);
     }
 
+    public void deleteByNome(String nome){
+        formaGeometricaRepository.deleteByNome(nome);
+    }
 }
