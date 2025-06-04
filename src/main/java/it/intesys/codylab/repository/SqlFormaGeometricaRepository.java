@@ -61,6 +61,25 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
         }
     }
 
+    @Override
+    public void eraseDB() {
+            try (Connection connection = dataSource.getConnection();
+                 Statement statement = connection.createStatement()) {
+
+                statement.executeUpdate("DROP TABLE IF EXISTS formageometrica");
+                statement.executeUpdate("CREATE TABLE formageometrica(" +
+                        "id IDENTITY PRIMARY KEY," +
+                        "tipo VARCHAR(50) NOT NULL," +
+                        "lato1 DOUBLE NOT NULL," +
+                        "lato2 DOUBLE" +
+                        ");" );
+            } catch (SQLException e) {
+                log.error("Errore durante l'eliminazione e la ricreazione delle tabelle del database.", e);
+                throw new RuntimeException("Errore del database durante il reset.", e);
+            }
+
+    }
+
 
     @Override
     public void deleteById(int id) {

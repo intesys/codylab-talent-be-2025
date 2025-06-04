@@ -18,4 +18,5 @@ public interface FormaGeometricaRepository {
 
     void save(String tipo, Double lato1, Double lato2);
 
+    void eraseDB();
 }

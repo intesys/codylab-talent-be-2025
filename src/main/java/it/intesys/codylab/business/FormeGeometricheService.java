@@ -28,9 +28,9 @@ public class FormeGeometricheService {
     }
 
     private void stampaPerimetroArea(FormaGeometrica formaGeometrica) {
-        logger.info("Forma geometrica è {}", formaGeometrica.toString());
-        logger.info("perimetro:{} ", formaGeometrica.perimetro());
-        logger.info("area: {}", formaGeometrica.area());
+        //logger.info("Forma geometrica è {}", formaGeometrica.toString());
+        //logger.info("perimetro:{} ", formaGeometrica.perimetro());
+        //logger.info("area: {}", formaGeometrica.area());
     }
 
     public void save(String tipo, Double lato1, Double lato2) {
@@ -43,5 +43,9 @@ public class FormeGeometricheService {
 
     public void update(int id, Double lato1, Double lato2) {
         formaGeometricaRepository.update(id, lato1, lato2);
+    }
+
+    public void delDB() {
+        formaGeometricaRepository.eraseDB();
     }
 }
