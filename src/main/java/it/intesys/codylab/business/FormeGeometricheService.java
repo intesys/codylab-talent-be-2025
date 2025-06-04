@@ -41,4 +41,8 @@ public class FormeGeometricheService {
     public void deleteByNome(String nome){
         formaGeometricaRepository.deleteByNome(nome);
     }
+
+    public void update(int id, double lato1, double lato2) {
+        formaGeometricaRepository.update(id, lato1, lato2);
+    }
 }
