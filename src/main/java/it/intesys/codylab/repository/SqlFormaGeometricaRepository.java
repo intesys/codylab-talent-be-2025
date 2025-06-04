@@ -41,7 +41,7 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
         }
     }
     
-    @Override public FormaGeometrica save(String tipo, double lato1, Double lato2) {
+    @Override public FormaGeometrica save(String tipo, Double lato1, Double lato2) {
         try {
             return executeSave(tipo, lato1, lato2);
         } catch (SQLException e) {
@@ -121,8 +121,8 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
                     while (resultSet.next()) {
                         String pk = resultSet.getString("id");
                         String tipo = resultSet.getString("tipo");
-                        double lato1 = resultSet.getDouble("lato1");
-                        double lato2 = resultSet.getDouble("lato2");
+                        Double lato1 = resultSet.getDouble("lato1");
+                        Double lato2 = resultSet.getDouble("lato2");
 
                         log.info("Forma geometrica trovata: id={}, tipo={}, lato1={}, lato2={}", pk, tipo, lato1, lato2);
                         if ("quadrato".equalsIgnoreCase(tipo)) {
@@ -143,7 +143,7 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
         return result;
 }
 
-    public FormaGeometrica executeSave(String tipo, double lato1, Double lato2) throws SQLException {
+    public FormaGeometrica executeSave(String tipo, Double lato1, Double lato2) throws SQLException {
         FormaGeometrica formaGeometrica = null;
 
         try (Connection connection = dataSource.getConnection()) {
