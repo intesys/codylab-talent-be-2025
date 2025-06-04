@@ -192,6 +192,9 @@ In aggiunta:
 
 ## Parte 4 - Introduzione a Spring Boot
 ### Argomenti
+* Introduzione a Docker Desktop e docker compose
+* Postgres su Docker Desktop tramite docker compose
+* Applicazione running usando Postgres in locale
 * Limiti del main
 * Le applicazioni web 
   * Server Side Rendering
