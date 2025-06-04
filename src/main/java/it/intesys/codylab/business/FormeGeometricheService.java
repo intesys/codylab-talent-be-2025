@@ -36,4 +36,12 @@ public class FormeGeometricheService {
     public void save(String tipo, Double lato1, Double lato2) {
         formaGeometricaRepository.save(tipo, lato1, lato2);
     }
+
+    public void deleteById(int id) {
+        formaGeometricaRepository.deleteById(id);
+    }
+
+    public void update(int id, Double lato1, Double lato2) {
+        formaGeometricaRepository.update(id, lato1, lato2);
+    }
 }
