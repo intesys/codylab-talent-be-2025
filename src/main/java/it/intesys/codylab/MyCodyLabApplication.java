@@ -11,8 +11,8 @@ public class MyCodyLabApplication {
 
         // Salva una nuova forma geometrica
         formeGeometricheService.save("rettangolo", 5.0, 3.0);
-        formeGeometricheService.save("quadrato", 4.0, 4.0);
-        formeGeometricheService.save("cerchio", 2.0, null); // lato2 null se inutile
+        formeGeometricheService.save("quadrato", 4.0,  null);
+        formeGeometricheService.save("cerchio", 2.0, null);
 
         // Trova per ID
         formeGeometricheService.findById(1);
