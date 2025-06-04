@@ -44,7 +44,7 @@ public class DummyFormaGeometricaRepository implements FormaGeometricaRepository
     }
 
     @Override
-    public void save(String nome, double lato1, double lato2) {
+    public void save(String nome, Double lato1, Double lato2) {
         log.info("ciao");
     }
 

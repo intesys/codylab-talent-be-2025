@@ -9,7 +9,7 @@ public class MyCodyLabApplication {
     public static void main(String[] args) {
         FormeGeometricheService formeGeometricheService = new MyCodyLabApplication().initStampaFormeGeometricheUseCase();
         //formeGeometricheService.stampaFormeGeometriche();
-        formeGeometricheService.save("cerchio", 2, 0);
+        formeGeometricheService.save("cerchio", 2.0, null);
     }
 
     private FormeGeometricheService initStampaFormeGeometricheUseCase() {

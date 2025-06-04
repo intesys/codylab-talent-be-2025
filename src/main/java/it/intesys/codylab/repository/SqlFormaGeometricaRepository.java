@@ -71,7 +71,7 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
     }
 
     @Override
-    public void save(String tipo, double lato1, double lato2){
+    public void save(String tipo, Double lato1, Double lato2){
         try {
             executeSave(tipo, lato1, lato2);
         } catch (SQLException e){
@@ -80,12 +80,16 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
         }
     }
 
-    private void executeSave(String tipo, double lato1, double lato2) throws SQLException {
+    private void executeSave(String tipo, Double lato1, Double lato2) throws SQLException {
         try(Connection connection = dataSource.getConnection()){
             try (PreparedStatement statement = connection.prepareStatement("insert into formageometrica (tipo, lato1, lato2) values (?,?,?)")){
                 statement.setString(1, tipo);
                 statement.setDouble(2, lato1);
-                statement.setDouble(3, lato2);
+                if (lato2 != null) {
+                    statement.setDouble(3, lato2);
+                } else {
+                    statement.setNull(3, java.sql.Types.DOUBLE);
+                }
                 int rows = statement.executeUpdate();
                 if (rows > 0){
                     log.info("Forma geometrica con tipo {} aggiunta con lati {}, {}", tipo, lato1, lato2);
