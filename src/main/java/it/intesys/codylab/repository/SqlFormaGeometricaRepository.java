@@ -80,91 +80,6 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
         }
     }
 
-    private void executeSave(String tipo, Double lato1, Double lato2) throws SQLException {
-        try(Connection connection = dataSource.getConnection()){
-            try (PreparedStatement statement = connection.prepareStatement("insert into formageometrica (tipo, lato1, lato2) values (?,?,?)")){
-                statement.setString(1, tipo);
-                statement.setDouble(2, lato1);
-                if (lato2 != null) {
-                    statement.setDouble(3, lato2);
-                } else {
-                    statement.setNull(3, java.sql.Types.DOUBLE);
-                }
-                int rows = statement.executeUpdate();
-                if (rows > 0){
-                    log.info("Forma geometrica con tipo {} aggiunta con lati {}, {}", tipo, lato1, lato2);
-                } else {
-                    log.warn("Forma geometrica ");
-                    throw new IllegalArgumentException("Forma geometrica");
-                }
-            }
-        }
-    }
-
-    private void executeUpdate(int id, double lato1, double lato2) throws SQLException {
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("update formageometrica set lato1 = ?, lato2 = ? where id = ?")) {
-                statement.setDouble(1, lato1);
-                statement.setDouble(2, lato2);
-                statement.setInt(3, id);
-                int rowsAffected = statement.executeUpdate();
-                if (rowsAffected > 0) {
-                    log.info("Forma geometrica con id {} aggiornata con lati {}, {}", id, lato1, lato2);
-                } else {
-                    log.warn("Nessuna forma geometrica trovata con id: {}", id);
-                    throw new IllegalArgumentException("Forma geometrica non esistente con id: " + id);
-                }
-            }
-        }
-    }
-    private void executeDeleteById(int id) throws SQLException {
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("delete from formageometrica where id = ?")) {
-                statement.setInt(1, id);
-                int rowsAffected = statement.executeUpdate();
-                if (rowsAffected > 0) {
-                    log.info("Forma geometrica con id {} eliminata", id);
-                } else {
-                    log.warn("Nessuna forma geometrica trovata con id: {}", id);
-                    throw new IllegalArgumentException("Forma geometrica non esistente con id: " + id);
-                }
-            }
-        }
-    }
-
-    public FormaGeometrica executeFindById(int id) throws SQLException {
-
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select id, tipo, lato1, lato2 from formageometrica where id = ?")) {
-                statement.setInt(1, id);
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    FormaGeometrica formaGeometrica = null;
-                    while (resultSet.next()) {
-                        String pk = resultSet.getString("id");
-                        String tipo = resultSet.getString("tipo");
-                        double lato1 = resultSet.getDouble("lato1");
-                        double lato2 = resultSet.getDouble("lato2");
-
-                        log.info("Forma geometrica trovata: id={}, tipo={}, lato1={}, lato2={}", pk, tipo, lato1, lato2);
-                        if ("quadrato".equalsIgnoreCase(tipo)) {
-                            formaGeometrica = mapResultSetToQuadrato(resultSet);
-                        } else if ("rettangolo".equalsIgnoreCase(tipo)) {
-                            formaGeometrica = mapResultSetToRettangolo(resultSet);
-                        } else if ("cerchio".equalsIgnoreCase(tipo)) {
-                            formaGeometrica = mapResultSetToCerchio(resultSet);
-                        } else {
-                            log.warn("Tipo di forma geometrica sconosciuto: {}", tipo);
-                            throw new IllegalArgumentException("Tipo di forma geometrica sconosciuto");
-                        }
-
-                        return formaGeometrica;
-                    }
-                    log.warn("Nessuna forma geometrica trovata con id: {}", id);
-                    throw new IllegalArgumentException("Forma geometrica non esistente con id: " + id);
-                }
-            }
-        }
-    }
 
     private List<FormaGeometrica> executeFindAll() throws SQLException {
         List<FormaGeometrica> result = new ArrayList<>();
@@ -195,6 +110,39 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
             }
         }
         return result;
+    }
+
+    public FormaGeometrica executeFindById(int id) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("select id, tipo, lato1, lato2 from formageometrica where id = ?")) {
+                statement.setInt(1, id);
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    FormaGeometrica formaGeometrica = null;
+                    while (resultSet.next()) {
+                        String pk = resultSet.getString("id");
+                        String tipo = resultSet.getString("tipo");
+                        double lato1 = resultSet.getDouble("lato1");
+                        double lato2 = resultSet.getDouble("lato2");
+
+                        log.info("Forma geometrica trovata: id={}, tipo={}, lato1={}, lato2={}", pk, tipo, lato1, lato2);
+                        if ("quadrato".equalsIgnoreCase(tipo)) {
+                            formaGeometrica = mapResultSetToQuadrato(resultSet);
+                        } else if ("rettangolo".equalsIgnoreCase(tipo)) {
+                            formaGeometrica = mapResultSetToRettangolo(resultSet);
+                        } else if ("cerchio".equalsIgnoreCase(tipo)) {
+                            formaGeometrica = mapResultSetToCerchio(resultSet);
+                        } else {
+                            log.warn("Tipo di forma geometrica sconosciuto: {}", tipo);
+                            throw new IllegalArgumentException("Tipo di forma geometrica sconosciuto");
+                        }
+
+                        return formaGeometrica;
+                    }
+                    log.warn("Nessuna forma geometrica trovata con id: {}", id);
+                    throw new IllegalArgumentException("Forma geometrica non esistente con id: " + id);
+                }
+            }
+        }
     }
 
     private List<FormaGeometrica> executeFindByNome(String nome) throws SQLException {
@@ -228,6 +176,60 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
         }
         return result;
     }
+
+    private void executeDeleteById(int id) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("delete from formageometrica where id = ?")) {
+                statement.setInt(1, id);
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected > 0) {
+                    log.info("Forma geometrica con id {} eliminata", id);
+                } else {
+                    log.warn("Nessuna forma geometrica trovata con id: {}", id);
+                    throw new IllegalArgumentException("Forma geometrica non esistente con id: " + id);
+                }
+            }
+        }
+    }
+
+    private void executeUpdate(int id, double lato1, double lato2) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("update formageometrica set lato1 = ?, lato2 = ? where id = ?")) {
+                statement.setDouble(1, lato1);
+                statement.setDouble(2, lato2);
+                statement.setInt(3, id);
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected > 0) {
+                    log.info("Forma geometrica con id {} aggiornata con lati {}, {}", id, lato1, lato2);
+                } else {
+                    log.warn("Nessuna forma geometrica trovata con id: {}", id);
+                    throw new IllegalArgumentException("Forma geometrica non esistente con id: " + id);
+                }
+            }
+        }
+    }
+
+    private void executeSave(String tipo, Double lato1, Double lato2) throws SQLException {
+        try(Connection connection = dataSource.getConnection()){
+            try (PreparedStatement statement = connection.prepareStatement("insert into formageometrica (tipo, lato1, lato2) values (?,?,?)")){
+                statement.setString(1, tipo);
+                statement.setDouble(2, lato1);
+                if (lato2 != null) {
+                    statement.setDouble(3, lato2);
+                } else {
+                    statement.setNull(3, java.sql.Types.DOUBLE);
+                }
+                int rows = statement.executeUpdate();
+                if (rows > 0){
+                    log.info("Forma geometrica con tipo {} aggiunta con lati {}, {}", tipo, lato1, lato2);
+                } else {
+                    log.warn("Forma geometrica ");
+                    throw new IllegalArgumentException("Forma geometrica");
+                }
+            }
+        }
+    }
+
 
     private Quadrato mapResultSetToQuadrato(ResultSet resultSet) throws SQLException {
         double lato1 = resultSet.getDouble("lato1");
