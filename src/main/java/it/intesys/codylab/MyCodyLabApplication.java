@@ -25,6 +25,9 @@ public class MyCodyLabApplication {
 
         //Aggiorna una forma geometrica
         formeGeometricheService.update(1, 2, 1);
+
+        //Elimina una forma geometrica
+        formeGeometricheService.deleteByNome("cerchio");
     }
 
     private FormeGeometricheService initStampaFormeGeometricheUseCase() {
