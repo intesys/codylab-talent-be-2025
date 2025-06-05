@@ -210,6 +210,25 @@ In aggiunta:
   * Come cambia la lettura della configurazione
   * Inizializzazione dei Bean (Singleton)
 
+**Esercizi**
+Scaricare il branch `4-intro-spring-boot` e verificare quanto fatto.
+
+Ogni studente lavora sul proprio branch:
+* `4-intro-spring-boot-jacopo`
+* `4-intro-spring-boot-pietro`
+* `4-intro-spring-boot-gaetano`
+
+Esercizi da completare
+* Avviare Docker Desktop
+* Avviare servizi tramite docker-compose:  `docker-compose -f .\docker-compose.yml up -d --build`
+* Collegare l'ide al database postgresql e creare le tabelle
+* Testare il main MyCodyLabApplion collegato alle tabelle postgresql su Docker
+* Introdurre parent e Spring Boot 3.5.0 e dipendenza da spring-starter -> ricordarsi file logback-spring.xml per log
+* Introdurre plugin per fat jar
+* Creare un RestController come sul branch principale
+* Collegare RestController a Service e Repository da configurazione Spring
+* Introdurre i profili e la configurazione (application.yml)
+
 ## Parte 5 - Accesso ai dati
 ### Argomenti
 * Spring JDBC Template
