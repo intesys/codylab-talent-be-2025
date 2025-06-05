@@ -1,0 +1,17 @@
+name: codylab-talent-be-2025
+services:
+  codylab-postgresql:
+    image: postgres:15.3
+    container_name: codylab-postgresql
+    environment:
+      - POSTGRES_DB=formegeometriche
+      - POSTGRES_USER=codylab
+      - POSTGRES_PASSWORD=cody|_ab2025
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    healthcheck:
+      test: [ 'CMD-SHELL', 'pg_isready -U $${POSTGRES_USER}' ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    ports:
+      - "5432:5432"
