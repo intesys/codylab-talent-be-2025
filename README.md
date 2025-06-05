@@ -201,7 +201,11 @@ In aggiunta:
   * Client Side Rendering
 * Configurazioni
 * Dependency Injection e Inversione of Control
+* Maven: il parent e lo starter
 * Web App Spring Boot
+  * spring-boot-maven-plugin e flat jar
+  * Come cambia il main
+  * La configurazione
   * Controller, Service, Repository
   * Come cambia la lettura della configurazione
   * Inizializzazione dei Bean (Singleton)
