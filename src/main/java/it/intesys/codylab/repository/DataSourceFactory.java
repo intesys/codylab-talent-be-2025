@@ -9,8 +9,8 @@ public class DataSourceFactory {
 
     private static HikariDataSource dataSource;
 
-    public static DataSource makeDataSource() {
-        if (dataSource == null) {
+    public static DataSource makeDataSource(int scelta) {
+        if (dataSource == null && scelta == 1) {
             HikariConfig config = new HikariConfig();
             config.setJdbcUrl("jdbc:h2:~/codylab-2025;AUTO_SERVER=TRUE");
             config.setUsername("sa");
@@ -23,6 +23,14 @@ public class DataSourceFactory {
                     dataSource.close();
                 }
             }));
+        }
+        else if (dataSource == null && scelta == 2) {
+            HikariConfig config = new HikariConfig();
+            config.setJdbcUrl("jdbc:postgresql://localhost:5432/postgres");
+            config.setUsername("gaetano");
+            config.setPassword("password");
+            config.setDriverClassName("org.postgresql.Driver");
+            dataSource = new HikariDataSource(config);
         }
         return dataSource;
     }
