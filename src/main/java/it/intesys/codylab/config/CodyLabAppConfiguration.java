@@ -14,9 +14,9 @@ public class CodyLabAppConfiguration {
 
     @Bean
     //@Qualifier("sqlRepository")
-    public FormaGeometricaRepository createFormaGeometricaRepository() {
-        System.out.println("Creating SqlFormaGeometricaRepository");
-        return new SqlFormaGeometricaRepository(DataSourceFactory.makeDataSource());
+    public FormaGeometricaRepository createFormaGeometricaRepository(CodyLabDatasourceProperties properties) {
+        System.out.println("Creating SqlFormaGeometricaRepository " + properties);
+        return new SqlFormaGeometricaRepository(DataSourceFactory.makeDataSource(properties));
     }
     //@Bean
     //@Qualifier("dummyRepository")
