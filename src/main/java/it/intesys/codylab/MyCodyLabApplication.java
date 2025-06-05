@@ -23,9 +23,6 @@ public class MyCodyLabApplication {
         // Stampa tutte le forme geometriche (con perimetro e area)
         formeGeometricheService.stampaFormeGeometriche();
 
-        // Elimina una forma geometrica per nome
-        formeGeometricheService.deleteByNome("cerchio");
-
         //Aggiorna una forma geometrica
         formeGeometricheService.update(1, 2, 1);
     }
