@@ -1,0 +1,21 @@
+package it.intesys.codylab.controller;
+
+import it.intesys.codylab.business.FormeGeometricheService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HelloWorldRestController {
+
+    private final FormeGeometricheService formeGeometriceService;
+
+    public HelloWorldRestController(FormeGeometricheService formeGeometriceService) {
+        this.formeGeometriceService = formeGeometriceService;
+    }
+
+    @GetMapping("/hello")
+    public String helloWorld() {
+        formeGeometriceService.stampaFormeGeometriche();
+        return "Finito!";
+    }
+}

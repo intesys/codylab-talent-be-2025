@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: codylab-2025
+
+server:
+  port: 8090
