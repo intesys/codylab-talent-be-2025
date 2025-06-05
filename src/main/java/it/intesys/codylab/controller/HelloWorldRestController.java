@@ -10,6 +10,7 @@ public class HelloWorldRestController {
     private final FormeGeometricheService formeGeometriceService;
 
     public HelloWorldRestController(FormeGeometricheService formeGeometriceService) {
+        System.out.println("Creating HelloWorldRestController");
         this.formeGeometriceService = formeGeometriceService;
     }
 
