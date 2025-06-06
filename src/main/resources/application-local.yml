@@ -1,0 +1,10 @@
+codylab:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/formegeometriche
+    username: codylab
+    password: cody|_ab2025
+    driver: org.postgresql.Driver
+
+
+server:
+  port: 8091
