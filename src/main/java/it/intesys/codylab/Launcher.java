@@ -10,12 +10,15 @@ public class Launcher {
         Scanner scanner = new Scanner(System.in);
         int scelta = scanner.nextInt();
 
+        String[] newArgs = new String[args.length];
+        System.arraycopy(args, 0, newArgs, 0, args.length);
+
         switch (scelta) {
             case 1:
-                MyCodyLabApplication.main(args);
+                MyCodyLabApplication.main(newArgs);
                 break;
             case 2:
-                CodylabTalent2025Application.main(args);
+                CodylabTalent2025Application.main(newArgs);
                 break;
             default:
                 System.out.println("Scelta non valida. Uscita...");
