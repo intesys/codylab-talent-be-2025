@@ -127,7 +127,7 @@ public class MyCodyLabApplication {
 
     }
 
-    private FormeGeometricheService initStampaFormeGeometricheUseCase() {
+        public FormeGeometricheService initStampaFormeGeometricheUseCase() {
         log.info("Inserisci il tipo del database da utilizzare: 1) H2, 2) PostgreSQL");
         int scelta = s.nextInt();
         return new FormeGeometricheService(new SqlFormaGeometricaRepository(DataSourceFactory.makeDataSource(scelta)));

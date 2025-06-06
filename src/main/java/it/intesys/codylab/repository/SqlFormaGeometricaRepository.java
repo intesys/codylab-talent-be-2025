@@ -63,22 +63,41 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
 
     @Override
     public void eraseDB() {
-            try (Connection connection = dataSource.getConnection();
-                 Statement statement = connection.createStatement()) {
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement()) {
 
-                statement.executeUpdate("DROP TABLE IF EXISTS formageometrica");
-                statement.executeUpdate("CREATE TABLE formageometrica(" +
-                        "id IDENTITY PRIMARY KEY," +
-                        "tipo VARCHAR(50) NOT NULL," +
-                        "lato1 DOUBLE NOT NULL," +
-                        "lato2 DOUBLE" +
-                        ");" );
-            } catch (SQLException e) {
-                log.error("Errore durante l'eliminazione e la ricreazione delle tabelle del database.", e);
-                throw new RuntimeException("Errore del database durante il reset.", e);
+            String dbProductName = connection.getMetaData().getDatabaseProductName();
+
+            statement.executeUpdate("DROP TABLE IF EXISTS formageometrica");
+
+            if ("H2".equalsIgnoreCase(dbProductName)) {
+                statement.executeUpdate(
+                        "CREATE TABLE formageometrica(" +
+                                "id IDENTITY PRIMARY KEY," +
+                                "tipo VARCHAR(50) NOT NULL," +
+                                "lato1 DOUBLE NOT NULL," +
+                                "lato2 DOUBLE" +
+                                ");"
+                );
+            } else if ("PostgreSQL".equalsIgnoreCase(dbProductName)) {
+                statement.executeUpdate(
+                        "CREATE TABLE formageometrica(" +
+                                "id SERIAL PRIMARY KEY," +
+                                "tipo VARCHAR(50) NOT NULL," +
+                                "lato1 DOUBLE PRECISION NOT NULL," +
+                                "lato2 DOUBLE PRECISION" +
+                                ");"
+                );
+            } else {
+                throw new UnsupportedOperationException("Database non supportato: " + dbProductName);
             }
 
+        } catch (SQLException e) {
+            log.error("Errore durante l'eliminazione e la ricreazione delle tabelle del database.", e);
+            throw new RuntimeException("Errore del database durante il reset.", e);
+        }
     }
+
 
 
     @Override
