@@ -203,6 +203,7 @@ In aggiunta:
 * Dependency Injection e Inversione of Control
 * Maven: il parent e lo starter
 * Web App Spring Boot
+  * Configurazione con https://start.spring.io/
   * spring-boot-maven-plugin e flat jar
   * Come cambia il main
   * La configurazione
