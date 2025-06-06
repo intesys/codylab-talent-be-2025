@@ -1,0 +1,6 @@
+codilab:
+  datasource:
+    url:jdbc:postgresql://localhost:5432/postgres
+    username:codylab
+    password:cody|_ab2025
+    driver:=org.postgresql.Driver

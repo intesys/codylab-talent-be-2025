@@ -32,7 +32,7 @@ public class MyCodyLabApplication {
     }
 
     private static void stampaPerimetroArea(FormaGeometrica formaGeometrica) {
-        System.out.println("Forma geometrica è " + formaGeometrica.toString());
+//        System.out.println("Forma geometrica è " + formaGeometrica.toString());
         System.out.println("perimetro: " + formaGeometrica.perimetro());
         System.out.println("area: " + formaGeometrica.area());
     }
