@@ -13,7 +13,7 @@ public class DataSourceFactory {
         HikariConfig config = new HikariConfig();
 
         if (scelta == 1) {
-            config.setJdbcUrl("jdbc:h2:~/codylab-2025;AUTO_SERVER=TRUE");
+            config.setJdbcUrl("jdbc:h2:~/codylab-2025;AUTO_SERVER=TRUE;MODE=PostgreSQL;");
             config.setUsername("sa");
             config.setPassword("password");
             config.setDriverClassName("org.h2.Driver");

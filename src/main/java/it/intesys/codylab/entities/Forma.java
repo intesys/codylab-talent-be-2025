@@ -1,29 +1,31 @@
 package it.intesys.codylab.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "formageometrica")
 public class Forma {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "Il nome non può essere nullo")
-    private String nome;
+    @Column(length = 50, nullable = false)
+    private String tipo;
 
-    private String descrizione;
+    @Column
+    private Double lato1;
+
+    @Column
+    private Double lato2;
 
     public Forma() {}
 
-    public Forma(Long id, String nome, String descrizione) {
+    public Forma(Long id, String tipo, Double lato1, Double lato2) {
         this.id = id;
-        this.nome = nome;
-        this.descrizione = descrizione;
+        this.tipo = tipo;
+        this.lato1 = lato1;
+        this.lato2 = lato2;
     }
 
     public Long getId() {
@@ -34,19 +36,27 @@ public class Forma {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
-    public String getDescrizione() {
-        return descrizione;
+    public Double getLato1() {
+        return lato1;
     }
 
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
+    public void setLato1(Double lato1) {
+        this.lato1 = lato1;
+    }
+
+    public Double getLato2() {
+        return lato2;
+    }
+
+    public void setLato2(Double lato2) {
+        this.lato2 = lato2;
     }
 }

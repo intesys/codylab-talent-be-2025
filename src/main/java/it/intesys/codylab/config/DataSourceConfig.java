@@ -33,9 +33,9 @@ public class DataSourceConfig {
                     .build();
         } else if ("h2".equalsIgnoreCase(dbType)) {
             return DataSourceBuilder.create()
-                    .url("jdbc:h2:mem:testdb")
+                    .url("jdbc:h2:~/codylab-2025")
                     .username("sa")
-                    .password("")
+                    .password("password")
                     .driverClassName("org.h2.Driver")
                     .build();
         } else {
