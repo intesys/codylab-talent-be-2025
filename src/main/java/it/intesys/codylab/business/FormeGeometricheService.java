@@ -4,8 +4,9 @@ import it.intesys.codylab.model.FormaGeometrica;
 import it.intesys.codylab.repository.FormaGeometricaRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class FormeGeometricheService {
 
     private final FormaGeometricaRepository formaGeometricaRepository;
