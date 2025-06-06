@@ -18,5 +18,5 @@ public class MyCodyLabApplication {
         return new FormeGeometricheService(new SqlFormaGeometricaRepository(DataSourceFactory.makeDataSource()));
         //return new StampaFormeGeometricheUseCase(new DummyFormaGeometricaRepository());
     }
-//creato nuovo branch
+//Collegato l'ide al database postgresql e creare le tabelle
 }
