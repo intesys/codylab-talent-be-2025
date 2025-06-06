@@ -3,5 +3,13 @@ spring:
     name: codylab-2025
 
 
+codylab:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: codylab
+    password: cody|_ab2025
+    driver: org.postgresql.Driver
+
+
 server:
   port: 8090
