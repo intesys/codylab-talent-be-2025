@@ -6,6 +6,7 @@ import it.intesys.codylab.repository.SqlFormaGeometricaRepository;
 import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
 
 import static it.intesys.codylab.repository.DataSourceFactory.dataSource;
 
@@ -144,4 +145,5 @@ public class MyCodyLabApplication {
         return new FormeGeometricheService(new SqlFormaGeometricaRepository(DataSourceFactory.makeDataSource(scelta)));
         //return new StampaFormeGeometricheUseCase(new DummyFormaGeometricaRepository());
     }
+
 }
