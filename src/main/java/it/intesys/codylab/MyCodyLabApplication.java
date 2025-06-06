@@ -56,7 +56,7 @@ public class MyCodyLabApplication {
                     log.info("Inserisci il tipo della forma geometrica da salvare");
                     String tipo2 = s.next();
                     if (tipo2.equals("cerchio") || tipo2.equals("quadrato")) {
-                        log.info("Inserisci il raggio del {} da salvare", tipo2);
+                        log.info("Inserisci il lato/raggio del {} da salvare", tipo2);
                         lato1 = s.nextDouble();
                         lato2 = null;
                         formeGeometricheService.save(tipo2, lato1, lato2);
