@@ -6,17 +6,21 @@ import it.intesys.codylab.model.Quadrato;
 import it.intesys.codylab.model.Rettangolo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
 
     private final DataSource dataSource;
     private static final Logger log = LoggerFactory.getLogger(SqlFormaGeometricaRepository.class);
 
+    @Autowired
     public SqlFormaGeometricaRepository(DataSource dataSource) {
         this.dataSource = dataSource;
     }
