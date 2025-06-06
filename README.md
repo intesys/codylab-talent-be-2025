@@ -241,7 +241,7 @@ Esercizi da completare
 * OpenAPI (API Last, API First)
 * Generazione swagger -> specifica OpenAPI
 
-## Parte 6 - Accesso ai dati
+## Parte 6 - Spring MVC e Accesso ai dati
 ### Argomenti
 * Pagina web con Spring MVC
 * Spring JDBC Template
