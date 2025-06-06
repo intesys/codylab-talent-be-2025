@@ -229,23 +229,28 @@ Esercizi da completare
 * Collegare RestController a Service e Repository da configurazione Spring
 * Introdurre i profili e la configurazione (application.yml)
 
-## Parte 5 - Accesso ai dati
-### Argomenti
-* Spring JDBC Template
-* Hibernate e Spring JPA
-* Pagina web con dati dinamici
-
-## Parte 6 - Microservizi ed API
+## Parte 5 - Microservizi ed API
 ### Argomenti
 * Introduzione ai Microservizi
 * Comunicazione sincrona e codici HTTP
-* CRUD, DTO e Mapper
-* OpenAPI (API Last, API First)
+* Le risorse
 * Creare API Rest con Spring Boot
-* Leggere e scrivere la specifica OpenAPI
+* GET/POST/PUT/PATCH/DELETE (esempio con repo in memoria)
+* idempotenza
+* OpenAPI (API Last, API First)
+* Generazione swagger -> specifica OpenAPI
+
+## Parte 6 - Accesso ai dati
+### Argomenti
+* Pagina web con Spring MVC
+* Spring JDBC Template
+* Hibernate e Spring JPA
+* CRUD, DTO e Mapper
+* Pagina web con dati dinamici
 
 ## Parte 7 - API First
 ### Argomenti
+* Leggere e scrivere la specifica OpenAPI
 * Scrittura specifica OpenAPI
 * Generazione del controller REST dalla specifica OpenAPI
 
@@ -269,6 +274,7 @@ Esercizi da completare
 * Docker
 * Dockerfile
 * Docker Compose
+* Kubernetes su Docker
 
 ## Parte 12 - Comunicazioni Asincrone
 ### Argomenti
