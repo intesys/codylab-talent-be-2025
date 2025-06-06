@@ -9,9 +9,9 @@ public class MyCodyLabApplication {
     public static void main(String[] args) {
         FormeGeometricheService formeGeometricheService = new MyCodyLabApplication().initStampaFormeGeometricheUseCase();
         //formeGeometricheService.stampaFormeGeometriche();
-//        formeGeometricheService.findById(3);
-//        formeGeometricheService.findByNome("quadrato");
-        formeGeometricheService.save("cerchio",5,null);
+        formeGeometricheService.findById(3);
+        formeGeometricheService.findByNome("quadrato");
+//        formeGeometricheService.save("cerchio",5,null);
     }
 
     private FormeGeometricheService initStampaFormeGeometricheUseCase() {

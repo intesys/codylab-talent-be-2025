@@ -9,11 +9,18 @@ public class DataSourceFactory {
 
     public static DataSource makeDataSource() {
         HikariConfig hikariConfig = new HikariConfig();
-        hikariConfig.setJdbcUrl("jdbc:h2:~/codylab-2025;INIT=RUNSCRIPT FROM 'src/main/resources/codylab.sql';");
-        hikariConfig.setJdbcUrl("jdbc:h2:~/codylab-2025;AUTO_SERVER=TRUE");
-        hikariConfig.setUsername("sa");
-        hikariConfig.setPassword("password");
-        hikariConfig.setDriverClassName("org.h2.Driver");
+
+        hikariConfig.setJdbcUrl("jdbc:postgresql://localhost:5432/postgres");
+
+
+        hikariConfig.setUsername("codylab");
+
+
+        hikariConfig.setPassword("cody|_ab2025");
+
+
+        hikariConfig.setDriverClassName("org.postgresql.Driver");
+
         return new HikariDataSource(hikariConfig);
     }
 }
