@@ -7,11 +7,12 @@ import javax.sql.DataSource;
 
 public class DataSourceFactory {
 
-    private static HikariDataSource dataSource;
+    public static HikariDataSource dataSource;
 
     public static DataSource makeDataSource(int scelta) {
-        if (dataSource == null && scelta == 1) {
-            HikariConfig config = new HikariConfig();
+        HikariConfig config = new HikariConfig();
+
+        if (scelta == 1) {
             config.setJdbcUrl("jdbc:h2:~/codylab-2025;AUTO_SERVER=TRUE");
             config.setUsername("sa");
             config.setPassword("password");
@@ -24,15 +25,14 @@ public class DataSourceFactory {
                 }
             }));
         }
-        else if (dataSource == null && scelta == 2) {
-            HikariConfig config = new HikariConfig();
+        else if (scelta == 2) {
             config.setJdbcUrl("jdbc:postgresql://localhost:5432/postgres");
             config.setUsername("gaetano");
             config.setPassword("password");
             config.setDriverClassName("org.postgresql.Driver");
             dataSource = new HikariDataSource(config);
         }
-        return dataSource;
+        return new HikariDataSource(config);
     }
 
     public static void close() {
