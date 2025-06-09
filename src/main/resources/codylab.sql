@@ -1,24 +1,46 @@
--- Questo file contiene le istruzioni SQL per creare e gestire una tabella di forme geometriche.
-create table formageometrica
-(
-    id    int8 primary key,
-    tipo  varchar(50) not null,
-    lato1 float4      not null,
-    lato2 float4
+
+-- In database conventions, it is generally recommended to use lowercase for table names. This is because many database
+-- systems (like PostgreSQL) treat table names as case-insensitive unless explicitly quoted. Using lowercase avoids potential
+-- issues with case sensitivity and ensures consistency.
+-- Best Practice:
+-- Use lowercase for table names (e.g., user, project, task).
+-- Use snake_case for multi-word table names (e.g., user_task).
+
+-- It is generally recommended to use singular names for table names. This is because a table represents a single
+-- entity or object type (e.g., user, project, task), and singular names align better with object-oriented
+-- programming principles.
+-- Best Practice:
+-- Use singular names for tables (e.g., user, project, task).
+
+CREATE TABLE "user" (
+                        id SERIAL PRIMARY KEY,
+                        nome VARCHAR NOT NULL,
+                        cognome VARCHAR NOT NULL,
+                        mail VARCHAR UNIQUE NOT NULL,
+                        profilo VARCHAR NOT NULL,
+                        orario_giornaliero DECIMAL NOT NULL
 );
 
--- Inseriamo alcune forme geometriche
-insert into formageometrica (id, tipo, lato1, lato2) values (1, 'quadrato', 4, null);
-insert into formageometrica (id, tipo, lato1, lato2) values (2, 'rettangolo', 4, 6);
-insert into formageometrica (id, tipo, lato1, lato2) values (3, 'cerchio', 4, null);
-insert into formageometrica (id, tipo, lato1, lato2) values (4, 'rettangolo', 5, 10);
+CREATE TABLE project (
+                         id SERIAL PRIMARY KEY,
+                         codice VARCHAR UNIQUE NOT NULL,
+                         nome VARCHAR NOT NULL,
+                         descrizione VARCHAR,
+                         data_inizio DATE NOT NULL,
+                         durata INTEGER NOT NULL
+);
+CREATE TABLE task (
+                      id SERIAL PRIMARY KEY,
+                      progetto_id INTEGER NOT NULL REFERENCES project(id),
+                      codice VARCHAR UNIQUE NOT NULL,
+                      nome VARCHAR NOT NULL,
+                      descrizione VARCHAR,
+                      data_inizio DATE NOT NULL,
+                      durata INTEGER NOT NULL
+);
 
--- Modifichiamo i lati di un quadrato e di un rettangolo
-update formageometrica set lato1 = 6 where id = 1;
-update formageometrica set lato1 = 8 where id = 2;
-
--- Cancelliamo un rettangolo
-delete from formageometrica where id = 4;
-
--- Esempio di SQL Injection
-select id, tipo, lato1, lato2 from formageometrica where id = 4 or 1 = 1;
+CREATE TABLE user_task (
+                           id SERIAL PRIMARY KEY,
+                           user_id INTEGER NOT NULL REFERENCES "user"(id),
+                           task_id INTEGER NOT NULL REFERENCES task(id)
+);

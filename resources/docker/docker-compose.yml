@@ -10,7 +10,7 @@ services:
     environment:
       POSTGRES_USER: codylab
       POSTGRES_PASSWORD: cody|_ab2025
-      POSTGRES_DB: formegeometriche
+      POSTGRES_DB: gestione_progetti
     ports:
       - "5432:5432"
     volumes:
