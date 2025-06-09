@@ -241,7 +241,7 @@ Esercizi da completare
 * OpenAPI (API Last, API First)
 * Generazione swagger -> specifica OpenAPI
 
-## Parte 6 - Spring MVC e Accesso ai dati
+## Parte 6 - Accesso ai dati e Spring MVC
 ### Argomenti
 * Definizione base dati per la gestione Gantt di progetto. 
 
