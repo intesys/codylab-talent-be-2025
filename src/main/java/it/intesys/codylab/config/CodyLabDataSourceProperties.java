@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConfigurationProperties(prefix = "codylab.datasource")
-public class CodyLabDatasourceProperties {
+public class CodyLabDataSourceProperties {
 
     private String url;
     private String username;
