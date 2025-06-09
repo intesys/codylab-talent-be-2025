@@ -7,11 +7,14 @@ import jakarta.persistence.Entity;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +28,7 @@ public class FormeController {
     @Autowired
     private FormaRepository formaRepository;
     //private List<Forma> forme = new ArrayList<>();
+
 
     @GetMapping
     public ResponseEntity<List<it.intesys.codylab.entities.Forma>> getAllForme() {
@@ -79,5 +83,15 @@ public class FormeController {
         Map<String, String> error = new HashMap<>();
         error.put("messaggio", "Si è verificato un errore: " + ex.getMessage());
         return ResponseEntity.internalServerError().body(error);
+    }
+
+    @Configuration
+    public class WebConfig implements WebMvcConfigurer {
+        @Override
+        public void addCorsMappings(CorsRegistry registry) {
+            registry.addMapping("/api/**")
+                    .allowedOrigins("http://localhost:5173")
+                    .allowedMethods("GET", "POST", "PUT", "DELETE");
+        }
     }
 }
