@@ -243,10 +243,12 @@ Esercizi da completare
 
 ## Parte 6 - Spring MVC e Accesso ai dati
 ### Argomenti
-* Pagina web con Spring MVC
+* Definizione base dati per la gestione Gantt di progetto. 
+
 * Spring JDBC Template
 * Hibernate e Spring JPA
 * CRUD, DTO e Mapper
+* Pagina web con Spring MVC
 * Pagina web con dati dinamici
 
 ## Parte 7 - API First
