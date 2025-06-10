@@ -4,6 +4,8 @@ import it.intesys.codylab.model.User;
 import it.intesys.codylab.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -15,5 +17,8 @@ public class UserService {
 
     public User getUserNameById(Long id) {
         return userRepository.findById(id);
+    }
+    public List<User> getUsers() {
+        return userRepository.findAll();
     }
 }

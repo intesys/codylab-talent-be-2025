@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class HelloWorldRestController {
 
@@ -17,6 +19,11 @@ public class HelloWorldRestController {
     @GetMapping("/user/{id}")
     public User getUserNameById(@PathVariable Long id) {
         return userService.getUserNameById(id);
+    }
+
+    @GetMapping("/users")
+    public List<User> getUsers() {
+        return userService.getUsers();
     }
 
 }

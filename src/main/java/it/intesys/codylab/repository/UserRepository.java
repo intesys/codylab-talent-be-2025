@@ -4,6 +4,8 @@ import it.intesys.codylab.model.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class UserRepository {
 
@@ -16,6 +18,20 @@ public class UserRepository {
     public User findById(Long id) {
         String sql = "SELECT * FROM \"user\" WHERE id = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{id}, (rs, rowNum) ->
+            new User(
+                rs.getLong("id"),
+                rs.getString("nome"),
+                rs.getString("cognome"),
+                rs.getString("mail"),
+                rs.getString("profilo"),
+                rs.getDouble("orario_giornaliero")
+            )
+        );
+    }
+    public List<User> findAll() {
+        String sql = "SELECT * FROM \"user\"";
+
+        return  jdbcTemplate.query(sql, (rs, rowNum) ->
             new User(
                 rs.getLong("id"),
                 rs.getString("nome"),
