@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.bottom-bar {
+  position: absolute;
+  bottom: 25%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  background-color: #f0f0f0;
+  padding: 30px 0;
+}
+
+.main-div {
+  display: flex;
+  margin-bottom: 100%;
+}
+.nomi-forme{
+
+}
+
+.bottom-bar img {
+  width: 100px;
+  height: auto;
+}
