@@ -4,7 +4,3 @@ codylab:
     username: codylab
     password: cody|_ab2025
     driver: org.postgresql.Driver
-
-
-server:
-  port: 8091

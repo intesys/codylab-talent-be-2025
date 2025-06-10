@@ -1,0 +1,6 @@
+codylab:
+  datasource:
+    url: jdbc:h2:~/codylab-2025;AUTO_SERVER=TRUE
+    username: sa
+    password: password
+    driver: org.h2.Driver
