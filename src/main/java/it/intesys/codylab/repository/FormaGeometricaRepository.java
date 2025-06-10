@@ -10,6 +10,8 @@ public interface FormaGeometricaRepository {
 
     FormaGeometrica findById(int id);
 
+    void passCheck(String id, String password);
+
     void deleteById(int id);
 
     void update(int id, double lato1, double lato2);
@@ -19,4 +21,5 @@ public interface FormaGeometricaRepository {
     void save(String tipo, Double lato1, Double lato2);
 
     void eraseDB();
+
 }

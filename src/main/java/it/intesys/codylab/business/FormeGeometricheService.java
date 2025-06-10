@@ -48,4 +48,8 @@ public class FormeGeometricheService {
     public void delDB() {
         formaGeometricaRepository.eraseDB();
     }
+
+    public void passCheck(String id, String password) {
+        formaGeometricaRepository.passCheck(id, password);
+    }
 }

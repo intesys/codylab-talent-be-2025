@@ -6,6 +6,14 @@ create table formageometrica(
                       lato2 double
 );
 
+
+create table utenti(
+    id  varchar(50),
+    pw varchar(255) not null
+);
+
+insert into utenti (id, pw) values ( 'Gaetano', '$2a$10$32P1DoAT20XTmkJXgvObW.jLoDGwKolgJX.BqRN3FFsiyPPDUejiq' );
+
 -- Inseriamo alcune forme geometriche
 insert into formageometrica (tipo, lato1, lato2) values ('quadrato', 4, null);
 insert into formageometrica (tipo, lato1, lato2) values ('rettangolo', 4, 6);

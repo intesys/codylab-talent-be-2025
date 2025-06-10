@@ -7,6 +7,7 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static it.intesys.codylab.repository.DataSourceFactory.dataSource;
 
@@ -17,7 +18,7 @@ public class MyCodyLabApplication {
     public static void main(String[] args) {
         FormeGeometricheService formeGeometricheService = new MyCodyLabApplication().initStampaFormeGeometricheUseCase();
         log.info("Benvenuto!");
-        String menu = ("\n 1) stampa forme geometriche\n 2) Trova con ID\n 3) Trova con tipo\n 4) Elimina\n 5) Salva\n 6) Aggiorna\n 7) Elimina DB\n8) Cambia DB\n-1) Esci");
+        String menu = ("\n 1) stampa forme geometriche\n 2) Trova con ID\n 3) Trova con tipo\n 4) Elimina\n 5) Salva\n 6) Aggiorna\n 7) Elimina DB\n8) Cambia DB\n9) Aggiungi utente\n-1) Esci");
         int scelta = 0;
         Double lato1 = null;
         Double lato2 = null;
@@ -119,6 +120,13 @@ public class MyCodyLabApplication {
                     formeGeometricheService = new FormeGeometricheService(
                             new SqlFormaGeometricaRepository(DataSourceFactory.makeDataSource(db))
                     );
+                case 9:
+                    s.nextLine();
+                    log.info("Inserisci nome dell'utente");
+                    String idUtente = s.nextLine();
+                    log.info("Inserisci password dell'utente");
+                    String password = s.nextLine();
+                    formeGeometricheService.passCheck(idUtente, password);
 
                     log.info(menu);
                     scelta = s.nextInt();

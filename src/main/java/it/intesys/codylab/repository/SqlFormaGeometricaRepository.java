@@ -6,6 +6,7 @@ import it.intesys.codylab.model.Quadrato;
 import it.intesys.codylab.model.Rettangolo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -39,6 +40,18 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
             log.error("Errore caricando la forma geometrica con id: {}", id, e);
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void passCheck(String id, String password) {
+        try {
+            executePassCheck(id, password);
+        }
+            catch (SQLException e) {
+                log.error("Errore nella verifica utente", e);
+                throw new RuntimeException(e);
+        }
+
     }
 
     @Override
@@ -97,7 +110,6 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
             throw new RuntimeException("Errore del database durante il reset.", e);
         }
     }
-
 
 
     @Override
@@ -250,6 +262,31 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
             }
         }
     }
+
+
+    private void executePassCheck(String id, String password) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "SELECT pw FROM utenti WHERE id = ?";
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setString(1, id);
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    if (resultSet.next()) {
+                        String hashedPassword = resultSet.getString("pw");
+                        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+                        if (encoder.matches(password, hashedPassword)) {
+                            System.out.println("Accesso consentito");
+                        } else {
+                            System.out.println("Password errata");
+                        }
+                    } else {
+                        System.out.println("Utente non trovato.");
+                    }
+                }
+            }
+        }
+    }
+
 
 
     private List<FormaGeometrica> executeFindAll() throws SQLException {
