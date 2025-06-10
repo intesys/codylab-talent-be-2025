@@ -16,7 +16,7 @@ public class UserRepository {
     }
 
     public User findById(Long id) {
-        String sql = "SELECT * FROM \"user\" WHERE id = ?";
+        String sql = "SELECT * FROM users WHERE id = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{id}, (rs, rowNum) ->
             new User(
                 rs.getLong("id"),
@@ -29,7 +29,7 @@ public class UserRepository {
         );
     }
     public List<User> findAll() {
-        String sql = "SELECT * FROM \"user\"";
+        String sql = "SELECT * FROM users";
 
         return  jdbcTemplate.query(sql, (rs, rowNum) ->
             new User(

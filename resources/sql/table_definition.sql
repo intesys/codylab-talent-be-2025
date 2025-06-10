@@ -6,13 +6,7 @@
 -- Use lowercase for table names (e.g., user, project, task).
 -- Use snake_case for multi-word table names (e.g., user_task).
 
--- It is generally recommended to use singular names for table names. This is because a table represents a single
--- entity or object type (e.g., user, project, task), and singular names align better with object-oriented
--- programming principles.
--- Best Practice:
--- Use singular names for tables (e.g., user, project, task).
-
-CREATE TABLE "user" (
+CREATE TABLE users (
                         id SERIAL PRIMARY KEY,
                         nome VARCHAR NOT NULL,
                         cognome VARCHAR NOT NULL,
@@ -21,7 +15,7 @@ CREATE TABLE "user" (
                         orario_giornaliero DECIMAL NOT NULL
 );
 
-CREATE TABLE project (
+CREATE TABLE projects (
                          id SERIAL PRIMARY KEY,
                          codice VARCHAR UNIQUE NOT NULL,
                          nome VARCHAR NOT NULL,
@@ -29,9 +23,9 @@ CREATE TABLE project (
                          data_inizio DATE NOT NULL,
                          durata INTEGER NOT NULL
 );
-CREATE TABLE task (
+CREATE TABLE tasks (
                       id SERIAL PRIMARY KEY,
-                      progetto_id INTEGER NOT NULL REFERENCES project(id),
+                      progetto_id INTEGER NOT NULL REFERENCES projects(id),
                       codice VARCHAR UNIQUE NOT NULL,
                       nome VARCHAR NOT NULL,
                       descrizione VARCHAR,
@@ -39,8 +33,8 @@ CREATE TABLE task (
                       durata INTEGER NOT NULL
 );
 
-CREATE TABLE user_task (
+CREATE TABLE users_tasks (
                            id SERIAL PRIMARY KEY,
-                           user_id INTEGER NOT NULL REFERENCES "user"(id),
-                           task_id INTEGER NOT NULL REFERENCES task(id)
+                           user_id INTEGER NOT NULL REFERENCES users(id),
+                           task_id INTEGER NOT NULL REFERENCES tasks(id)
 );
