@@ -232,7 +232,10 @@ Esercizi da completare
 
 ## Parte 5 - Microservizi ed API
 ### Argomenti
+* Revisione concetto profili di spring (es.: per h2 e postgres)
+* Differenza tra Properties e Value per leggere la configurazione
 * Introduzione ai Microservizi
+* Il protocollo REST
 * Comunicazione sincrona e codici HTTP
 * Le risorse
 * Creare API Rest con Spring Boot
