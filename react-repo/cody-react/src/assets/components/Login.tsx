@@ -13,7 +13,7 @@ function Login() {
     };
 
     return (
-        <div>
+        <div className = "loginForm">
             <h2>Login</h2>
             <form onSubmit={handleLogin}>
                 <input
@@ -28,7 +28,9 @@ function Login() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button type="submit">Entra</button>
+                <div className="button">
+                    <button type="submit">Entra</button>
+                </div>
             </form>
         </div>
     );
