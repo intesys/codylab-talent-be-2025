@@ -5,6 +5,16 @@ codylab:
     password: cody|_ab2025
     driver: org.postgresql.Driver
 
-
 server:
   port: 8091
+
+spring:
+  jdbc:
+    template:
+      query:
+        logger:
+          enabled: true
+
+logging:
+  level:
+    root: debug
