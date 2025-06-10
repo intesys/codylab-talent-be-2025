@@ -1,15 +1,21 @@
 package it.intesys.codylab.config;
 
+import jakarta.validation.constraints.NotNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.validation.annotation.Validated;
 
 @Configuration
 @ConfigurationProperties(prefix = "codylab.datasource")
+@Validated
 public class CodyLabDatasourceProperties {
 
+    @NotNull
     private String url;
+    @NotNull
     private String username;
     private String password;
+    @NotNull
     private String driver;
 
     public String getUrl() {
