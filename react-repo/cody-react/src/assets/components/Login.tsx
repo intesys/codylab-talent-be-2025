@@ -6,10 +6,9 @@ function Login() {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    const handleLogin = (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleLogin = () => {
         if (username.trim() !== "" && password.trim() !== "") {
-            navigate("/home");
+            navigate("/home");      //Effettuare controllo con HTTP request 200 (OK) 401 (Unauthorized)
         }
     };
 

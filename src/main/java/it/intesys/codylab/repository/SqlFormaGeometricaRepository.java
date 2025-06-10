@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
 
@@ -276,6 +277,7 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
                         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
                         if (encoder.matches(password, hashedPassword)) {
                             System.out.println("Accesso consentito");
+                            nuovoUtente(id, password);
                         } else {
                             System.out.println("Password errata");
                         }
@@ -286,6 +288,35 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
             }
         }
     }
+
+    private void nuovoUtente(String id, String password) throws SQLException {
+        log.info("\nAccesso effettuato, Benvenuto {}!\nQui potrai registrare un nuovo utente che verrà registrato nel DB!\nSecurity first, la password non verrà salvata in chiaro :D", id);
+        System.out.println("Inserisci l'Identificativo dell'utente che vuoi registrare:");
+        String idUtente = new Scanner(System.in).nextLine();
+        System.out.println("Inserisci la password dell'utente che vuoi registrare:");
+        String passwordUtente = new Scanner(System.in).nextLine();
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String hashedPassword = encoder.encode(passwordUtente);
+
+        passToDB(idUtente, hashedPassword);
+    }
+
+    private void passToDB(String idUtente, String hashedPassword) throws SQLException {
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement()) {
+            String sql = "INSERT INTO utenti (id, pw) VALUES (?, ?)";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setString(1, idUtente);
+                preparedStatement.setString(2, hashedPassword);
+                preparedStatement.executeUpdate();
+                log.info("Utente registrato con successo!");
+            } catch (SQLException e) {
+                log.error("Errore durante la registrazione dell'utente", e);
+                throw new RuntimeException("Errore durante la registrazione dell'utente", e);
+            }
+
+        }
+        }
 
 
 
