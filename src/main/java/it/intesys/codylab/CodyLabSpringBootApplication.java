@@ -18,4 +18,3 @@ public class CodyLabSpringBootApplication {
         service.stampaFormeGeometriche();
     }
 }
-//creati 2 profili: uno per h2 e uno per postgres

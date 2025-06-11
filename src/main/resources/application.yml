@@ -2,7 +2,7 @@ spring:
   application:
     name: codylab-2025
   profiles:
-    active: h2
+    active: local
 
 server:
   port: 8090
