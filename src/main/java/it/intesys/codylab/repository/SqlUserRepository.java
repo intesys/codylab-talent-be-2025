@@ -108,8 +108,9 @@ public class SqlUserRepository implements UserRepository {
                         user.setEmail(resultSet.getString("email"));
                         user.setProfile(UserProfile.valueOf(resultSet.getString("profile")));
 //                        user.setWorkingHours(WorkingHours.of(Duration.parse(resultSet.getString("workingHours"))));
+                        users.add(user);
                     }
-                    users.add(user);
+
                 }
             }
         }
