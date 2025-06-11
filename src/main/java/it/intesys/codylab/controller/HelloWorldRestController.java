@@ -1,5 +1,6 @@
 package it.intesys.codylab.controller;
 
+import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.model.Project;
 import it.intesys.codylab.model.User;
 import it.intesys.codylab.service.ProjectService;
@@ -37,7 +38,7 @@ public class HelloWorldRestController {
     }
 
     @GetMapping("/project/codice/{codice}")
-    public Project getProjectByCodice(@PathVariable String codice) {
+    public ProjectDTO getProjectByCodice(@PathVariable String codice) {
         return projectService.findByCodice(codice);
     }
 

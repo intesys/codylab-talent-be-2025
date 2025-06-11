@@ -1,5 +1,7 @@
 package it.intesys.codylab.service;
 
+import it.intesys.codylab.dto.ProjectDTO;
+import it.intesys.codylab.mapper.ProjectMapper;
 import it.intesys.codylab.model.Project;
 import it.intesys.codylab.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
@@ -20,8 +22,8 @@ public class ProjectService {
                 .orElseThrow(() -> new RuntimeException("Project not found with id: " + id));
     }
 
-    public Project findByCodice(String codice) {
-        return projectRepository.findByCodice(codice);
+    public ProjectDTO findByCodice(String codice) {
+        return ProjectMapper.toDTO( projectRepository.findByCodice(codice) );
     }
 
     public List<Project> findByDurata(Integer durata) {
