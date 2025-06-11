@@ -32,14 +32,14 @@ public class UserRepository {
         String sql = "SELECT * FROM users";
 
         return  jdbcTemplate.query(sql, (rs, rowNum) ->
-            new User(
-                rs.getLong("id"),
-                rs.getString("nome"),
-                rs.getString("cognome"),
-                rs.getString("mail"),
-                rs.getString("profilo"),
-                rs.getDouble("orario_giornaliero")
-            )
+                    new User(
+                        rs.getLong("id"),
+                        rs.getString("nome"),
+                        rs.getString("cognome"),
+                        rs.getString("mail"),
+                        rs.getString("profilo"),
+                        rs.getDouble("orario_giornaliero")
+                    )
         );
     }
 

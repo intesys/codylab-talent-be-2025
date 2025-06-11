@@ -13,8 +13,11 @@ public class ProjectService {
 
     private final ProjectRepository projectRepository;
 
-    public ProjectService(ProjectRepository projectRepository) {
+    private final ProjectMapper projectMapper;
+
+    public ProjectService(ProjectRepository projectRepository, ProjectMapper projectMapper) {
         this.projectRepository = projectRepository;
+        this.projectMapper = projectMapper;
     }
 
     public Project getProjectById(Long id) {
@@ -23,7 +26,7 @@ public class ProjectService {
     }
 
     public ProjectDTO findByCodice(String codice) {
-        return ProjectMapper.toDTO( projectRepository.findByCodice(codice) );
+        return projectMapper.toDTO( projectRepository.findByCodice(codice) );
     }
 
     public List<Project> findByDurata(Integer durata) {

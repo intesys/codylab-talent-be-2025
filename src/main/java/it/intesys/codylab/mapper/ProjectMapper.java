@@ -2,35 +2,15 @@ package it.intesys.codylab.mapper;
 
 import it.intesys.codylab.model.Project;
 import it.intesys.codylab.dto.ProjectDTO;
-import it.intesys.codylab.utility.DateUtils;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-public class ProjectMapper {
+@Mapper(componentModel = "spring")
+public interface ProjectMapper {
 
-    public static ProjectDTO toDTO(Project project) {
-        if (project == null) {
-            return null;
-        }
-        return new ProjectDTO(
-                project.getId(),
-                project.getCodice(),
-                project.getNome(),
-                project.getDescrizione(),
-                DateUtils.formatDateToItalian(project.getDataInizio()),
-                project.getDurata()
-        );
-    }
+    @Mapping(source = "dataInizio", target = "dataInizio", dateFormat = "dd/MM/yyyy")
+    ProjectDTO toDTO(Project project);
 
-    public static Project toEntity(ProjectDTO projectDTO) {
-        if (projectDTO == null) {
-            return null;
-        }
-        return new Project(
-                projectDTO.getId(),
-                projectDTO.getCodice(),
-                projectDTO.getNome(),
-                projectDTO.getDescrizione(),
-                DateUtils.parseItalianDate(projectDTO.getDataInizio()),
-                projectDTO.getDurata()
-        );
-    }
+    @Mapping(source = "dataInizio", target = "dataInizio", dateFormat = "dd/MM/yyyy")
+    Project toEntity(ProjectDTO projectDTO);
 }
