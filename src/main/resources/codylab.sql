@@ -6,6 +6,15 @@ create table formageometrica(
                       lato2 double
 );
 
+create table users(
+                      id  serial primary key,
+                      firstName varchar(50) not null,
+                      lastName varchar(50) not null,
+                      email varchar(50) not null,
+                      profile varchar(50) not null,
+--                       workingHours varchar(50) not null
+);
+
 -- Inseriamo alcune forme geometriche
 insert into formageometrica (tipo, lato1, lato2) values ('quadrato', 4, null);
 insert into formageometrica (tipo, lato1, lato2) values ('rettangolo', 4, 6);
@@ -25,4 +34,4 @@ select id, tipo, lato1, lato2 from formageometrica where id = 4 or 1 = 1;
 
 
 -- Drop tabella
-drop table formageometrica
+drop table formageometrica;

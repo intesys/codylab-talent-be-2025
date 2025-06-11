@@ -41,10 +41,10 @@ public class UsersRestController {
         userService.updateUserProfile(userId, userProfile);
     }
 
-    @PatchMapping("/{userId}/workingHours")
-    public void updateUserWorkingHours(@PathVariable Long userId, @RequestBody WorkingHours userWorkingHours) {
-        userService.updateUserWorkingHours(userId, userWorkingHours);
-    }
+//    @PatchMapping("/{userId}/workingHours")
+//    public void updateUserWorkingHours(@PathVariable Long userId, @RequestBody WorkingHours userWorkingHours) {
+//        userService.updateUserWorkingHours(userId, userWorkingHours);
+//    }
 
     @DeleteMapping("/{userId}")
     public void deleteUser(@PathVariable Long userId) {

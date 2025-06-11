@@ -23,22 +23,18 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User saveUser(User user) {
-        return userRepository.save(user);
+    public void saveUser(User user) {
+        userRepository.save(user);
     }
 
 
     public void updateUserProfile(Long userId, UserProfile userProfile) {
-        User user = userRepository.findById(userId);
-        user.setProfile(userProfile);
-        userRepository.save(user);
+        userRepository.updateUserProfile(userId, userProfile);
     }
 
-    public void updateUserWorkingHours(Long userId, WorkingHours workingHours) {
-        User user = userRepository.findById(userId);
-        user.setWorkingHours(workingHours);
-        userRepository.save(user);
-    }
+//    public void updateUserWorkingHours(Long userId, WorkingHours workingHours) {
+//        userRepository.updateUserWorkingHours(userId, workingHours);
+//    }
 
     public void deleteUserById(long id) {
         userRepository.deleteById(id);

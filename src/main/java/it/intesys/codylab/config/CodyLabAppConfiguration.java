@@ -2,10 +2,7 @@ package it.intesys.codylab.config;
 
 import it.intesys.codylab.business.FormeGeometricheService;
 import it.intesys.codylab.business.UserService;
-import it.intesys.codylab.repository.DataSourceFactory;
-import it.intesys.codylab.repository.FormaGeometricaRepository;
-import it.intesys.codylab.repository.MemoryUserRepository;
-import it.intesys.codylab.repository.SqlFormaGeometricaRepository;
+import it.intesys.codylab.repository.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,7 +22,12 @@ public class CodyLabAppConfiguration {
     };
 
     @Bean
-    public UserService userService() {
-        return new UserService(new MemoryUserRepository());
+    public UserRepository createUserRepository(CodyLabDatasourceProperties properties) {
+        return new SqlUserRepository(DataSourceFactory.makeDataSource(properties));
+    }
+
+    @Bean
+    public UserService userService(UserRepository userRepository) {
+        return new UserService(userRepository);
     }
 }
