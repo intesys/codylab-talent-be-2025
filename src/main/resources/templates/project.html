@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Project Details</title>
+</head>
+<body>
+    <h1 th:text="${project.nome}"></h1>
+    <p><strong>Code:</strong> <span th:text="${project.codice}"></span></p>
+    <p><strong>Description:</strong> <span th:text="${project.descrizione}"></span></p>
+    <p><strong>Start Date:</strong> <span th:text="${project.dataInizio}"></span></p>
+    <p><strong>Duration:</strong> <span th:text="${project.durata}"></span></p>
+
+    <a href th:href="@{/mvc/projects}">Back to Projects</a>
+</body>
+</html>

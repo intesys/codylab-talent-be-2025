@@ -10,6 +10,8 @@ public interface ProjectRepository extends CrudRepository<Project, Long> {
 
     Project findByCodice(String codice);
 
+    List<Project> findAll();
+
     @Query("SELECT * FROM projects WHERE durata = :durata")
     List<Project> findByDurata(Integer durata);
     // Define any additional methods specific to Project if needed

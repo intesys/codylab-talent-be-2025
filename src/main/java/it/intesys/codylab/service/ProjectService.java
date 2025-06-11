@@ -28,6 +28,12 @@ public class ProjectService {
     public ProjectDTO findByCodice(String codice) {
         return projectMapper.toDTO( projectRepository.findByCodice(codice) );
     }
+    public List<ProjectDTO> findAll() {
+        return projectRepository.findAll()
+                .stream()
+                .map(projectMapper::toDTO)
+                .toList();
+    }
 
     public List<Project> findByDurata(Integer durata) {
         return projectRepository.findByDurata(durata);

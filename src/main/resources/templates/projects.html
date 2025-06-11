@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Projects</title>
+</head>
+<body>
+    <h1>Project List</h1>
+    <ul>
+        <li th:each="project : ${projects}">
+            <a th:href="@{/mvc/project/codice/{codice}(codice=${project.codice})}" th:text="${project.nome}"></a>
+        </li>
+    </ul>
+</body>
+</html>
