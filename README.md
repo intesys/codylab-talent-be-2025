@@ -243,9 +243,17 @@ Esercizi da completare
 
 ## Parte 6 - Accesso ai dati e Spring MVC
 ### Argomenti
-* Definizione base dati per la gestione Gantt di progetto. 
-
+* Definizione base dati per la gestione Gantt di progetto: [Schema base dati](https://intesys365-my.sharepoint.com/:u:/g/personal/enrico_oliosi_intesys_it/EZ6NT8BYG7ZClg_GDW_QjPoB5gvbEAibsrj1sKQm4OKgdA?e=wpj8Oi)
 * Spring JDBC Template
+* READ, DTO e Mapper
+
+* Possibile esercizio
+  * Merge nel branch main
+  * Gestione CR Slot
+  
+## Parte 6bis - Accesso ai dati e Spring MVC
+### Argomenti
+* Definizione base dati per la gestione Gantt di progetto: [Schema base dati](https://intesys365-my.sharepoint.com/:u:/g/personal/enrico_oliosi_intesys_it/EZ6NT8BYG7ZClg_GDW_QjPoB5gvbEAibsrj1sKQm4OKgdA?e=wpj8Oi)
 * Hibernate e Spring JPA
 * CRUD, DTO e Mapper
 * Pagina web con Spring MVC
