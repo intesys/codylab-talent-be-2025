@@ -72,4 +72,5 @@ public class User {
                 ", profile=" + profile +
                 ", workingHours=" + workingHours +
                 '}';
-    }}
+    }
+}

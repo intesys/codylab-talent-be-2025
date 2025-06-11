@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class CodyLabAppConfiguration {
 
     @Bean
-    //@Qualifier("sqlRepository")
+    @Qualifier("sqlRepository")
     public FormaGeometricaRepository createFormaGeometricaRepository(CodyLabDatasourceProperties properties) {
         System.out.println("Creating SqlFormaGeometricaRepository " + properties);
         return new SqlFormaGeometricaRepository(DataSourceFactory.makeDataSource(properties));
