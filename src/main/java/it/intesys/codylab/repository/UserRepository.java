@@ -13,5 +13,6 @@ public interface UserRepository {
     void save(User user);
     void deleteById(Long id);
     void updateUserProfile(Long userId, UserProfile userProfile);
+    void updateUser(Long id, User user);
 //    void updateUserWorkingHours(Long userId, WorkingHours workingHours);
 }

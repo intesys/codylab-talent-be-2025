@@ -32,6 +32,10 @@ public class UserService {
         userRepository.updateUserProfile(userId, userProfile);
     }
 
+    public void updateUser(Long id, User user) {
+        userRepository.updateUser(id, user);
+    }
+
 //    public void updateUserWorkingHours(Long userId, WorkingHours workingHours) {
 //        userRepository.updateUserWorkingHours(userId, workingHours);
 //    }

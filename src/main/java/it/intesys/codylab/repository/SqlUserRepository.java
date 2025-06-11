@@ -72,6 +72,16 @@ public class SqlUserRepository implements UserRepository {
         }
     }
 
+    @Override
+    public void updateUser(Long id, User user){
+        try{
+            executeUpdateUser(id, user);
+        } catch (SQLException e){
+            log.error(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
     private User executeFindById(Long id) throws SQLException {
         try (Connection connection = dataSource.getConnection()){
             try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE id = ?")){
@@ -160,6 +170,27 @@ public class SqlUserRepository implements UserRepository {
                 int rows = statement.executeUpdate();
                 if (rows > 0){
                     log.info("Profilo aggiornato");
+                }else{
+                    log.warn("Errore");
+                    throw new IllegalArgumentException("Errore");
+                }
+            }
+        }
+    }
+
+    private void executeUpdateUser(Long id, User user) throws SQLException {
+        try(Connection connection = dataSource.getConnection()){
+            try (PreparedStatement statement = connection.prepareStatement("update users set firstName = ?, lastName = ?, email = ?, profile = ? where id = ?")){
+                statement.setString(1, user.getFirstName());
+                statement.setString(2, user.getLastName());
+                statement.setString(3, user.getEmail());
+                statement.setString(4, user.getProfile().toString());
+                statement.setLong(5, id);
+
+//                statement.setString(6, user.getWorkingHours().toString());
+                int rows = statement.executeUpdate();
+                if (rows > 0){
+                    log.info("Utente aggiornato");
                 }else{
                     log.warn("Errore");
                     throw new IllegalArgumentException("Errore");
