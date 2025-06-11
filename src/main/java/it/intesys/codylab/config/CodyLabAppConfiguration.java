@@ -27,7 +27,7 @@ public class CodyLabAppConfiguration {
 
     //@Bean
     public FormeGeometricheService getFormeGeometriceService(@Qualifier("sqlRepository")
-                                                                 FormaGeometricaRepository formaGeometricaRepository) {
+                                                             FormaGeometricaRepository formaGeometricaRepository) {
         System.out.println("getFormeGeometriceService con repo: " + formaGeometricaRepository);
         return new FormeGeometricheService(formaGeometricaRepository);
     }
