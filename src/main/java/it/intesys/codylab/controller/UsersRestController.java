@@ -3,6 +3,7 @@ package it.intesys.codylab.controller;
 import it.intesys.codylab.business.UserService;
 import it.intesys.codylab.dto.User;
 import it.intesys.codylab.dto.UserProfile;
+import it.intesys.codylab.dto.WorkingHours;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,5 +36,10 @@ public class UsersRestController {
     @PatchMapping("/{userId}/profile")
     public void updateUserProfile(@PathVariable Long userId, @RequestBody UserProfile userProfile) {
         userService.updateUserProfile(userId, userProfile);
+    }
+
+    @PatchMapping("/{userId}/workingHours")
+    public void updateWorkingHours(@PathVariable Long userId, @RequestBody WorkingHours workingHours) {
+        userService.updateWorkingHours(userId, workingHours);
     }
 }

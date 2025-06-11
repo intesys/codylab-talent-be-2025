@@ -1,11 +1,13 @@
 package it.intesys.codylab.repository;
 
 import it.intesys.codylab.dto.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Repository
 public class MemoryUserRepository implements UserRepository {
 
     private Map<Long, User> users = new HashMap<>();

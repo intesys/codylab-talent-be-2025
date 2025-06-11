@@ -2,10 +2,13 @@ package it.intesys.codylab.business;
 
 import it.intesys.codylab.dto.User;
 import it.intesys.codylab.dto.UserProfile;
+import it.intesys.codylab.dto.WorkingHours;
 import it.intesys.codylab.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserService {
 
     private final UserRepository userRepository;
@@ -29,6 +32,12 @@ public class UserService {
     public void updateUserProfile(Long userId, UserProfile userProfile) {
         User user = userRepository.findById(userId);
         user.setProfile(userProfile);
+        userRepository.save(user);
+    }
+
+    public void updateWorkingHours(Long userId, WorkingHours workingHours) {
+        User user = userRepository.findById(userId);
+        user.setWorkingHours(workingHours);
         userRepository.save(user);
     }
 }
