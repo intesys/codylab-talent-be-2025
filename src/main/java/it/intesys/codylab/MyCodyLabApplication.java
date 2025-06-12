@@ -120,6 +120,10 @@ public class MyCodyLabApplication {
                     formeGeometricheService = new FormeGeometricheService(
                             new SqlFormaGeometricaRepository(DataSourceFactory.makeDataSource(db))
                     );
+                    log.info("Database cambiato correttamente.");
+                    log.info(menu);
+                    scelta = s.nextInt();
+                    break;
                 case 9:
                     s.nextLine();
                     log.info("Inserisci nome dell'utente");
