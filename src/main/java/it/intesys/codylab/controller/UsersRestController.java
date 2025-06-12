@@ -42,4 +42,9 @@ public class UsersRestController {
     public void updateWorkingHours(@PathVariable Long userId, @RequestBody WorkingHours workingHours) {
         userService.updateWorkingHours(userId, workingHours);
     }
+
+    @PutMapping("/{userId}")
+    public User updateAllUser(@PathVariable Long userId, @RequestBody User updatedUser) {
+        return userService.updateAllUser(userId, updatedUser);
+    }
 }

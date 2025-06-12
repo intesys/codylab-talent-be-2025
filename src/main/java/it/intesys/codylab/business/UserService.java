@@ -40,4 +40,22 @@ public class UserService {
         user.setWorkingHours(workingHours);
         userRepository.save(user);
     }
+
+    public User updateAllUser(Long userId, User updatedUser) {
+        User existingUser = userRepository.findById(userId);
+
+        if (existingUser != null) {
+            existingUser
+                    .setFirstName(updatedUser.getFirstName())
+                    .setLastName(updatedUser.getLastName())
+                    .setEmail(updatedUser.getEmail())
+                    .setProfile(updatedUser.getProfile())
+                    .setWorkingHours(updatedUser.getWorkingHours());
+
+            return userRepository.save(existingUser);
+        }
+
+        throw new RuntimeException("Utente non trovato con id " + userId);
+    }
+
 }
