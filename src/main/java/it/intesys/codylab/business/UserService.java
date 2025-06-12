@@ -6,6 +6,7 @@ import it.intesys.codylab.dto.WorkingHours;
 import it.intesys.codylab.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.util.List;
 
 @Service
@@ -64,5 +65,13 @@ public class UserService {
         } else {
             throw new RuntimeException("User not found with id " + userId);
         }
+    }
+
+    public List<User> findUsersByFilter(UserProfile profile, Duration minHours) {
+        return userRepository.findAll().stream()
+                .filter(u -> profile == null || u.getProfile() == profile)
+                .filter(u -> minHours == null ||
+                        (u.getWorkingHours() != null && u.getWorkingHours().getDuration().compareTo(minHours) >= 0))
+                .toList();
     }
 }

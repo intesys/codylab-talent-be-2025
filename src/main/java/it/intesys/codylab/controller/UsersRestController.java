@@ -3,9 +3,11 @@ package it.intesys.codylab.controller;
 import it.intesys.codylab.business.UserService;
 import it.intesys.codylab.dto.UpdateUserProfileRequest;
 import it.intesys.codylab.dto.User;
+import it.intesys.codylab.dto.UserProfile;
 import it.intesys.codylab.dto.WorkingHours;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
 import java.util.List;
 
 @RestController
@@ -24,9 +26,14 @@ public class UsersRestController {
     }
 
     @GetMapping
-    public List<User> getUsers() {
-        return userService.getUsers();
+    public List<User> getUsers(
+            @RequestParam(required = false) UserProfile profile,
+            @RequestParam(required = false) String minHours
+    ) {
+        Duration minDuration = minHours != null ? Duration.parse(minHours) : null;
+        return userService.findUsersByFilter(profile, minDuration);
     }
+
 
     @PostMapping
     public void addUser(@RequestBody User user) {
