@@ -129,13 +129,12 @@ public class SqlUserRepository implements UserRepository {
 
     private void executeSave(User user) throws SQLException {
         try(Connection connection = dataSource.getConnection()){
-            try (PreparedStatement statement = connection.prepareStatement("insert into users (id, firstName, lastName, email, profile) values (?,?,?,?,?)")){
-                statement.setLong(1, user.getId());
-                statement.setString(2, user.getFirstName());
-                statement.setString(3, user.getLastName());
-                statement.setString(4, user.getEmail());
-                statement.setString(5, user.getProfile().toString());
-//                statement.setString(6, user.getWorkingHours().toString());
+            try (PreparedStatement statement = connection.prepareStatement("insert into users (firstName, lastName, email, profile) values (?,?,?,?)")){
+                statement.setString(1, user.getFirstName());
+                statement.setString(2, user.getLastName());
+                statement.setString(3, user.getEmail());
+                statement.setString(4, user.getProfile().toString());
+//                statement.setString(5, user.getWorkingHours().toString());
                 int rows = statement.executeUpdate();
                 if (rows > 0){
                     log.info("Utente aggiunto");
