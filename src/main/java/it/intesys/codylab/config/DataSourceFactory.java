@@ -1,14 +1,17 @@
-package it.intesys.codylab.repository;
+package it.intesys.codylab.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import it.intesys.codylab.config.CodyLabDatasourceProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
+@Configuration
 public class DataSourceFactory {
 
-    public static DataSource makeDataSource(CodyLabDatasourceProperties properties) {
+    @Bean
+    public DataSource makeDataSource(CodyLabDatasourceProperties properties) {
         HikariConfig hikariConfig = new HikariConfig();
         hikariConfig.setJdbcUrl(properties.getUrl());
         hikariConfig.setUsername(properties.getUsername());

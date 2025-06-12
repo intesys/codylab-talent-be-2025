@@ -1,15 +1,33 @@
 package it.intesys.codylab.repository;
 
-import it.intesys.codylab.dto.User;
+import it.intesys.codylab.model.User;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
+@Repository
+public class UserRepository {
 
-public interface UserRepository {
+    private JdbcTemplate jdbcTemplate;
 
-    User findById(Long id);
-    List<User> findAll();
-    User save(User user);
-    void delete(User user);
-    void deleteById(Long id);
+    public UserRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public User findById(Long userId) {
+
+        String sql = "SELECT * FROM users WHERE id = ?";
+
+        return jdbcTemplate.queryForObject(sql, new Object[]{userId}, (rs, rowNum) ->
+            new User(
+                rs.getLong("id"),
+                rs.getString("nome"),
+                rs.getString("cognome"),
+                rs.getString("mail"),
+                rs.getString("profilo"),
+                rs.getDouble("orario_giornaliero")
+            )
+        );
+
+    }
 
 }
