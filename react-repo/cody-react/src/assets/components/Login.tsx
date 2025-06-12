@@ -6,14 +6,41 @@ function Login() {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    const handleLogin = () => {
+    const handleLogin = async (e: { preventDefault: () => void; }) => {
+        e.preventDefault();
         if (username.trim() !== "" && password.trim() !== "") {
-            navigate("/home");      //Effettuare controllo con HTTP request 200 (OK) 401 (Unauthorized)
+            try {
+                const response = await fetch("http://localhost:8080/api/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        id: username,
+                        password: password,
+                    }),
+                    credentials: "include" // Mi serve per l'HTTP-Only cookie, se no me lo dimentico
+                });
+
+                if (response.ok) {
+                    console.log("Login riuscito");
+                    navigate("/home");
+                } else if (response.status === 401) {
+                    alert("Credenziali non valide");
+                } else {
+                    alert("Errore durante il login");
+                }
+            } catch (error) {
+                console.error("Errore di rete:", error);
+                alert("Errore di rete");
+            }
+        } else {
+            alert("Inserisci nome utente e password");
         }
     };
 
     return (
-        <div className = "loginForm">
+        <div className="loginForm">
             <h2>Login</h2>
             <form onSubmit={handleLogin}>
                 <input

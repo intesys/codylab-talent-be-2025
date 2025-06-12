@@ -1,3 +1,5 @@
+package it.intesys.codylab.business;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class PasswordHashDemo {

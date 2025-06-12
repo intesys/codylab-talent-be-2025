@@ -6,7 +6,9 @@ import it.intesys.codylab.model.Quadrato;
 import it.intesys.codylab.model.Rettangolo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -14,11 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+@Repository
 public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
 
-    private final DataSource dataSource;
+    private static DataSource dataSource;
     private static final Logger log = LoggerFactory.getLogger(SqlFormaGeometricaRepository.class);
 
+    @Autowired
     public SqlFormaGeometricaRepository(DataSource dataSource) {
         this.dataSource = dataSource;
     }
@@ -54,6 +58,7 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
         }
 
     }
+
 
     @Override
     public List<FormaGeometrica> findByString(String nome) {
@@ -317,6 +322,32 @@ public class SqlFormaGeometricaRepository implements FormaGeometricaRepository {
 
         }
         }
+
+    public boolean executePassCheckFE(String id, String password) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "SELECT pw FROM utenti WHERE id = ?";
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setString(1, id);
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    if (resultSet.next()) {
+                        String hashedPassword = resultSet.getString("pw");
+                        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+                        if (encoder.matches(password, hashedPassword)) {
+                            System.out.println("Accesso consentito");
+                            return true;
+                        } else {
+                            System.out.println("Password errata");
+                            return false;
+                        }
+                    } else {
+                        System.out.println("Utente non trovato.");
+                        return false;
+                    }
+                }
+            }
+        }
+    }
 
 
 
