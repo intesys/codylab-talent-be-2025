@@ -1,5 +1,5 @@
 -- Questo file contiene le istruzioni SQL per creare e gestire una tabella di forme geometriche.
-create table formageometrica
+create table gestione_progetti
 (
     id    int8 primary key,
     tipo  varchar(50) not null,
