@@ -272,13 +272,26 @@ e specifica openapi http://localhost:8090/v3/api-docs
 con l'utente creato (invece di 200 OK e body vuoto). Se possibile popolare anche l'header `Location` 
 con l'url dell'utente creato (provare usando ResponseEntity come response del metodo nel Controller)
 
-## Parte 6 - Spring MVC e Accesso ai dati
+## Parte 6 - Accesso ai dati
 ### Argomenti
-* Pagina web con Spring MVC
-* Spring JDBC Template
-* Hibernate e Spring JPA
-* CRUD, DTO e Mapper
+* Spring JDBC (JDBC Template)
+* Spring Data JDBC
 * Pagina web con dati dinamici
+
+Esercizi da completare:
+* Nel codice cercare la string "TODO Esercizio *" e implementare le funzionalità richieste
+* Prendere in carico la "CR - Aggiungere gli slot per task" secondo le specifiche date a lezione:
+  * definire la tabella e metterla correttamente in relazione
+  * definire la classe model
+  * definire il repository con metodi findById e save
+  * definire il service con i metodi findById e save
+  * definire un REST controller con un metodo per la lettura ed uno per la scrittura 
+
+## Parte 6bis - Spring MVC e DTO
+### Argomenti
+* DTO e MapStruct
+* Spring MVC
+* Hibernate e Spring JPA
 
 ## Parte 7 - API First
 ### Argomenti
