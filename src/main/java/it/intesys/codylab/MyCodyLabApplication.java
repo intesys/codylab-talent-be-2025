@@ -37,3 +37,5 @@ public class MyCodyLabApplication {
     }
 
 }
+
+//Installato postman e creato una richiesta per ciascun metodo rest implementato
