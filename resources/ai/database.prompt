@@ -1,0 +1,38 @@
+I am using a PostgreSQL database (from docker 15-alpine image) and I need to create these tables. Use snake case to write definitions and use the following conventions:
+
+I want a table User with the following fields:
+
+- id as primary key
+- nome as string and not nullable
+- cognome as string and not nullable
+- mail as a unique string and not nullable
+- profilo as a string and not nullable
+- orario_giornaliero as a decimal number and not nullable
+
+For table User there aren't any foreign keys and nullable fields.
+
+Then, I need a table Project with these fields:
+
+- id as primary key
+- codice as a unique string and not nullable
+- nome as string  and not nullable
+- descrizione as string and nullable
+- data_inizio as date  and not nullable
+- durata as integer  and not nullable
+
+Finally, I need a table Task with these fields:
+
+- id as primary key
+- progetto_id as foreign key referencing Project(id)
+- codice as a unique string and not nullable
+- nome as a string and not nullable
+- descrizione as a string
+- data_inizio as date and not nullable
+- durata as integer and not nullable
+
+As you can see, the Task table has a foreign key referencing the Project table, while the User table does not have any foreign keys.
+But we have to introduce a relation between User and Task and we need a specific table since one user can have different tasks and one task can be assigned to different users. So we need a UserTask table with these fields:
+
+- id as primary key
+- user_id as foreign key referencing User(id)
+- task_id as foreign key referencing Task(id)
