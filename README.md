@@ -245,7 +245,6 @@ Esercizi da completare
 * Generazione swagger -> specifica OpenAPI
 
 **Esercizi**
-
 Scaricare il branch `5-intro-microsrv` e verificare quanto fatto.
 
 Lavorare sul branch che preferite (crearne anche in autonomia)
@@ -253,9 +252,9 @@ Lavorare sul branch che preferite (crearne anche in autonomia)
 Esericizi da completare:
 * creare 2 profili: uno per h2 e uno per postgres
 * Inserire la validazione nelle properties per la connessione al database (url, username, driver, NotNull)
-* Creare il dto User con i campi id, nome, cognome, email, profilo, orario giornaliero (Come da specifiche [Specifiche Loop](https://loop.cloud.microsoft/p/eyJ3Ijp7InUiOiJodHRwczovL2ludGVzeXMzNjUuc2hhcmVwb2ludC5jb20vP25hdj1jejBsTWtZbVpEMWlJVEUzZWtoVVJTMXhTMVV5V1d4MVNtUkRRVEpEZWxocWMxTk1SVzVNYVU1RmJuQnlSRWhaY1c5bVlUWm1UbDlKT1dwVmRHaFVTMDlhVVVreVVtSnNSRE1tWmowd01UZEZWMVZCV0VwSVNFUlBOa0ZETjFkSFRrRmFSVXhSVkVoYVREVlJWMFpWSm1NOUptWnNkV2xrUFRFJTNEIiwiciI6ZmFsc2V9LCJwIjp7InUiOiJodHRwczovL2ludGVzeXMzNjUuc2hhcmVwb2ludC5jb20vOmZsOi9yL2NvbnRlbnRzdG9yYWdlL0NTUF80Y2M3YmNkNy1hYTRmLTRkMjktOTg5Ni1lMjVkMDgwZDgyY2QvUmFjY29sdGElMjBkb2N1bWVudGkvTG9vcEFwcERhdGEvU2VuemElMjB0aXRvbG8ubG9vcD9kPXc2YTBiY2EyZTZlMWM0MjhlODI3ODFlZjE5MGFjMjdiNSZjc2Y9MSZ3ZWI9MSZuYXY9Y3owbE1rWmpiMjUwWlc1MGMzUnZjbUZuWlNVeVJrTlRVRjgwWTJNM1ltTmtOeTFoWVRSbUxUUmtNamt0T1RnNU5pMWxNalZrTURnd1pEZ3lZMlFtWkQxaUlURTNla2hVUlMxeFMxVXlXV3gxU21SRFFUSkRlbGhxYzFOTVJXNU1hVTVGYm5CeVJFaFpjVzltWVRabVRsOUpPV3BWZEdoVVMwOWFVVWt5VW1Kc1JETW1aajB3TVRkRlYxVkJXRXBQV2tsR1YxVklSRTlTV2tKSlJUWkJOalpIU1V0WlNqVldKbU05SlRKR0ptWnNkV2xrUFRFbVlUMU1iMjl3UVhCd0puQTlKVFF3Wm14MWFXUjRKVEpHYkc5dmNDMXdZV2RsTFdOdmJuUmhhVzVsY2laNFBTVTNRaVV5TW5jbE1qSWxNMEVsTWpKVU1GSlVWVWg0Y0dKdVVteGpNMng2VFhwWk1VeHVUbTlaV0Vwc1kwYzVjR0p1VVhWWk1qbDBaa2RKYUUxVVpEWlRSbEpHVEZoR1RGWlVTbHBpU0ZaTFdrVk9RazFyVGpaWFIzQjZWVEI0Um1KcmVIQlVhMVoxWTBoS1JWTkdiSGhpTWxwb1RtMWFUMWd3YXpWaGJGWXdZVVpTVEZReGNGSlRWRXBUV1cxNFJVMHpkM2ROVkdSR1ZqRldRbGRGY0VsVFJWSlFUbXRHUkU0eFpFaFVhMFpoVWxWNFVsWkZhR0ZVUkZaU1ZqQmFWaVV5TWlVeVF5VXlNbWtsTWpJbE0wRWxNakkxT0RWa1pEbGlOaTFsTjJVd0xUUTVZVEl0T0RNd015MWtNVGt5T1RGaU1qWmxZallsTWpJbE4wUSUzRCIsInIiOmZhbHNlfSwiaSI6eyJpIjoiNTg1ZGQ5YjYtZTdlMC00OWEyLTgzMDMtZDE5MjkxYjI2ZWI2In19))
-* Creare repository e service per gestire le CRUD (create, read, update, delete) di User: a piacimento se su db sql o
-  db in memoria
+* Creare il dto User con i campi id, nome, cognome, email, profilo, orario giornaliero (https://loop.cloud.microsoft/p/eyJ3Ijp7InUiOiJodHRwczovL2ludGVzeXMzNjUuc2hhcmVwb2ludC5jb20vP25hdj1jejBsTWtZbVpEMWlJVEUzZWtoVVJTMXhTMVV5V1d4MVNtUkRRVEpEZWxocWMxTk1SVzVNYVU1RmJuQnlSRWhaY1c5bVlUWm1UbDlKT1dwVmRHaFVTMDlhVVVreVVtSnNSRE1tWmowd01UZEZWMVZCV0VwSVNFUlBOa0ZETjFkSFRrRmFSVXhSVkVoYVREVlJWMFpWSm1NOUptWnNkV2xrUFRFJTNEIiwiciI6ZmFsc2V9LCJwIjp7InUiOiJodHRwczovL2ludGVzeXMzNjUuc2hhcmVwb2ludC5jb20vOmZsOi9yL2NvbnRlbnRzdG9yYWdlL0NTUF80Y2M3YmNkNy1hYTRmLTRkMjktOTg5Ni1lMjVkMDgwZDgyY2QvUmFjY29sdGElMjBkb2N1bWVudGkvTG9vcEFwcERhdGEvU2VuemElMjB0aXRvbG8ubG9vcD9kPXc2YTBiY2EyZTZlMWM0MjhlODI3ODFlZjE5MGFjMjdiNSZjc2Y9MSZ3ZWI9MSZuYXY9Y3owbE1rWmpiMjUwWlc1MGMzUnZjbUZuWlNVeVJrTlRVRjgwWTJNM1ltTmtOeTFoWVRSbUxUUmtNamt0T1RnNU5pMWxNalZrTURnd1pEZ3lZMlFtWkQxaUlURTNla2hVUlMxeFMxVXlXV3gxU21SRFFUSkRlbGhxYzFOTVJXNU1hVTVGYm5CeVJFaFpjVzltWVRabVRsOUpPV3BWZEdoVVMwOWFVVWt5VW1Kc1JETW1aajB3TVRkRlYxVkJXRXBQV2tsR1YxVklSRTlTV2tKSlJUWkJOalpIU1V0WlNqVldKbU05SlRKR0ptWnNkV2xrUFRFbVlUMU1iMjl3UVhCd0puQTlKVFF3Wm14MWFXUjRKVEpHYkc5dmNDMXdZV2RsTFdOdmJuUmhhVzVsY2laNFBTVTNRaVV5TW5jbE1qSWxNMEVsTWpKVU1GSlVWVWg0Y0dKdVVteGpNMng2VFhwWk1VeHVUbTlaV0Vwc1kwYzVjR0p1VVhWWk1qbDBaa2RKYUUxVVpEWlRSbEpHVEZoR1RGWlVTbHBpU0ZaTFdrVk9RazFyVGpaWFIzQjZWVEI0Um1KcmVIQlVhMVoxWTBoS1JWTkdiSGhpTWxwb1RtMWFUMWd3YXpWaGJGWXdZVVpTVEZReGNGSlRWRXBUV1cxNFJVMHpkM2ROVkdSR1ZqRldRbGRGY0VsVFJWSlFUbXRHUkU0eFpFaFVhMFpoVWxWNFVsWkZhR0ZVUkZaU1ZqQmFWaVV5TWlVeVF5VXlNbWtsTWpJbE0wRWxNakkxT0RWa1pEbGlOaTFsTjJVd0xUUTVZVEl0T0RNd015MWtNVGt5T1RGaU1qWmxZallsTWpJbE4wUSUzRCIsInIiOmZhbHNlfSwiaSI6eyJpIjoiNTg1ZGQ5YjYtZTdlMC00OWEyLTgzMDMtZDE5MjkxYjI2ZWI2In19)
+* Creare repository e service per gestire le CRUD (create, read, update, delete) di User: a piacimento se su db sql o 
+db in memoria
 * Creare un controller REST per gestire la risorsa `User`
   * GET /users -> restutuisce una lista di utenti
   * GET /users/{id} -> restituisce un utente per id. {id} è un Path Variable
@@ -266,12 +265,12 @@ Esericizi da completare:
   * PATCH /users/{id}/profile -> aggiorna profilo utente
   * Provare GET /users passando dei parametri di ricerca (es.: profilo), query parameters
 * Installare postman e creare una richiesta per ciascun metodo rest implementato
-* Agganciare la dipendenza openapi e generare swagger (http://localhost:8090/swagger-ui.html)
-  e specifica openapi http://localhost:8090/v3/api-docs
+* Agganciare la dipendenza openapi e generare swagger (http://localhost:8090/swagger-ui.html) 
+e specifica openapi http://localhost:8090/v3/api-docs
 * La specifica POST openapi rispetta le regole RESTful?
 * Provare a trasformare la POST di User in modo da specificare lo status code 201 Created e il body della risposta
-  con l'utente creato (invece di 200 OK e body vuoto). Se possibile popolare anche l'header `Location`
-  con l'url dell'utente creato (provare usando ResponseEntity come response del metodo nel Controller)
+con l'utente creato (invece di 200 OK e body vuoto). Se possibile popolare anche l'header `Location` 
+con l'url dell'utente creato (provare usando ResponseEntity come response del metodo nel Controller)
 
 ## Parte 6 - Spring MVC e Accesso ai dati
 ### Argomenti
