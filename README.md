@@ -279,7 +279,7 @@ con l'url dell'utente creato (provare usando ResponseEntity come response del me
 * Pagina web con dati dinamici
 
 Esercizi da completare:
-* Nel codice cercare la string "TODO Esercizio *" e implementare le funzionalità richieste
+* Nel codice cercare la stringa "TODO Esercizio *" e implementare le funzionalità richieste
 * Prendere in carico la "CR - Aggiungere gli slot per task" secondo le specifiche date a lezione:
   * definire la tabella e metterla correttamente in relazione
   * definire la classe model
