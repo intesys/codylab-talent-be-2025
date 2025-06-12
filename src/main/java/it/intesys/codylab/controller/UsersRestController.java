@@ -47,4 +47,9 @@ public class UsersRestController {
     public User updateAllUser(@PathVariable Long userId, @RequestBody User updatedUser) {
         return userService.updateAllUser(userId, updatedUser);
     }
+
+    @DeleteMapping("/{userId}")
+    public void deleteUser(@PathVariable Long userId) {
+        userService.deleteUser(userId);
+    }
 }

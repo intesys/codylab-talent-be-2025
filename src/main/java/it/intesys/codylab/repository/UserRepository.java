@@ -1,5 +1,4 @@
 package it.intesys.codylab.repository;
-
 import it.intesys.codylab.dto.User;
 
 import java.util.List;
