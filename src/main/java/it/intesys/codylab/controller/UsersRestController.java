@@ -5,8 +5,13 @@ import it.intesys.codylab.dto.UpdateUserProfileRequest;
 import it.intesys.codylab.dto.User;
 import it.intesys.codylab.dto.UserProfile;
 import it.intesys.codylab.dto.WorkingHours;
+import it.intesys.codylab.repository.MemoryUserRepository;
+import it.intesys.codylab.repository.UserRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.time.Duration;
 import java.util.List;
 
@@ -36,8 +41,14 @@ public class UsersRestController {
 
 
     @PostMapping
-    public void addUser(@RequestBody User user) {
-        userService.saveUser(user);
+    public ResponseEntity<User> addUser(@RequestBody User user) {
+        User savedUser = userService.addUser(user); 
+
+        URI location = URI.create("/users/" + savedUser.getId());
+
+        return ResponseEntity
+                .created(location)
+                .body(savedUser);
     }
 
     @PatchMapping("/{userId}/profile")

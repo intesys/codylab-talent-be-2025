@@ -74,4 +74,8 @@ public class UserService {
                         (u.getWorkingHours() != null && u.getWorkingHours().getDuration().compareTo(minHours) >= 0))
                 .toList();
     }
+
+    public User addUser(User user) {
+        return userRepository.save(user);
+    }
 }
