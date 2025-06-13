@@ -2,10 +2,7 @@ package it.intesys.codylab.controller;
 
 import it.intesys.codylab.model.Project;
 import it.intesys.codylab.service.ProjectService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/projects")
@@ -25,5 +22,10 @@ public class ProjectRestController {
     @GetMapping("/{id}")
     public Project getProjectById(@PathVariable Long id){
         return projectService.findById(id);
+    }
+
+    @PostMapping
+    public void addProject(@RequestBody Project project){
+        projectService.save(project);
     }
 }
