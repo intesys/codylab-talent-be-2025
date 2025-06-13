@@ -2,7 +2,7 @@
 -- In database conventions, it is generally recommended to use lowercase for table names. This is because many database
 -- systems (like PostgreSQL) treat table names as case-insensitive unless explicitly quoted. Using a lowercase avoids potential
 -- issues with case sensitivity and ensures consistency.
--- Best Practice:
+-- Best Practices:
 -- Use lowercase for table names (e.g., user, project, task).
 -- Use snake_case for multi-word table names (e.g., user_task).
 
