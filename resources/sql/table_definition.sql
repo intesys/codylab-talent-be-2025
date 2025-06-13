@@ -38,3 +38,10 @@ CREATE TABLE users_tasks (
                              user_id INTEGER NOT NULL REFERENCES users(id),
                              task_id INTEGER NOT NULL REFERENCES tasks(id)
 );
+
+CREATE TABLE slots (
+                      id SERIAL PRIMARY KEY,
+                      task_id INTEGER NOT NULL REFERENCES tasks(id) ON DELETE CASCADE,
+                      start_time TIMESTAMP NOT NULL,
+                      end_time TIMESTAMP NOT NULL
+);

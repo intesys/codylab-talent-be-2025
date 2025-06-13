@@ -25,3 +25,7 @@ VALUES (1, 1);
 
 INSERT INTO users_tasks (user_id, task_id)
 VALUES (2, 2);
+
+INSERT INTO slots (task_id, start_time, end_time) VALUES
+                                                     (1, '2025-06-15 09:00:00', '2025-06-15 11:00:00'),
+                                                     (1, '2025-06-15 14:00:00', '2025-06-15 16:00:00');
