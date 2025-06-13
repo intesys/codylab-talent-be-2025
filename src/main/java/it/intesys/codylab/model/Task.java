@@ -1,8 +1,7 @@
 package it.intesys.codylab.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
@@ -12,24 +11,26 @@ public class Task {
 
     @Id
     private Long id;
-    private Integer progettoId;
     private String codice;
     private String nome;
     private String descrizione;
     private LocalDate dataInizio;
     private Integer durata;
 
+    @ManyToOne
+    @JoinColumn(name = "progetto_id", nullable = false)
+    @JsonBackReference
+    private Project project;
+
     public Task() {
     }
 
-    public Task(Long id, Integer progettoId, String codice, String nome, String descrizione, LocalDate dataInizio, Integer durata) {
-        this.id = id;
-        this.progettoId = progettoId;
-        this.codice = codice;
-        this.nome = nome;
-        this.descrizione = descrizione;
-        this.dataInizio = dataInizio;
-        this.durata = durata;
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     public Long getId() {
@@ -38,14 +39,6 @@ public class Task {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getProgettoId() {
-        return progettoId;
-    }
-
-    public void setProgettoId(Integer progettoId) {
-        this.progettoId = progettoId;
     }
 
     public String getCodice() {

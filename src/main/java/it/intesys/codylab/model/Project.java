@@ -1,10 +1,10 @@
 package it.intesys.codylab.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name="projects")
@@ -18,6 +18,10 @@ public class Project {
     private LocalDate dataInizio;
     private Integer durata;
 
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Task> tasks;
+
     public Project() {
         // Default constructor
     }
@@ -29,6 +33,14 @@ public class Project {
         this.descrizione = descrizione;
         this.dataInizio = dataInizio;
         this.durata = durata;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public Long getId() {

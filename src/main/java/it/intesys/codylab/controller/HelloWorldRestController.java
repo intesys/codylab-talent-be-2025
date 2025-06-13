@@ -34,6 +34,10 @@ public class HelloWorldRestController {
         return userService.getUsers();
     }
 
+    @GetMapping("/projects")
+    public List<Project> getProjects() {
+        return projectService.findAllNoDTO();
+    }
     @GetMapping("/project/{id}")
     public Project getProjectById(@PathVariable Long id) {
         return projectService.getProjectById(id);

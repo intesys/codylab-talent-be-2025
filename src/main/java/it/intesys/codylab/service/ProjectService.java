@@ -7,6 +7,8 @@ import it.intesys.codylab.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class ProjectService {
@@ -28,11 +30,15 @@ public class ProjectService {
     public ProjectDTO findByCodice(String codice) {
         return projectMapper.toDTO( projectRepository.findByCodice(codice) );
     }
-    public List<ProjectDTO> findAll() {
-        return projectRepository.findAll()
-                .stream()
-                .map(projectMapper::toDTO)
+
+    public List<Project> findAllNoDTO() {
+        return StreamSupport.stream(projectRepository.findAll().spliterator(), false)
                 .toList();
+    }
+    public List<ProjectDTO> findAll() {
+        return StreamSupport.stream(projectRepository.findAll().spliterator(), false)
+                .map(projectMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     public List<Project> findByDurata(Integer durata) {
