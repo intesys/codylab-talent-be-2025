@@ -23,14 +23,14 @@ public class ProjectController {
         return projectService.findById(id);
     }
 
-    @PostMapping
-    public void addProject(@RequestBody Project project) {
-        // TODO Esercizio 3: implementare il metodo per creare un nuovo progetto
-    }
-
-    @PostMapping
-    public void updateProject(@RequestBody Project project) {
-        // TODO Esercizio 4: implementare il metodo per aggiornare un progetto
-    }
+//    @PostMapping
+//    public void addProject(@RequestBody Project project) {
+//        // TODO Esercizio 3: implementare il metodo per creare un nuovo progetto
+//    }
+//
+//    @PostMapping
+//    public void updateProject(@RequestBody Project project) {
+//        // TODO Esercizio 4: implementare il metodo per aggiornare un progetto
+//    }
 
 }
