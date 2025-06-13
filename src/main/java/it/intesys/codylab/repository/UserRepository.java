@@ -45,5 +45,10 @@ public class UserRepository {
                 )
         );
     }
+
+    public void save(User user) {
+        String sql = "INSERT INTO users (nome, cognome, mail, profilo, orario_giornaliero) VALUES (?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, user.getNome(), user.getCognome(), user.getMail(), user.getProfilo(), user.getOrarioGiornaliero());
+    }
 }
 

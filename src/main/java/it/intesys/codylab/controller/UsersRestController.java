@@ -22,15 +22,16 @@ public class UsersRestController {
         return userService.findById(userId);
     }
 
-    @GetMapping
+    @GetMapping("/allUsers")
     public List<User> getUsers() {
         return userService.getAllUsers();
     }
 
-//    @PostMapping
-//    public void addUser(@RequestBody User user) {
+    @PostMapping("/addUser")
+    public void addUser(@RequestBody User user) {
+        userService.addUser(user);
 //        // TODO Esercizio 2: implementare il metodo per aggiungere un nuovo utente
-//    }
+    }
 //
 //    @PatchMapping("/{userId}/profile")
 //    public void updateUserProfile(@PathVariable Long userId, @RequestBody UserProfile userProfile) {
