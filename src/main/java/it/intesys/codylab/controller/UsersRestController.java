@@ -36,5 +36,5 @@ public class UsersRestController {
     //@PatchMapping("/{userId}/profile")
     //public void updateUserProfile(@PathVariable Long userId, @RequestBody UserProfile userProfile) {
     //    userService.updateUserProfile(userId, userProfile);
-    //}
+    //}s
 }
