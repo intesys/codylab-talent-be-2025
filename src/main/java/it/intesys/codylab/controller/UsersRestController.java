@@ -1,16 +1,11 @@
 package it.intesys.codylab.controller;
 
-import it.intesys.codylab.business.UserService;
-import it.intesys.codylab.dto.User;
-import it.intesys.codylab.dto.UserProfile;
-import it.intesys.codylab.dto.WorkingHours;
-import it.intesys.codylab.repository.UserRepository;
+import it.intesys.codylab.model.User;
+import it.intesys.codylab.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Duration;
 import java.util.List;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/users")
 public class UsersRestController {
@@ -23,37 +18,17 @@ public class UsersRestController {
 
     @GetMapping("/{userId}")
     public User getUser(@PathVariable Long userId) {
-        return userService.getUser(userId);
+        return userService.findById(userId);
     }
 
     @GetMapping
     public List<User> getUsers() {
-        return userService.getUsers();
+        // TODO Esercizio 1: implementare il metodo per restituire tutti gli utenti
+        return userService.findAll();
     }
 
     @PostMapping
     public void addUser(@RequestBody User user) {
-        userService.saveUser(user);
-    }
-
-    @PutMapping("/{userId}")
-    public void updateUser(@PathVariable Long userId, @RequestBody User user) {
-        userService.updateUser(userId, user);
-    }
-
-
-    @PatchMapping("/{userId}/profile")
-    public void updateUserProfile(@PathVariable Long userId, @RequestBody UserProfile userProfile) {
-        userService.updateUserProfile(userId, userProfile);
-    }
-
-//    @PatchMapping("/{userId}/workingHours")
-//    public void updateUserWorkingHours(@PathVariable Long userId, @RequestBody WorkingHours userWorkingHours) {
-//        userService.updateUserWorkingHours(userId, userWorkingHours);
-//    }
-
-    @DeleteMapping("/{userId}")
-    public void deleteUser(@PathVariable Long userId) {
-        userService.deleteUserById(userId);
+        // TODO Esercizio 2: implementare il metodo per aggiungere un nuovo utente
     }
 }
