@@ -1,9 +1,11 @@
 package it.intesys.codylab.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-@Table("users")
+@Entity
+@Table(name = "users")
 public class User {
 
     @Id
@@ -18,6 +20,10 @@ public class User {
     private String profilo;
 
     private Double orarioGiornaliero;
+
+    public User() {
+        // Default constructor
+    }
 
     public User(Long id, String nome, String cognome, String mail, String profilo, Double orarioGiornaliero) {
         this.id = id;

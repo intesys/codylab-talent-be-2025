@@ -1,11 +1,13 @@
 package it.intesys.codylab.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.time.LocalDate;
 
-@Table("tasks")
+@Entity
+@Table(name="tasks")
 public class Task {
 
     @Id
@@ -16,6 +18,9 @@ public class Task {
     private String descrizione;
     private LocalDate dataInizio;
     private Integer durata;
+
+    public Task() {
+    }
 
     public Task(Long id, Integer progettoId, String codice, String nome, String descrizione, LocalDate dataInizio, Integer durata) {
         this.id = id;

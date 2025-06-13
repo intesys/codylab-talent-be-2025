@@ -30,8 +30,10 @@ public class HelloWorldRestController {
 
     @GetMapping("/users")
     public List<User> getUsers() {
+
         return userService.getUsers();
     }
+
     @GetMapping("/project/{id}")
     public Project getProjectById(@PathVariable Long id) {
         return projectService.getProjectById(id);

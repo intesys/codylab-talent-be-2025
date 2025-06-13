@@ -5,6 +5,7 @@ import it.intesys.codylab.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.StreamSupport;
 
 @Service
 public class UserService {
@@ -16,9 +17,11 @@ public class UserService {
     }
 
     public User getUserNameById(Long id) {
-        return userRepository.findById(id);
+        return userRepository.findById(id).get();
     }
     public List<User> getUsers() {
-        return userRepository.findAll();
+        return StreamSupport.stream(userRepository.findAll().spliterator(), false)
+                .toList();
+
     }
 }
