@@ -30,5 +30,6 @@ public class UsersRestController {
     @PostMapping
     public void addUser(@RequestBody User user) {
         // TODO Esercizio 2: implementare il metodo per aggiungere un nuovo utente
+        userService.save(user);
     }
 }
