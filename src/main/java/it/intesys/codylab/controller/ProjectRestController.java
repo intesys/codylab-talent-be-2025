@@ -21,4 +21,9 @@ public class ProjectRestController {
     public Project getProjectByCodice(@PathVariable String codice){
         return projectService.findByCodice(codice);
     }
+
+    @GetMapping("/{id}")
+    public Project getProjectById(@PathVariable Long id){
+        return projectService.findById(id);
+    }
 }
