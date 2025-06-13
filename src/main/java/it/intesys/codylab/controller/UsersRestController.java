@@ -24,8 +24,7 @@ public class UsersRestController {
 
     @GetMapping
     public List<User> getUsers() {
-        // TODO Esercizio 1: implementare il metodo per restituire tutti gli utenti
-        return Collections.emptyList();
+        return userService.getAllUsers();
     }
 
 //    @PostMapping

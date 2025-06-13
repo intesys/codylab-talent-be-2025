@@ -4,6 +4,8 @@ import it.intesys.codylab.model.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class UserRepository {
 
@@ -30,4 +32,18 @@ public class UserRepository {
 
     }
 
+    public List<User> findAll() {
+        String sql = "SELECT * FROM users";
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+                new User(
+                        rs.getLong("id"),
+                        rs.getString("nome"),
+                        rs.getString("cognome"),
+                        rs.getString("mail"),
+                        rs.getString("profilo"),
+                        rs.getDouble("orario_giornaliero")
+                )
+        );
+    }
 }
+
