@@ -28,4 +28,17 @@ public class TaskRepository {
                 )
         );
     }
+
+    public void save(Task task){
+        String sql = "INSERT INTO tasks (progetto_id, codice, nome, descrizione, data_inizio, durata) VALUES (?, ?, ?, ?, ?, ? )";
+
+        jdbcTemplate.update(sql,
+                task.getProgettoId(),
+                task.getCodice(),
+                task.getNome(),
+                task.getDescrizione(),
+                task.getDataInizio(),
+                task.getDurata()
+        );
+    }
 }

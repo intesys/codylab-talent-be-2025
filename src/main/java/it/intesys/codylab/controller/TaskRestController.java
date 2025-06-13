@@ -2,10 +2,7 @@ package it.intesys.codylab.controller;
 
 import it.intesys.codylab.model.Task;
 import it.intesys.codylab.service.TaskService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/tasks")
@@ -19,5 +16,10 @@ public class TaskRestController {
     @GetMapping("/{id}")
     public Task getTaskById(@PathVariable Long id) {
         return taskService.findById(id);
+    }
+
+    @PostMapping
+    public void addTask(@RequestBody Task task) {
+        taskService.save(task);
     }
 }
