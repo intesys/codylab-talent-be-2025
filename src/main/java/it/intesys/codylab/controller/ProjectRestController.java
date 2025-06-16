@@ -35,4 +35,9 @@ public class ProjectRestController {
         // TODO Esercizio 4: implementare il metodo per aggiornare un progetto
         projectService.update(project);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteProject(@PathVariable Long id){
+        projectService.delete(id);
+    }
 }

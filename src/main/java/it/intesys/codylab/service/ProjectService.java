@@ -29,4 +29,8 @@ public class ProjectService{
     public void update(Project project){
         projectRepository.save(project);
     }
+
+    public void delete(Long id){
+        projectRepository.deleteById(id);
+    }
 }
