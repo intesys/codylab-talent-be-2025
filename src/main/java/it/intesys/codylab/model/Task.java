@@ -3,6 +3,7 @@ package it.intesys.codylab.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name="tasks")
@@ -21,7 +22,18 @@ public class Task {
     @JoinColumn(name = "progetto_id", nullable = false)
     private Project project;
 
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Slot> slots;
+
     public Task() {
+    }
+
+    public List<Slot> getSlots() {
+        return slots;
+    }
+
+    public void setSlots(List<Slot> slots) {
+        this.slots = slots;
     }
 
     public Project getProject() {

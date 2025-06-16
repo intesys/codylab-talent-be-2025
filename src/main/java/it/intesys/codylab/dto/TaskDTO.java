@@ -1,5 +1,7 @@
 package it.intesys.codylab.dto;
 
+import java.util.List;
+
 public class TaskDTO {
 
     private Long id;
@@ -8,14 +10,28 @@ public class TaskDTO {
     private String descrizione;
     private String dataInizio;
     private Integer durata;
+    private List<SlotDTO> slots;
 
-    public TaskDTO(Long id, String codice, String nome, String descrizione, String dataInizio, Integer durata) {
+    public TaskDTO() {
+        // Default constructor
+    }
+
+    public TaskDTO(Long id, String codice, String nome, String descrizione, String dataInizio, Integer durata, List<SlotDTO> slots) {
         this.id = id;
         this.codice = codice;
         this.nome = nome;
         this.descrizione = descrizione;
         this.dataInizio = dataInizio;
         this.durata = durata;
+        this.slots = slots;
+    }
+
+    public List<SlotDTO> getSlots() {
+        return slots;
+    }
+
+    public void setSlots(List<SlotDTO> slots) {
+        this.slots = slots;
     }
 
     public Long getId() {
@@ -73,8 +89,9 @@ public class TaskDTO {
                 ", codice='" + codice + '\'' +
                 ", nome='" + nome + '\'' +
                 ", descrizione='" + descrizione + '\'' +
-                ", dataInizio=" + dataInizio +
+                ", dataInizio='" + dataInizio + '\'' +
                 ", durata=" + durata +
+                ", slots=" + slots +
                 '}';
     }
 }

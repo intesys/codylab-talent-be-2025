@@ -18,6 +18,14 @@
                 <strong>Description:</strong> <span th:text="${task.descrizione}"></span>,
                 <strong>Start Date:</strong> <span th:text="${task.dataInizio}"></span>,
                 <strong>Duration:</strong> <span th:text="${task.durata}"></span>
+                <ul>
+                    <li th:each="slot : ${task.slots}">
+                        <strong>Slot ID:</strong> <span th:text="${slot.id}"></span>,
+                        <strong>Start Date:</strong> <span th:text="${slot.dataInizio}"></span>,
+                        <strong>End Date:</strong> <span th:text="${slot.dataFine}"></span>,
+                        <strong>Duration:</strong> <span th:text="${slot.durata}"></span>
+                    </li>
+                </ul>
             </li>
         </ul>
 

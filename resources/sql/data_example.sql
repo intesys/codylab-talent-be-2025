@@ -25,3 +25,10 @@ VALUES (1, 1);
 
 INSERT INTO users_tasks (user_id, task_id)
 VALUES (2, 2);
+
+-- Insert examples for "slots" table
+INSERT INTO slots (id, task_id, data_inizio, data_fine, durata)
+VALUES (1, 1, '2023-10-01', '2023-10-05', 4);
+
+INSERT INTO slots (id, task_id, data_inizio, data_fine, durata)
+VALUES (2, 1, '2023-10-06', '2023-10-10', 4);

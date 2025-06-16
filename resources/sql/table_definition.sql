@@ -32,6 +32,13 @@ CREATE TABLE tasks (
                       data_inizio DATE NOT NULL,
                       durata INTEGER NOT NULL
 );
+CREATE TABLE slots (
+                      id SERIAL PRIMARY KEY,
+                      task_id INTEGER NOT NULL REFERENCES tasks(id),
+                      data_inizio DATE NOT NULL,
+                      data_fine DATE NOT NULL,
+                      durata INTEGER NOT NULL
+);
 
 CREATE TABLE users_tasks (
                            id SERIAL PRIMARY KEY,
