@@ -5,7 +5,7 @@ import it.intesys.codylab.model.Task;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = {SlotMapper.class})
+@Mapper(componentModel = "spring", uses = {SlotMapper.class, UserMapper.class})
 public interface TaskMapper {
 
     @Mapping(source = "dataInizio", target = "dataInizio", dateFormat = "dd/MM/yyyy")

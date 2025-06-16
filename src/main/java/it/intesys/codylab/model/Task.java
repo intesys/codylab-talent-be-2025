@@ -25,7 +25,18 @@ public class Task {
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Slot> slots;
 
+    @ManyToMany(mappedBy = "tasks")
+    private List<User> users;
+
     public Task() {
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     public List<Slot> getSlots() {

@@ -26,6 +26,13 @@
                         <strong>Duration:</strong> <span th:text="${slot.durata}"></span>
                     </li>
                 </ul>
+                <ul>
+                    <li th:each="user : ${task.users}">
+                        <strong>User ID:</strong> <span th:text="${user.id}"></span>,
+                        <strong>Name:</strong> <span th:text="${user.nome}"></span>,
+                        <strong>Email:</strong> <span th:text="${user.mail}"></span>
+                    </li>
+                </ul>
             </li>
         </ul>
 
