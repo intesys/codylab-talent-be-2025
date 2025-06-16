@@ -49,4 +49,8 @@ public class ProjectService {
         return projectMapper.toDTO(savedProject);
     }
 
+    public void delete(Long id) {
+        projectRepository.deleteById(id);
+    }
+
 }

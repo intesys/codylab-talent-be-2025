@@ -5,10 +5,18 @@
 </head>
 <body>
     <h1>Project List</h1>
+
     <ul>
         <li th:each="project : ${projects}">
             <a th:href="@{/mvc/project/codice/{codice}(codice=${project.codice})}" th:text="${project.nome}"></a>
+
+            <form th:action="@{/mvc/project/delete/{id}(id=${project.id})}" method="post" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
         </li>
     </ul>
+
+    <a href="/mvc/project/add">Add New Project</a>
+
 </body>
 </html>
