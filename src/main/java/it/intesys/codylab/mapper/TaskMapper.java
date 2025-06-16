@@ -1,19 +1,17 @@
 package it.intesys.codylab.mapper;
 
-import it.intesys.codylab.dto.ProjectDTO;
-import it.intesys.codylab.model.Project;
+import it.intesys.codylab.dto.TaskDTO;
+import it.intesys.codylab.model.Task;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = {TaskMapper.class})
-public interface ProjectMapper {
+@Mapper(componentModel = "spring")
+public interface TaskMapper {
 
     @Mapping(source = "dataInizio", target = "dataInizio", dateFormat = "dd/MM/yyyy")
-    ProjectDTO toDTO(Project project);
+    TaskDTO toDTO(Task task);
 
     @Mapping(source = "dataInizio", target = "dataInizio", dateFormat = "dd/MM/yyyy")
-    Project toEntity(ProjectDTO projectDTO);
-
-
+    Task toEntity(TaskDTO taskDTO);
 
 }

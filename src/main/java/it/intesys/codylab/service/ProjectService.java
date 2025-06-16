@@ -31,18 +31,16 @@ public class ProjectService {
         return projectMapper.toDTO( projectRepository.findByCodice(codice) );
     }
 
-    public List<Project> findAllNoDTO() {
-        return StreamSupport.stream(projectRepository.findAll().spliterator(), false)
-                .toList();
-    }
     public List<ProjectDTO> findAll() {
         return StreamSupport.stream(projectRepository.findAll().spliterator(), false)
                 .map(projectMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
-    public List<Project> findByDurata(Integer durata) {
-        return projectRepository.findByDurata(durata);
+    public List<ProjectDTO> findByDurata(Integer durata) {
+        return StreamSupport.stream(projectRepository.findByDurata(durata).spliterator(), false)
+                .map(projectMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
 }
