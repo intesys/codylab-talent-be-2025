@@ -19,7 +19,6 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "progetto_id", nullable = false)
-    @JsonBackReference
     private Project project;
 
     public Task() {
