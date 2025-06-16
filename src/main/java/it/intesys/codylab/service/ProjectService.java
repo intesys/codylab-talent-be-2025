@@ -22,5 +22,10 @@ public class ProjectService {
             () -> new RuntimeException("Project not found with id: " + id)
         );
     }
-
+    public Project saveProject(Project project) {
+        return projectRepository.save(project);
+    }
+    public Project updateProject(Project project) {
+        return projectRepository.save(project);
+    }
 }

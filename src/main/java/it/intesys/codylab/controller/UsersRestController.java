@@ -32,9 +32,4 @@ public class UsersRestController {
         userService.addUser(user);
 //        // TODO Esercizio 2: implementare il metodo per aggiungere un nuovo utente
     }
-//
-//    @PatchMapping("/{userId}/profile")
-//    public void updateUserProfile(@PathVariable Long userId, @RequestBody UserProfile userProfile) {
-//        userService.updateUserProfile(userId, userProfile);
-//    }
 }

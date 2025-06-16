@@ -2,14 +2,12 @@ package it.intesys.codylab.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import java.time.LocalDateTime;
 
 @Table("slots")
 public class Slot {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
     private Long taskId;
     private LocalDateTime startTime;

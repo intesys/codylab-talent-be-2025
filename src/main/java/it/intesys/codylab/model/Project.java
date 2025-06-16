@@ -1,5 +1,4 @@
 package it.intesys.codylab.model;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -9,6 +8,7 @@ import java.time.LocalDate;
 public class Project {
 
     @Id
+
     private Long id;
     private String codice;
     private String nome;
