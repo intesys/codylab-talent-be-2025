@@ -16,6 +16,7 @@ public class UserRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+//  findById
     public User findById(Long id){
         String sql = "SELECT * FROM users WHERE id = ?";
 
@@ -31,6 +32,7 @@ public class UserRepository {
         );
     }
 
+//  findAll
     public List<User> findAll() {
         String sql = "SELECT * FROM users";
 
@@ -46,6 +48,7 @@ public class UserRepository {
         );
     }
 
+//  addUser
     public void save(User user) {
         String sql = "INSERT INTO users (nome, cognome, mail, profilo, orario_giornaliero) VALUES (?, ?, ?, ?, ?)";
 
@@ -58,7 +61,7 @@ public class UserRepository {
         );
     }
 
-//  update
+//  updateUser
     public void update(Long id, User user) {
         String sql = "UPDATE users set nome = ?, cognome = ?, mail = ?, profilo = ?, orario_giornaliero = ? WHERE id = ?";
 
@@ -72,7 +75,7 @@ public class UserRepository {
         );
     }
 
-//  updateProfilo
+//  updateUserProfile
     public void updateUserProfile(Long id, User user) {
         String sql = "UPDATE users set profilo = ? WHERE id = ?";
 
@@ -81,7 +84,11 @@ public class UserRepository {
                 id
         );
     }
-//  delete
+//  deleteUser
+    public void delete(Long id) {
+        String sql = "DELETE FROM users WHERE id = ?";
+        jdbcTemplate.update(sql, id);
+    }
 
 
 }
