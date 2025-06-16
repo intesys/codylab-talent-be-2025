@@ -73,6 +73,14 @@ public class UserRepository {
     }
 
 //  updateProfilo
+    public void updateUserProfile(Long id, User user) {
+        String sql = "UPDATE users set profilo = ? WHERE id = ?";
+
+        jdbcTemplate.update(sql,
+                user.getProfilo(),
+                id
+        );
+    }
 //  delete
 
 

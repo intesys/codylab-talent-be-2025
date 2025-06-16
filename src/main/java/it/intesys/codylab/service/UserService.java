@@ -28,4 +28,8 @@ public class UserService {
     public void update(Long id, User user){
         userRepository.update(id, user);
     }
+
+    public void updateUserProfile(Long id, User user){
+        userRepository.updateUserProfile(id, user);
+    }
 }
