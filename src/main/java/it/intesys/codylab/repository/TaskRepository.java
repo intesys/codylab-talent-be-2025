@@ -61,4 +61,19 @@ public class TaskRepository {
                 task.getDurata()
         );
     }
+
+//  updateTask
+    public void update(Long id, Task task){
+        String sql = "UPDATE tasks set progetto_id = ?, codice = ?, nome = ?, descrizione = ?, data_inizio = ?, durata = ? WHERE id = ?";
+
+        jdbcTemplate.update(sql,
+                task.getProgettoId(),
+                task.getCodice(),
+                task.getNome(),
+                task.getDescrizione(),
+                task.getDataInizio(),
+                task.getDurata(),
+                id
+        );
+    }
 }

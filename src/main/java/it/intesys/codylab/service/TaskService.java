@@ -28,4 +28,9 @@ public class TaskService {
     public void save(Task task){
         taskRepository.save(task);
     }
+
+//  updateTask
+    public void update(Long id, Task task){
+        taskRepository.update(id, task);
+    }
 }

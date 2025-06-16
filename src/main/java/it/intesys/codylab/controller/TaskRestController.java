@@ -32,4 +32,11 @@ public class TaskRestController {
     public void addTask(@RequestBody Task task) {
         taskService.save(task);
     }
+
+//  updateTask
+    @PutMapping("/{taskId}")
+    public void updateTask(@PathVariable Long taskId, @RequestBody Task task) {
+        taskService.update(taskId, task);
+    }
+
 }
