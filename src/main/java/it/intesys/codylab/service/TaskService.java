@@ -33,4 +33,9 @@ public class TaskService {
     public void update(Long id, Task task){
         taskRepository.update(id, task);
     }
+
+//  deleteTask
+    public void delete(Long id){
+        taskRepository.delete(id);
+    }
 }

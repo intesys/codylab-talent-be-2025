@@ -76,4 +76,10 @@ public class TaskRepository {
                 id
         );
     }
+
+//  deleteTask
+    public void delete(Long id){
+        String sql = "DELETE FROM tasks WHERE id = ?";
+        jdbcTemplate.update(sql, id);
+    }
 }
