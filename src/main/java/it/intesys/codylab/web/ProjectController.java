@@ -4,9 +4,7 @@ import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.service.ProjectService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +16,12 @@ public class ProjectController {
 
     public ProjectController(ProjectService projectService) {
         this.projectService = projectService;
+    }
+
+    @GetMapping("/project/add")
+    public String addProject(Model model) {
+        model.addAttribute("project", new ProjectDTO());
+        return "project-add";
     }
 
     @GetMapping("/projects")
@@ -32,6 +36,13 @@ public class ProjectController {
         ProjectDTO project = projectService.findByCodice(codice);
         model.addAttribute("project", project);
         return "project";
+    }
+
+    @PostMapping("/project")
+    public String addProject(@ModelAttribute ProjectDTO projectDTO, Model model) {
+        ProjectDTO savedProject = projectService.save(projectDTO);
+        model.addAttribute("project", savedProject);
+        return "redirect:/mvc/project/codice/" + savedProject.getCodice();
     }
 
 }

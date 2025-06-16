@@ -13,6 +13,9 @@ public class ProjectDTO {
     private Integer durata;
     private List<TaskDTO> tasks;
 
+    public ProjectDTO() {
+    }
+
     public ProjectDTO(Long id, String codice, String nome, String descrizione, String dataInizio, Integer durata, List<TaskDTO> tasks) {
         this.id = id;
         this.codice = codice;

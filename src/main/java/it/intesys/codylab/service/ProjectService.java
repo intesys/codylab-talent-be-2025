@@ -43,4 +43,10 @@ public class ProjectService {
                 .collect(Collectors.toList());
     }
 
+    public ProjectDTO save(ProjectDTO projectDTO) {
+        Project project = projectMapper.toEntity(projectDTO);
+        Project savedProject = projectRepository.save(project);
+        return projectMapper.toDTO(savedProject);
+    }
+
 }
