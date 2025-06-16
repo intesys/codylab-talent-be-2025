@@ -32,4 +32,9 @@ public class UsersRestController {
         // TODO Esercizio 2: implementare il metodo per aggiungere un nuovo utente
         userService.save(user);
     }
+
+    @PutMapping("/{userId}")
+    public void updateUser(@PathVariable Long userId, @RequestBody User user) {
+        userService.update(userId, user);
+    }
 }

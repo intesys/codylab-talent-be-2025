@@ -58,4 +58,22 @@ public class UserRepository {
         );
     }
 
+//  update
+    public void update(Long id, User user) {
+        String sql = "UPDATE users set nome = ?, cognome = ?, mail = ?, profilo = ?, orario_giornaliero = ? WHERE id = ?";
+
+        jdbcTemplate.update(sql,
+                user.getNome(),
+                user.getCognome(),
+                user.getMail(),
+                user.getProfilo(),
+                user.getOrarioGiornaliero(),
+                id
+        );
+    }
+
+//  updateProfilo
+//  delete
+
+
 }
