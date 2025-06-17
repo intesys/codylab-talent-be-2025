@@ -1,11 +1,14 @@
 package it.intesys.codylab.controller;
 
+import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.model.Project;
 import it.intesys.codylab.service.ProjectService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/projects")
+@RequestMapping("/api/v1")
 public class ProjectRestController {
 
     private final ProjectService projectService;
@@ -14,30 +17,18 @@ public class ProjectRestController {
         this.projectService = projectService;
     }
 
-    @GetMapping("/codice/{codice}")
-    public Project getProjectByCodice(@PathVariable String codice){
+    @GetMapping("/projects")
+    public List<ProjectDTO> getProjects() {
+        return projectService.findAll();
+    }
+
+    @GetMapping("/project/{id}")
+    public Project getProjectById(@PathVariable Long id) {
+        return projectService.getProjectById(id);
+    }
+
+    @GetMapping("/project/codice/{codice}")
+    public ProjectDTO getProjectByCodice(@PathVariable String codice) {
         return projectService.findByCodice(codice);
-    }
-
-    @GetMapping("/{id}")
-    public Project getProjectById(@PathVariable Long id){
-        return projectService.findById(id);
-    }
-
-    @PostMapping
-    public void addProject(@RequestBody Project project){
-        // TODO Esercizio 3: implementare il metodo per creare un nuovo progetto
-        projectService.save(project);
-    }
-
-    @PutMapping
-    public void updateProject(@RequestBody Project project){
-        // TODO Esercizio 4: implementare il metodo per aggiornare un progetto
-        projectService.update(project);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteProject(@PathVariable Long id){
-        projectService.delete(id);
     }
 }
