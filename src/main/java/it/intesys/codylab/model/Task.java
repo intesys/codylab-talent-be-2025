@@ -1,30 +1,58 @@
 package it.intesys.codylab.model;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
+import java.util.List;
 
+@Entity
+@Table(name="tasks")
 public class Task {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private Long progetto_id;
-
     private String codice;
-
     private String nome;
-
     private String descrizione;
-
-    private LocalDate data_inizio;
-
+    private LocalDate dataInizio;
     private Integer durata;
 
-    public Task(Long id, Long progetto_id, String codice, String nome, String descrizione, LocalDate data_inizio, Integer durata) {
-        this.id = id;
-        this.progetto_id = progetto_id;
-        this.codice = codice;
-        this.nome = nome;
-        this.descrizione = descrizione;
-        this.data_inizio = data_inizio;
-        this.durata = durata;
+    @ManyToOne
+    @JoinColumn(name = "progetto_id", nullable = false)
+    private Project project;
+
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Slot> slots;
+
+    @ManyToMany(mappedBy = "tasks")
+    private List<User> users;
+
+    public Task() {
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public List<Slot> getSlots() {
+        return slots;
+    }
+
+    public void setSlots(List<Slot> slots) {
+        this.slots = slots;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     public Long getId() {
@@ -33,14 +61,6 @@ public class Task {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getProgettoId() {
-        return progetto_id;
-    }
-
-    public void setProgettoId(Long progetto_id) {
-        this.progetto_id = progetto_id;
     }
 
     public String getCodice() {
@@ -68,11 +88,11 @@ public class Task {
     }
 
     public LocalDate getDataInizio() {
-        return data_inizio;
+        return dataInizio;
     }
 
-    public void setDataInizio(LocalDate data_inizio) {
-        this.data_inizio = data_inizio;
+    public void setDataInizio(LocalDate dataInizio) {
+        this.dataInizio = dataInizio;
     }
 
     public Integer getDurata() {
@@ -83,16 +103,7 @@ public class Task {
         this.durata = durata;
     }
 
-    @Override
-    public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", progetto_id=" + progetto_id +
-                ", codice='" + codice + '\'' +
-                ", nome='" + nome + '\'' +
-                ", descrizione='" + descrizione + '\'' +
-                ", data_inizio=" + data_inizio +
-                ", durata=" + durata +
-                '}';
+    public Object getProgettoId() {
+        return project.getId();
     }
 }

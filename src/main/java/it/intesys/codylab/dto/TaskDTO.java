@@ -1,45 +1,47 @@
-package it.intesys.codylab.model;
+package it.intesys.codylab.dto;
 
-import jakarta.persistence.*;
-
-import java.time.LocalDate;
 import java.util.List;
 
-@Entity
-@Table(name="projects")
-public class Project {
+public class TaskDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String codice;
     private String nome;
     private String descrizione;
-    private LocalDate dataInizio;
+    private String dataInizio;
     private Integer durata;
+    private List<SlotDTO> slots;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Task> tasks;
+    private List<UserDTO> users;
 
-    public Project() {
+    public TaskDTO() {
         // Default constructor
     }
-
-    public Project(Long id, String codice, String nome, String descrizione, LocalDate dataInizio, Integer durata) {
+    public TaskDTO(Long id, String codice, String nome, String descrizione, String dataInizio, Integer durata, List<SlotDTO> slots, List<UserDTO> users) {
         this.id = id;
         this.codice = codice;
         this.nome = nome;
         this.descrizione = descrizione;
         this.dataInizio = dataInizio;
         this.durata = durata;
+        this.slots = slots;
+        this.users = users;
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+    public List<UserDTO> getUsers() {
+        return users;
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+    public void setUsers(List<UserDTO> users) {
+        this.users = users;
+    }
+
+    public List<SlotDTO> getSlots() {
+        return slots;
+    }
+
+    public void setSlots(List<SlotDTO> slots) {
+        this.slots = slots;
     }
 
     public Long getId() {
@@ -74,11 +76,11 @@ public class Project {
         this.descrizione = descrizione;
     }
 
-    public LocalDate getDataInizio() {
+    public String getDataInizio() {
         return dataInizio;
     }
 
-    public void setDataInizio(LocalDate dataInizio) {
+    public void setDataInizio(String dataInizio) {
         this.dataInizio = dataInizio;
     }
 
@@ -88,5 +90,18 @@ public class Project {
 
     public void setDurata(Integer durata) {
         this.durata = durata;
+    }
+
+    @Override
+    public String toString() {
+        return "TaskDTO{" +
+                "id=" + id +
+                ", codice='" + codice + '\'' +
+                ", nome='" + nome + '\'' +
+                ", descrizione='" + descrizione + '\'' +
+                ", dataInizio='" + dataInizio + '\'' +
+                ", durata=" + durata +
+                ", slots=" + slots +
+                '}';
     }
 }

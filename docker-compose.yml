@@ -1,4 +1,4 @@
-name: codylab-talent-be-2025
+name: nuovo_docker_utenti
 services:
   codylab-postgresql:
     image: postgres:15.3
