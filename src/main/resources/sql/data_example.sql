@@ -25,3 +25,10 @@ VALUES
     (2, 3),  -- Luca assigned to UI Design
     (3, 1),  -- Anna also assigned to Analisi Requisiti
     (3, 2);  -- Anna also assigned to Sviluppo Backend
+
+-- Insert examples for "slots" table
+INSERT INTO slots (id, task_id, data_inizio, data_fine, durata)
+VALUES (1, 1, '2023-10-01', '2023-10-05', 4);
+
+INSERT INTO slots (id, task_id, data_inizio, data_fine, durata)
+VALUES (2, 1, '2023-10-06', '2023-10-10', 4);
