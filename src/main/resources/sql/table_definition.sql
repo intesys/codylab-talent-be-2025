@@ -38,7 +38,8 @@ CREATE TABLE users_tasks (
 
 CREATE TABLE slots (
                        id SERIAL PRIMARY KEY,
-                       task_id INTEGER NOT NULL REFERENCES tasks(id) ON DELETE CASCADE,
-                       start_time TIMESTAMP NOT NULL,
-                       end_time TIMESTAMP NOT NULL
+                       task_id INTEGER NOT NULL REFERENCES tasks(id),
+                       data_inizio DATE NOT NULL,
+                       data_fine DATE NOT NULL,
+                       durata INTEGER NOT NULL
 );
