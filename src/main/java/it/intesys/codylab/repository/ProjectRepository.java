@@ -1,10 +1,10 @@
 package it.intesys.codylab.repository;
 
 import it.intesys.codylab.model.Project;
-import org.springframework.data.repository.ListCrudRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface ProjectRepository extends ListCrudRepository<Project, Long> {
+public interface ProjectRepository extends CrudRepository<Project, Long> {
 
-    public Project findByCodice(String codice);
-    // Additional methods specific to Project can be defined here if needed
+    Project findByCodice(String codice);
+
 }
