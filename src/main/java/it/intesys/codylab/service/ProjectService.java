@@ -1,5 +1,6 @@
 package it.intesys.codylab.service;
 
+import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.model.Project;
 import it.intesys.codylab.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,19 @@ public class ProjectService {
         this.projectRepository = projectRepository;
     }
 
-    public Project findByCodice(String codice) {
-        return projectRepository.findByCodice(codice);
+    public ProjectDTO findByCodice(String codice) {
+        Project project = projectRepository.findByCodice(codice);
+
+
+        ProjectDTO projectDTO = new ProjectDTO();
+
+        projectDTO.setCodice(project.getCodice());
+        projectDTO.setId(project.getId());
+        projectDTO.setNome(project.getNome());
+        projectDTO.setDescrizione(project.getDescrizione());
+        projectDTO.setDataInizio(project.getDataInizio().toString());
+
+        return projectDTO;
     }
 
     public Project findById(Long id) {

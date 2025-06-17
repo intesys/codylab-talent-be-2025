@@ -1,5 +1,6 @@
 package it.intesys.codylab.controller;
 
+import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.model.Project;
 import it.intesys.codylab.service.ProjectService;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ public class ProjectController {
     }
 
     @GetMapping("/codice/{codice}")
-    public Project getProjectByCodice(@PathVariable String codice) {
+    public ProjectDTO getProjectByCodice(@PathVariable String codice) {
         return projectService.findByCodice(codice);
     }
     @GetMapping("/{id}")
