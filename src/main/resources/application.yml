@@ -12,3 +12,7 @@ codylab:
 
 server:
   port: 8090
+
+  logging:
+    level:
+      root: info
