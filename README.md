@@ -287,41 +287,41 @@ Esercizi da completare:
   * definire il service con i metodi findById e save
   * definire un REST controller con un metodo per la lettura ed uno per la scrittura 
 
-## Parte 6bis - Spring MVC e DTO
+## Parte 7 - Spring MVC e DTO
 ### Argomenti
 * DTO e MapStruct
-* Spring MVC
-* Hibernate e Spring JPA
+* Spring JPA
+* Rest Controller come presentation view
 
-## Parte 7 - API First
+## Parte 8 - API First
 ### Argomenti
 * Leggere e scrivere la specifica OpenAPI
 * Scrittura specifica OpenAPI
 * Generazione del controller REST dalla specifica OpenAPI
 
-## Parte 8 - Testing
+## Parte 9 - Testing
 ### Argomenti
 * Unit Test
 
-## Parte 9 - Test di integrazione
+## Parte 10 - Test di integrazione
 ### Argomenti
 * Integration test
 
-## Parte 10 - Sicurezza
+## Parte 11 - Sicurezza
 ### Argomenti
 * Autenticazione e Autorizzazione
 * Ruoli e permessi
 * Json Web Token (JWT)
 * Spring Security
 
-## Parte 11 - DevOps
+## Parte 12 - DevOps
 ### Argomenti
 * Docker
 * Dockerfile
 * Docker Compose
 * Kubernetes su Docker
 
-## Parte 12 - Comunicazioni Asincrone
+## Parte 13 - Comunicazioni Asincrone
 ### Argomenti
 * Thread e Task
 * Comunicazioni asincrone tra microservizi
