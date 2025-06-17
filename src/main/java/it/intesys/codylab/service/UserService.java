@@ -16,11 +16,11 @@ public class UserService {
     }
 
     public User findById(Long userId) {
-        return userRepository.findById(userId);
+        return userRepository.findById(userId).get();
     }
 
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return (List<User>) userRepository.findAll();
     }
     public void addUser(User user) {
         userRepository.save(user);

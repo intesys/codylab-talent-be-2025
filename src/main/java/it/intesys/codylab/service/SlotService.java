@@ -1,15 +1,14 @@
 package it.intesys.codylab.service;
 
 import it.intesys.codylab.model.Slot;
-import it.intesys.codylab.repository.SlotCrudRepository;
 import it.intesys.codylab.repository.SlotRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SlotService {
-    private final SlotCrudRepository slotRepository;
+    private final SlotRepository slotRepository;
 
-    public SlotService(SlotCrudRepository slotRepository) {
+    public SlotService(SlotRepository slotRepository) {
         this.slotRepository = slotRepository;
     }
 
