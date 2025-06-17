@@ -6,8 +6,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "projects")
-public class Project {
+@Table(name = "tasks")
+public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,25 +18,19 @@ public class Project {
     private LocalDate dataInizio;
     private Integer durata;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Task> tasks;
+    @ManyToOne
+    @JoinColumn(name = "progetto_id", nullable = false)
+    private Project project;
 
-    public Project() {
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Slot> slots;
+
+    @ManyToMany(mappedBy = "tasks")
+    private List<User> users;
+
+    public Task() {
         //
     }
-
-    public Project(Long id, String codice, String nome, String descrizione, LocalDate dataInizio, Integer durata) {
-        this.id = id;
-        this.codice = codice;
-        this.nome = nome;
-        this.descrizione = descrizione;
-        this.dataInizio = dataInizio;
-        this.durata = durata;
-    }
-
-    public List<Task> getTasks() {return tasks;}
-
-    public void setTasks(List<Task> tasks) {this.tasks = tasks;}
 
     public Long getId() {
         return id;
@@ -86,4 +80,27 @@ public class Project {
         this.durata = durata;
     }
 
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public List<Slot> getSlots() {
+        return slots;
+    }
+
+    public void setSlots(List<Slot> slots) {
+        this.slots = slots;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
 }

@@ -1,18 +1,33 @@
 package it.intesys.codylab.model;
 
+import jakarta.persistence.*;
+
+import java.util.List;
+
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nome;
-
     private String cognome;
-
     private String mail;
-
     private String profilo;
-
     private Double orarioGiornaliero;
+
+    @ManyToMany
+    @JoinTable(
+            name = "users_tasks",
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "task_id")
+    )
+    public List<Task> tasks;
+
+    public User() {
+        //
+    }
 
     public User(Long id, String nome, String cognome, String mail, String profilo, Double orarioGiornaliero) {
         this.id = id;
@@ -21,6 +36,14 @@ public class User {
         this.mail = mail;
         this.profilo = profilo;
         this.orarioGiornaliero = orarioGiornaliero;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public Long getId() {
@@ -69,17 +92,5 @@ public class User {
 
     public void setOrarioGiornaliero(Double orarioGiornaliero) {
         this.orarioGiornaliero = orarioGiornaliero;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", cognome='" + cognome + '\'' +
-                ", mail='" + mail + '\'' +
-                ", profilo='" + profilo + '\'' +
-                ", orarioGiornaliero=" + orarioGiornaliero +
-                '}';
     }
 }
