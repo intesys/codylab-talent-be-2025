@@ -310,6 +310,16 @@ Esercizi da completare:
   * Creazione di un Rest Controller per gestire le operazioni di lettura sui DTO
   * Sottolineata importanza e la potenza di Spring Data JPA per semplificare l'accesso ai dati: con una semplice query è possibile leggere i dati da database relazionali, senza dover scrivere codice SQL complesso.
 
+Esercizi da completare:
+* Riprendere i concetti visti durante la lezione
+* Capire come mai la traduzione della data non rispetta il formato italiano nella entità `Slot`
+* Nel controller che abbiamo definito "ProjectRestController" creare dei metodi per la persistenza utilizzando le API messe a disposizione da JPA:
+  * Creazione di un progetto
+  * Creazione dei task
+  * Creazione degli slot
+  * Assegnazione degli utenti ai task
+* Piccola CR: vogliamo identificare per ogni progetto un responsabile di progetto. Come implementereste la cosa?
+
 ## Parte 8 - API First
 ### Argomenti
 * Leggere e scrivere la specifica OpenAPI
