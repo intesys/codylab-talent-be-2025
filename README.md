@@ -274,9 +274,14 @@ con l'url dell'utente creato (provare usando ResponseEntity come response del me
 
 ## Parte 6 - Accesso ai dati
 ### Argomenti
-* Spring JDBC (JDBC Template)
+* Spring JDBC - JDBC Template
+  * Introduzione a Spring JDBC e JDBC Template
+  * Introduzone alla defizione di una espressione lambda per la mappatura dei risultati
 * Spring Data JDBC
-* Pagina web con dati dinamici
+  * Introduzione a Spring Data JDBC
+  * Spiegazione dei metodi findByXXX e della nomenclatura per le query
+  * Esempio di utilizzo della annotazione @Query per query personalizzate
+* Esempio di API Rest per visualizzazione dati
 
 Esercizi da completare:
 * Nel codice cercare la stringa "TODO Esercizio *" e implementare le funzionalità richieste
@@ -285,13 +290,25 @@ Esercizi da completare:
   * definire la classe model
   * definire il repository con metodi findById e save
   * definire il service con i metodi findById e save
-  * definire un REST controller con un metodo per la lettura ed uno per la scrittura 
+  * definire un Rest controller con un metodo per la lettura ed uno per la scrittura 
 
 ## Parte 7 - Spring MVC e DTO
 ### Argomenti
 * DTO e MapStruct
+  * Definizione e utilizzo dei DTO (Data Transfer Object)
+  * Introduzione a MapStruct per la mappatura tra entità e DTO
+  * Esempio di mapping personalizzato con MapStruct mediante annotation `@Mapping`
+  * Focus sulla generazione del codice per la mappatura e sulla gestione delle liste
 * Spring JPA
+  * Introduzione a Spring JPA (Java Persistence API) come ORM
+  * Spiegazione delle entità e gestione delle relazioni tra entità
+  * Relazione @OneToMany e @ManyToOne
+  * Relazione @ManyToMany
+  * Definizione dei repository con Spring Data JPA estendendo CrudRepository
 * Rest Controller come presentation view
+  * Riscrittura dei componenti @Service per utilizzare i DTO
+  * Creazione di un Rest Controller per gestire le operazioni di lettura sui DTO
+  * Sottolineata importanza e la potenza di Spring Data JPA per semplificare l'accesso ai dati: con una semplice query è possibile leggere i dati da database relazionali, senza dover scrivere codice SQL complesso.
 
 ## Parte 8 - API First
 ### Argomenti
