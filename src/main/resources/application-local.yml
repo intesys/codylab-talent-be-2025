@@ -4,3 +4,6 @@ codylab:
     username: codylab
     password: cody|_ab2025
     driver: org.postgresql.Driver
+    logging:
+      level:
+        root: INFO

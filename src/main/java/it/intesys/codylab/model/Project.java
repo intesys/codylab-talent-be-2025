@@ -1,5 +1,6 @@
 package it.intesys.codylab.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -19,7 +20,8 @@ public class Project {
     private LocalDate dataInizio;
     private Integer durata;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<Task> tasks;
 
     public Project() {

@@ -1,5 +1,7 @@
 package it.intesys.codylab.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -13,12 +15,14 @@ public class Slot {
 
     @ManyToOne
     @JoinColumn(name = "task_id", nullable = false)
+    @JsonBackReference
     private Task task;
 
-    @Column(name = "data_inizio", nullable = false)
+
+    @Column(name = "start_time", nullable = false)
     private LocalDate dataInizio;
 
-    @Column(name = "data_fine", nullable = false)
+    @Column(name = "end_time", nullable = false)
     private LocalDate dataFine;
 
     @Column(name = "durata", nullable = false)
