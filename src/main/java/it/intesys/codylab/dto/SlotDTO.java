@@ -1,6 +1,10 @@
 package it.intesys.codylab.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import it.intesys.codylab.deserializer.SlotDateTimeDeserializer;
+import it.intesys.codylab.serializer.SlotDateTimeSerializer;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -9,10 +13,12 @@ public class SlotDTO {
 
     private Long id;
     private Long taskId;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonSerialize(using = SlotDateTimeSerializer.class)
+    @JsonDeserialize(using = SlotDateTimeDeserializer.class)
     private LocalDateTime dataInizio;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonSerialize(using = SlotDateTimeSerializer.class)
+    @JsonDeserialize(using = SlotDateTimeDeserializer.class)
     private LocalDateTime dataFine;
     private Integer durata;
 
