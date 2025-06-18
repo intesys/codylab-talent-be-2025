@@ -1,12 +1,16 @@
 package it.intesys.codylab.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDate;
 
 public class SlotDTO {
 
     private Long id;
     private Long taskId;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataInizio;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataFine;
     private Integer durata;
 
