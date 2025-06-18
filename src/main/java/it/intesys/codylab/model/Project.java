@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Spliterator;
 
@@ -19,6 +20,7 @@ public class Project {
     private String descrizione;
     private LocalDate dataInizio;
     private Integer durata;
+
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference

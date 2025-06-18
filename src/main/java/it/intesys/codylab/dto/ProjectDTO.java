@@ -14,13 +14,14 @@ public class ProjectDTO {
 
     public ProjectDTO() {}
 
-    public ProjectDTO(Long id, String codice, String nome, String descrizione, String dataInizio, Integer durata) {
+    public ProjectDTO(Long id, String codice, String nome, String descrizione, String dataInizio, Integer durata, List<TaskDTO> tasks) {
         this.id = id;
         this.codice = codice;
         this.nome = nome;
         this.descrizione = descrizione;
         this.dataInizio = dataInizio;
         this.durata = durata;
+        this.tasks = tasks;
     }
 
     public Long getId() {

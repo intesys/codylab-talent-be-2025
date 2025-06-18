@@ -1,7 +1,10 @@
 package it.intesys.codylab.controller;
 
 import it.intesys.codylab.dto.ProjectDTO;
+import it.intesys.codylab.dto.TaskDTO;
 import it.intesys.codylab.service.ProjectService;
+import it.intesys.codylab.service.TaskService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,9 +14,11 @@ import java.util.List;
 public class ProjectRestController {
 
     private ProjectService projectService;
+    private TaskService taskService;
 
-    public ProjectRestController(ProjectService projectService) {
+    public ProjectRestController(ProjectService projectService , TaskService taskService) {
         this.projectService = projectService;
+        this.taskService = taskService;
     }
 
     @GetMapping("/projects")
@@ -33,6 +38,12 @@ public class ProjectRestController {
     @PostMapping("/project/save")
     public ProjectDTO saveProject(@RequestBody ProjectDTO projectDTO) {
         return projectService.save(projectDTO);
+    }
+
+    @PostMapping("/task/save")
+    public ResponseEntity<TaskDTO> createTask(@RequestBody TaskDTO taskDTO) {
+        TaskDTO savedTask = taskService.saveTask(taskDTO);
+        return ResponseEntity.ok(savedTask);
     }
 
 //    @GetMapping("/project/durata/{durata}")

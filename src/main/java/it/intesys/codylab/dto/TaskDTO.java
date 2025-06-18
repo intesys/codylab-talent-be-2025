@@ -11,13 +11,14 @@ public class TaskDTO {
     private String dataInizio;
     private Integer durata;
     private List<SlotDTO> slots;
+    private Long projectId;
 
     private List<UserDTO> users;
 
     public TaskDTO() {
         // Default constructor
     }
-    public TaskDTO(Long id, String codice, String nome, String descrizione, String dataInizio, Integer durata, List<SlotDTO> slots, List<UserDTO> users) {
+    public TaskDTO(Long id, String codice, String nome, String descrizione, String dataInizio, Integer durata, List<SlotDTO> slots, List<UserDTO> users, Long projectId) {
         this.id = id;
         this.codice = codice;
         this.nome = nome;
@@ -26,6 +27,7 @@ public class TaskDTO {
         this.durata = durata;
         this.slots = slots;
         this.users = users;
+        this.projectId = projectId;
     }
 
     public List<UserDTO> getUsers() {
@@ -92,6 +94,13 @@ public class TaskDTO {
         this.durata = durata;
     }
 
+    public Long getProjectId() {
+        return projectId;
+    }
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
+    }
+
     @Override
     public String toString() {
         return "TaskDTO{" +
@@ -101,6 +110,7 @@ public class TaskDTO {
                 ", descrizione='" + descrizione + '\'' +
                 ", dataInizio='" + dataInizio + '\'' +
                 ", durata=" + durata +
+                ", projectId=" + projectId +
                 ", slots=" + slots +
                 '}';
     }
