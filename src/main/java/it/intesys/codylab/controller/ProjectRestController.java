@@ -31,4 +31,9 @@ public class ProjectRestController {
     public ProjectDTO getProjectByCodice(@PathVariable String codice) {
         return projectService.findByCodice(codice);
     }
+
+    @PostMapping("/project")
+    public ProjectDTO saveProject(@RequestBody ProjectDTO projectDTO) {
+        return projectService.save(projectDTO);
+    }
 }
