@@ -1,12 +1,10 @@
 package it.intesys.codylab.controller;
 
 import it.intesys.codylab.dto.ProjectDTO;
-import it.intesys.codylab.model.Project;
 import it.intesys.codylab.service.ProjectService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,24 +12,37 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class ProjectRestController {
 
-    private ProjectService projectService;
+    private final ProjectService projectService;
 
+    @Autowired
     public ProjectRestController(ProjectService projectService) {
         this.projectService = projectService;
     }
 
     @GetMapping("/projects")
-    public List<ProjectDTO> getProjects() {
+    public List<ProjectDTO> getAllProjects() {
         return projectService.findAll();
     }
 
     @GetMapping("/project/{id}")
-    public Project getProjectById(@PathVariable Long id) {
-        return projectService.getProjectById(id);
+    public ProjectDTO getProjectById(@PathVariable Long id) {
+        return projectService.findById(id);
     }
 
-    @GetMapping("/project/codice/{codice}")
-    public ProjectDTO getProjectByCodice(@PathVariable String codice) {
-        return projectService.findByCodice(codice);
+    @PostMapping("/project")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProjectDTO createProject(@RequestBody ProjectDTO project) {
+        return projectService.save(project);
+    }
+
+    @PutMapping("/project/{id}")
+    public ProjectDTO updateProject(@PathVariable Long id, @RequestBody ProjectDTO updatedProject) {
+        return projectService.update(id, updatedProject);
+    }
+
+    @DeleteMapping("/project/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteProject(@PathVariable Long id) {
+        projectService.delete(id);
     }
 }

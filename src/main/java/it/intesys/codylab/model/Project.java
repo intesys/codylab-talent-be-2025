@@ -1,17 +1,18 @@
 package it.intesys.codylab.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name="projects")
+@Table(name = "projects")
 public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String codice;
     private String nome;
     private String descrizione;
@@ -19,10 +20,10 @@ public class Project {
     private Integer durata;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Task> tasks;
 
     public Project() {
-        // Default constructor
     }
 
     public Project(Long id, String codice, String nome, String descrizione, LocalDate dataInizio, Integer durata) {
@@ -32,14 +33,6 @@ public class Project {
         this.descrizione = descrizione;
         this.dataInizio = dataInizio;
         this.durata = durata;
-    }
-
-    public List<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
     }
 
     public Long getId() {
@@ -88,5 +81,13 @@ public class Project {
 
     public void setDurata(Integer durata) {
         this.durata = durata;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 }

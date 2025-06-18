@@ -24,7 +24,7 @@ public class ProjectService {
 
     public Project getProjectById(Long id) {
         return projectRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Project not found with id: " + id));
+                .orElseThrow();
     }
 
     public ProjectDTO findByCodice(String codice) {
@@ -47,4 +47,14 @@ public class ProjectService {
         projectRepository.deleteById(id);
     }
 
+    public ProjectDTO findById(Long id) {
+        return projectMapper.toDTO(projectRepository.findById(id).orElse(null));
+    }
+
+    public ProjectDTO update(Long id, ProjectDTO updatedProject) {
+        Project project = projectMapper.toEntity(updatedProject);
+        project.setId(id);
+        Project savedProject = projectRepository.save(project);
+        return projectMapper.toDTO(savedProject);
+    }
 }

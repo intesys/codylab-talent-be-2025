@@ -1,5 +1,6 @@
 package it.intesys.codylab.dto;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class TaskDTO {
@@ -8,100 +9,50 @@ public class TaskDTO {
     private String codice;
     private String nome;
     private String descrizione;
-    private String dataInizio;
+    private LocalDate dataInizio;
     private Integer durata;
+
+    private Long projectId;
+
+
     private List<SlotDTO> slots;
 
-    private List<UserDTO> users;
 
-    public TaskDTO() {
-        // Default constructor
-    }
-    public TaskDTO(Long id, String codice, String nome, String descrizione, String dataInizio, Integer durata, List<SlotDTO> slots, List<UserDTO> users) {
+    public TaskDTO() {}
+
+    public TaskDTO(Long id, String codice, String nome, String descrizione, LocalDate dataInizio, Integer durata, Long projectId, List<SlotDTO> slots) {
         this.id = id;
         this.codice = codice;
         this.nome = nome;
         this.descrizione = descrizione;
         this.dataInizio = dataInizio;
         this.durata = durata;
-        this.slots = slots;
-        this.users = users;
-    }
-
-    public List<UserDTO> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<UserDTO> users) {
-        this.users = users;
-    }
-
-    public List<SlotDTO> getSlots() {
-        return slots;
-    }
-
-    public void setSlots(List<SlotDTO> slots) {
+        this.projectId = projectId;
         this.slots = slots;
     }
 
-    public Long getId() {
-        return id;
-    }
+    // Getters e Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getCodice() { return codice; }
+    public void setCodice(String codice) { this.codice = codice; }
 
-    public String getCodice() {
-        return codice;
-    }
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
 
-    public void setCodice(String codice) {
-        this.codice = codice;
-    }
+    public String getDescrizione() { return descrizione; }
+    public void setDescrizione(String descrizione) { this.descrizione = descrizione; }
 
-    public String getNome() {
-        return nome;
-    }
+    public LocalDate getDataInizio() { return dataInizio; }
+    public void setDataInizio(LocalDate dataInizio) { this.dataInizio = dataInizio; }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+    public Integer getDurata() { return durata; }
+    public void setDurata(Integer durata) { this.durata = durata; }
 
-    public String getDescrizione() {
-        return descrizione;
-    }
+    public Long getProjectId() { return projectId; }
+    public void setProjectId(Long projectId) { this.projectId = projectId; }
 
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
-    }
-
-    public String getDataInizio() {
-        return dataInizio;
-    }
-
-    public void setDataInizio(String dataInizio) {
-        this.dataInizio = dataInizio;
-    }
-
-    public Integer getDurata() {
-        return durata;
-    }
-
-    public void setDurata(Integer durata) {
-        this.durata = durata;
-    }
-
-    @Override
-    public String toString() {
-        return "TaskDTO{" +
-                "id=" + id +
-                ", codice='" + codice + '\'' +
-                ", nome='" + nome + '\'' +
-                ", descrizione='" + descrizione + '\'' +
-                ", dataInizio='" + dataInizio + '\'' +
-                ", durata=" + durata +
-                ", slots=" + slots +
-                '}';
-    }
+    public List<SlotDTO> getSlots() { return slots; }
+    public void setSlots(List<SlotDTO> slots) { this.slots = slots; }
 }

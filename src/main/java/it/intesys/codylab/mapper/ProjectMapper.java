@@ -8,9 +8,8 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = {TaskMapper.class})
 public interface ProjectMapper {
 
-    @Mapping(target = "dataInizio", source = "dataInizio", dateFormat = "dd/MM/yyyy")
     ProjectDTO toDTO(Project project);
 
-    @Mapping(target = "dataInizio", source = "dataInizio", dateFormat = "dd/MM/yyyy")
-    Project toEntity(ProjectDTO projectDTO);
+    Project toEntity(ProjectDTO dto);
+
 }

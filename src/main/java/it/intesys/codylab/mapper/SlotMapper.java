@@ -2,17 +2,34 @@ package it.intesys.codylab.mapper;
 
 import it.intesys.codylab.dto.SlotDTO;
 import it.intesys.codylab.model.Slot;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.springframework.stereotype.Component;
 
-@Mapper(componentModel = "spring")
-public interface SlotMapper {
+@Component
+public class SlotMapper {
 
-    @Mapping(source = "dataInizio", target = "dataInizio", dateFormat = "dd/MM/yyyy")
-    @Mapping(source = "dataFine", target = "dataFine", dateFormat = "dd/MM/yyyy")
-    SlotDTO toDTO(Slot slot);
+    public SlotDTO toDTO(Slot slot) {
+        if (slot == null) return null;
 
-    @Mapping(source = "dataInizio", target = "dataInizio", dateFormat = "dd/MM/yyyy")
-    @Mapping(source = "dataFine", target = "dataFine", dateFormat = "dd/MM/yyyy")
-    Slot toEntity(SlotDTO slotDTO);
+        SlotDTO dto = new SlotDTO();
+        dto.setId(slot.getId());
+        dto.setDataInizio(slot.getDataInizio());
+        dto.setDataFine(slot.getDataFine());
+        dto.setDurata(slot.getDurata());
+        dto.setTaskId(slot.getTask() != null ? slot.getTask().getId() : null);
+
+        return dto;
+    }
+
+    public Slot toEntity(SlotDTO dto) {
+        if (dto == null) return null;
+
+        Slot slot = new Slot();
+        slot.setId(dto.getId());
+        slot.setDataInizio(dto.getDataInizio());
+        slot.setDataFine(dto.getDataFine());
+        slot.setDurata(dto.getDurata());
+        // task set in service
+
+        return slot;
+    }
 }
