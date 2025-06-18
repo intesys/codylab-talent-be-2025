@@ -6,6 +6,10 @@ import it.intesys.codylab.model.Project;
 import it.intesys.codylab.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 @Service
 public class ProjectService {
 
@@ -13,26 +17,41 @@ public class ProjectService {
 
     private final ProjectMapper projectMapper;
 
-
-public ProjectService(ProjectRepository projectRepository, ProjectMapper projectMapper) {
+    public ProjectService(ProjectRepository projectRepository, ProjectMapper projectMapper) {
         this.projectRepository = projectRepository;
         this.projectMapper = projectMapper;
     }
 
+    public ProjectDTO getProjectById(Long id) {
+        return projectRepository.findById(id)
+                .map(projectMapper::toDTO)
+                .orElse(null);
+    }
+
     public ProjectDTO findByCodice(String codice) {
-
-        return projectMapper.toDto(projectRepository.findByCodice(codice));
+        return projectMapper.toDTO( projectRepository.findByCodice(codice) );
     }
 
-    public Project findById(Long id) {
-        return projectRepository.findById(id).orElseThrow(
-            () -> new RuntimeException("Project not found with id: " + id)
-        );
+    public List<ProjectDTO> findAll() {
+        return StreamSupport.stream(projectRepository.findAll().spliterator(), false)
+                .map(projectMapper::toDTO)
+                .collect(Collectors.toList());
     }
-    public Project saveProject(Project project) {
-        return projectRepository.save(project);
+
+//    public List<ProjectDTO> findByDurata(Integer durata) {
+//        return StreamSupport.stream(projectRepository.findByDurata(durata).spliterator(), false)
+//                .map(projectMapper::toDTO)
+//                .collect(Collectors.toList());
+//    }
+
+    public ProjectDTO save(ProjectDTO projectDTO) {
+        Project project = projectMapper.toEntity(projectDTO);
+        Project savedProject = projectRepository.save(project);
+        return projectMapper.toDTO(savedProject);
     }
-    public Project updateProject(Project project) {
-        return projectRepository.save(project);
+
+    public void delete(Long id) {
+        projectRepository.deleteById(id);
     }
+
 }

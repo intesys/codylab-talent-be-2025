@@ -6,5 +6,6 @@ import org.springframework.data.repository.ListCrudRepository;
 public interface ProjectRepository extends ListCrudRepository<Project, Long> {
 
     public Project findByCodice(String codice);
-    // Additional methods specific to Project can be defined here if needed
+
+    // Additional methods specific to the Project can be defined here if needed
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Spliterator;
 
 @Entity
 @Table(name="projects")
@@ -89,4 +90,6 @@ public class Project {
     public void setDurata(Integer durata) {
         this.durata = durata;
     }
+
+
 }
