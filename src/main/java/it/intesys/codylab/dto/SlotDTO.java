@@ -1,18 +1,17 @@
 package it.intesys.codylab.dto;
 
-import java.time.LocalDate;
 
 public class SlotDTO {
     private Long id;
-    private LocalDate dataInizio;
-    private LocalDate dataFine;
+    private String dataInizio;
+    private String dataFine;
     private Integer durata;
 
     public SlotDTO() {
         //
     }
 
-    public SlotDTO(Long id, LocalDate dataInizio, LocalDate dataFine, Integer durata) {
+    public SlotDTO(Long id, String dataInizio, String dataFine, Integer durata) {
         this.id = id;
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
@@ -27,19 +26,19 @@ public class SlotDTO {
         this.id = id;
     }
 
-    public LocalDate getDataInizio() {
+    public String getDataInizio() {
         return dataInizio;
     }
 
-    public void setDataInizio(LocalDate dataInizio) {
+    public void setDataInizio(String dataInizio) {
         this.dataInizio = dataInizio;
     }
 
-    public LocalDate getDataFine() {
+    public String getDataFine() {
         return dataFine;
     }
 
-    public void setDataFine(LocalDate dataFine) {
+    public void setDataFine(String dataFine) {
         this.dataFine = dataFine;
     }
 
