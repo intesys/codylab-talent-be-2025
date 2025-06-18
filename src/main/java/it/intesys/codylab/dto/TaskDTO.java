@@ -3,6 +3,7 @@ package it.intesys.codylab.dto;
 import java.util.List;
 
 public class TaskDTO {
+
     private Long id;
     private String codice;
     private String nome;
@@ -10,13 +11,13 @@ public class TaskDTO {
     private String dataInizio;
     private Integer durata;
     private List<SlotDTO> slots;
+    private Long projectId;
     private List<UserDTO> users;
 
     public TaskDTO() {
-        //
-    }
 
-    public TaskDTO(Long id, String codice, String nome, String descrizione, String dataInizio, Integer durata, List<SlotDTO> slots, List<UserDTO> users) {
+    }
+    public TaskDTO(Long id, String codice, String nome, String descrizione, String dataInizio, Integer durata, List<SlotDTO> slots, List<UserDTO> users, Long projectId) {
         this.id = id;
         this.codice = codice;
         this.nome = nome;
@@ -25,6 +26,23 @@ public class TaskDTO {
         this.durata = durata;
         this.slots = slots;
         this.users = users;
+        this.projectId = projectId;
+    }
+
+    public List<UserDTO> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UserDTO> users) {
+        this.users = users;
+    }
+
+    public List<SlotDTO> getSlots() {
+        return slots;
+    }
+
+    public void setSlots(List<SlotDTO> slots) {
+        this.slots = slots;
     }
 
     public Long getId() {
@@ -75,20 +93,11 @@ public class TaskDTO {
         this.durata = durata;
     }
 
-    public List<SlotDTO> getSlots() {
-        return slots;
+    public Long getProjectId() {
+        return projectId;
     }
-
-    public void setSlots(List<SlotDTO> slots) {
-        this.slots = slots;
-    }
-
-    public List<UserDTO> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<UserDTO> users) {
-        this.users = users;
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 
     @Override
@@ -100,8 +109,8 @@ public class TaskDTO {
                 ", descrizione='" + descrizione + '\'' +
                 ", dataInizio='" + dataInizio + '\'' +
                 ", durata=" + durata +
+                ", projectId=" + projectId +
                 ", slots=" + slots +
-                ", users=" + users +
                 '}';
     }
 }
