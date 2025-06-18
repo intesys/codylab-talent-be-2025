@@ -3,22 +3,24 @@ package it.intesys.codylab.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class SlotDTO {
 
     private Long id;
     private Long taskId;
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate dataInizio;
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate dataFine;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime dataInizio;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime dataFine;
     private Integer durata;
 
     public SlotDTO() {
         // Default constructor
     }
 
-    public SlotDTO(Long id,Long taskId ,LocalDate dataInizio, LocalDate dataFine, Integer durata) {
+    public SlotDTO(Long id,Long taskId ,LocalDateTime dataInizio, LocalDateTime dataFine, Integer durata) {
         this.id = id;
         this.taskId = taskId;
         this.dataInizio = dataInizio;
@@ -34,19 +36,19 @@ public class SlotDTO {
         this.id = id;
     }
 
-    public LocalDate getDataInizio() {
+    public LocalDateTime getDataInizio() {
         return dataInizio;
     }
 
-    public void setDataInizio(LocalDate dataInizio) {
+    public void setDataInizio(LocalDateTime dataInizio) {
         this.dataInizio = dataInizio;
     }
 
-    public LocalDate getDataFine() {
+    public LocalDateTime getDataFine() {
         return dataFine;
     }
 
-    public void setDataFine(LocalDate dataFine) {
+    public void setDataFine(LocalDateTime dataFine) {
         this.dataFine = dataFine;
     }
 

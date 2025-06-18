@@ -11,7 +11,9 @@ public interface TaskMapper {
     @Mapping(source = "dataInizio", target = "dataInizio", dateFormat = "dd/MM/yyyy")
     TaskDTO toDTO(Task task);
 
+
     @Mapping(source = "dataInizio", target = "dataInizio", dateFormat = "dd/MM/yyyy")
     Task toEntity(TaskDTO taskDTO);
+
 
 }

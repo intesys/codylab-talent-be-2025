@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "slots")
@@ -20,10 +21,10 @@ public class Slot {
 
 
     @Column(name = "start_time", nullable = false)
-    private LocalDate dataInizio;
+    private LocalDateTime  dataInizio;
 
     @Column(name = "end_time", nullable = false)
-    private LocalDate dataFine;
+    private LocalDateTime dataFine;
 
     @Column(name = "durata", nullable = false)
     private Integer durata;
@@ -44,19 +45,19 @@ public class Slot {
         this.task = task;
     }
 
-    public LocalDate getDataInizio() {
+    public LocalDateTime  getDataInizio() {
         return dataInizio;
     }
 
-    public void setDataInizio(LocalDate dataInizio) {
+    public void setDataInizio(LocalDateTime  dataInizio) {
         this.dataInizio = dataInizio;
     }
 
-    public LocalDate getDataFine() {
+    public LocalDateTime  getDataFine() {
         return dataFine;
     }
 
-    public void setDataFine(LocalDate dataFine) {
+    public void setDataFine(LocalDateTime  dataFine) {
         this.dataFine = dataFine;
     }
 
