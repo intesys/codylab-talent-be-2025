@@ -6,16 +6,18 @@ public class SlotDTO {
     private String dataInizio;
     private String dataFine;
     private Integer durata;
+    private Long taskId;
 
     public SlotDTO() {
         //
     }
 
-    public SlotDTO(Long id, String dataInizio, String dataFine, Integer durata) {
+    public SlotDTO(Long id, String dataInizio, String dataFine, Integer durata, Long taskId) {
         this.id = id;
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
         this.durata = durata;
+        this.taskId = taskId;
     }
 
     public Long getId() {
@@ -48,5 +50,11 @@ public class SlotDTO {
 
     public void setDurata(Integer durata) {
         this.durata = durata;
+    }
+    public Long getTaskId() {
+        return taskId;
+    }
+    public void setTaskId(Long taskId) {
+        this.taskId = taskId;
     }
 }
