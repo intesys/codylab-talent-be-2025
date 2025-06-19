@@ -33,17 +33,20 @@ public class ProjectRestController {
     }
 
     @GetMapping("/project/{id}")
-    public ProjectDTO getProjectById(@PathVariable Long id) {
-        return projectService.getProjectById(id);
+    public ResponseEntity<ProjectDTO> getProject(@PathVariable Long id) {
+        ProjectDTO dto = projectService.getProjectById(id);
+        return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
+
 
     @GetMapping("/project/codice/{codice}")
     public ProjectDTO getProjectByCodice(@PathVariable String codice) {
         return projectService.findByCodice(codice);
     }
     @PostMapping("/project/save")
-    public ProjectDTO saveProject(@RequestBody ProjectDTO projectDTO) {
-        return projectService.save(projectDTO);
+    public ResponseEntity<ProjectDTO> createProject(@RequestBody ProjectDTO projectDTO) {
+        ProjectDTO saved = projectService.save(projectDTO);
+        return ResponseEntity.ok(saved);
     }
 
     @PostMapping("/task/save")
@@ -63,5 +66,7 @@ public class ProjectRestController {
         taskService.assignUserToTask(assignUserToTaskDTO.getUserId(), assignUserToTaskDTO.getTaskId());
         return ResponseEntity.ok().build();
     }
+
+
 
 }

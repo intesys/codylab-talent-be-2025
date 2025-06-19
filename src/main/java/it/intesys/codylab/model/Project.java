@@ -22,9 +22,14 @@ public class Project {
     private Integer durata;
 
 
+
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Task> tasks;
+
+    @ManyToOne
+    @JoinColumn(name = "responsabile_id")
+    private User responsabile;
 
     public Project() {
         // Default constructor
@@ -93,6 +98,14 @@ public class Project {
 
     public void setDurata(Integer durata) {
         this.durata = durata;
+    }
+
+    public User getResponsabile() {
+        return responsabile;
+    }
+
+    public void setResponsabile(User responsabile) {
+        this.responsabile = responsabile;
     }
 
 

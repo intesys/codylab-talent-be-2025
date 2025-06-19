@@ -6,6 +6,7 @@ import it.intesys.codylab.mapper.ProjectMapper;
 import it.intesys.codylab.model.Project;
 import it.intesys.codylab.model.Task;
 import it.intesys.codylab.repository.ProjectRepository;
+import it.intesys.codylab.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,9 +24,12 @@ public class ProjectService {
 
     private final ProjectMapper projectMapper;
 
-    public ProjectService(ProjectRepository projectRepository, ProjectMapper projectMapper) {
+    private final UserRepository userRepository;
+
+    public ProjectService(ProjectRepository projectRepository, ProjectMapper projectMapper, UserRepository userRepository ) {
         this.projectRepository = projectRepository;
         this.projectMapper = projectMapper;
+        this.userRepository = userRepository;
     }
 
     public ProjectDTO getProjectById(Long id) {
@@ -47,6 +51,15 @@ public class ProjectService {
 
     public ProjectDTO save(ProjectDTO projectDTO) {
         Project project = projectMapper.toEntity(projectDTO);
+
+        // Setta il responsabile, se presente
+        if (projectDTO.getResponsabileId() != null) {
+            project.setResponsabile(
+                    userRepository.findById(projectDTO.getResponsabileId())
+                            .orElseThrow(() -> new RuntimeException("Responsabile non trovato"))
+            );
+        }
+
         Project savedProject = projectRepository.save(project);
         return projectMapper.toDTO(savedProject);
     }
@@ -54,6 +67,9 @@ public class ProjectService {
     public void delete(Long id) {
         projectRepository.deleteById(id);
     }
+
+
+
 
 }
 

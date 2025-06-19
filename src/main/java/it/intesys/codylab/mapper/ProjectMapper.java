@@ -15,7 +15,18 @@ public interface ProjectMapper {
     ProjectDTO toDTO(Project project);
 
     @Mapping(source = "dataInizio", target = "dataInizio", dateFormat = "dd/MM/yyyy")
+    @Mapping(target = "responsabile", ignore = true)
     Project toEntity(ProjectDTO projectDTO);
 
+    @AfterMapping
+    default void mapResponsabileToDTO(Project project, @MappingTarget ProjectDTO dto) {
+        if (project.getResponsabile() != null) {
+            dto.setResponsabileId(project.getResponsabile().getId());
+        }
+    }
 
+
+    @AfterMapping
+    default void mapResponsabileToEntity(ProjectDTO dto, @MappingTarget Project project) {
+    }
 }

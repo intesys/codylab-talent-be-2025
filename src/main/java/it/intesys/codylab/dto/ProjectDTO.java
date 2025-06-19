@@ -11,10 +11,11 @@ public class ProjectDTO {
     private String dataInizio;
     private Integer durata;
     private List<TaskDTO> tasks;
+    private Long responsabileId;
 
     public ProjectDTO() {}
 
-    public ProjectDTO(Long id, String codice, String nome, String descrizione, String dataInizio, Integer durata, List<TaskDTO> tasks) {
+    public ProjectDTO(Long id, String codice, String nome, String descrizione, String dataInizio, Integer durata, List<TaskDTO> tasks, Long responsabileId) {
         this.id = id;
         this.codice = codice;
         this.nome = nome;
@@ -22,6 +23,7 @@ public class ProjectDTO {
         this.dataInizio = dataInizio;
         this.durata = durata;
         this.tasks = tasks;
+        this.responsabileId = responsabileId;
     }
 
     public Long getId() {
@@ -77,6 +79,13 @@ public class ProjectDTO {
     public void setTasks(List<TaskDTO> tasks) {
         this.tasks = tasks;
     }
+    public Long getResponsabileId() {
+        return responsabileId;
+    }
+
+    public void setResponsabileId(Long responsabileId) {
+        this.responsabileId = responsabileId;
+    }
 
     @Override
     public String toString() {
@@ -87,7 +96,9 @@ public class ProjectDTO {
                 ", descrizione='" + descrizione + '\'' +
                 ", dataInizio=" + dataInizio +
                 ", durata=" + durata +
+                ", responsabileId=" + responsabileId +
                 '}'
                 + ", tasks=" + tasks;
     }
+
 }
