@@ -1,0 +1,166 @@
+openapi: 3.1.0
+info:
+  title: CodyLab Talent 2025 API
+  description: API per la gestione del progetto CodyLab Talent 2025.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8090/api/v1
+    description: Server locale di sviluppo
+tags:
+  - name: Projects
+    description: Gestione dei progetti
+  - name: Tasks
+    description: Gestione delle attività
+  - name: Users
+    description: Gestione degli utenti
+paths:
+  /projects:
+    get:
+      summary: Recupera tutti i progetti
+      description: Restituisce un elenco di progetti.
+      operationId: getProjects
+      tags:
+        - Projects
+      parameters:
+        - $ref: "#/components/parameters/PageNumber"
+        - $ref: "#/components/parameters/Size"
+        - $ref: "#/components/parameters/Sort"
+        - name: projectFilter
+          in: query
+          description: Filtro per i progetti basato su ID utente o ID progetto.
+          required: false
+          style: form
+          schema:
+              $ref: '#/components/schemas/ProjectFilter'
+      responses:
+        '200':
+          description: Elenco dei progetti recuperato con successo.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Projects'
+        '500':
+          description: Errore interno del server.
+components:
+  headers:
+    total-count:
+      description: Total number of items in the response
+      schema:
+        type: integer
+        format: int32
+        examples:
+          - value: 100
+            summary: Total count of vehicles
+    page-size:
+      description: Number of items per page
+      schema:
+        type: integer
+        format: int32
+        examples:
+          - value: 10
+            summary: Default page size for vehicle listings
+    page-number:
+      description: Current page number (from 0)
+      schema:
+        type: integer
+        format: int32
+        examples:
+          - value: 0
+            summary: Current page number in the response
+  parameters:
+    PageNumber:
+      name: pageNumber
+      in: query
+      description: Page number (starting from 0)
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 0
+        examples:
+          - value: 0
+            summary: First page of results
+    Size:
+      name: size
+      in: query
+      description: Number of items per page
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 10
+        examples:
+          - value: 10
+            summary: Default number of items per page
+    Sort:
+      name: sort
+      in: query
+      description: Sort criteria in the format 'property,asc|desc'
+      required: false
+      schema:
+        type: string
+        examples:
+          - value: 'registrationNumber,asc'
+            summary: Sort vehicles by registration number in ascending order
+          - value: 'model,desc'
+            summary: Sort vehicles by model in descending order
+  schemas:
+    Projects:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ID del progetto.
+        codice:
+          type: string
+          maxLength: 10
+          description: Codice identificativo del progetto.
+        nome:
+          type: string
+          description: Nome del progetto.
+        descrizione:
+          type: string
+          description: Descrizione del progetto.
+        dataInizio:
+          type: string
+          format: date
+          description: Data di inizio del progetto.
+          examples:
+            - value: '2025-01-01'
+              summary: Data di inizio del progetto
+        durata:
+          type: integer
+          description: Durata del progetto in giorni.
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Task'
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ID del task.
+        nome:
+          type: string
+          description: Nome del task.
+        descrizione:
+          type: string
+          description: Descrizione del task.
+    ProjectFilter:
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+          description: ID dell'utente associato al progetto.
+        ids:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: Elenco degli ID dei progetti da filtrare.
