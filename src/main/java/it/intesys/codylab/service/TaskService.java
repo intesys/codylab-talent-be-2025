@@ -21,11 +21,11 @@ public class TaskService {
         this.taskMapper = taskMapper;
     }
 
-    public TaskDTO createTask(TaskDTO dto) {
-        Project project = projectRepository.findById(dto.getProjectId())
+    public TaskDTO createTask(TaskDTO taskDTO) {
+        Project project = projectRepository.findById(taskDTO.getProjectId())
                 .orElseThrow(() -> new IllegalArgumentException("Project not found"));
 
-        Task task = taskMapper.toEntity(dto);
+        Task task = taskMapper.toEntity(taskDTO);
         task.setProject(project);
 
         Task saved = taskRepository.save(task);
