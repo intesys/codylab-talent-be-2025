@@ -5,6 +5,7 @@ import java.util.List;
 
 public class TaskDTO {
 
+    private List<UserDTO> users;
     private Long id;
     private String codice;
     private String nome;
@@ -20,7 +21,7 @@ public class TaskDTO {
 
     public TaskDTO() {}
 
-    public TaskDTO(Long id, String codice, String nome, String descrizione, LocalDate dataInizio, Integer durata, Long projectId, List<SlotDTO> slots) {
+    public TaskDTO(Long id, String codice, String nome, String descrizione, LocalDate dataInizio, Integer durata, Long projectId, List<SlotDTO> slots, List<UserDTO> users) {
         this.id = id;
         this.codice = codice;
         this.nome = nome;
@@ -29,6 +30,7 @@ public class TaskDTO {
         this.durata = durata;
         this.projectId = projectId;
         this.slots = slots;
+        this.users = users;
     }
 
     // Getters e Setters
