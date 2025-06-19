@@ -1,7 +1,6 @@
 package it.intesys.codylab.mapper;
 
 import it.intesys.codylab.dto.TaskDTO;
-import it.intesys.codylab.mapper.SlotMapper;
 import it.intesys.codylab.model.Slot;
 import it.intesys.codylab.model.Task;
 import org.springframework.stereotype.Component;
@@ -19,7 +18,10 @@ public class TaskMapper {
     }
 
     public Task toEntity(TaskDTO dto) {
+        if (dto == null) return null;
+
         Task task = new Task();
+        task.setId(dto.getId());
         task.setCodice(dto.getCodice());
         task.setNome(dto.getNome());
         task.setDescrizione(dto.getDescrizione());
@@ -27,11 +29,10 @@ public class TaskMapper {
         task.setDurata(dto.getDurata());
 
         if (dto.getSlots() != null) {
-            List<Slot> slots = dto.getSlots()
-                    .stream()
+            List<Slot> slots = dto.getSlots().stream()
                     .map(slotMapper::toEntity)
                     .collect(Collectors.toList());
-            slots.forEach(slot -> slot.setTask(task));
+            slots.forEach(s -> s.setTask(task));
             task.setSlots(slots);
         }
 
@@ -39,6 +40,8 @@ public class TaskMapper {
     }
 
     public TaskDTO toDTO(Task task) {
+        if (task == null) return null;
+
         TaskDTO dto = new TaskDTO();
         dto.setId(task.getId());
         dto.setCodice(task.getCodice());
@@ -49,9 +52,14 @@ public class TaskMapper {
         dto.setProjectId(task.getProject() != null ? task.getProject().getId() : null);
 
         if (task.getSlots() != null) {
-            dto.setSlots(task.getSlots()
-                    .stream()
+            dto.setSlots(task.getSlots().stream()
                     .map(slotMapper::toDTO)
+                    .collect(Collectors.toList()));
+        }
+
+        if (task.getUsers() != null) {
+            dto.setUserIds(task.getUsers().stream()
+                    .map(u -> u.getId())
                     .collect(Collectors.toList()));
         }
 

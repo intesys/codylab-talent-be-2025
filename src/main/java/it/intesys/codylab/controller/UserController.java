@@ -1,6 +1,8 @@
 package it.intesys.codylab.controller;
 
+import it.intesys.codylab.dto.TaskDTO;
 import it.intesys.codylab.model.User;
+import it.intesys.codylab.service.TaskService;
 import it.intesys.codylab.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    private TaskService TaskService;
 
     @GetMapping
     public List<User> getAllUsers() {
@@ -35,6 +38,12 @@ public class UserController {
         updatedUser.setId(id);
         return userService.save(updatedUser);
     }
+
+    @PostMapping("/{taskId}/users")
+    public TaskDTO assignUsersToTask(@PathVariable Long taskId, @RequestBody List<Long> userIds) {
+        return TaskService.addUsersToTask(taskId, userIds);
+    }
+
 
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id) {

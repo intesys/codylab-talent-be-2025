@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,6 +29,15 @@ public class Task {
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Slot> slots;
+
+    @ManyToMany
+    @JoinTable(
+            name = "users_tasks",
+            joinColumns = @JoinColumn(name = "task_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> utenti = new ArrayList<>();
+
 
     @ManyToMany(mappedBy = "tasks")
     private List<User> users;
@@ -62,4 +72,12 @@ public class Task {
 
     public List<User> getUsers() { return users; }
     public void setUsers(List<User> users) { this.users = users; }
+
+    public <E> List<E> getUtenti() {
+        List<E> result = new ArrayList<>();
+        for (User user : utenti) {
+            result.add((E) user);
+        }
+        return result;
+    }
 }
