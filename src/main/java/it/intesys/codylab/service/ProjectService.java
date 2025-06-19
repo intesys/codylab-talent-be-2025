@@ -44,11 +44,6 @@ public class ProjectService {
                 .collect(Collectors.toList());
     }
 
-//    public List<ProjectDTO> findByDurata(Integer durata) {
-//        return StreamSupport.stream(projectRepository.findByDurata(durata).spliterator(), false)
-//                .map(projectMapper::toDTO)
-//                .collect(Collectors.toList());
-//    }
 
     public ProjectDTO save(ProjectDTO projectDTO) {
         Project project = projectMapper.toEntity(projectDTO);
@@ -59,6 +54,7 @@ public class ProjectService {
     public void delete(Long id) {
         projectRepository.deleteById(id);
     }
+
 }
 
 

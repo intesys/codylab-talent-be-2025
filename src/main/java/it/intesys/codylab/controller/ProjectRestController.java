@@ -1,5 +1,6 @@
 package it.intesys.codylab.controller;
 
+import it.intesys.codylab.dto.AssignUserToTaskDTO;
 import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.dto.SlotDTO;
 import it.intesys.codylab.dto.TaskDTO;
@@ -57,9 +58,10 @@ public class ProjectRestController {
         return ResponseEntity.ok(savedSlot);
     }
 
-//    @GetMapping("/project/durata/{durata}")
-//    public List<ProjectDTO> getProjectByDurata(@PathVariable Integer durata) {
-//        return projectService.findByDurata(durata);
-//    }
+    @PostMapping("/user-to-task")
+    public ResponseEntity<Object> assignUserToTaskDTO(@RequestBody AssignUserToTaskDTO assignUserToTaskDTO) {
+        taskService.assignUserToTask(assignUserToTaskDTO.getUserId(), assignUserToTaskDTO.getTaskId());
+        return ResponseEntity.ok().build();
+    }
 
 }
