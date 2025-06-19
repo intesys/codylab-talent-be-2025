@@ -1,5 +1,7 @@
 package it.intesys.codylab.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -20,12 +22,15 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "progetto_id", nullable = false)
+    @JsonBackReference
     private Project project;
 
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Slot> slots;
 
     @ManyToMany(mappedBy = "tasks")
+    @JsonManagedReference
     private List<User> users;
 
     public Task() {

@@ -20,6 +20,10 @@ public class TaskService {
         this.projectRepository = projectRepository;
         this.taskMapper = taskMapper;
     }
+    public Task getTaskById(Long id) {
+        return taskRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Task not found with id: " + id));
+    }
 
     public TaskDTO createTask(TaskDTO taskDTO) {
         Project project = projectRepository.findById(taskDTO.getProjectId())
