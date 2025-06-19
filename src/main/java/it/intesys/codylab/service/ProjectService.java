@@ -59,23 +59,6 @@ public class ProjectService {
     public void delete(Long id) {
         projectRepository.deleteById(id);
     }
-
-    public ProjectDTO saveTask(@RequestBody ProjectDTO projectDTO) {
-        Project project = projectMapper.toEntity(projectDTO);
-
-
-        List<Task> tasks = project.getTasks() == null ?
-                new ArrayList<>() :
-                project.getTasks().stream()
-                        .map(task -> {
-                            task.setProject(project);
-                            return task;
-                        }).collect(Collectors.toList());
-
-        project.setTasks(tasks);
-        Project savedProject = projectRepository.save(project);
-        return projectMapper.toDTO(savedProject);
-    }
 }
 
 
