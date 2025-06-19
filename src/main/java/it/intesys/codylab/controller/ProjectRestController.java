@@ -68,6 +68,11 @@ public class ProjectRestController implements ProjectsApi {
         }
     }
 
+    @Override
+    public ResponseEntity<ProjectsApiDTO> getProjectById(Long projectId) {
+        return ResponseEntity.notFound().build();
+    }
+
     /**
      @GetMapping("/projects") public List<ProjectDTO> getProjects() {
      return projectService.findAll();
