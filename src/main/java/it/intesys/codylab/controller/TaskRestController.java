@@ -5,7 +5,7 @@ import it.intesys.codylab.service.TaskService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/tasks")
 public class TaskRestController {
 
     private final TaskService taskService;
