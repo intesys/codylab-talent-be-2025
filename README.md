@@ -323,8 +323,41 @@ Esercizi da completare:
 ## Parte 8 - API First
 ### Argomenti
 * Leggere e scrivere la specifica OpenAPI
+  * Lettura della specifica generata da java
+  * Dichiarazione, tags, paths, metodi, components
 * Scrittura specifica OpenAPI
+  * Dichiarazione openapi, info e tags
+  * Components schemas
+  * paths (nomi risorse al plurale)
+  * metodo GET e risposte
+  * Parametri e components parameters (la paginazione)
+  * metodo POST e risposte
+  * RequestBody e components requestBody
+  * Components headers
+  * I metodi con path variables: GET, PUT, DELETE
 * Generazione del controller REST dalla specifica OpenAPI
+  * plugin per la generazione
+  * implementazione dei metodi
+
+**Esercizi**
+Scaricare il branch `8-openapi` e verificare quanto fatto.
+
+Lavorare sul branch che preferite (crearne anche in autonomia)
+
+Esericizi da completare:
+* Creare la specifica OpenAPI per la risorsa Project (con i campi previsti nelle lezioni precedenti):
+  * GET /projects
+  * GET /projects/{id}
+  * POST /projects
+  * PUT /projects/{id}
+  * DELETE /projects/{id}
+* Inserire il plugin per la generazione del controller REST dalla specifica OpenAPI (ricordarsi jackson nullable)
+* Modificare ProjectRestController in modo che implementi l'interfaccia generata dalla specifica OpenAPI
+* Implementare i metodi generati e aggiungere la logica completa fino alla persistenza dei progetti (service, mapper, repository)
+* Proseguire lo sviluppo con le CRUD delle altre risorse previste: 
+  * Task
+  * Slot
+  * User
 
 ## Parte 9 - Testing
 ### Argomenti
