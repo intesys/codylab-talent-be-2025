@@ -9,6 +9,7 @@ import it.intesys.codylab.dto.AssignUserToTaskDTO;
 import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.dto.SlotDTO;
 import it.intesys.codylab.dto.TaskDTO;
+import it.intesys.codylab.model.Project;
 import it.intesys.codylab.service.ProjectService;
 import it.intesys.codylab.service.SlotService;
 import it.intesys.codylab.service.TaskService;
@@ -22,6 +23,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -31,6 +33,7 @@ public class ProjectRestController implements ProjectsApi {
     private ProjectService projectService;
     private TaskService taskService;
     private SlotService slotService;
+
 
 
     public ProjectRestController(ProjectService projectService , TaskService taskService, SlotService slotService) {
@@ -49,7 +52,11 @@ public class ProjectRestController implements ProjectsApi {
         projectsApiDTO.setId(1L);
         projectsApiDTO.setNome("Example Project");
         // ResponseEntity.noContent().build();
-        return ResponseEntity.ok(List.of(projectsApiDTO));
+        return ResponseEntity.ok()
+                .header("x-total-count", "1")
+                .header("x-page-size", "10")
+                .header("x-page-number", "0")
+                .body(List.of(projectsApiDTO));
     }
 
     @Override
@@ -83,7 +90,11 @@ public class ProjectRestController implements ProjectsApi {
         return ResponseEntity.notFound().build();
     }
 
-    /*s
+    @GetMapping("/projects")
+    public List<ProjectsApiDTO> getAllProjects() {
+        return projectService.getAllProjects();
+    }
+    /*
     @GetMapping("/projects")
     public List<ProjectDTO> getProjects() {
         return projectService.findAll();

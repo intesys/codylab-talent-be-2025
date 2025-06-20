@@ -1,32 +1,29 @@
 package it.intesys.codylab.mapper;
 
-import it.intesys.codylab.dto.ProjectDTO;
+import it.intesys.codylab.api.model.ProjectsApiDTO;
 import it.intesys.codylab.model.Project;
-import it.intesys.codylab.model.Task;
-import org.mapstruct.AfterMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
+import it.intesys.codylab.repository.UserRepository;
+import org.mapstruct.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper(componentModel = "spring", uses = {TaskMapper.class})
-public interface ProjectMapper {
+public abstract class ProjectMapper {
 
-    @Mapping(source = "dataInizio", target = "dataInizio", dateFormat = "dd/MM/yyyy")
-    ProjectDTO toDTO(Project project);
+    @Autowired
+    protected UserRepository userRepository;
 
-    @Mapping(source = "dataInizio", target = "dataInizio", dateFormat = "dd/MM/yyyy")
+    @Mapping(source = "dataInizio", target = "dataInizio", dateFormat = "yyyy-MM-dd")
+    @Mapping(source = "responsabile.id", target = "responsabileId")
+    public abstract ProjectsApiDTO toDTO(Project project);
+
+    @Mapping(source = "dataInizio", target = "dataInizio", dateFormat = "yyyy-MM-dd")
     @Mapping(target = "responsabile", ignore = true)
-    Project toEntity(ProjectDTO projectDTO);
+    public abstract Project toEntity(ProjectsApiDTO dto);
 
     @AfterMapping
-    default void mapResponsabileToDTO(Project project, @MappingTarget ProjectDTO dto) {
-        if (project.getResponsabile() != null) {
-            dto.setResponsabileId(project.getResponsabile().getId());
+    protected void mapResponsabileToEntity(ProjectsApiDTO dto, @MappingTarget Project entity) {
+        if (dto.getResponsabileId() != null) {
+            userRepository.findById(dto.getResponsabileId()).ifPresent(entity::setResponsabile);
         }
-    }
-
-
-    @AfterMapping
-    default void mapResponsabileToEntity(ProjectDTO dto, @MappingTarget Project project) {
     }
 }
