@@ -1,15 +1,18 @@
 openapi: 3.0.1
 info:
-  title: API Project
+  title: API Projects
   version: 1.0.0
+
+servers:
+  - url: http://localhost:809
 
 paths:
   /projects:
     get:
-      summary: Ottieni tutti i progetti
+      summary: "Elenco progetti"
       responses:
         '200':
-          description: Elenco dei progetti
+          description: "OK"
           content:
             application/json:
               schema:
@@ -17,7 +20,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/ProjectDTO'
     post:
-      summary: Crea un nuovo progetto
+      summary: "Crea progetto"
       requestBody:
         required: true
         content:
@@ -26,11 +29,40 @@ paths:
               $ref: '#/components/schemas/ProjectDTO'
       responses:
         '201':
-          description: Progetto creato
+          description: "Creato"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProjectDTO'
+
+  /projects/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+    put:
+      summary: "Aggiorna progetto"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectDTO'
+      responses:
+        '200':
+          description: "Aggiornato"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectDTO'
+    delete:
+      summary: "Cancella progetto"
+      responses:
+        '204':
+          description: "Cancellato"
 
 components:
   schemas:
@@ -54,24 +86,7 @@ components:
         tasks:
           type: array
           items:
-            type: object
-            description: Placeholder per TaskDTO
-
-    SlotDTO:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        dataInizio:
-          type: string
-          format: date
-        dataFine:
-          type: string
-          format: date
-        durata:
-          type: integer
-          format: int64
+            $ref: '#/components/schemas/TaskDTO'
 
     TaskDTO:
       type: object
@@ -99,7 +114,23 @@ components:
           items:
             $ref: '#/components/schemas/UserDTO'
 
+    SlotDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        dataInizio:
+          type: string
+          format: date
+        dataFine:
+          type: string
+          format: date
+        durata:
+          type: integer
+
     UserDTO:
+      type: object
       properties:
         id:
           type: integer

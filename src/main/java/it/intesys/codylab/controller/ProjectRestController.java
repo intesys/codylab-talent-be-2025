@@ -3,10 +3,9 @@ package it.intesys.codylab.controller;
 import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.model.Project;
 import it.intesys.codylab.service.ProjectService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class ProjectRestController {
 
-    private ProjectService projectService;
+    private final ProjectService projectService;
 
     public ProjectRestController(ProjectService projectService) {
         this.projectService = projectService;
@@ -35,4 +34,22 @@ public class ProjectRestController {
         return projectService.findByCodice(codice);
     }
 
+    @PostMapping("/project")
+    public ResponseEntity<ProjectDTO> createProject(@RequestBody ProjectDTO dto) {
+        ProjectDTO created = projectService.create(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
+    }
+
+    @PutMapping("/project/{id}")
+    public ResponseEntity<ProjectDTO> updateProject(@PathVariable Long id, @RequestBody ProjectDTO dto) {
+        dto.setId(id);
+        ProjectDTO updated = projectService.update(dto);
+        return ResponseEntity.ok(updated);
+    }
+
+    @DeleteMapping("/project/{id}")
+    public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
+        projectService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

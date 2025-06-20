@@ -47,4 +47,11 @@ public class ProjectService {
         projectRepository.deleteById(id);
     }
 
+    public ProjectDTO create(ProjectDTO dto) {
+        return save(dto);
+    }
+
+    public ProjectDTO update(ProjectDTO dto) {
+        return save(dto);
+    }
 }
