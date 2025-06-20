@@ -1,0 +1,72 @@
+openapi: 3.1.0
+info:
+  title: CodyLab Talent 2025 API
+  description: API per la gestione del progetto CodyLab Talent 2025.
+  version: 1.0.0
+servers:
+  - url: https://localhost:8090/api/v1
+    description: Server locale di sviluppo
+tags:
+  - name: Projects
+    description: Operazioni sui progetti
+  - name: Tasks
+    description: Operazioni sulle task
+  - name: Users
+    description: Operazioni sugli utenti
+paths:
+  /projects:
+    get:
+      summary: Recupera tutti i progetti
+      description: Restituisce una lista di oggetti Project.
+      operationId: getProjects
+      tags:
+        - Projects
+      responses:
+        '200':
+          description: Lista di progetti recuperata con successo.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '500':
+          description: Errore interno del server.
+components:
+  schemas:
+    Project:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Identificativo univoco del progetto.
+        codice:
+          type: string
+          description: Codice identificativo del progetto.
+        nome:
+          type: string
+          description: Nome del progetto.
+        descrizione:
+          type: string
+          description: Descrizione del progetto.
+        dataInizio:
+          type: string
+          format: date
+          description: Data di inizio del progetto.
+        durata:
+          type: integer
+          description: Durata del progetto in giorni.
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Task'
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Identificativo univoco della task.
+        nome:
+          type: string
+          description: Nome della task.
+        descrizione:
+          type: string
+          description: Descrizione della task.
