@@ -1,76 +1,361 @@
 openapi: 3.1.0
 info:
   title: CodyLab Talent 2025 API
-  description: API documentation for the CodyLab Talent 2025 project.
+  description: API per la gestione del progetto CodyLab Talent 2025.
   version: 1.0.0
 servers:
   - url: http://localhost:8090/api/v1
-    description: Local development server
+    description: Server locale di sviluppo
 tags:
   - name: Projects
-    description: Operations related to projects
+    description: Gestione dei progetti
   - name: Tasks
-    description: Operations related to tasks
+    description: Gestione delle attività
   - name: Users
-    description: Operations related to users
-
+    description: Gestione degli utenti
 paths:
   /projects:
     get:
-      summary: Get all projects
-      operationId: getProjects
+      summary: Recupera tutti i progetti
+      description: Restituisce un elenco di progetti.
+      operationId: searchProjects
       tags:
         - Projects
+      parameters:
+        - $ref: "#/components/parameters/PageNumber"
+        - $ref: "#/components/parameters/Size"
+        - $ref: "#/components/parameters/Sort"
+        - name: projectFilter
+          in: query
+          description: Filtro per i progetti basato su ID utente o ID progetto.
+          required: false
+          style: form
+          schema:
+            $ref: '#/components/schemas/ProjectFilter'
       responses:
         '200':
-          description: A Projects object
+          description: Elenco dei progetti recuperato con successo.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Projects'
+        '204':
+          description: No content - nessun progetto trovato.
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    post:
+      summary: Crea un nuovo progetto
+      description: Crea un nuovo progetto con i dettagli forniti.
+      operationId: createProject
+      tags:
+        - Projects
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Projects'
+      responses:
+        '201':
+          description: Progetto creato con successo.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Projects'
+        '400':
+          description: Richiesta non valida - dati del progetto mancanti o non validi.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /projects/{projectId}:
+    get:
+      summary: Recupera un progetto specifico
+      description: Restituisce i dettagli di un progetto specifico.
+      operationId: getProjectById
+      tags:
+        - Projects
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          description: ID del progetto da recuperare.
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Progetto recuperato con successo.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Projects'
+        '404':
+          description: Progetto non trovato.
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    put:
+      summary: Aggiorna un progetto esistente
+      description: Aggiorna i dettagli di un progetto esistente.
+      operationId: updateProject
+      tags:
+        - Projects
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          description: ID del progetto da aggiornare.
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Projects'
+      responses:
+        '200':
+          description: Progetto aggiornato con successo.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Projects'
+        '400':
+          description: Richiesta non valida - dati del progetto mancanti o non validi.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Progetto non trovato.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    delete:
+      summary: Elimina un progetto
+      description: Elimina un progetto specifico.
+      operationId: deleteProject
+      tags:
+        - Projects
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          description: ID del progetto da eliminare.
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Progetto eliminato con successo.
+        '404':
+          description: Progetto non trovato.
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
 components:
+  headers:
+    total-count:
+      description: Total number of items in the response
+      schema:
+        type: integer
+        format: int32
+        examples:
+          - value: 100
+            summary: Total count of vehicles
+    page-size:
+      description: Number of items per page
+      schema:
+        type: integer
+        format: int32
+        examples:
+          - value: 10
+            summary: Default page size for vehicle listings
+    page-number:
+      description: Current page number (from 0)
+      schema:
+        type: integer
+        format: int32
+        examples:
+          - value: 0
+            summary: Current page number in the response
+  parameters:
+    PageNumber:
+      name: pageNumber
+      in: query
+      description: Page number (starting from 0)
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 0
+        examples:
+          - value: 0
+            summary: First page of results
+    Size:
+      name: size
+      in: query
+      description: Number of items per page
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 10
+        examples:
+          - value: 10
+            summary: Default number of items per page
+    Sort:
+      name: sort
+      in: query
+      description: Sort criteria in the format 'property,asc|desc'
+      required: false
+      schema:
+        type: string
+        examples:
+          - value: 'registrationNumber,asc'
+            summary: Sort vehicles by registration number in ascending order
+          - value: 'model,desc'
+            summary: Sort vehicles by model in descending order
   schemas:
-    Project:
+    Projects:
       type: object
       properties:
         id:
           type: integer
-          example: 1
+          format: int64
+          description: ID del progetto.
         codice:
           type: string
-          example: PRJ-001
+          maxLength: 10
+          description: Codice identificativo del progetto.
         nome:
           type: string
-          example: Example Project
+          description: Nome del progetto.
         descrizione:
           type: string
-          example: This is a sample project.
+          description: Descrizione del progetto.
         dataInizio:
           type: string
           format: date
-          example: 2025-01-01
+          description: Data di inizio del progetto.
+          examples:
+            - value: '2025-01-01'
+              summary: Data di inizio del progetto
         durata:
           type: integer
-          example: 12
+          description: Durata del progetto in giorni.
         tasks:
           type: array
           items:
-            type: object
-        responsabile:
-          type: object
-      required:
-        - id
-        - codice
-        - nome
-        - descrizione
-        - dataInizio
-        - durata
-    Projects:
+            $ref: '#/components/schemas/Task'
+    Task:
       type: object
       properties:
-        items:
+        id:
+          type: integer
+          format: int64
+          description: ID del task.
+        nome:
+          type: string
+          description: Nome del task.
+        descrizione:
+          type: string
+          description: Descrizione del task.
+    ProjectFilter:
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+          description: ID dell'utente associato al progetto.
+        ids:
           type: array
           items:
-            $ref: '#/components/schemas/Project'
-      required:
-        - items
+            type: integer
+            format: int64
+          description: Elenco degli ID dei progetti da filtrare.
+    Problem:
+      description: error occurred - see status code and problem object for more information.
+      type: object
+      properties:
+        type:
+          type: string
+          format: uri
+          description: |
+            An absolute URI that identifies the problem type.  When dereferenced,
+            it SHOULD provide human-readable documentation for the problem type
+            (e.g., using HTML).
+          default: "about:blank"
+          example: "https://zalando.github.io/problem/constraint-violation"
+        title:
+          type: string
+          description: |
+            A short, summary of the problem type. Written in english and readable
+            for engineers (usually not suited for non technical stakeholders and
+            not localized); example: Service Unavailable
+        status:
+          type: integer
+          format: int32
+          description: |
+            The HTTP status code generated by the origin server for this occurrence
+            of the problem.
+          minimum: 100
+          maximum: 600
+          exclusiveMaximum: true
+          example: 503
+        detail:
+          type: string
+          description: |
+            A human readable explanation specific to this occurrence of the
+            problem.
+          example: Connection to database timed out
+        instance:
+          type: string
+          format: uri
+          description: |
+            An absolute URI that identifies the specific occurrence of the problem.
+            It may or may not yield further information if dereferenced.
+        errorCategory:
+          type: string
+          description: The category of the error.
+          example: Invalid
+        fieldName:
+          type: string
+          description: The name of the field that caused the error.
+          example: phone
+        timestamp:
+          type: string
+          format: date-time
+          description: The timestamp when the error occurred.
+          example: "2024-11-13T10:42:21.263191453Z"
+        traceId:
+          type: string
+          description: The trace ID for the error.
+          example: "057b351ca8e8badf158357ecbb2edb73"

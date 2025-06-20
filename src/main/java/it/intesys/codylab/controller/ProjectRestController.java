@@ -1,6 +1,8 @@
 package it.intesys.codylab.controller;
 
+import it.intesys.codylab.api.model.ProblemApiDTO;
 import it.intesys.codylab.api.model.ProjectApiDTO;
+import it.intesys.codylab.api.model.ProjectFilterApiDTO;
 import it.intesys.codylab.api.model.ProjectsApiDTO;
 import it.intesys.codylab.api.rest.ProjectsApi;
 import it.intesys.codylab.dto.AssignUserToTaskDTO;
@@ -10,16 +12,22 @@ import it.intesys.codylab.dto.TaskDTO;
 import it.intesys.codylab.service.ProjectService;
 import it.intesys.codylab.service.SlotService;
 import it.intesys.codylab.service.TaskService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Collections;
+import java.net.URI;
+import java.time.OffsetDateTime;
 import java.util.List;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import java.util.Collections;
 
 @RestController
 @RequestMapping("/api/v1")
 public class ProjectRestController implements ProjectsApi {
 
+    private static final Logger logger = LoggerFactory.getLogger(ProjectRestController.class);
     private ProjectService projectService;
     private TaskService taskService;
     private SlotService slotService;
@@ -32,12 +40,49 @@ public class ProjectRestController implements ProjectsApi {
     }
 
     @Override
-    public ResponseEntity<ProjectsApiDTO> getProjects() {
+    public ResponseEntity<List<ProjectsApiDTO>> searchProjects
+            (Integer pageNumber,
+             Integer size,
+             String sort,
+             ProjectFilterApiDTO projectFilter) {
         ProjectsApiDTO projectsApiDTO = new ProjectsApiDTO();
-        ProjectApiDTO project = new ProjectApiDTO();
-        projectsApiDTO.setItems(Collections.singletonList(project));
-        return ResponseEntity.ok(projectsApiDTO);
+        projectsApiDTO.setId(1L);
+        projectsApiDTO.setNome("Example Project");
+        // ResponseEntity.noContent().build();
+        return ResponseEntity.ok(List.of(projectsApiDTO));
     }
+
+    @Override
+    public ResponseEntity<ProjectsApiDTO> createProject(ProjectsApiDTO projectsApiDTO) {
+        try {
+            ProjectDTO projectDTO = new ProjectDTO();
+            // mapper da ProjectsApiDTO a ProjectDTO
+            //projectDTO = projectService.save(projectDTO);
+            // mapper da ProjectDTO a ProjectsApiDTO
+            ProjectsApiDTO projectsApiDTOCreated = new ProjectsApiDTO();
+            projectsApiDTOCreated.setId(1L);
+            projectsApiDTOCreated.setNome("Example Project");
+            return ResponseEntity
+                    .created(URI.create("/api/v1/projects/" + projectsApiDTOCreated.getId()))
+                    .body(projectsApiDTOCreated);
+        } catch (Exception e) {
+            logger.error("Error creating project {}", projectsApiDTO, e);
+            ProblemApiDTO dettaglioErrore = new ProblemApiDTO();
+            dettaglioErrore.detail("Error creating project " + projectsApiDTO);
+            dettaglioErrore.setStatus(500);
+            dettaglioErrore.setTitle("Internal Server Error");
+            dettaglioErrore.setInstance(URI.create("/api/v1/projects"));
+            dettaglioErrore.setTimestamp(OffsetDateTime.now());
+            ResponseEntity.internalServerError().body(dettaglioErrore);
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    @Override
+    public ResponseEntity<ProjectsApiDTO> getProjectById(Long projectId) {
+        return ResponseEntity.notFound().build();
+    }
+
     /*
     @GetMapping("/projects")
     public List<ProjectDTO> getProjects() {
