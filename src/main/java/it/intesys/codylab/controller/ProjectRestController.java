@@ -1,5 +1,8 @@
 package it.intesys.codylab.controller;
 
+import it.intesys.codylab.api.model.ProjectApiDTO;
+import it.intesys.codylab.api.model.ProjectsApiDTO;
+import it.intesys.codylab.api.rest.ProjectsApi;
 import it.intesys.codylab.dto.AssignUserToTaskDTO;
 import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.dto.SlotDTO;
@@ -10,11 +13,12 @@ import it.intesys.codylab.service.TaskService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
-public class ProjectRestController {
+public class ProjectRestController implements ProjectsApi {
 
     private ProjectService projectService;
     private TaskService taskService;
@@ -27,6 +31,14 @@ public class ProjectRestController {
         this.slotService = slotService;
     }
 
+    @Override
+    public ResponseEntity<ProjectsApiDTO> getProjects() {
+        ProjectsApiDTO projectsApiDTO = new ProjectsApiDTO();
+        ProjectApiDTO project = new ProjectApiDTO();
+        projectsApiDTO.setItems(Collections.singletonList(project));
+        return ResponseEntity.ok(projectsApiDTO);
+    }
+    /*
     @GetMapping("/projects")
     public List<ProjectDTO> getProjects() {
         return projectService.findAll();
@@ -35,7 +47,7 @@ public class ProjectRestController {
     @GetMapping("/project/{id}")
     public ResponseEntity<ProjectDTO> getProject(@PathVariable Long id) {
         ProjectDTO dto = projectService.getProjectById(id);
-        return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
+        return dto != null? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
 
 
@@ -66,7 +78,7 @@ public class ProjectRestController {
         taskService.assignUserToTask(assignUserToTaskDTO.getUserId(), assignUserToTaskDTO.getTaskId());
         return ResponseEntity.ok().build();
     }
-
+*/
 
 
 }
