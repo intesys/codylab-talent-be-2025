@@ -271,6 +271,11 @@ components:
         durata:
           type: integer
           description: Durata del progetto in giorni.
+
+        responsabileId:
+          type: long
+          description: ID dell'utente responsabile del progetto
+
         tasks:
           type: array
           items:
