@@ -81,6 +81,37 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/Problem'
+  /projects/{id}:
+    get:
+      summary: Recupera un progetto tramite il suo ID
+      description: Restituisce l'oggetto Project corrispondente all'ID fornito.
+      operationId: getProjectById
+      tags:
+        - Projects
+      parameters:
+        - name: id
+          in: path
+          description: Identificativo univoco del progetto.
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Progetto recuperato con successo.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Projects'
+        '404':
+          description: Progetto non trovato.
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+
 components:
   headers:
     total-count:
