@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -34,6 +35,15 @@ public class ProjectRestController implements ProjectsApi {
         projectsApiDTO.setId(1L);
         projectsApiDTO.setNome("Nome Progetto");
         return ResponseEntity.ok(List.of(projectsApiDTO));
+    }
+
+    @Override
+    public ResponseEntity<ProjectsApiDTO> createProject(ProjectsApiDTO projectsApiDTO) {
+        ProjectsApiDTO projectsApiDTOCreated = new ProjectsApiDTO();
+        projectsApiDTOCreated.setId(1L);
+        projectsApiDTOCreated.setNome("Nome Progetto");
+        return ResponseEntity.created(URI.create("/api/v1/projects/" + projectsApiDTOCreated.getId()))
+                .body(projectsApiDTOCreated);
     }
 
     //    @GetMapping("/projects")

@@ -42,6 +42,39 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Projects'
+        '204':
+          description: Nessun progetto trovato.
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    post:
+      summary: Crea un nuovo progetto
+      description: Crea un nuovo progetto e restituisce l'oggetto Project creato.
+      operationId: createProject
+      tags:
+        - Projects
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Projects'
+      responses:
+        '201':
+          description: Progetto creato con successo.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Projects'
+        '400':
+          description: Richiesta non valida.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
         '500':
           description: Errore interno del server.
           content:
