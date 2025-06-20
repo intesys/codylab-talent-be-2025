@@ -112,46 +112,71 @@ paths:
               schema:
                 $ref: '#/components/schemas/Problem'
     put:
-        summary: Aggiorna un progetto esistente
-        description: Aggiorna i dettagli di un progetto esistente e restituisce l'oggetto Project aggiornato.
-        operationId: updateProject
-        tags:
-            - Projects
-        parameters:
-            - name: id
-              in: path
-              description: Identificativo univoco del progetto da aggiornare.
-              required: true
+      summary: Aggiorna un progetto esistente
+      description: Aggiorna i dettagli di un progetto esistente e restituisce l'oggetto Project aggiornato.
+      operationId: updateProject
+      tags:
+        - Projects
+      parameters:
+        - name: id
+          in: path
+          description: Identificativo univoco del progetto da aggiornare.
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Projects'
+      responses:
+        '200':
+          description: Progetto aggiornato con successo.
+          content:
+            application/json:
               schema:
-                type: integer
-                format: int64
-        requestBody:
-            required: true
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/Projects'
-        responses:
-            '200':
-              description: Progetto aggiornato con successo.
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Projects'
-            '400':
-              description: Richiesta non valida.
-              content:
-                application/problem+json:
-                  schema:
-                    $ref: '#/components/schemas/Problem'
-            '404':
-              description: Progetto non trovato.
-            '500':
-              description: Errore interno del server.
-              content:
-                application/problem+json:
-                  schema:
-                    $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/Projects'
+        '400':
+          description: Richiesta non valida.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Progetto non trovato.
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    delete:
+      summary: Elimina un progetto tramite il suo ID
+      description: Elimina il progetto corrispondente all'ID fornito.
+      operationId: deleteProject
+      tags:
+        - Projects
+      parameters:
+        - name: id
+          in: path
+          description: Identificativo univoco del progetto da eliminare.
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Progetto eliminato con successo.
+        '404':
+          description: Progetto non trovato.
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
 
 components:
   headers:
