@@ -83,7 +83,7 @@ public class ProjectRestController implements ProjectsApi {
         return ResponseEntity.notFound().build();
     }
 
-    /*
+    /*s
     @GetMapping("/projects")
     public List<ProjectDTO> getProjects() {
         return projectService.findAll();
