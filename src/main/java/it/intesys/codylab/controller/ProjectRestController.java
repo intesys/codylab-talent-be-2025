@@ -1,6 +1,5 @@
 package it.intesys.codylab.controller;
 
-import it.intesys.codylab.CodyLabSpringBootApplication;
 import it.intesys.codylab.api.model.ProblemApiDTO;
 import it.intesys.codylab.api.model.ProjectFilterApiDTO;
 import it.intesys.codylab.api.model.ProjectsApiDTO;
@@ -39,7 +38,11 @@ public class ProjectRestController implements ProjectsApi {
         projectsApiDTO.setId(1L);
         projectsApiDTO.setNome("Example Project");
         // ResponseEntity.noContent().build();
-        return ResponseEntity.ok(List.of(projectsApiDTO));
+        return ResponseEntity.ok()
+                .header("x-total-count", "1")
+                .header("x-page-size", "10")
+                .header("x-page-number", "0")
+                .body(List.of(projectsApiDTO));
     }
 
     @Override

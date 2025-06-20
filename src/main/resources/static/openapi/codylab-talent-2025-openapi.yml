@@ -182,7 +182,7 @@ paths:
                 $ref: '#/components/schemas/Problem'
 components:
   headers:
-    total-count:
+    x-total-count:
       description: Total number of items in the response
       schema:
         type: integer
@@ -190,7 +190,7 @@ components:
         examples:
           - value: 100
             summary: Total count of vehicles
-    page-size:
+    x-page-size:
       description: Number of items per page
       schema:
         type: integer
@@ -198,7 +198,7 @@ components:
         examples:
           - value: 10
             summary: Default page size for vehicle listings
-    page-number:
+    x-page-number:
       description: Current page number (from 0)
       schema:
         type: integer
