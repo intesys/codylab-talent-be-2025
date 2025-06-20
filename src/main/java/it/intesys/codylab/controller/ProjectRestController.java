@@ -80,7 +80,7 @@ public class ProjectRestController implements ProjectsApi {
     }
 
 
-    /*s
+    /*sff
     @GetMapping("/projects")
     public List<ProjectDTO> getProjects() {
         return projectService.findAll();
