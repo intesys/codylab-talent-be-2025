@@ -1,5 +1,6 @@
 package it.intesys.codylab.dto;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class TaskDTO {
@@ -8,7 +9,7 @@ public class TaskDTO {
     private String codice;
     private String nome;
     private String descrizione;
-    private String dataInizio;
+    private LocalDate dataInizio;
     private Integer durata;
     private List<SlotDTO> slots;
 
@@ -17,7 +18,7 @@ public class TaskDTO {
     public TaskDTO() {
         // Default constructor
     }
-    public TaskDTO(Long id, String codice, String nome, String descrizione, String dataInizio, Integer durata, List<SlotDTO> slots, List<UserDTO> users) {
+    public TaskDTO(Long id, String codice, String nome, String descrizione, LocalDate dataInizio, Integer durata, List<SlotDTO> slots, List<UserDTO> users) {
         this.id = id;
         this.codice = codice;
         this.nome = nome;
@@ -76,11 +77,11 @@ public class TaskDTO {
         this.descrizione = descrizione;
     }
 
-    public String getDataInizio() {
+    public LocalDate getDataInizio() {
         return dataInizio;
     }
 
-    public void setDataInizio(String dataInizio) {
+    public void setDataInizio(LocalDate dataInizio) {
         this.dataInizio = dataInizio;
     }
 

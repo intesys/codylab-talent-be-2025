@@ -1,0 +1,117 @@
+openapi: 3.0.1
+info:
+  title: API Project
+  version: 1.0.0
+
+paths:
+  /projects:
+    get:
+      summary: Ottieni tutti i progetti
+      responses:
+        '200':
+          description: Elenco dei progetti
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectDTO'
+    post:
+      summary: Crea un nuovo progetto
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectDTO'
+      responses:
+        '201':
+          description: Progetto creato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectDTO'
+
+components:
+  schemas:
+    ProjectDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        codice:
+          type: string
+        nome:
+          type: string
+        descrizione:
+          type: string
+        dataInizio:
+          type: string
+          format: date
+        durata:
+          type: integer
+        tasks:
+          type: array
+          items:
+            type: object
+            description: Placeholder per TaskDTO
+
+    SlotDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        dataInizio:
+          type: string
+          format: date
+        dataFine:
+          type: string
+          format: date
+        durata:
+          type: integer
+          format: int64
+
+    TaskDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        codice:
+          type: string
+        nome:
+          type: string
+        descrizione:
+          type: string
+        dataInizio:
+          type: string
+          format: date
+        durata:
+          type: integer
+        slots:
+          type: array
+          items:
+            $ref: '#/components/schemas/SlotDTO'
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserDTO'
+
+    UserDTO:
+      properties:
+        id:
+          type: integer
+          format: int64
+        nome:
+          type: string
+        cognome:
+          type: string
+        mail:
+          type: string
+        profilo:
+          type: string
+        orarioGiornaliero:
+          type: number
+          format: double
