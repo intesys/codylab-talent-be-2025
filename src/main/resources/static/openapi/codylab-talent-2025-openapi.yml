@@ -1,0 +1,76 @@
+openapi: 3.1.0
+info:
+  title: CodyLab Talent 2025 API
+  description: API documentation for the CodyLab Talent 2025 project.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8090/api/v1
+    description: Local development server
+tags:
+  - name: Projects
+    description: Operations related to projects
+  - name: Tasks
+    description: Operations related to tasks
+  - name: Users
+    description: Operations related to users
+
+paths:
+  /projects:
+    get:
+      summary: Get all projects
+      operationId: getProjects
+      tags:
+        - Projects
+      responses:
+        '200':
+          description: A Projects object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Projects'
+components:
+  schemas:
+    Project:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        codice:
+          type: string
+          example: PRJ-001
+        nome:
+          type: string
+          example: Example Project
+        descrizione:
+          type: string
+          example: This is a sample project.
+        dataInizio:
+          type: string
+          format: date
+          example: 2025-01-01
+        durata:
+          type: integer
+          example: 12
+        tasks:
+          type: array
+          items:
+            type: object
+        responsabile:
+          type: object
+      required:
+        - id
+        - codice
+        - nome
+        - descrizione
+        - dataInizio
+        - durata
+    Projects:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+      required:
+        - items
