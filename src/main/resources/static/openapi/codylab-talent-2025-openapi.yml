@@ -13,6 +13,8 @@ tags:
     description: Gestione delle attività
   - name: Users
     description: Gestione degli utenti
+  - name: Slots
+    description: Gestione degli slot di lavoro
 paths:
   /projects:
     get:
@@ -279,20 +281,100 @@ components:
         tasks:
           type: array
           items:
-            $ref: '#/components/schemas/Task'
-    Task:
+            $ref: '#/components/schemas/Tasks'
+    Tasks:
       type: object
       properties:
         id:
           type: integer
           format: int64
           description: ID del task.
+        progettoId:
+            type: integer
+            format: int64
+            description: ID del progetto associato al task.
+        codice:
+          type: string
+          maxLength: 10
+          description: Codice identificativo del task.
         nome:
           type: string
           description: Nome del task.
         descrizione:
           type: string
           description: Descrizione del task.
+        dataInizio:
+          type: string
+          format: date
+          description: Data di inizio del task.
+          examples:
+            - value: '2025-01-01'
+              summary: Data di inizio del task
+        durata:
+          type: integer
+          description: Durata del task in ore.
+
+
+    Users:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ID dell'utente.
+        nome:
+          type: string
+          description: Nome dell'utente.
+        cognome:
+          type: string
+          description: Cognome dell'utente.
+        email:
+          type: string
+          format: email
+          description: Indirizzo email dell'utente.
+        profilo:
+          type: string
+          description: Ruolo dell'utente nel progetto.
+        orarioGiornaliero:
+          type: number
+          format: double
+          description: Ore giornaliere dedicate al progetto.
+
+    Slots:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ID dello slot.
+
+        taskId:
+          type: integer
+          format: int64
+          description: ID del task associato allo slot.
+
+        startTime:
+          type: string
+          format: date-time
+          description: Data e ora di inizio dello slot.
+        endTime:
+          type: string
+          format: date-time
+          description: Data e ora di fine dello slot.
+
+    TaskFilter:
+      type: object
+      properties:
+        projectId:
+          type: integer
+          format: int64
+          description: ID del progetto associato al task.
+        ids:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: Elenco degli ID dei task da filtrare.
     ProjectFilter:
       type: object
       properties:
@@ -306,6 +388,34 @@ components:
             type: integer
             format: int64
           description: Elenco degli ID dei progetti da filtrare.
+
+      UserFilter:
+        type: object
+        properties:
+          ids:
+            type: array
+            items:
+              type: integer
+              format: int64
+            description: Elenco degli ID degli utenti da filtrare.
+          profilo:
+            type: string
+            description: Ruolo dell'utente nel progetto.
+
+    SlotFilter:
+      type: object
+      properties:
+        taskId:
+          type: integer
+          format: int64
+          description: ID del task associato allo slot.
+        ids:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: Elenco degli ID degli slot da filtrare.
+
     Problem:
       description: error occurred - see status code and problem object for more information.
       type: object
