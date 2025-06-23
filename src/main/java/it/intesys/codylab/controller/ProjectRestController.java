@@ -69,4 +69,9 @@ public class ProjectRestController implements ProjectsApi {
         return ResponseEntity.ok(updatedProject);
     }
 
+    @Override
+    public ResponseEntity<Void> deleteProject(Long id) {
+        projectService.deleteProject(id);
+        return ResponseEntity.noContent().build();
+    }
 }

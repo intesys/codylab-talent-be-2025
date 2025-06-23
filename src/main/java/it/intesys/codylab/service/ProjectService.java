@@ -51,4 +51,8 @@ public class ProjectService {
         return projectMapper.toApiDTO(updatedProject);
     }
 
+    public void deleteProject(Long id) {
+        projectRepository.deleteById(id);
+    }
+
 }
