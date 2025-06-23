@@ -17,21 +17,24 @@ public class Project {
     private String descrizione;
     private LocalDate dataInizio;
     private Integer durata;
+    @ManyToMany(mappedBy = "projects")
+    private List<User> users;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> tasks;
 
+    @ManyToOne
+    @JoinColumn(name = "responsabile")
+    private User responsabile;
+
+    public List<User> getUsers() {
+        return users;
+    }
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
     public Project() {
         // Default constructor
-    }
-
-    public Project(Long id, String codice, String nome, String descrizione, LocalDate dataInizio, Integer durata) {
-        this.id = id;
-        this.codice = codice;
-        this.nome = nome;
-        this.descrizione = descrizione;
-        this.dataInizio = dataInizio;
-        this.durata = durata;
     }
 
     public List<Task> getTasks() {
@@ -88,5 +91,12 @@ public class Project {
 
     public void setDurata(Integer durata) {
         this.durata = durata;
+    }
+
+    public User getResponsabile() {
+        return responsabile;
+    }
+    public void setResponsabile(User responsabile) {
+        this.responsabile = responsabile;
     }
 }

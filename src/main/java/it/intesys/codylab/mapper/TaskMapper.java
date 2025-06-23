@@ -1,5 +1,6 @@
 package it.intesys.codylab.mapper;
 
+import it.intesys.codylab.api.model.TasksApiDTO;
 import it.intesys.codylab.dto.TaskDTO;
 import it.intesys.codylab.model.Task;
 import org.mapstruct.Mapper;
@@ -9,9 +10,11 @@ import org.mapstruct.Mapping;
 public interface TaskMapper {
 
     @Mapping(source = "dataInizio", target = "dataInizio", dateFormat = "dd/MM/yyyy")
-    TaskDTO toDTO(Task task);
+    @Mapping(source = "project.id", target = "projectId")
+    TasksApiDTO toApiDTO(Task task);
 
     @Mapping(source = "dataInizio", target = "dataInizio", dateFormat = "dd/MM/yyyy")
-    Task toEntity(TaskDTO taskDTO);
+    @Mapping(source = "projectId", target = "project.id")
+    Task toEntity(TasksApiDTO tasksApiDTO);
 
 }

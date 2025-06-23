@@ -8,3 +8,7 @@ codylab:
 logging:
   level:
     root: info
+
+spring:
+  jpa:
+    show-sql: true

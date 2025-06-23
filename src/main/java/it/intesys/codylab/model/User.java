@@ -16,11 +16,22 @@ public class User {
 
     private String cognome;
 
+    private String username;
+
     private String mail;
 
     private String profilo;
 
     private Double orarioGiornaliero;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "users_projects",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id")
+    )
+    private List<Project> projects;
 
     @ManyToMany
     @JoinTable(
@@ -30,8 +41,25 @@ public class User {
     )
     private List<Task> tasks;
 
+
+    @OneToMany(mappedBy = "responsabile", fetch = FetchType.LAZY)
+    private List<Project> progettiResponsabili;
+
     public User() {
         // Default constructor
+    }
+
+    public void setProgettiResponsabili(List<Project> progettiResponsabili) {
+        this.progettiResponsabili = progettiResponsabili;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
 
     public List<Task> getTasks() {
@@ -66,6 +94,14 @@ public class User {
         this.cognome = cognome;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getMail() {
         return mail;
     }
@@ -88,5 +124,26 @@ public class User {
 
     public void setOrarioGiornaliero(Double orarioGiornaliero) {
         this.orarioGiornaliero = orarioGiornaliero;
+    }
+
+    public List<Project> getProgettiResponsabili() {
+        return progettiResponsabili;
+    }
+
+
+    public void setProgettiResponsabili(Object o) {
+        if (o instanceof List) {
+            this.progettiResponsabili = (List<Project>) o;
+        } else {
+            this.progettiResponsabili = null;
+        }
+    }
+
+    public Long getTaskId() {
+        if (this.tasks != null && this.tasks.size() > 0) {
+            return this.tasks.get(0).getId();
+        } else {
+            return null;
+        }
     }
 }

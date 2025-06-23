@@ -3,9 +3,11 @@ package it.intesys.codylab.service;
 import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.mapper.ProjectMapper;
 import it.intesys.codylab.model.Project;
+import it.intesys.codylab.model.User;
 import it.intesys.codylab.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -52,6 +54,32 @@ public class ProjectService {
 
     public void delete(Long id) {
         projectRepository.deleteById(id);
+    }
+
+    public ProjectsApiDTO createProject(ProjectsApiDTO projectsApiDTO) {
+        projectsApiDTO.setId(null);
+        Project project = projectMapper.toEntity(projectsApiDTO);
+        Project savedProject = projectRepository.save(project);
+        return projectMapper.toApiDTO(savedProject);
+    }
+
+    public ProjectsApiDTO updateProject(Long id, ProjectsApiDTO projectsApiDTO) {
+        Project project = projectMapper.toEntity(projectsApiDTO);
+        project.setId(id);
+        Project updatedProject = projectRepository.save(project);
+        return projectMapper.toApiDTO(updatedProject);
+    }
+
+    public void deleteProject(Long id) {
+        Project project = projectRepository.findById(id).orElse(null);
+        if (project.getUsers() != null) {
+            for (User user : new ArrayList<>(project.getUsers())) {
+                user.getProjects().remove(project);
+            }
+            project.getTasks().clear();
+            project.getUsers().clear();
+            projectRepository.deleteById(id);
+        }
     }
 
 }

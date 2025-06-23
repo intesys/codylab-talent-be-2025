@@ -24,4 +24,33 @@ INSERT INTO users_tasks (user_id, task_id)
 VALUES (1, 1);
 
 INSERT INTO users_tasks (user_id, task_id)
-VALUES (2, 2);
+VALUES (2, 2)
+;
+
+
+
+
+ALTER TABLE projects
+    ADD COLUMN responsabile_id BIGINT;
+
+ALTER TABLE projects
+    ADD CONSTRAINT fk_responsabile FOREIGN KEY (responsabile_id) REFERENCES users(id);
+
+
+ALTER TABLE tasks
+    add COLUMN progetto_id BIGINT;
+
+
+ALTER TABLE projects DROP COLUMN responsabile;
+
+ALTER TABLE projects ADD COLUMN responsabile BIGINT;
+
+UPDATE tasks
+SET project_id = 1
+WHERE id = 2;
+
+
+SELECT * FROM projects WHERE responsabile = 2;
+
+update projects set responsabile = 1 where id = 3;
+
