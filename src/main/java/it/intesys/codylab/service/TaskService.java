@@ -35,6 +35,11 @@ public class TaskService {
                 .toList();
     }
 
+    public TasksApiDTO saveTask(TasksApiDTO tasksApiDTO) {
+        Task task = taskMapper.toTaskModel(tasksApiDTO);
+        Task savedTask = taskRepository.save(task);
+        return taskMapper.toTaskApiDTO(savedTask);
+    }
 
 //    public TaskDTO saveTask(TaskDTO taskDTO) {
 //        // Recupera il progetto associato dalla db, per impostare il riferimento

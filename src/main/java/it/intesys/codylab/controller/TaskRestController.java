@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -21,7 +22,15 @@ public class TaskRestController implements TasksApi {
 
     @Override
     public ResponseEntity<TasksApiDTO> createTask(TasksApiDTO tasksApiDTO) {
-        return TasksApi.super.createTask(tasksApiDTO);
+        try {
+            TasksApiDTO savedTask = taskService.saveTask(tasksApiDTO);
+            return ResponseEntity
+                    .created(URI.create("/api/v1/tasks/" + savedTask.getId()))
+                    .body(savedTask);
+        } catch (Exception e) {
+            // Log the error and return an appropriate response
+            return ResponseEntity.status(500).body(new TasksApiDTO());
+        }
     }
 
     @Override
@@ -31,7 +40,15 @@ public class TaskRestController implements TasksApi {
 
     @Override
     public ResponseEntity<TasksApiDTO> getTaskById(Long taskId) {
-        return TasksApi.super.getTaskById(taskId);
+        TasksApiDTO task = taskService.getAllTasks().stream()
+                .filter(t -> t.getId().equals(taskId))
+                .findFirst()
+                .orElse(null);
+        if (task != null) {
+            return ResponseEntity.ok(task);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @Override
