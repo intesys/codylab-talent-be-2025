@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -40,5 +41,12 @@ public class TaskRestController implements TasksApi {
         }
 
         return ResponseEntity.ok(task);
+    }
+
+    @Override
+    public ResponseEntity<TasksApiDTO> createTask(TasksApiDTO taskDto) {
+        TasksApiDTO createdTask = taskService.createTask(taskDto);
+        URI location = URI.create("/api/v1/tasks/" + createdTask.getId());
+        return ResponseEntity.created(location).body(createdTask);
     }
 }
