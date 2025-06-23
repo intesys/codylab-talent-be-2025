@@ -540,6 +540,161 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/Problem'
+  /slots:
+    get:
+      summary: Recupera tutti gli slot
+      description: Restituisce un elenco di slot di lavoro.
+      operationId: searchSlots
+      tags:
+        - Slots
+      parameters:
+        - $ref: "#/components/parameters/PageNumber"
+        - $ref: "#/components/parameters/Size"
+        - $ref: "#/components/parameters/Sort"
+        - name: taskId
+          in: query
+          description: Filtro per ID task
+          required: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Elenco degli slot recuperato con successo.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Slots'
+        '204':
+          description: No content - nessuno slot trovato.
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+
+    post:
+      summary: Crea un nuovo slot
+      description: Crea un nuovo slot di lavoro con i dettagli forniti.
+      operationId: createSlot
+      tags:
+        - Slots
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Slots'
+      responses:
+        '201':
+          description: Slot creato con successo.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Slots'
+        '400':
+          description: Richiesta non valida - dati dello slot mancanti o non validi.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+
+  /slots/{slotId}:
+    get:
+      summary: Recupera uno slot specifico
+      description: Restituisce i dettagli di uno slot specifico.
+      operationId: getSlotById
+      tags:
+        - Slots
+      parameters:
+        - name: slotId
+          in: path
+          required: true
+          description: ID dello slot da recuperare.
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Slot recuperato con successo.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Slots'
+        '404':
+          description: Slot non trovato.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+
+    put:
+      summary: Aggiorna uno slot esistente
+      description: Aggiorna i dettagli di uno slot esistente.
+      operationId: updateSlot
+      tags:
+        - Slots
+      parameters:
+        - name: slotId
+          in: path
+          required: true
+          description: ID dello slot da aggiornare.
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Slots'
+      responses:
+        '200':
+          description: Slot aggiornato con successo.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Slots'
+        '400':
+          description: Richiesta non valida - dati dello slot mancanti o non validi.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Slot non trovato.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+
+    delete:
+      summary: Elimina uno slot
+      description: Elimina uno slot specifico.
+      operationId: deleteSlot
+
+
 
 
 components:
