@@ -51,6 +51,7 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/Problem'
+
     post:
       summary: Crea un nuovo progetto
       description: Crea un nuovo progetto con i dettagli forniti.
@@ -182,6 +183,365 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/Problem'
+
+  /tasks:
+    get:
+      summary: Recupera tutti i task
+      description: Restituisce un elenco di task.
+      operationId: searchTasks
+      tags:
+        - Tasks
+      parameters:
+        - $ref: "#/components/parameters/PageNumber"
+        - $ref: "#/components/parameters/Size"
+        - $ref: "#/components/parameters/Sort"
+        - name: projectId
+          in: query
+          description: Filtro per ID progetto
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: taskId
+          in: query
+          description: Filtro per ID task
+          required: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Elenco dei task recuperato con successo.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tasks'
+        '204':
+          description: No content - nessun task trovato.
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+
+    post:
+      summary: Crea un nuovo task
+      description: Crea un nuovo task con i dettagli forniti.
+      operationId: createTask
+      tags:
+        - Tasks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tasks'
+      responses:
+        '201':
+          description: Task creato con successo.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tasks'
+        '400':
+          description: Richiesta non valida - dati del task mancanti o non validi.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+
+  /tasks/{taskId}:
+    get:
+      summary: Recupera un task specifico
+      description: Restituisce i dettagli di un task specifico.
+      operationId: getTaskById
+      tags:
+        - Tasks
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          description: ID del task da recuperare.
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Task recuperato con successo.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tasks'
+        '404':
+          description: Task non trovato.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+
+    put:
+      summary: Aggiorna un task esistente
+      description: Aggiorna i dettagli di un task esistente.
+      operationId: updateTask
+      tags:
+        - Tasks
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          description: ID del task da aggiornare.
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tasks'
+      responses:
+        '200':
+          description: Task aggiornato con successo.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tasks'
+        '400':
+          description: Richiesta non valida - dati del task mancanti o non validi.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Task non trovato.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+
+    delete:
+      summary: Elimina un task
+      description: Elimina un task specifico.
+      operationId: deleteTask
+      tags:
+        - Tasks
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          description: ID del task da eliminare.
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Task eliminato con successo.
+        '404':
+          description: Task non trovato.
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+
+  /users:
+    get:
+      summary: Recupera tutti gli utenti
+      description: Restituisce un elenco di utenti.
+      operationId: searchUsers
+      tags:
+        - Users
+      parameters:
+        - $ref: "#/components/parameters/PageNumber"
+        - $ref: "#/components/parameters/Size"
+        - $ref: "#/components/parameters/Sort"
+        - name: userFilter
+          in: query
+          description: Filtro per gli utenti basato su ID o profilo.
+          required: false
+          style: form
+          schema:
+            $ref: '#/components/schemas/UserFilter'
+      responses:
+        '200':
+          description: Elenco degli utenti recuperato con successo.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Users'
+        '204':
+          description: No content - nessun utente trovato.
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+
+    post:
+      summary: Crea un nuovo utente
+      description: Crea un nuovo utente con i dettagli forniti.
+      operationId: createUser
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Users'
+      responses:
+        '201':
+          description: Utente creato con successo.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+        '400':
+          description: Richiesta non valida - dati dell'utente mancanti o non validi.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+
+  /users/{userId}:
+    get:
+      summary: Recupera un utente specifico
+      description: Restituisce i dettagli di un utente specifico.
+      operationId: getUserById
+      tags:
+        - Users
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: ID dell'utente da recuperare.
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Utente recuperato con successo.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+        '404':
+          description: Utente non trovato.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+
+    put:
+      summary: Aggiorna un utente esistente
+      description: Aggiorna i dettagli di un utente esistente.
+      operationId: updateUser
+      tags:
+        - Users
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: ID dell'utente da aggiornare.
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Users'
+      responses:
+        '200':
+          description: Utente aggiornato con successo.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+        '400':
+          description: Richiesta non valida - dati dell'utente mancanti o non validi.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Utente non trovato.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+
+    delete:
+      summary: Elimina un utente
+      description: Elimina un utente specifico.
+      operationId: deleteUser
+      tags:
+        - Users
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: ID dell'utente da eliminare.
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Utente eliminato con successo.
+        '404':
+          description: Utente non trovato.
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+
+
 components:
   headers:
     total-count:
@@ -245,6 +605,7 @@ components:
             summary: Sort vehicles by registration number in ascending order
           - value: 'model,desc'
             summary: Sort vehicles by model in descending order
+
   schemas:
     Projects:
       type: object
@@ -290,9 +651,9 @@ components:
           format: int64
           description: ID del task.
         progettoId:
-            type: integer
-            format: int64
-            description: ID del progetto associato al task.
+          type: integer
+          format: int64
+          description: ID del progetto associato al task.
         codice:
           type: string
           maxLength: 10
@@ -313,6 +674,7 @@ components:
         durata:
           type: integer
           description: Durata del task in ore.
+
 
 
     Users:
@@ -389,18 +751,18 @@ components:
             format: int64
           description: Elenco degli ID dei progetti da filtrare.
 
-      UserFilter:
-        type: object
-        properties:
-          ids:
-            type: array
-            items:
-              type: integer
-              format: int64
-            description: Elenco degli ID degli utenti da filtrare.
-          profilo:
-            type: string
-            description: Ruolo dell'utente nel progetto.
+    UserFilter:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: Elenco degli ID degli utenti da filtrare.
+        profilo:
+          type: string
+          description: Ruolo dell'utente nel progetto.
 
     SlotFilter:
       type: object
@@ -474,3 +836,4 @@ components:
           type: string
           description: The trace ID for the error.
           example: "057b351ca8e8badf158357ecbb2edb73"
+
