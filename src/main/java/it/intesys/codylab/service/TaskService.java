@@ -39,13 +39,19 @@ public class TaskService {
     }
 
     public TasksApiDTO createTask(TasksApiDTO taskDto) {
-        Project project = projectRepository.findById(taskDto.getProgettoId())
-                .orElseThrow(() -> new IllegalArgumentException("Project not found"));
-
         Task task = taskMapper.toEntity(taskDto);
-        task.setProject(project);
-
         Task saved = taskRepository.save(task);
         return taskMapper.toApiDTO(saved);
+    }
+
+    public TasksApiDTO updateTask(Long id, TasksApiDTO taskDto) {
+        Task task = taskMapper.toEntity(taskDto);
+        task.setId(id);
+        Task updatedTask = taskRepository.save(task);
+        return taskMapper.toApiDTO(updatedTask);
+    }
+
+    public void deleteTask(Long id) {
+        taskRepository.deleteById(id);
     }
 }

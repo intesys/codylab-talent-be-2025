@@ -49,4 +49,19 @@ public class TaskRestController implements TasksApi {
         URI location = URI.create("/api/v1/tasks/" + createdTask.getId());
         return ResponseEntity.created(location).body(createdTask);
     }
+
+    @Override
+    public ResponseEntity<TasksApiDTO> updateTask(Long id, TasksApiDTO taskDto) {
+        TasksApiDTO updatedTask = taskService.updateTask(id, taskDto);
+        if (updatedTask == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updatedTask);
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteTask(Long id) {
+        taskService.deleteTask(id);
+        return ResponseEntity.noContent().build();
+    }
 }
