@@ -79,6 +79,17 @@ public class ProjectRestController implements ProjectsApi {
         return ResponseEntity.ok(projectDTO);
     }
 
+    @Override
+    public ResponseEntity<ProjectsApiDTO> updateProject(Long id, ProjectsApiDTO projectsApiDTO) {
+        try {
+            ProjectsApiDTO updatedProject = projectService.updateProject(id, projectsApiDTO);
+            return ResponseEntity.ok(updatedProject);
+        } catch (Exception e) {
+            logger.error("Error updating project with id {}", id, e);
+            return ResponseEntity.status(500).body(new ProjectsApiDTO());
+        }
+    }
+
 
     /*sff
     @GetMapping("/projects")

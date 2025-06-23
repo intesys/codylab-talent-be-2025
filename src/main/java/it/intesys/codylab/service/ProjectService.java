@@ -18,7 +18,7 @@ public class ProjectService {
 
     private final UserRepository userRepository;
 
-    public ProjectService(ProjectRepository projectRepository, ProjectMapper projectMapper, UserRepository userRepository ) {
+    public ProjectService(ProjectRepository projectRepository, ProjectMapper projectMapper, UserRepository userRepository) {
         this.projectRepository = projectRepository;
         this.projectMapper = projectMapper;
         this.userRepository = userRepository;
@@ -35,12 +35,33 @@ public class ProjectService {
                 .map(projectMapper::toApiDTO)
                 .orElse(null);
     }
+
     public ProjectsApiDTO save(ProjectsApiDTO projectsApiDTO) {
         Project project = projectMapper.toModel(projectsApiDTO);
         Project savedProject = projectRepository.save(project);
         return projectMapper.toApiDTO(savedProject);
-    }}
+    }
 
+    public ProjectsApiDTO updateProject(Long id, ProjectsApiDTO projectsApiDTO) {
+        Project existingProject = projectRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Progetto non trovato con id: " + id));
+
+        existingProject.setNome(projectsApiDTO.getNome());
+        existingProject.setDescrizione(projectsApiDTO.getDescrizione());
+
+        // Metodo per modificare solo una parte del progetto e tenere conto del codice unico
+        if (projectsApiDTO.getCodice() != null && !projectsApiDTO.getCodice().equals(existingProject.getCodice())) {
+            boolean codiceExists = projectRepository.existsByCodice(projectsApiDTO.getCodice());
+            if (codiceExists) {
+                throw new RuntimeException("Codice già esistente: " + projectsApiDTO.getCodice());
+            }
+            existingProject.setCodice(projectsApiDTO.getCodice());
+        }
+
+        Project updatedProject = projectRepository.save(existingProject);
+        return projectMapper.toApiDTO(updatedProject);
+    }
+}
 //    public ProjectDTO getProjectById(Long id) {
 //        return projectRepository.findById(id)
 //                .map(projectMapper::toDTO)
