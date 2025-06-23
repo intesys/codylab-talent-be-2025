@@ -13,6 +13,8 @@ tags:
     description: Operazioni sulle task
   - name: Users
     description: Operazioni sugli utenti
+  - name: Slots
+    description: Operazioni sugli slot
 paths:
   #  projects
   /projects:
@@ -509,6 +511,172 @@ paths:
               schema:
                 $ref: '#/components/schemas/Problem'
 
+  #  slots
+  /slots:
+    get:
+      summary: Recupera tutti gli slot
+      description: Restituisce una lista di oggetti Slot.
+      operationId: getSlots
+      tags:
+        - Slots
+      parameters:
+        - $ref: '#/components/parameters/PageNumber'
+        - $ref: '#/components/parameters/Size'
+        - $ref: '#/components/parameters/Sort'
+        - name: SlotFilter
+          in: query
+          description: Filtro per gli slot basato su ID task o ID slot.
+          required: false
+          style: form
+          explode: true
+          schema:
+            $ref: '#/components/schemas/SlotFilter'
+      responses:
+        '200':
+          description: Lista di slot recuperata con successo.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Slots'
+        '204':
+          description: Nessuno slot trovato.
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    post:
+      summary: Crea un nuovo slot
+      description: Crea un nuovo slot e restituisce l'oggetto Slot creato.
+      operationId: createSlot
+      tags:
+        - Slots
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Slots'
+      responses:
+        '201':
+          description: Slot creato con successo.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Slots'
+        '400':
+          description: Richiesta non valida.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+
+  /slots/{id}:
+    get:
+      summary: Recupera uno slot tramite il suo ID
+      description: Restituisce l'oggetto Slot corrispondente all'ID fornito.
+      operationId: getSlotById
+      tags:
+        - Slots
+      parameters:
+        - name: id
+          in: path
+          description: Identificativo univoco dello slot.
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Slot recuperato con successo.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Slots'
+        '404':
+          description: Slot non trovato.
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    put:
+      summary: Aggiorna uno slot esistente
+      description: Aggiorna i dettagli di uno slot esistente e restituisce l'oggetto Slot aggiornato.
+      operationId: updateSlot
+      tags:
+        - Slots
+      parameters:
+        - name: id
+          in: path
+          description: Identificativo univoco dello slot da aggiornare.
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Slots'
+      responses:
+        '200':
+          description: Slot aggiornato con successo.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Slots'
+        '400':
+          description: Richiesta non valida.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Slot non trovato.
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    delete:
+      summary: Elimina uno slot tramite il suo ID
+      description: Elimina lo slot corrispondente all'ID fornito.
+      operationId: deleteSlot
+      tags:
+        - Slots
+      parameters:
+        - name: id
+          in: path
+          description: Identificativo univoco dello slot da eliminare.
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Slot eliminato con successo.
+        '404':
+          description: Slot non trovato.
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+
 
 components:
   headers:
@@ -641,6 +809,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Users'
+        slots:
+          type: array
+          items:
+            $ref: '#/components/schemas/Slots'
 
     Users:
       type: object
@@ -665,6 +837,29 @@ components:
         orarioGiornaliero:
           type: integer
           description: Ore lavorative giornaliere dell'utente.
+
+    Slots:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Identificativo univoco dello slot.
+        taskId:
+          type: integer
+          format: int64
+          description: ID della task a cui appartiene lo slot.
+        dataInizio:
+          type: string
+          format: date
+          description: Data di inizio dello slot.
+        dataFine:
+            type: string
+            format: date
+            description: Data di fine dello slot.
+        durata:
+            type: integer
+            description: Durata dello slot in minuti.
 
     ProjectFilter:
       type: object
@@ -708,6 +903,20 @@ components:
               type: integer
               format: int64
               description: ID della task associata all'utente.
+
+    SlotFilter:
+      type: object
+      properties:
+        taskId:
+          type: integer
+          format: int64
+          description: ID della task associata allo slot.
+        ids:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: Elenco degli ID degli slot da filtrare.
 
     Problem:
       description: error occurred - see status code and problem object for more information.
