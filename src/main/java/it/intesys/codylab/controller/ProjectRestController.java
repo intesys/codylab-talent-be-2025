@@ -31,39 +31,24 @@ public class ProjectRestController implements ProjectsApi {
             Integer size,
             String sort,
             ProjectFilterApiDTO projectFilter) {
-        ProjectsApiDTO projectsApiDTO = new ProjectsApiDTO();
-        projectsApiDTO.setId(1L);
-        projectsApiDTO.setNome("Nome Progetto");
-        return ResponseEntity.ok(List.of(projectsApiDTO));
-    }
+        List<ProjectsApiDTO> projects = projectService.getProjects();
 
-    @Override
-    public ResponseEntity<ProjectsApiDTO> createProject(ProjectsApiDTO projectsApiDTO) {
-        ProjectsApiDTO projectsApiDTOCreated = new ProjectsApiDTO();
-        projectsApiDTOCreated.setId(1L);
-        projectsApiDTOCreated.setNome("Nome Progetto");
-        return ResponseEntity.created(URI.create("/api/v1/projects/" + projectsApiDTOCreated.getId()))
-                .body(projectsApiDTOCreated);
+        if (projects.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(projects);
     }
 
     @Override
     public ResponseEntity<ProjectsApiDTO> getProjectById(Long id) {
-        return ResponseEntity.notFound().build();
-    }
+        ProjectsApiDTO project = projectService.getProjectById(id);
 
-//    @GetMapping("/projects")
-//    public List<ProjectDTO> getProjects() {
-//        return projectService.findAll();
-//    }
-//
-//    @GetMapping("/project/{id}")
-//    public Project getProjectById(@PathVariable Long id) {
-//        return projectService.getProjectById(id);
-//    }
-//
-//    @GetMapping("/project/codice/{codice}")
-//    public ProjectDTO getProjectByCodice(@PathVariable String codice) {
-//        return projectService.findByCodice(codice);
-//    }
+        if (project == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(project);
+    }
 
 }

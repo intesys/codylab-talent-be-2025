@@ -1,5 +1,6 @@
 package it.intesys.codylab.service;
 
+import it.intesys.codylab.api.model.ProjectsApiDTO;
 import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.mapper.ProjectMapper;
 import it.intesys.codylab.model.Project;
@@ -22,29 +23,16 @@ public class ProjectService {
         this.projectMapper = projectMapper;
     }
 
-    public Project getProjectById(Long id) {
-        return projectRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Project not found with id: " + id));
-    }
-
-    public ProjectDTO findByCodice(String codice) {
-        return projectMapper.toDTO( projectRepository.findByCodice(codice) );
-    }
-
-    public List<ProjectDTO> findAll() {
+    public List<ProjectsApiDTO> getProjects() {
         return StreamSupport.stream(projectRepository.findAll().spliterator(), false)
-                .map(projectMapper::toDTO)
+                .map(projectMapper::toApiDTO)
                 .collect(Collectors.toList());
     }
 
-    public ProjectDTO save(ProjectDTO projectDTO) {
-        Project project = projectMapper.toEntity(projectDTO);
-        Project savedProject = projectRepository.save(project);
-        return projectMapper.toDTO(savedProject);
-    }
-
-    public void delete(Long id) {
-        projectRepository.deleteById(id);
+    public ProjectsApiDTO getProjectById(Long id) {
+        return projectRepository.findById(id)
+                .map(projectMapper::toApiDTO)
+                .orElse(null);
     }
 
 }

@@ -1,5 +1,6 @@
 package it.intesys.codylab.mapper;
 
+import it.intesys.codylab.api.model.ProjectsApiDTO;
 import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.model.Project;
 import org.mapstruct.Mapper;
@@ -13,4 +14,8 @@ public interface ProjectMapper {
 
     @Mapping(target = "dataInizio", source = "dataInizio", dateFormat = "dd-MM-yyyy")
     Project toEntity(ProjectDTO projectDTO);
+
+    ProjectsApiDTO toApiDTO(Project project);
+
+    Project toProject(ProjectsApiDTO dto);
 }
