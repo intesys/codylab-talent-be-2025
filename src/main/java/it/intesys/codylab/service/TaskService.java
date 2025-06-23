@@ -25,39 +25,40 @@ public class TaskService {
         this.userRepository = userRepository;
     }
 
-    public TaskDTO saveTask(TaskDTO taskDTO) {
-        // Recupera il progetto associato dalla db, per impostare il riferimento
-        Project project = projectRepository.findById(taskDTO.getProjectId())
-                .orElseThrow(() -> new RuntimeException("Project not found"));
 
-        Task task = taskMapper.toEntity(taskDTO);
-        task.setProject(project);
-
-        Task savedTask = taskRepository.save(task);
-        return taskMapper.toDTO(savedTask);
-    }
-
-    @Transactional
-    public TaskDTO assignUserToTask(Long userId, Long taskId) {
-        Task task = taskRepository.findById(taskId)
-                .orElseThrow(() -> new RuntimeException("Task not found"));
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        // Relazione bidirezionale
-        if (!task.getUsers().contains(user)) {
-            task.getUsers().add(user);
-        }
-
-        if (!user.getTasks().contains(task)) {
-            user.getTasks().add(task);
-        }
-
-        userRepository.save(user);
-        taskRepository.save(task);
-
-        return taskMapper.toDTO(task);
-    }
+//    public TaskDTO saveTask(TaskDTO taskDTO) {
+//        // Recupera il progetto associato dalla db, per impostare il riferimento
+//        Project project = projectRepository.findById(taskDTO.getProjectId())
+//                .orElseThrow(() -> new RuntimeException("Project not found"));
+//
+//        Task task = taskMapper.toEntity(taskDTO);
+//        task.setProject(project);
+//
+//        Task savedTask = taskRepository.save(task);
+//        return taskMapper.toDTO(savedTask);
+//    }
+//
+//    @Transactional
+//    public TaskDTO assignUserToTask(Long userId, Long taskId) {
+//        Task task = taskRepository.findById(taskId)
+//                .orElseThrow(() -> new RuntimeException("Task not found"));
+//        User user = userRepository.findById(userId)
+//                .orElseThrow(() -> new RuntimeException("User not found"));
+//
+//        // Relazione bidirezionale
+//        if (!task.getUsers().contains(user)) {
+//            task.getUsers().add(user);
+//        }
+//
+//        if (!user.getTasks().contains(task)) {
+//            user.getTasks().add(task);
+//        }
+//
+//        userRepository.save(user);
+//        taskRepository.save(task);
+//
+//        return taskMapper.toDTO(task);
+//    }
 
 
 

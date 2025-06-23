@@ -693,6 +693,33 @@ paths:
       summary: Elimina uno slot
       description: Elimina uno slot specifico.
       operationId: deleteSlot
+      tags:
+        - Slots
+      parameters:
+        - name: slotId
+          in: path
+          required: true
+          description: ID dello slot da eliminare.
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Slot eliminato con successo.
+        '404':
+          description: Slot non trovato.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '500':
+          description: Errore interno del server.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+
+
 
 
 
