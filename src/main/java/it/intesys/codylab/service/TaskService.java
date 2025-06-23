@@ -36,7 +36,21 @@ public class TaskService {
     }
 
     public TasksApiDTO saveTask(TasksApiDTO tasksApiDTO) {
+        // 1. Converte il DTO in entity Task usando il mapper
         Task task = taskMapper.toTaskModel(tasksApiDTO);
+
+        // 2. Controlla se nel DTO c'è un progetto collegato (progettoId non nullo)
+        if (tasksApiDTO.getProgettoId() != null) {
+            // 3. Cerca nel database il Project con quell'id
+            Project project = projectRepository.findById(tasksApiDTO.getProgettoId())
+                    .orElseThrow(() -> new RuntimeException("Project non trovato"));
+            // 4. Imposta il Project trovato nell'entity Task
+            task.setProject(project);
+        } else {
+            // 5. Se il progettoId non c'è, lancia un'eccezione perché è obbligatorio
+            throw new RuntimeException("progettoId è obbligatorio");
+        }
+
         Task savedTask = taskRepository.save(task);
         return taskMapper.toTaskApiDTO(savedTask);
     }

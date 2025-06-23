@@ -851,9 +851,7 @@ components:
           type: string
           format: date
           description: Data di inizio del task.
-          examples:
-            - value: '2025-01-01'
-              summary: Data di inizio del task
+
         durata:
           type: integer
           description: Durata del task in ore.
