@@ -1,5 +1,6 @@
 package it.intesys.codylab.service;
 
+import it.intesys.codylab.api.model.TasksApiDTO;
 import it.intesys.codylab.dto.TaskDTO;
 import it.intesys.codylab.mapper.TaskMapper;
 import it.intesys.codylab.model.Project;
@@ -9,7 +10,11 @@ import it.intesys.codylab.repository.ProjectRepository;
 import it.intesys.codylab.repository.TaskRepository;
 import it.intesys.codylab.repository.UserRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.StreamSupport;
 
 @Service
 public class TaskService {
@@ -23,6 +28,11 @@ public class TaskService {
         this.projectRepository = projectRepository;
         this.taskMapper = taskMapper;
         this.userRepository = userRepository;
+    }
+    public List<TasksApiDTO> getAllTasks() {
+        return StreamSupport.stream(taskRepository.findAll().spliterator(), false)
+                .map(taskMapper::toTaskApiDTO)
+                .toList();
     }
 
 

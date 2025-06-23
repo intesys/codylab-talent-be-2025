@@ -200,15 +200,16 @@ paths:
           description: Filtro per ID progetto
           required: false
           schema:
-            type: integer
-            format: int64
+            type: long
+
+
         - name: taskId
           in: query
           description: Filtro per ID task
           required: false
           schema:
-            type: integer
-            format: int64
+            type: long
+
       responses:
         '200':
           description: Elenco dei task recuperato con successo.
