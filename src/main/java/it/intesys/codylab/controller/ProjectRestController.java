@@ -58,4 +58,15 @@ public class ProjectRestController implements ProjectsApi {
         return ResponseEntity.created(location).body(createdProject);
     }
 
+    @Override
+    public ResponseEntity<ProjectsApiDTO> updateProject(Long id, ProjectsApiDTO projectsApiDTO) {
+        ProjectsApiDTO updatedProject = projectService.updateProject(id, projectsApiDTO);
+
+        if (updatedProject == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(updatedProject);
+    }
+
 }

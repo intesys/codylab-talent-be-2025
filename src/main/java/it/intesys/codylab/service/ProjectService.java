@@ -41,4 +41,14 @@ public class ProjectService {
         return projectMapper.toApiDTO(savedProject);
     }
 
+    public ProjectsApiDTO updateProject(Long id, ProjectsApiDTO projectsApiDTO) {
+        if (!projectRepository.existsById(id)) {
+            return null;
+        }
+        Project project = projectMapper.toEntity(projectsApiDTO);
+        project.setId(id);
+        Project updatedProject = projectRepository.save(project);
+        return projectMapper.toApiDTO(updatedProject);
+    }
+
 }
