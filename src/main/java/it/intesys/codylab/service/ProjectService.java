@@ -35,4 +35,10 @@ public class ProjectService {
                 .orElse(null);
     }
 
+    public ProjectsApiDTO createProject(ProjectsApiDTO projectsApiDTO) {
+        Project project = projectMapper.toEntity(projectsApiDTO);
+        Project savedProject = projectRepository.save(project);
+        return projectMapper.toApiDTO(savedProject);
+    }
+
 }

@@ -51,4 +51,11 @@ public class ProjectRestController implements ProjectsApi {
         return ResponseEntity.ok(project);
     }
 
+    @Override
+    public ResponseEntity<ProjectsApiDTO> createProject(ProjectsApiDTO projectsApiDTO) {
+        ProjectsApiDTO createdProject = projectService.createProject(projectsApiDTO);
+        URI location = URI.create("/api/v1/projects/" + createdProject.getId());
+        return ResponseEntity.created(location).body(createdProject);
+    }
+
 }
