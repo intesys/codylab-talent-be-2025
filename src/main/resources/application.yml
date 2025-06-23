@@ -1,9 +1,17 @@
 spring:
   application:
     name: codylab-2025
-
   profiles:
     active: local
+
+## logging va QUI, non sotto spring.application!
+#logging:
+#  level:
+#    org:
+#      hibernate:
+#        SQL: DEBUG
+#        type: DEBUG
+#    org.springframework.transaction: DEBUG
 
 server:
   port: 8090

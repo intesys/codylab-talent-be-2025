@@ -9,9 +9,11 @@ import it.intesys.codylab.model.User;
 import it.intesys.codylab.repository.ProjectRepository;
 import it.intesys.codylab.repository.TaskRepository;
 import it.intesys.codylab.repository.UserRepository;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 
 import java.util.List;
 import java.util.stream.StreamSupport;
@@ -54,6 +56,27 @@ public class TaskService {
         Task savedTask = taskRepository.save(task);
         return taskMapper.toTaskApiDTO(savedTask);
     }
+    @Transactional
+    public void deleteTask(Long taskId) {
+        System.out.println("=== INIZIO DELETE TASK ID: " + taskId + " ===");
+
+        // Verifica esistenza
+        if (!taskRepository.existsById(taskId)) {
+            throw new RuntimeException("Task non trovato");
+        }
+
+        // Prova con query nativa
+        System.out.println("Eseguo query nativa...");
+        int deletedRows = taskRepository.deleteByIdCustom(taskId);
+        System.out.println("Righe cancellate: " + deletedRows);
+
+        taskRepository.flush();
+
+        boolean existsAfter = taskRepository.existsById(taskId);
+        System.out.println("Task esiste dopo: " + existsAfter);
+
+        System.out.println("=== FINE DELETE ===");
+    }}
 
 //    public TaskDTO saveTask(TaskDTO taskDTO) {
 //        // Recupera il progetto associato dalla db, per impostare il riferimento
@@ -91,4 +114,4 @@ public class TaskService {
 
 
 
-}
+

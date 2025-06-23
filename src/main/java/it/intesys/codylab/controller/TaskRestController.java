@@ -35,7 +35,16 @@ public class TaskRestController implements TasksApi {
 
     @Override
     public ResponseEntity<Void> deleteTask(Long taskId) {
-        return TasksApi.super.deleteTask(taskId);
+        try {
+            taskService.getAllTasks().stream()
+                    .filter(t -> t.getId().equals(taskId))
+                    .findFirst()
+                    .ifPresent(task -> taskService.deleteTask(taskId));
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            // Log the error and return an appropriate response
+            return ResponseEntity.status(500).build();
+        }
     }
 
     @Override

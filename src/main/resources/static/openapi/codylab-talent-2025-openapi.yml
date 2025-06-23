@@ -353,8 +353,8 @@ paths:
           required: true
           description: ID del task da eliminare.
           schema:
-            type: integer
-            format: int64
+            type: long
+
       responses:
         '200':
           description: Task eliminato con successo.
