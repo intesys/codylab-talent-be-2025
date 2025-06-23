@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -35,5 +36,27 @@ public class UserRestController implements UsersApi {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(user);
+    }
+
+    @Override
+    public ResponseEntity<UsersApiDTO> createUser(UsersApiDTO userDto) {
+        UsersApiDTO createdUser = userService.createUser(userDto);
+        URI location = URI.create("/api/v1/users/" + createdUser.getId());
+        return ResponseEntity.created(location).body(createdUser);
+    }
+
+    @Override
+    public ResponseEntity<UsersApiDTO> updateUser(Long id, UsersApiDTO userDto) {
+        UsersApiDTO updatedUser = userService.updateUser(id, userDto);
+        if (updatedUser == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteUser(Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 }

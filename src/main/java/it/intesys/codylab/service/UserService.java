@@ -2,6 +2,7 @@ package it.intesys.codylab.service;
 
 import it.intesys.codylab.api.model.UsersApiDTO;
 import it.intesys.codylab.mapper.UserMapper;
+import it.intesys.codylab.model.User;
 import it.intesys.codylab.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +30,22 @@ public class UserService {
         return userRepository.findById(id)
                 .map(userMapper::toApiDTO)
                 .orElse(null);
+    }
+
+    public UsersApiDTO createUser(UsersApiDTO userDto) {
+        User user = userMapper.toEntity(userDto);
+        User savedUser = userRepository.save(user);
+        return userMapper.toApiDTO(savedUser);
+    }
+
+    public UsersApiDTO updateUser(Long id, UsersApiDTO userDto) {
+        User user = userMapper.toEntity(userDto);
+        user.setId(id);
+        User updatedUser = userRepository.save(user);
+        return userMapper.toApiDTO(updatedUser);
+    }
+
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
 }
