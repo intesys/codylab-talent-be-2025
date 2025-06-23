@@ -1,0 +1,44 @@
+package it.intesys.codylab.controller;
+
+import it.intesys.codylab.api.model.TaskFilterApiDTO;
+import it.intesys.codylab.api.model.TasksApiDTO;
+import it.intesys.codylab.api.rest.TasksApi;
+import it.intesys.codylab.service.TaskService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/v1")
+public class TaskRestController implements TasksApi {
+
+    private TaskService taskService;
+
+    public TaskRestController(TaskService taskService) {
+        this.taskService = taskService;
+    }
+
+    @Override
+    public ResponseEntity<List<TasksApiDTO>> getTasks(Integer pageNumber, Integer size, String sort, TaskFilterApiDTO taskFilter) {
+        List<TasksApiDTO> tasks = taskService.getTasks();
+
+        if (tasks.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(tasks);
+    }
+
+    @Override
+    public ResponseEntity<TasksApiDTO> getTaskById(Long id) {
+        TasksApiDTO task = taskService.getTaskById(id);
+
+        if (task == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(task);
+    }
+}
