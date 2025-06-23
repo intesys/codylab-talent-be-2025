@@ -448,7 +448,7 @@ components:
           type: integer
           format: int64
           description: Identificativo univoco della task.
-        progettoId:
+        projectId:
           type: integer
           format: int64
           description: ID del progetto a cui appartiene la task.
