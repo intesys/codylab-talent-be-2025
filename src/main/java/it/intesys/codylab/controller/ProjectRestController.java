@@ -90,6 +90,17 @@ public class ProjectRestController implements ProjectsApi {
         }
     }
 
+    @Override
+    public ResponseEntity<Void> deleteProject(Long id) {
+        try {
+            projectService.deleteProject(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            logger.error("Error deleting project with id {}", id, e);
+            return ResponseEntity.status(500).build();
+        }
+    }
+
 
     /*sff
     @GetMapping("/projects")

@@ -61,6 +61,12 @@ public class ProjectService {
         Project updatedProject = projectRepository.save(existingProject);
         return projectMapper.toApiDTO(updatedProject);
     }
+    public void deleteProject(Long id) {
+        if (!projectRepository.existsById(id)) {
+            throw new RuntimeException("Progetto non trovato con id: " + id);
+        }
+        projectRepository.deleteById(id);
+    }
 }
 //    public ProjectDTO getProjectById(Long id) {
 //        return projectRepository.findById(id)
