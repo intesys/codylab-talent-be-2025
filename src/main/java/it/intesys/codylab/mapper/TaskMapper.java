@@ -19,6 +19,15 @@ public interface TaskMapper {
     @Mapping(source = "dataInizio", target = "dataInizio", dateFormat = "dd/MM/yyyy")
     Task toEntity(TaskDTO taskDTO);
 
+    @Mapping(source = "project", target = "progettoId")
     TasksApiDTO toTaskApiDTO(Task task);
+
+
+    default Long map(Project project) {
+        if (project == null) {
+            return null;
+        }
+        return project.getId();
+    }
     Task toTaskModel(TasksApiDTO taskCreatedDto);
 }

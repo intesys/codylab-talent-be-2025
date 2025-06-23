@@ -106,4 +106,6 @@ public class Task {
     public void setDurata(Integer durata) {
         this.durata = durata;
     }
+
+
 }
