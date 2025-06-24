@@ -1,5 +1,6 @@
 package it.intesys.codylab.service;
 
+import it.intesys.codylab.api.model.ProjectFilterApiDTO;
 import it.intesys.codylab.api.model.ProjectsApiDTO;
 import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.mapper.ProjectMapper;
@@ -50,6 +51,13 @@ public class ProjectService {
 
     public void deleteProject(Long id) {
         projectRepository.deleteById(id);
+    }
+
+    public List<ProjectsApiDTO> getProjectByUserIdOrProjectIds(ProjectFilterApiDTO filter) {
+        List<Project> projects = projectRepository.findByUserIdOrProjectIds(filter.getUserId(), filter.getIds());
+        return projects.stream()
+                .map(projectMapper::toApiDTO)
+                .collect(Collectors.toList());
     }
 
 }

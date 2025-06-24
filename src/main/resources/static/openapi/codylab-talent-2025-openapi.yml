@@ -770,10 +770,6 @@ components:
         durata:
           type: integer
           description: Durata del progetto in giorni.
-        tasks:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tasks'
     Tasks:
       type: object
       properties:
@@ -805,14 +801,6 @@ components:
         durata:
           type: integer
           description: Durata della task in giorni.
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/Users'
-        slots:
-          type: array
-          items:
-            $ref: '#/components/schemas/Slots'
 
     Users:
       type: object
