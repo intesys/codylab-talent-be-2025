@@ -4,6 +4,7 @@ import it.intesys.codylab.api.model.UsersApiDTO;
 import it.intesys.codylab.dto.UserDTO;
 import it.intesys.codylab.model.User;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", uses = TaskMapper.class)
 public interface UserMapper {
@@ -12,7 +13,7 @@ public interface UserMapper {
 
     User toEntity(UserDTO userDTO);
 
-
+    @Mapping(source = "mail", target = "email")
     UsersApiDTO toApiDTO(User user);
 
     User toEntity(UsersApiDTO dto);
