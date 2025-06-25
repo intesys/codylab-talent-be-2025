@@ -29,7 +29,7 @@ public class SlotService {
         this.slotMapper = slotMapper;
     }
 
-    public SlotDTO save(SlotDTO slotDTO) {
+    public Slot save(SlotDTO slotDTO) {
         Slot slot = slotMapper.toEntity(slotDTO);
 
         Long taskId = slotDTO.getTaskId();
@@ -41,8 +41,7 @@ public class SlotService {
                 .orElseThrow(() -> new RuntimeException("Task not found with id " + taskId));
         slot.setTask(task);
 
-        Slot saved = slotRepository.save(slot);
-        return slotMapper.toDTO(saved);
+        return slotRepository.save(slot);
     }
 
     public SlotDTO getSlotById(Long id) {

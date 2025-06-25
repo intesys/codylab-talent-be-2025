@@ -4,8 +4,10 @@ import it.intesys.codylab.api.model.SlotsApiDTO;
 import it.intesys.codylab.api.rest.SlotsApi;
 import it.intesys.codylab.dto.SlotDTO;
 import it.intesys.codylab.mapper.SlotMapper;
+import it.intesys.codylab.model.Slot;
 import it.intesys.codylab.service.SlotService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,8 +25,11 @@ public class SlotsRestController implements SlotsApi {
     }
 
     @Override
-    public ResponseEntity<SlotsApiDTO> createSlot(SlotsApiDTO slotsApiDTO) {
-        return SlotsApi.super.createSlot(slotsApiDTO);
+    public ResponseEntity<SlotsApiDTO> createSlot(@RequestBody SlotsApiDTO slotsApiDTO) {
+        Slot slot = slotMapper.toSlotModel(slotsApiDTO);
+        Slot savedSlot = slotService.save(slotMapper.toSlotDTO(slotsApiDTO));
+        SlotsApiDTO responseDto = slotMapper.toSlotApiDTO(savedSlot);
+        return ResponseEntity.ok(responseDto);
     }
 
     @Override
