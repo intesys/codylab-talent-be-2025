@@ -2,6 +2,7 @@ package it.intesys.codylab.controller;
 
 import it.intesys.codylab.api.model.SlotsApiDTO;
 import it.intesys.codylab.api.rest.SlotsApi;
+import it.intesys.codylab.dto.SlotDTO;
 import it.intesys.codylab.mapper.SlotMapper;
 import it.intesys.codylab.service.SlotService;
 import org.springframework.http.ResponseEntity;
@@ -32,8 +33,13 @@ public class SlotsRestController implements SlotsApi {
     }
 
     @Override
-    public ResponseEntity<SlotsApiDTO> getSlotById(Long slotId) {
-        return SlotsApi.super.getSlotById(slotId);
+    public ResponseEntity<SlotDTO> getSlotById(Long slotId) {
+        SlotDTO slot = slotService.getSlotById(slotId);
+        if (slot != null) {
+            return ResponseEntity.ok(slot);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 
