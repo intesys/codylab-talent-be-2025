@@ -10,10 +10,7 @@ import it.intesys.codylab.repository.ProjectRepository;
 import it.intesys.codylab.repository.TaskRepository;
 import it.intesys.codylab.repository.UserRepository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 
 import java.util.List;
 import java.util.stream.StreamSupport;
@@ -31,6 +28,7 @@ public class TaskService {
         this.taskMapper = taskMapper;
         this.userRepository = userRepository;
     }
+
     public List<TasksApiDTO> getAllTasks() {
         return StreamSupport.stream(taskRepository.findAll().spliterator(), false)
                 .map(taskMapper::toTaskApiDTO)
@@ -56,6 +54,34 @@ public class TaskService {
         Task savedTask = taskRepository.save(task);
         return taskMapper.toTaskApiDTO(savedTask);
     }
+
+    public TasksApiDTO updateTask(Long taskId, TasksApiDTO tasksApiDTO) {
+        // 1. Recupera il Task esistente dal database
+        Task existingTask = taskRepository.findById(taskId)
+                .orElseThrow(() -> new RuntimeException("Task non trovato"));
+
+        // 2. Aggiorna i campi del Task esistente con i valori del DTO
+        existingTask.setNome(tasksApiDTO.getNome());
+        existingTask.setDescrizione(tasksApiDTO.getDescrizione());
+        existingTask.setDataInizio(tasksApiDTO.getDataInizio());
+        existingTask.setDurata(tasksApiDTO.getDurata());
+        existingTask.setCodice(tasksApiDTO.getCodice());
+
+        // 3. Se nel DTO c'è un progettoId, aggiorna il riferimento al progetto
+        if (tasksApiDTO.getProgettoId() != null) {
+            Project project = projectRepository.findById(tasksApiDTO.getProgettoId())
+                    .orElseThrow(() -> new RuntimeException("Project non trovato"));
+            existingTask.setProject(project);
+        } else {
+            // 4. Se il progettoId non c'è, lancia un'eccezione perché è obbligatorio
+            throw new RuntimeException("progettoId è obbligatorio");
+        }
+
+        // 5. Salva le modifiche e ritorna il DTO aggiornato
+        Task updatedTask = taskRepository.save(existingTask);
+        return taskMapper.toTaskApiDTO(updatedTask);
+    }
+
     @Transactional
     public void deleteTask(Long taskId) {
         System.out.println("=== INIZIO DELETE TASK ID: " + taskId + " ===");
@@ -76,26 +102,15 @@ public class TaskService {
         System.out.println("Task esiste dopo: " + existsAfter);
 
         System.out.println("=== FINE DELETE ===");
-    }}
+    }
 
-//    public TaskDTO saveTask(TaskDTO taskDTO) {
-//        // Recupera il progetto associato dalla db, per impostare il riferimento
-//        Project project = projectRepository.findById(taskDTO.getProjectId())
-//                .orElseThrow(() -> new RuntimeException("Project not found"));
+//    // Metodo per assegnare un utente a un task
 //
-//        Task task = taskMapper.toEntity(taskDTO);
-//        task.setProject(project);
-//
-//        Task savedTask = taskRepository.save(task);
-//        return taskMapper.toDTO(savedTask);
-//    }
-//
-//    @Transactional
-//    public TaskDTO assignUserToTask(Long userId, Long taskId) {
+//    public TasksApiDTO assignUserToTask(Long userId, Long taskId) {
 //        Task task = taskRepository.findById(taskId)
-//                .orElseThrow(() -> new RuntimeException("Task not found"));
+//                .orElseThrow(() -> new RuntimeException("Task non trovato"));
 //        User user = userRepository.findById(userId)
-//                .orElseThrow(() -> new RuntimeException("User not found"));
+//                .orElseThrow(() -> new RuntimeException("User non trovato"));
 //
 //        // Relazione bidirezionale
 //        if (!task.getUsers().contains(user)) {
@@ -107,11 +122,8 @@ public class TaskService {
 //        }
 //
 //        userRepository.save(user);
-//        taskRepository.save(task);
+//        Task savedTask = taskRepository.save(task);
 //
-//        return taskMapper.toDTO(task);
+//        return taskMapper.toTaskApiDTO(savedTask);
 //    }
-
-
-
-
+}

@@ -62,7 +62,14 @@ public class TaskRestController implements TasksApi {
 
     @Override
     public ResponseEntity<TasksApiDTO> updateTask(Long taskId, TasksApiDTO tasksApiDTO) {
-        return TasksApi.super.updateTask(taskId, tasksApiDTO);
+        try {
+            TasksApiDTO updatedTask = taskService.updateTask(taskId, tasksApiDTO);
+            return ResponseEntity.ok(updatedTask);
+        } catch (Exception e) {
+            // Log the error and return an appropriate response
+            return ResponseEntity.status(500).body(new TasksApiDTO());
+        }
+
     }
 
     @Override
