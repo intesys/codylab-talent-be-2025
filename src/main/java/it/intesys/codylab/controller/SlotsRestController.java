@@ -34,7 +34,8 @@ public class SlotsRestController implements SlotsApi {
 
     @Override
     public ResponseEntity<Void> deleteSlot(Long slotId) {
-        return SlotsApi.super.deleteSlot(slotId);
+        slotService.delete(slotId);
+        return ResponseEntity.noContent().build();
     }
 
     @Override
@@ -50,7 +51,10 @@ public class SlotsRestController implements SlotsApi {
 
     @Override
     public ResponseEntity<SlotsApiDTO> updateSlot(Long slotId, SlotsApiDTO slotsApiDTO) {
-        return SlotsApi.super.updateSlot(slotId, slotsApiDTO);
+        SlotDTO slotDTO = slotMapper.toSlotDTO(slotsApiDTO);
+        Slot updatedSlot = slotService.updateSlot(slotId, slotDTO);
+        SlotsApiDTO responseDto = slotMapper.toSlotApiDTO(updatedSlot);
+        return ResponseEntity.ok(responseDto);
     }
 
     @Override

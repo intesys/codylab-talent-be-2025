@@ -67,4 +67,21 @@ public class SlotService {
         Collections.reverse(list);
         return list;
     }
+    public Slot updateSlot(Long slotId, SlotDTO slotDTO) {
+        Slot existingSlot = slotRepository.findById(slotId)
+                .orElseThrow(() -> new RuntimeException("Slot not found with id " + slotId));
+
+        // Update fields
+        existingSlot.setDataInizio(slotDTO.getDataInizio());
+        existingSlot.setDataFine(slotDTO.getDataFine());
+
+        Long taskId = slotDTO.getTaskId();
+        if (taskId != null) {
+            Task task = taskRepository.findById(taskId)
+                    .orElseThrow(() -> new RuntimeException("Task not found with id " + taskId));
+            existingSlot.setTask(task);
+        }
+
+        return slotRepository.save(existingSlot);
+    }
 }
