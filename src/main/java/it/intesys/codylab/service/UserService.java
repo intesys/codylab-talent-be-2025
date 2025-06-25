@@ -29,5 +29,8 @@ public class UserService {
                 .toList();
 
     }
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
 
 }

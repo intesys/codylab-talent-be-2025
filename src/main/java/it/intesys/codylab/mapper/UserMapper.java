@@ -15,7 +15,7 @@ public interface UserMapper {
 
     @Mapping(source = "mail", target = "email")
     UsersApiDTO toApiDTO(User user);
-
+    @Mapping(source = "email", target = "mail")
     User toEntity(UsersApiDTO dto);
 }
 
