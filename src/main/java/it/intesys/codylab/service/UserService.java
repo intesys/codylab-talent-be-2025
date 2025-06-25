@@ -1,7 +1,11 @@
 package it.intesys.codylab.service;
 
+import it.intesys.codylab.api.model.UserFilterApiDTO;
+import it.intesys.codylab.api.model.UsersApiDTO;
+import it.intesys.codylab.api.rest.UsersApi;
 import it.intesys.codylab.model.User;
 import it.intesys.codylab.repository.UserRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,6 +13,7 @@ import java.util.stream.StreamSupport;
 
 @Service
 public class UserService {
+
 
     private UserRepository userRepository;
 
@@ -24,4 +29,5 @@ public class UserService {
                 .toList();
 
     }
+
 }

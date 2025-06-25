@@ -1,5 +1,6 @@
 package it.intesys.codylab.mapper;
 
+import it.intesys.codylab.api.model.UsersApiDTO;
 import it.intesys.codylab.dto.UserDTO;
 import it.intesys.codylab.model.User;
 import org.mapstruct.Mapper;
@@ -11,4 +12,11 @@ public interface UserMapper {
 
     User toEntity(UserDTO userDTO);
 
+
+    UsersApiDTO toApiDTO(User user);
+
+    User toEntity(UsersApiDTO dto);
 }
+
+
+
