@@ -34,6 +34,15 @@ public class UserRestController implements UsersApi {
     }
 
     @Override
+    public ResponseEntity<UsersApiDTO> getUserById(Long userId) {
+        User user = userService.getUserNameById(userId);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+        UsersApiDTO usersApiDTO = userMapper.toApiDTO(user);
+        return ResponseEntity.ok(usersApiDTO);
+    }
+    @Override
     public ResponseEntity<List<UsersApiDTO>> searchUsers(
             Integer pageNumber,
             Integer size,
