@@ -34,7 +34,7 @@ public class SlotsRestController implements SlotsApi {
 
     @Override
     public ResponseEntity<Void> deleteSlot(Long slotId) {
-        slotService.delete(slotId);
+        slotService.deleteSlot(slotId);
         return ResponseEntity.noContent().build();
     }
 

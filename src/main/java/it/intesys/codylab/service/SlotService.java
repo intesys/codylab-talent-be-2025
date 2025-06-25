@@ -8,6 +8,7 @@ import it.intesys.codylab.model.Task;
 import it.intesys.codylab.repository.SlotRepository;
 import it.intesys.codylab.repository.TaskRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -56,10 +57,6 @@ public class SlotService {
                 .collect(Collectors.toList());
     }
 
-    public void delete(Long id) {
-        slotRepository.deleteById(id);
-    }
-
     public List<SlotsApiDTO> getAllSlots() {
         List<SlotsApiDTO> list = slotRepository.findAll().stream()
                 .map(slotMapper::toSlotApiDTO)
@@ -84,4 +81,27 @@ public class SlotService {
 
         return slotRepository.save(existingSlot);
     }
+
+    @Transactional
+    public void deleteSlot(Long slotId) {
+        System.out.println("=== INIZIO DELETE SLOT ID: " + slotId + " ===");
+
+        // Verifica esistenza
+        if (!slotRepository.existsById(slotId)) {
+            throw new RuntimeException("Slot non trovato");
+        }
+
+        // Prova con query nativa
+        System.out.println("Eseguo query nativa...");
+        int deletedRows = slotRepository.deleteByIdCustom(slotId);
+        System.out.println("Righe cancellate: " + deletedRows);
+
+        slotRepository.flush();
+
+        boolean existsAfter = slotRepository.existsById(slotId);
+        System.out.println("Slot esiste dopo: " + existsAfter);
+
+        System.out.println("=== FINE DELETE ===");
+    }
 }
+
