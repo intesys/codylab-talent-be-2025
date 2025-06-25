@@ -36,7 +36,12 @@ public class UserRestController implements UsersApi {
 
     @Override
     public ResponseEntity<Void> deleteUser(Long userId) {
-        return UsersApi.super.deleteUser(userId);
+        User user = userService.getUserNameById(userId);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+        userService.deleteUserById(userId);  // Metodo corretto per cancellare
+        return ResponseEntity.noContent().build();
     }
 
     @Override
