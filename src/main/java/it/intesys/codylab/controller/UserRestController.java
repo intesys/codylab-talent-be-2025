@@ -77,7 +77,17 @@ public class UserRestController implements UsersApi {
 
     @Override
     public ResponseEntity<UsersApiDTO> updateUser(Long userId, UsersApiDTO usersApiDTO) {
-        return UsersApi.super.updateUser(userId, usersApiDTO);
+        User existingUser = userService.getUserNameById(userId);
+        if (existingUser == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        User updatedUser = userMapper.toEntity(usersApiDTO);
+        updatedUser.setId(userId);
+        User savedUser = userService.saveUser(updatedUser);
+        UsersApiDTO responseDto = userMapper.toApiDTO(savedUser);
+
+        return ResponseEntity.ok(responseDto);
     }
     }
 
