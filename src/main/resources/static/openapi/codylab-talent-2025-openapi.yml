@@ -870,6 +870,10 @@ components:
           type: string
           description: Codice identificativo del progetto.
 
+        username:
+          type: string
+          description: Nome utente del responsabile del progetto.
+
     TaskFilter:
       type: object
       properties:

@@ -22,6 +22,8 @@ public class User {
 
     private Double orarioGiornaliero;
 
+    private String username;
+
     @ManyToMany
     @JoinTable(
             name = "users_tasks",
@@ -88,5 +90,11 @@ public class User {
 
     public void setOrarioGiornaliero(Double orarioGiornaliero) {
         this.orarioGiornaliero = orarioGiornaliero;
+    }
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

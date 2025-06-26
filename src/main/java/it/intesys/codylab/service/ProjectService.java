@@ -66,5 +66,12 @@ public class ProjectService {
                 .collect(Collectors.toList());
     }
 
+    public List<ProjectsApiDTO> getProjectByCodiceAndUsername(String codice, String username) {
+        List<Project> projects = projectRepository.findByCodiceAndUsername(codice, username);
+        return projects.stream()
+                .map(projectMapper::toApiDTO)
+                .collect(Collectors.toList());
+    }
+
 
 }

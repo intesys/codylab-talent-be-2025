@@ -15,4 +15,9 @@ public interface ProjectRepository extends CrudRepository<Project, Long> {
 
     @Query("SELECT p FROM Project p WHERE (:codice IS NULL OR p.codice = :codice)")
     List<Project> findByCodice(@Param("codice") String codice);
+
+    @Query("SELECT DISTINCT p FROM Project p JOIN p.tasks t JOIN t.users u WHERE " +
+            "(:codice IS NULL OR p.codice = :codice) AND " +
+            "(:username IS NULL OR u.username = :username)")
+    List<Project> findByCodiceAndUsername(@Param("codice") String codice, @Param("username") String username);
 }
