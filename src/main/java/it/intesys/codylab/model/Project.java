@@ -17,6 +17,7 @@ public class Project {
     private String descrizione;
     private LocalDate dataInizio;
     private Integer durata;
+    private Long responsabileId;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> tasks;
@@ -25,13 +26,14 @@ public class Project {
         // Default constructor
     }
 
-    public Project(Long id, String codice, String nome, String descrizione, LocalDate dataInizio, Integer durata) {
+    public Project(Long id, String codice, String nome, String descrizione, LocalDate dataInizio, Integer durata, Long responsabileId) {
         this.id = id;
         this.codice = codice;
         this.nome = nome;
         this.descrizione = descrizione;
         this.dataInizio = dataInizio;
         this.durata = durata;
+        this.responsabileId = responsabileId;
     }
 
     public List<Task> getTasks() {
@@ -88,5 +90,11 @@ public class Project {
 
     public void setDurata(Integer durata) {
         this.durata = durata;
+    }
+    public Long getResponsabileId() {
+        return responsabileId;
+    }
+    public void setResponsabileId(Long responsabileId) {
+        this.responsabileId = responsabileId;
     }
 }

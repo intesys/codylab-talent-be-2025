@@ -1,6 +1,5 @@
 package it.intesys.codylab.controller;
 
-import it.intesys.codylab.CodyLabSpringBootApplication;
 import it.intesys.codylab.api.model.ProblemApiDTO;
 import it.intesys.codylab.api.model.ProjectFilterApiDTO;
 import it.intesys.codylab.api.model.ProjectsApiDTO;
@@ -30,16 +29,19 @@ public class ProjectRestController implements ProjectsApi {
     }
 
     @Override
-    public ResponseEntity<List<ProjectsApiDTO>> searchProjects
-            (Integer pageNumber,
-             Integer size,
-             String sort,
-             ProjectFilterApiDTO projectFilter) {
-        ProjectsApiDTO projectsApiDTO = new ProjectsApiDTO();
-        projectsApiDTO.setId(1L);
-        projectsApiDTO.setNome("Example Project");
-        // ResponseEntity.noContent().build();
-        return ResponseEntity.ok(List.of(projectsApiDTO));
+    public ResponseEntity<List<ProjectsApiDTO>> getProjects(
+            Integer pageNumber,
+            Integer size,
+            String sort,
+            ProjectFilterApiDTO projectFilter) {
+
+        List<ProjectsApiDTO> projects = projectService.getProjectByUserIdOrProjectIds(projectFilter);
+
+        if (projects.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(projects);
     }
 
     @Override
