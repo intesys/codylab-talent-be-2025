@@ -59,6 +59,12 @@ public class ProjectService {
                 .map(projectMapper::toApiDTO)
                 .collect(Collectors.toList());
     }
+    public List<ProjectsApiDTO> getProjectByCodice(String codice) {
+        List<Project> projects = projectRepository.findByCodice(codice);
+        return projects.stream()
+                .map(projectMapper::toApiDTO)
+                .collect(Collectors.toList());
+    }
 
 
 }
