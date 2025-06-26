@@ -15,3 +15,4 @@ public interface ProjectRepository extends CrudRepository<Project, Long> {
     List<Project> findByUserIdOrProjectIds(@Param("userId") Long userId, @Param("projectIds") List<Long> projectIds);
 
 }
+//d
