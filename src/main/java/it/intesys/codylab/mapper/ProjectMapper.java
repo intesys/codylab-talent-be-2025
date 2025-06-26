@@ -11,8 +11,11 @@ import org.mapstruct.Mapping;
 public interface ProjectMapper {
 
     @Mapping(target = "dataInizio", source = "dataInizio", dateFormat = "dd-MM-yyyy")
+    @Mapping(target = "responsabile", source = "responsabile.username")
     ProjectsApiDTO toApiDTO(Project project);
 
     @Mapping(target = "dataInizio", source = "dataInizio", dateFormat = "dd-MM-yyyy")
+    @Mapping(target = "responsabile", ignore = true)
+    @Mapping(target = "tasks", ignore = true)
     Project toEntity(ProjectsApiDTO projectsApiDTO);
 }

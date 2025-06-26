@@ -32,6 +32,9 @@ public class User {
     )
     private List<Task> tasks;
 
+    @OneToMany(mappedBy="responsabile", orphanRemoval = false)
+    private List<Project> projects;
+
     public User() {
         // Default constructor
     }
@@ -98,5 +101,12 @@ public class User {
 
     public void setOrarioGiornaliero(Double orarioGiornaliero) {
         this.orarioGiornaliero = orarioGiornaliero;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
 }
