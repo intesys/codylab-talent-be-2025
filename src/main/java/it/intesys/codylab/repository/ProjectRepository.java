@@ -10,8 +10,13 @@ import java.util.List;
 
 public interface ProjectRepository extends CrudRepository<Project, Long> {
 
-    Project findByCodice(String codice);
 
-    @Query("SELECT p FROM Project p FULL JOIN p.tasks t FULL JOIN t.users u WHERE u.id = :userId OR p.id IN :projectIds")
-    List<Project> findByUserIdOrProjectIds(@Param("userId") Long userId, @Param("projectIds") List<Long> projectIds);
+    @Query("SELECT p FROM Project p FULL JOIN p.tasks t FULL JOIN t.users u WHERE u.username = :username AND p.codice IN :projectCodes")
+    List<Project> findByUsernameAndProjectCodes(@Param("username") String username, @Param("projectCodes") List<String> projectCodes);
+
+    @Query("SELECT p FROM Project p FULL JOIN p.tasks t FULL JOIN t.users u WHERE u.username = :username")
+    List<Project> findByUsername(@Param("username") String username);
+
+    @Query("SELECT p FROM Project p WHERE p.codice IN :projectCodes")
+    List<Project> findByCodice(@Param("projectCodes") List<String> projectCodes);
 }

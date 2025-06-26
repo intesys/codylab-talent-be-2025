@@ -53,8 +53,22 @@ public class ProjectService {
         projectRepository.deleteById(id);
     }
 
-    public List<ProjectsApiDTO> getProjectByUserIdOrProjectIds(ProjectFilterApiDTO filter) {
-        List<Project> projects = projectRepository.findByUserIdOrProjectIds(filter.getUserId(), filter.getIds());
+    public List<ProjectsApiDTO> getProjectByUsernameAndProjectCodes(ProjectFilterApiDTO filter) {
+        List<Project> projects = projectRepository.findByUsernameAndProjectCodes(filter.getUsername(), filter.getProjectCodes());
+        return projects.stream()
+                .map(projectMapper::toApiDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<ProjectsApiDTO> getProjectByUsername(ProjectFilterApiDTO filter) {
+        List<Project> projects = projectRepository.findByUsername(filter.getUsername());
+        return projects.stream()
+                .map(projectMapper::toApiDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<ProjectsApiDTO> getProjectByProjectCodes(ProjectFilterApiDTO filter) {
+        List<Project> projects = projectRepository.findByCodice(filter.getProjectCodes());
         return projects.stream()
                 .map(projectMapper::toApiDTO)
                 .collect(Collectors.toList());

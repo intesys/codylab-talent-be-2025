@@ -16,6 +16,8 @@ public class User {
 
     private String cognome;
 
+    private String username;
+
     private String mail;
 
     private String profilo;
@@ -64,6 +66,14 @@ public class User {
 
     public void setCognome(String cognome) {
         this.cognome = cognome;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getMail() {

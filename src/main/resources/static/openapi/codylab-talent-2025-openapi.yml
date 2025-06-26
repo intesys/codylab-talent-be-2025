@@ -815,6 +815,9 @@ components:
         cognome:
           type: string
           description: Cognome dell'utente.
+        username:
+          type: string
+          description: Nome utente per l'accesso.
         mail:
           type: string
           format: email
@@ -852,16 +855,14 @@ components:
     ProjectFilter:
       type: object
       properties:
-        userId:
-          type: integer
-          format: int64
-          description: ID dell'utente associato al progetto.
-        ids:
+        username:
+          type: string
+          description: username dell'utente associato al progetto.
+        projectCodes:
           type: array
           items:
-            type: integer
-            format: int64
-          description: Elenco degli ID dei progetti da filtrare.
+            type: string
+          description: Elenco dei codici dei progetti da filtrare.
 
     TaskFilter:
       type: object
