@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = TaskMapper.class)
 public interface UserMapper {
 
-    @Mapping(source = "progettiResponsabili", target = "progettiResponsabili")
+    @Mapping(source = "projects", target = "projects")
     UsersApiDTO toApiDTO(User user);
 
     User toEntity(UsersApiDTO usersApiDTO);

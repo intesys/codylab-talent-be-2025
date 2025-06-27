@@ -863,7 +863,7 @@ components:
         orarioGiornaliero:
           type: integer
           description: Ore lavorative giornaliere dell'utente.
-        progettiResponsabili:
+        projects:
           type: array
           items:
             $ref: '#/components/schemas/Projects'
