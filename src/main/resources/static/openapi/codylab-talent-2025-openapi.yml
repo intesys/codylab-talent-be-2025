@@ -840,11 +840,6 @@ components:
     Users:
       type: object
       properties:
-        projects:
-          type: array
-          description: Lista dei progetti associati all'utente.
-          items:
-            $ref: '#/components/schemas/Projects'
         id:
           type: integer
           format: int64
