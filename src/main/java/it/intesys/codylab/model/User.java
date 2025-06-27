@@ -32,8 +32,9 @@ public class User {
     )
     private List<Task> tasks;
 
-    @OneToMany(mappedBy="responsabile", orphanRemoval = false)
-    private List<Project> projects;
+
+    @OneToMany(mappedBy = "responsabile", fetch = FetchType.LAZY)
+    private List<Project> progettiResponsabili;
 
     public User() {
         // Default constructor
@@ -103,10 +104,10 @@ public class User {
         this.orarioGiornaliero = orarioGiornaliero;
     }
 
-    public List<Project> getProjects() {
-        return projects;
+    public List<Project> getProgettiResponsabili() {
+        return progettiResponsabili;
     }
-    public void setProjects(List<Project> projects) {
-        this.projects = projects;
-    }
+
+
+
 }

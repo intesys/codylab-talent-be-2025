@@ -580,6 +580,38 @@ paths:
               schema:
                 $ref: '#/components/schemas/Problem'
 
+  /users/{id}/progettiGestiti:
+    get:
+      summary: Recupera un utente con i progetti gestiti
+      description: Restituisce l’utente e i suoi progetti gestiti
+      operationId: getUserWithProgettiGestiti
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          description: ID dell’utente
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Utente con progetti gestiti recuperato con successo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'  # O uno schema User con progettiGestiti incluso
+        '404':
+          description: Utente non trovato
+        '500':
+          description: Errore interno del server
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+
+
   /slots/{id}:
     get:
       summary: Recupera uno slot tramite il suo ID
@@ -808,6 +840,11 @@ components:
     Users:
       type: object
       properties:
+        projects:
+          type: array
+          description: Lista dei progetti associati all'utente.
+          items:
+            $ref: '#/components/schemas/Projects'
         id:
           type: integer
           format: int64
@@ -831,6 +868,10 @@ components:
         orarioGiornaliero:
           type: integer
           description: Ore lavorative giornaliere dell'utente.
+        progettiResponsabili:
+          type: array
+          items:
+            $ref: '#/components/schemas/Projects'
 
     Slots:
       type: object

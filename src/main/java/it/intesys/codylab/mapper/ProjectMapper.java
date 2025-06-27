@@ -18,4 +18,5 @@ public interface ProjectMapper {
     @Mapping(target = "responsabile", ignore = true)
     @Mapping(target = "tasks", ignore = true)
     Project toEntity(ProjectsApiDTO projectsApiDTO);
+
 }

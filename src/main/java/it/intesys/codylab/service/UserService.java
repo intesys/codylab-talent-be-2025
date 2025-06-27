@@ -12,8 +12,9 @@ import java.util.stream.StreamSupport;
 
 @Service
 public class UserService {
-    private UserRepository userRepository;
-    private UserMapper userMapper;
+
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
@@ -47,5 +48,9 @@ public class UserService {
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public User findUtenteWithProgettiDirigente(Long id) {
+        return userRepository.findUtenteWithProgettiDirigente(id);
     }
 }

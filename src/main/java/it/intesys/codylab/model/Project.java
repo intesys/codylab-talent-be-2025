@@ -22,7 +22,7 @@ public class Project {
     private List<Task> tasks;
 
     @ManyToOne
-    @JoinColumn(name = "responsabile", nullable = false)
+    @JoinColumn(name = "responsabile")
     private User responsabile;
 
     public Project() {
