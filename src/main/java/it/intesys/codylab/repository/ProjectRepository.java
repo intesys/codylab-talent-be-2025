@@ -1,6 +1,7 @@
 package it.intesys.codylab.repository;
 
 import it.intesys.codylab.model.Project;
+import it.intesys.codylab.model.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -23,6 +24,9 @@ public interface ProjectRepository extends CrudRepository<Project, Long> {
 
     @Query("SELECT DISTINCT p FROM Project p JOIN p.tasks t JOIN t.users u WHERE u.username = :username")
     List<Project> findByUsername(@Param("username") String username);
+
+    @Query("SELECT u FROM User u LEFT JOIN FETCH u.progettiResponsabili WHERE u.id = :id")
+    User findByIdWithProjects(@Param("id") Long id);
 
     @Query("SELECT p FROM Project p LEFT JOIN FETCH p.responsabile")
     List<Project> findAllWithResponsabile();
