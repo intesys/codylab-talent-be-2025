@@ -37,16 +37,16 @@ ALTER TABLE projects
     ADD CONSTRAINT fk_responsabile FOREIGN KEY (responsabile_id) REFERENCES users(id);
 
 
-ALTER TABLE projects
-    ALTER COLUMN responsabile TYPE BIGINT USING responsabile::BIGINT;
+ALTER TABLE tasks
+    add COLUMN progetto_id BIGINT;
 
 
 ALTER TABLE projects DROP COLUMN responsabile;
 
 ALTER TABLE projects ADD COLUMN responsabile BIGINT;
 
-UPDATE projects
-SET responsabile = 2
+UPDATE tasks
+SET project_id = 1
 WHERE id = 2;
 
 

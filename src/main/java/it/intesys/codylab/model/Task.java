@@ -19,7 +19,7 @@ public class Task {
     private Integer durata;
 
     @ManyToOne
-    @JoinColumn(name = "progetto_id", nullable = false)
+    @JoinColumn(name = "project_id", nullable = false)
     private Project project;
 
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
