@@ -511,11 +511,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/Problem'
 
-  #  slots
   /slots:
     get:
       summary: Recupera tutti gli slot
-      description: Restituisce una lista di oggetti Slot.
+      description: Restituisce una lista di oggetti Slot. È possibile filtrare per ID slot multipli (es. `1,2,3`) tramite il parametro `ids`.
       operationId: getSlots
       tags:
         - Slots
@@ -523,14 +522,13 @@ paths:
         - $ref: '#/components/parameters/PageNumber'
         - $ref: '#/components/parameters/Size'
         - $ref: '#/components/parameters/Sort'
-        - name: SlotFilter
+        - name: ids
           in: query
-          description: Filtro per gli slot basato su ID task o ID slot.
+          description: Elenco degli ID degli slot da filtrare, separati da virgola (es. `1,2,3`)
           required: false
-          style: form
-          explode: true
           schema:
-            $ref: '#/components/schemas/SlotFilter'
+            type: string
+            example: "1,2,3"
       responses:
         '200':
           description: Lista di slot recuperata con successo.
@@ -548,6 +546,7 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/Problem'
+
     post:
       summary: Crea un nuovo slot
       description: Crea un nuovo slot e restituisce l'oggetto Slot creato.
@@ -579,6 +578,7 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/Problem'
+
 
   /users/{id}/progettiGestiti:
     get:

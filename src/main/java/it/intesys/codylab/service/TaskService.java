@@ -54,4 +54,26 @@ public class TaskService {
     public void deleteTask(Long id) {
         taskRepository.deleteById(id);
     }
+
+    public List<TasksApiDTO> getTasksByProject(Long projectId) {
+        Project project = projectRepository.findById(projectId).orElse(null);
+        if(project == null) {
+            return null;
+        }
+        return StreamSupport.stream(project.getTasks().spliterator(), false)
+                .map(taskMapper::toApiDTO)
+                .collect(Collectors.toList());
+    }
+    public List<TasksApiDTO> getTasksByProjectAndUser(Long projectId, Long userId) {
+        Project project = projectRepository.findById(projectId).orElse(null);
+        if(project == null) {
+            return null;
+        }
+
+        return StreamSupport.stream(project.getTasks().spliterator(), false)
+                .filter(task -> task.getUsers().stream().anyMatch(user -> user.getId().equals(userId)))
+                .map(taskMapper::toApiDTO)
+                .collect(Collectors.toList());
+    }
 }
+

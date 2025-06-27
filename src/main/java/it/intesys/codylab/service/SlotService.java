@@ -21,11 +21,20 @@ public class SlotService {
         this.slotMapper = slotMapper;
     }
 
-    public List<SlotsApiDTO> getSlots() {
-        return StreamSupport.stream(slotRepository.findAll().spliterator(), false)
+    public List<SlotsApiDTO> getSlots(List<Long> idList, Integer pageNumber, Integer size, String sort) {
+        List<Slot> slots;
+
+        if (idList != null && !idList.isEmpty()) {
+            slots = slotRepository.findByIdIn(idList);
+        } else {
+            slots = slotRepository.findAll();
+        }
+
+        return slots.stream()
                 .map(slotMapper::toApiDTO)
                 .collect(Collectors.toList());
     }
+
 
     public SlotsApiDTO getSlotById(Long id) {
         return slotRepository.findById(id)

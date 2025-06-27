@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -21,13 +23,33 @@ public class SlotRestController implements SlotsApi {
     }
 
     @Override
-    public ResponseEntity<List<SlotsApiDTO>> getSlots(Integer pageNumber, Integer size, String sort, SlotFilterApiDTO filter) {
-        List<SlotsApiDTO> slots = slotService.getSlots();
-        if (slots.isEmpty()) {
+    public ResponseEntity<List<SlotsApiDTO>> getSlots(
+            Integer pageNumber,
+            Integer size,
+            String sort,
+            String ids) {
+
+        List<Long> idList = null;
+        if (ids != null && !ids.isBlank()) {
+            try {
+                idList = Arrays.stream(ids.split(","))
+                        .map(String::trim)
+                        .map(Long::parseLong)
+                        .collect(Collectors.toList());
+            } catch (NumberFormatException e) {
+                return ResponseEntity.badRequest().build(); // se formato errato
+            }
+        }
+
+        List<SlotsApiDTO> slots = slotService.getSlots(idList, pageNumber, size, sort);
+
+        if (slots == null || slots.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
+
         return ResponseEntity.ok(slots);
     }
+
 
     @Override
     public ResponseEntity<SlotsApiDTO> getSlotById(Long id) {
