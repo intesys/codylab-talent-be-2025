@@ -44,6 +44,7 @@ public class SlotService {
 
     public SlotsApiDTO createSlot(SlotsApiDTO slotsApiDTO) {
         Slot slot = slotMapper.toEntity(slotsApiDTO);
+        slot.setId(null);
         Slot savedSlot = slotRepository.save(slot);
         return slotMapper.toApiDTO(savedSlot);
     }
