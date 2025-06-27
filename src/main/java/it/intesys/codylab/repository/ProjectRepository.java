@@ -23,4 +23,7 @@ public interface ProjectRepository extends CrudRepository<Project, Long> {
 
     @Query("SELECT DISTINCT p FROM Project p JOIN p.tasks t JOIN t.users u WHERE u.username = :username")
     List<Project> findByUsername(@Param("username") String username);
+
+    @Query("SELECT p FROM Project p LEFT JOIN FETCH p.responsabile")
+    List<Project> findAllWithResponsabile();
 }

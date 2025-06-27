@@ -2,6 +2,7 @@ package it.intesys.codylab.service;
 
 import it.intesys.codylab.api.model.ProjectFilterApiDTO;
 import it.intesys.codylab.api.model.ProjectsApiDTO;
+import it.intesys.codylab.api.model.ProjectsWithResponsabileApiDTO;
 import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.mapper.ProjectMapper;
 import it.intesys.codylab.model.Project;
@@ -79,8 +80,17 @@ public class ProjectService {
                 .map(projectMapper::toApiDTO)
                 .collect(Collectors.toList());
     }
-
-
-
-
+    public List<ProjectsWithResponsabileApiDTO> getAllProjectsWithResponsabile() {
+        List<Project> projects = projectRepository.findAllWithResponsabile(); // JOIN FETCH in repository
+        return projects.stream()
+                .map(projectMapper::toApiDTOWithResponsabile)
+                .collect(Collectors.toList());
+    }
 }
+
+
+
+
+
+
+

@@ -3,6 +3,7 @@ package it.intesys.codylab.controller;
 import it.intesys.codylab.api.model.ProblemApiDTO;
 import it.intesys.codylab.api.model.ProjectFilterApiDTO;
 import it.intesys.codylab.api.model.ProjectsApiDTO;
+import it.intesys.codylab.api.model.ProjectsWithResponsabileApiDTO;
 import it.intesys.codylab.api.rest.ProjectsApi;
 import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.service.ProjectService;
@@ -76,6 +77,14 @@ public class ProjectRestController implements ProjectsApi {
     public ResponseEntity<ProjectsApiDTO> getProjectById(Long projectId) {
         return ResponseEntity.notFound().build();
     }
+
+    @Override
+    public ResponseEntity<List<ProjectsWithResponsabileApiDTO>> getProjectsWithResponsabile() {
+        return ResponseEntity.ok(projectService.getAllProjectsWithResponsabile());
+    }
+
+
+
 
     /**
      @GetMapping("/projects") public List<ProjectDTO> getProjects() {

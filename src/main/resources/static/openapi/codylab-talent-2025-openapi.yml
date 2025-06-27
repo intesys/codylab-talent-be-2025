@@ -181,6 +181,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/Problem'
 
+  /projects-with-responsabile:
+    get:
+      summary: Get all projects with their responsabile
+      description: Returns a list of projects, each with its responsabile (user) details.
+      operationId: getProjectsWithResponsabile
+      tags:
+        - Projects
+      responses:
+        '200':
+          description: List of projects with responsabile retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectsWithResponsabile'
+        '204':
+          description: No projects found.
+        '500':
+          description: Internal server error.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
   #  tasks
   /tasks:
     get:
@@ -955,6 +979,27 @@ components:
             type: integer
             format: int64
           description: Elenco degli ID degli slot da filtrare.
+
+    ProjectsWithResponsabile:
+        type: object
+        properties:
+          id:
+            type: integer
+          codice:
+            type: string
+          nome:
+            type: string
+          descrizione:
+            type: string
+          dataInizio:
+            type: string
+            format: date
+          durata:
+            type: integer
+          responsabileId:
+            type: integer
+          responsabile:
+            $ref: '#/components/schemas/Users'
 
     Problem:
       description: error occurred - see status code and problem object for more information.

@@ -1,13 +1,14 @@
 package it.intesys.codylab.mapper;
 
 import it.intesys.codylab.api.model.ProjectsApiDTO;
+import it.intesys.codylab.api.model.ProjectsWithResponsabileApiDTO;
 import it.intesys.codylab.api.rest.ProjectsApi;
 import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.model.Project;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = {TaskMapper.class})
+@Mapper(componentModel = "spring", uses = {UserMapper.class,TaskMapper.class})
 public interface ProjectMapper {
 
     @Mapping(target = "dataInizio", source = "dataInizio", dateFormat = "dd-MM-yyyy")
@@ -19,4 +20,10 @@ public interface ProjectMapper {
     @Mapping(target = "tasks", ignore = true)
     Project toEntity(ProjectsApiDTO projectsApiDTO);
 
+
+    @Mapping(target = "responsabileId", source = "responsabile.id")
+    @Mapping(target = "responsabile", source = "responsabile")
+
+    ProjectsWithResponsabileApiDTO toApiDTOWithResponsabile(Project project);
 }
+

@@ -19,9 +19,10 @@ public interface UserMapper {
 
     User toEntity(UsersApiDTO usersApiDTO);
 
-
     @Mapping(target = "responsabileId", source = "responsabile.id")
     ProjectsApiDTO toApiDTO(Project project);
+
+
 
 
 }
