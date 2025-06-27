@@ -13,7 +13,6 @@ public interface UserMapper {
 
     User toEntity(UsersApiDTO usersApiDTO);
 
-    // Metodo per mappare un utente in una stringa (ad esempio il suo username)
     default String map(User user) {
         return user != null ? user.getUsername() : null;
     }
@@ -23,7 +22,7 @@ public interface UserMapper {
             return null;
         }
         User user = new User();
-        user.setUsername(username); // Imposta lo username, potrebbero essere necessari altri dettagli
+        user.setUsername(username);
         return user;
     }
 

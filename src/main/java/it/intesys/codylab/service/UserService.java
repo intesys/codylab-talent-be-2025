@@ -28,10 +28,14 @@ public class UserService {
     }
 
     public UsersApiDTO getUserById(Long id) {
-        return userRepository.findById(id)
-                .map(userMapper::toApiDTO)
+        return userRepository.findUserWithoutProjects(id)
+                .map(user -> {
+                    user.setProgettiResponsabili(null);
+                    return userMapper.toApiDTO(user);
+                })
                 .orElse(null);
     }
+
 
     public UsersApiDTO createUser(UsersApiDTO userDto) {
         User user = userMapper.toEntity(userDto);

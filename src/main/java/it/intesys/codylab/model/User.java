@@ -109,5 +109,11 @@ public class User {
     }
 
 
-
+    public void setProgettiResponsabili(Object o) {
+        if (o instanceof List) {
+            this.progettiResponsabili = (List<Project>) o; // Effettua il casting a List<Project>
+        } else {
+            this.progettiResponsabili = null; // Invalida il valore se il tipo non è corretto
+        }
+    }
 }
