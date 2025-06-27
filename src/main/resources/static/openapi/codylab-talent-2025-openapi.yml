@@ -859,6 +859,10 @@ components:
           type: integer
           description: Ore lavorative giornaliere dell'utente.
 
+        username:
+          type: string
+          description: Nome utente per l'accesso.
+
         progettiGestiti:
           type: array
           items:
