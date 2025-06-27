@@ -15,4 +15,5 @@ public class UserService {
     public User findUtenteWithProgettiDirigente(Long id) {
         return userRepository.findUtenteWithProgettiDirigente(id);
     }
+
 }

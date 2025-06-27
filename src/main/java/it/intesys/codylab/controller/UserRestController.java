@@ -31,4 +31,5 @@ public class UserRestController implements UsersApi {
             return ResponseEntity.notFound().build();
         }
     }
+
 }

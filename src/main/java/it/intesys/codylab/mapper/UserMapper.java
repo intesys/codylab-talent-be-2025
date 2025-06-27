@@ -23,16 +23,5 @@ public interface UserMapper {
     @Mapping(target = "responsabileId", source = "responsabile.id")
     ProjectsApiDTO toApiDTO(Project project);
 
-    default String map(User user) {
-        return user == null ? null : user.getUsername();
-    }
 
-    default User map(String username) {
-        if (username == null) {
-            return null;
-        }
-        User user = new User();
-        user.setUsername(username);
-        return user;
-    }
 }
