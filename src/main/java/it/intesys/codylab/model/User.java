@@ -32,6 +32,9 @@ public class User {
     )
     private List<Task> tasks;
 
+    @OneToMany(mappedBy = "responsabile", fetch = FetchType.LAZY)
+    private List<Project> progettiResponsabili;
+
     public User() {
         // Default constructor
     }
@@ -96,5 +99,8 @@ public class User {
     }
     public void setUsername(String username) {
         this.username = username;
+    }
+    public List<Project> getProgettiResponsabili() {
+        return progettiResponsabili;
     }
 }
