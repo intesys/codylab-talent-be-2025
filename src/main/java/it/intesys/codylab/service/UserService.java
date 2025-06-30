@@ -57,4 +57,36 @@ public class UserService {
     public User findUtenteWithProgettiDirigente(Long id) {
         return userRepository.findUtenteWithProgettiDirigente(id);
     }
+
+    public List<UsersApiDTO> getUsers(
+            List<Long> ids,
+            Long taskId,
+            Integer pageNumber,
+            Integer size,
+            String sort) {
+
+        List<User> users = (List<User>) userRepository.findAll();
+
+
+
+        if (ids != null && !ids.isEmpty()) {
+            users = users.stream()
+                    .filter(user -> ids.contains(user.getId()))
+                    .toList();
+        }
+
+        if (taskId != null) {
+            users = users.stream()
+                    .filter(user -> taskId.equals(user.getTaskId()))
+                    .toList();
+        }
+
+        return users.stream()
+                .map(user -> {
+                    user.setProgettiResponsabili(null);
+                    return userMapper.toApiDTO(user);
+                })
+                .toList();
+    }
+
 }

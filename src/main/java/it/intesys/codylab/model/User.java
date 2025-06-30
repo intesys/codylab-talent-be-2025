@@ -116,4 +116,12 @@ public class User {
             this.progettiResponsabili = null; // Invalida il valore se il tipo non è corretto
         }
     }
+
+    public Long getTaskId() {
+        if (this.tasks != null && this.tasks.size() > 0) {
+            return this.tasks.get(0).getId();
+        } else {
+            return null;
+        }
+    }
 }

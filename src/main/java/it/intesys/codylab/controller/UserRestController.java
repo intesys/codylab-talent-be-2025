@@ -7,7 +7,9 @@ import it.intesys.codylab.mapper.UserMapper;
 import it.intesys.codylab.model.User;
 import it.intesys.codylab.service.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
@@ -26,13 +28,23 @@ public class UserRestController implements UsersApi {
     }
 
     @Override
-    public ResponseEntity<List<UsersApiDTO>> getUsers(Integer pageNumber, Integer size, String sort, UserFilterApiDTO userFilterApiDTO) {
-        List<UsersApiDTO> users = userService.getUsers();
+    public ResponseEntity<List<UsersApiDTO>> getUsers(
+            Integer pageNumber,
+            Integer size,
+            String sort,
+            @RequestParam(required = false) List<Long> ids,
+            @RequestParam(required = false) Long taskId) {
+
+        List<UsersApiDTO> users = userService.getUsers(ids, taskId, pageNumber, size, sort);
+
         if (users.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(users);
     }
+
+
+
 
     @Override
     public ResponseEntity<UsersApiDTO> getUserById(Long id) {

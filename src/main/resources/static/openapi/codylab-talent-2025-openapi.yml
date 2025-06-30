@@ -358,14 +358,24 @@ paths:
         - $ref: '#/components/parameters/PageNumber'
         - $ref: '#/components/parameters/Size'
         - $ref: '#/components/parameters/Sort'
-        - name: UserFilter
+        - name: ids
           in: query
-          description: Filtro per gli utenti basato su ID utente o ID task.
           required: false
           style: form
           explode: true
+          description: Elenco degli ID degli utenti da filtrare.
           schema:
-            $ref: '#/components/schemas/UserFilter'
+            type: array
+            items:
+              type: integer
+              format: int64
+        - name: taskId
+          in: query
+          required: false
+          description: ID della task associata all'utente.
+          schema:
+            type: integer
+            format: int64
       responses:
         '200':
           description: Lista di utenti recuperata con successo.
@@ -383,6 +393,7 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/Problem'
+
     post:
       summary: Crea un nuovo utente
       description: Crea un nuovo utente e restituisce l'oggetto User creato.
