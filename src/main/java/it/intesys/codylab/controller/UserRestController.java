@@ -57,6 +57,9 @@ public class UserRestController implements UsersApi {
 
     @Override
     public ResponseEntity<UsersApiDTO> createUser(UsersApiDTO userDto) {
+        userDto.setId(null);
+        userDto.setProgettiResponsabili(null);
+
         UsersApiDTO createdUser = userService.createUser(userDto);
         URI location = URI.create("/api/v1/users/" + createdUser.getId());
         return ResponseEntity.created(location).body(createdUser);
