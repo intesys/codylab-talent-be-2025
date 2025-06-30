@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 public interface UserRepository extends CrudRepository<User, Long> {
 
     @Query("SELECT u FROM User u JOIN u.projects p WHERE p.responsabile.id = :id")
-    User findUtenteWithProgettiDirigente(Long id);
+    User findUserWithProgettiResponsabile(Long id);
 
 
 }

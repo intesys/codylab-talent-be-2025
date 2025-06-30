@@ -50,7 +50,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public User findUtenteWithProgettiDirigente(Long id) {
-        return userRepository.findUtenteWithProgettiDirigente(id);
+    public User findUserWithProgettiResponsabile(Long id) {
+        return userRepository.findUserWithProgettiResponsabile(id);
     }
 }

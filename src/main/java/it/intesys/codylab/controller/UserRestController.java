@@ -68,7 +68,7 @@ public class UserRestController implements UsersApi {
 
     @Override
     public ResponseEntity<UsersApiDTO> getUserWithProgettiGestiti(Long id) {
-        User user = userService.findUtenteWithProgettiDirigente(id);
+        User user = userService.findUserWithProgettiResponsabile(id);
         if (user != null) {
             UsersApiDTO dto = userMapper.toApiDTO(user);
             return ResponseEntity.ok(dto);
