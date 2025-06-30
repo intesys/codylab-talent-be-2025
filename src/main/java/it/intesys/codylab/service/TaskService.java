@@ -1,9 +1,7 @@
 package it.intesys.codylab.service;
 
-import it.intesys.codylab.api.model.ProjectsApiDTO;
 import it.intesys.codylab.api.model.TasksApiDTO;
 import it.intesys.codylab.mapper.TaskMapper;
-import it.intesys.codylab.model.Project;
 import it.intesys.codylab.model.Task;
 import it.intesys.codylab.repository.ProjectRepository;
 import it.intesys.codylab.repository.TaskRepository;

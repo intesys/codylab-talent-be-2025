@@ -2,7 +2,6 @@ package it.intesys.codylab.service;
 
 import it.intesys.codylab.api.model.ProjectFilterApiDTO;
 import it.intesys.codylab.api.model.ProjectsApiDTO;
-import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.mapper.ProjectMapper;
 import it.intesys.codylab.model.Project;
 import it.intesys.codylab.repository.ProjectRepository;

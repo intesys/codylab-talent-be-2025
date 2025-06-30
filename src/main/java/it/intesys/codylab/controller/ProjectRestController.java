@@ -3,18 +3,12 @@ package it.intesys.codylab.controller;
 import it.intesys.codylab.api.model.ProjectFilterApiDTO;
 import it.intesys.codylab.api.model.ProjectsApiDTO;
 import it.intesys.codylab.api.rest.ProjectsApi;
-import it.intesys.codylab.dto.ProjectDTO;
-import it.intesys.codylab.model.Project;
 import it.intesys.codylab.service.ProjectService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
-import java.util.Collections;
 import java.util.List;
 
 @RestController

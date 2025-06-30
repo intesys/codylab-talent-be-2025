@@ -1,8 +1,6 @@
 package it.intesys.codylab.mapper;
 
 import it.intesys.codylab.api.model.ProjectsApiDTO;
-import it.intesys.codylab.api.rest.ProjectsApi;
-import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.model.Project;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
