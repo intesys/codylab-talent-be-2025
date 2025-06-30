@@ -11,4 +11,4 @@ public class CodyLabSpringBootApplication {
     }
 }
 
-//nuovo branch
+//corretto metodo per stampare per ogni progetto il suo responsabile
