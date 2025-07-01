@@ -23,13 +23,19 @@ public class UserService {
 
     public List<UsersApiDTO> getUsers() {
         return StreamSupport.stream(userRepository.findAll().spliterator(), false)
-                .map(userMapper::toApiDTO)
+                .map(user -> {
+                    user.setProjects(null);
+                    return userMapper.toApiDTO(user);
+                })
                 .collect(Collectors.toList());
     }
 
     public UsersApiDTO getUserById(Long id) {
         return userRepository.findById(id)
-                .map(userMapper::toApiDTO)
+                .map(user -> {
+                    user.setProjects(null);
+                    return userMapper.toApiDTO(user);
+                })
                 .orElse(null);
     }
 
