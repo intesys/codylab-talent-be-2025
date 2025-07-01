@@ -24,6 +24,15 @@ public class User {
 
     private Double orarioGiornaliero;
 
+
+    @ManyToMany
+    @JoinTable(
+            name = "users_projects",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id")
+    )
+    private List<Project> projects;
+
     @ManyToMany
     @JoinTable(
             name = "users_tasks",
@@ -38,6 +47,19 @@ public class User {
 
     public User() {
         // Default constructor
+    }
+
+    public void setProgettiResponsabili(List<Project> progettiResponsabili) {
+        this.progettiResponsabili = progettiResponsabili;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
 
     public List<Task> getTasks() {
@@ -111,9 +133,9 @@ public class User {
 
     public void setProgettiResponsabili(Object o) {
         if (o instanceof List) {
-            this.progettiResponsabili = (List<Project>) o; // Effettua il casting a List<Project>
+            this.progettiResponsabili = (List<Project>) o;
         } else {
-            this.progettiResponsabili = null; // Invalida il valore se il tipo non è corretto
+            this.progettiResponsabili = null;
         }
     }
 

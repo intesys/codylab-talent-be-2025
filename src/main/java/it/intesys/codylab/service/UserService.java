@@ -51,6 +51,11 @@ public class UserService {
     }
 
     public void deleteUser(Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        assert user != null;
+        user.getTasks().clear();
+        user.getProgettiResponsabili().clear();
+        user.getProjects().clear();
         userRepository.deleteById(id);
     }
 
@@ -88,5 +93,6 @@ public class UserService {
                 })
                 .toList();
     }
+
 
 }
