@@ -202,14 +202,24 @@ paths:
         - $ref: '#/components/parameters/PageNumber'
         - $ref: '#/components/parameters/Size'
         - $ref: '#/components/parameters/Sort'
-        - name: TaskFilter
+        - name: userId
           in: query
-          description: Filtro per le task basato su ID utente o ID task.
+          description: ID dell'utente
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: tasksIds
+          in: query
+          description: Lista di ID task da filtrare (multipli supportati)
           required: false
           style: form
           explode: true
           schema:
-            $ref: '#/components/schemas/TaskFilter'
+            type: array
+            items:
+              type: integer
+              format: int64
       responses:
         '200':
           description: Lista di task recuperata con successo.
@@ -227,6 +237,7 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/Problem'
+
     post:
       summary: Crea una nuova task
       description: Crea una nuova task e restituisce l'oggetto Task creato.

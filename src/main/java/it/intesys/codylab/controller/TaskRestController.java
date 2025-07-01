@@ -15,31 +15,38 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class TaskRestController implements TasksApi {
 
-    private TaskService taskService;
+    private final TaskService taskService;
 
     public TaskRestController(TaskService taskService) {
         this.taskService = taskService;
     }
 
     @Override
-    public ResponseEntity<List<TasksApiDTO>> getTasks(Integer pageNumber, Integer size, String sort, TaskFilterApiDTO taskFilter) {
-        List<TasksApiDTO> tasks = taskService.getTasks();
+    public ResponseEntity<List<TasksApiDTO>> getTasks(
+            Integer pageNumber,
+            Integer size,
+            String sort,
+            Long userId,
+            List<Long> tasksIds) {
+
+        TaskFilterApiDTO filter = new TaskFilterApiDTO();
+        filter.setUserId(userId);
+        filter.setIds(tasksIds);
+
+        List<TasksApiDTO> tasks = taskService.getTasksByFilter(filter);
 
         if (tasks.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-
         return ResponseEntity.ok(tasks);
     }
 
     @Override
     public ResponseEntity<TasksApiDTO> getTaskById(Long id) {
         TasksApiDTO task = taskService.getTaskById(id);
-
         if (task == null) {
             return ResponseEntity.notFound().build();
         }
-
         return ResponseEntity.ok(task);
     }
 
