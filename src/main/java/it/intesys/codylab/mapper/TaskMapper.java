@@ -13,6 +13,8 @@ public interface TaskMapper {
     @Mapping(source = "project.id", target = "projectId")
     TasksApiDTO toApiDTO(Task task);
 
+
+
     @Mapping(source = "dataInizio", target = "dataInizio", dateFormat = "dd/MM/yyyy")
     @Mapping(source = "projectId", target = "project.id")
     Task toEntity(TasksApiDTO tasksApiDTO);
