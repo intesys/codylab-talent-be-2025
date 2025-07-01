@@ -51,3 +51,6 @@ WHERE id = 2;
 
 
 SELECT * FROM projects WHERE responsabile = 2;
+
+update projects set responsabile = 1 where id = 3;
+

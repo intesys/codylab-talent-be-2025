@@ -17,6 +17,8 @@ public class Project {
     private String descrizione;
     private LocalDate dataInizio;
     private Integer durata;
+    @ManyToMany(mappedBy = "projects")
+    private List<User> users;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> tasks;
@@ -25,6 +27,12 @@ public class Project {
     @JoinColumn(name = "responsabile")
     private User responsabile;
 
+    public List<User> getUsers() {
+        return users;
+    }
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
     public Project() {
         // Default constructor
     }
