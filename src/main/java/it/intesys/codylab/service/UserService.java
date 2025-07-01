@@ -16,4 +16,10 @@ public class UserService {
         return userRepository.findUtenteWithProgettiDirigente(id);
     }
 
+    public User findUtenteWithProgettiDirigenteByUsername(String username) {
+        return userRepository.findUtenteWithProgettiDirigenteByUsername(username);
+    }
+    public User findByUsername(String username) {
+        return userRepository.findUtenteWithProgettiDirigenteByUsername(username);
+    }
 }

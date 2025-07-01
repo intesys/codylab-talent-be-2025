@@ -49,28 +49,11 @@ public class ProjectRestController implements ProjectsApi {
 
     @Override
     public ResponseEntity<ProjectsApiDTO> createProject(ProjectsApiDTO projectsApiDTO) {
-        try {
-            ProjectDTO projectDTO = new ProjectDTO();
-            // mapper da ProjectsApiDTO a ProjectDTO
-            //projectDTO = projectService.save(projectDTO);
-            // mapper da ProjectDTO a ProjectsApiDTO
-            ProjectsApiDTO projectsApiDTOCreated = new ProjectsApiDTO();
-            projectsApiDTOCreated.setId(1L);
-            projectsApiDTOCreated.setNome("Example Project");
-            return ResponseEntity
-                    .created(URI.create("/api/v1/projects/" + projectsApiDTOCreated.getId()))
-                    .body(projectsApiDTOCreated);
-        } catch (Exception e) {
-            logger.error("Error creating project {}", projectsApiDTO, e);
-            ProblemApiDTO dettaglioErrore = new ProblemApiDTO();
-            dettaglioErrore.detail("Error creating project " + projectsApiDTO);
-            dettaglioErrore.setStatus(500);
-            dettaglioErrore.setTitle("Internal Server Error");
-            dettaglioErrore.setInstance(URI.create("/api/v1/projects"));
-            dettaglioErrore.setTimestamp(OffsetDateTime.now());
-            ResponseEntity.internalServerError().body(dettaglioErrore);
-            return ResponseEntity.internalServerError().build();
+        if (projectsApiDTO.getDataInizio() == null) {
+            projectsApiDTO.setDataInizio(OffsetDateTime.now().toLocalDate());
         }
+        ProjectsApiDTO createdProject = projectService.createProject(projectsApiDTO);
+        return ResponseEntity.created(URI.create("/api/v1/projects/" + createdProject.getId())).body(createdProject);
     }
 
     @Override
@@ -83,7 +66,39 @@ public class ProjectRestController implements ProjectsApi {
         return ResponseEntity.ok(projectService.getAllProjectsWithResponsabile());
     }
 
+    @Override
+    public ResponseEntity<List<ProjectsApiDTO>> getProjectByUserIdOrProjectIds(ProjectFilterApiDTO projectFilter) {
+        return null;
+    }
 
+    @Override
+    public ResponseEntity<List<ProjectsApiDTO>> getProjectByCodice(String codice) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<List<ProjectsApiDTO>> getProjectByCodiceAndUsername(String codice, String username) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<List<ProjectsApiDTO>> getProjectByUsername(String username) {
+        return null;
+    }
+    @Override
+    public ResponseEntity<ProjectsApiDTO> updateProject(Long projectId, ProjectsApiDTO projectsApiDTO) {
+        ProjectsApiDTO updatedProject = projectService.updateProject(projectId, projectsApiDTO);
+        if (updatedProject != null) {
+            return ResponseEntity.ok(updatedProject);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @Override
+    public ResponseEntity<Void> deleteProject(Long projectId) {
+        projectService.deleteProject(projectId);
+        return ResponseEntity.noContent().build();
+    }
 
 
     /**

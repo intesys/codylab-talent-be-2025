@@ -32,4 +32,16 @@ public class UserRestController implements UsersApi {
         }
     }
 
+    @Override
+    public ResponseEntity<UsersApiDTO> getUserByUsername(String username) {
+        User user = userService.findByUsername(username);
+        if (user != null) {
+            UsersApiDTO dto = userMapper.toApiDTO(user);
+            return ResponseEntity.ok(dto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 }
