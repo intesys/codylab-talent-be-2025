@@ -5,12 +5,15 @@ import it.intesys.codylab.mapper.UserMapper;
 import it.intesys.codylab.model.User;
 import it.intesys.codylab.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+import java.util.ArrayList;
 
 @Service
+@Transactional  // Aggiungi questa annotazione alla classe
 public class UserService {
 
     private final UserRepository userRepository;
@@ -36,18 +39,27 @@ public class UserService {
                 .orElse(null);
     }
 
-
+    @Transactional  
     public UsersApiDTO createUser(UsersApiDTO userDto) {
-        User user = userMapper.toEntity(userDto);
-        User savedUser = userRepository.save(user);
+        User newUser = new User();
+        newUser = userMapper.updateUserFromDto(userDto, newUser);
+        newUser.setProjects(new ArrayList<>());
+        newUser.setTasks(new ArrayList<>());
+        newUser.setProgettiResponsabili(new ArrayList<>());
+        
+        User savedUser = userRepository.save(newUser);
         return userMapper.toApiDTO(savedUser);
     }
 
+    @Transactional
     public UsersApiDTO updateUser(Long id, UsersApiDTO userDto) {
-        User user = userMapper.toEntity(userDto);
-        user.setId(id);
-        User updatedUser = userRepository.save(user);
-        return userMapper.toApiDTO(updatedUser);
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Utente non trovato con id: " + id));
+        existingUser = userMapper.updateUserFromDto(userDto, existingUser);
+        
+        User savedUser = userRepository.save(existingUser);
+        
+        return userMapper.toApiDTO(savedUser);
     }
 
     public void deleteUser(Long id) {
