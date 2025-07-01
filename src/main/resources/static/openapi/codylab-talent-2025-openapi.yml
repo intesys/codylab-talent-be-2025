@@ -28,14 +28,22 @@ paths:
         - $ref: '#/components/parameters/PageNumber'
         - $ref: '#/components/parameters/Size'
         - $ref: '#/components/parameters/Sort'
-        - name: ProjectFilter
+        - name: username
           in: query
-          description: Filtro per i progetti basato su ID utente o ID progetto.
+          description: Username per filtrare i progetti
+          required: false
+          schema:
+            type: string
+        - name: projectCodes
+          in: query
+          description: Codici progetti per filtrare (array)
           required: false
           style: form
           explode: true
           schema:
-            $ref: '#/components/schemas/ProjectFilter'
+            type: array
+            items:
+              type: string
       responses:
         '200':
           description: Lista di progetti recuperata con successo.
@@ -84,6 +92,7 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/Problem'
+
   /projects/{id}:
     get:
       summary: Recupera un progetto tramite il suo ID

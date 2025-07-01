@@ -32,9 +32,14 @@ public class ProjectRestController implements ProjectsApi {
             Integer pageNumber,
             Integer size,
             String sort,
-            ProjectFilterApiDTO projectFilter) {
+            String username,
+            List<String> projectCodes) {
 
-        List<ProjectsApiDTO> projects = projectService.getProjectByProjectFilter(projectFilter);
+        ProjectFilterApiDTO filter = new ProjectFilterApiDTO();
+        filter.setUsername(username);
+        filter.setProjectCodes(projectCodes);
+
+        List<ProjectsApiDTO> projects = projectService.getProjectByProjectFilter(filter);
         if (projects.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
