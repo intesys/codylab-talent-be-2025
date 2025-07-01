@@ -34,6 +34,7 @@ public class ProjectService {
     }
 
     public ProjectsApiDTO createProject(ProjectsApiDTO projectsApiDTO) {
+        projectsApiDTO.setId(null);
         Project project = projectMapper.toEntity(projectsApiDTO);
         Project savedProject = projectRepository.save(project);
         return projectMapper.toApiDTO(savedProject);
