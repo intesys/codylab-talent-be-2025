@@ -67,25 +67,6 @@ public class ProjectRestController implements ProjectsApi {
     }
 
     @Override
-    public ResponseEntity<List<ProjectsApiDTO>> getProjectByUserIdOrProjectIds(ProjectFilterApiDTO projectFilter) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<List<ProjectsApiDTO>> getProjectByCodice(String codice) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<List<ProjectsApiDTO>> getProjectByCodiceAndUsername(String codice, String username) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<List<ProjectsApiDTO>> getProjectByUsername(String username) {
-        return null;
-    }
-    @Override
     public ResponseEntity<ProjectsApiDTO> updateProject(Long projectId, ProjectsApiDTO projectsApiDTO) {
         ProjectsApiDTO updatedProject = projectService.updateProject(projectId, projectsApiDTO);
         if (updatedProject != null) {

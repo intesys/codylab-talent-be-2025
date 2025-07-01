@@ -10,6 +10,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", uses = TaskMapper.class)
 public interface UserMapper {
 
@@ -20,6 +22,10 @@ public interface UserMapper {
     UsersApiDTO toApiDTO(User user);
 
     User toEntity(UsersApiDTO usersApiDTO);
+
+    List<UsersApiDTO> toApiDTOs(List<User> users);
+
+    List<User> toEntities(List<UsersApiDTO> dtos);
 
     @Mapping(target = "responsabileId", source = "responsabile.id")
     ProjectsApiDTO toApiDTO(Project project);

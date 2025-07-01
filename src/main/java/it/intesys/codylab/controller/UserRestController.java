@@ -1,5 +1,6 @@
 package it.intesys.codylab.controller;
 
+import it.intesys.codylab.api.model.UserFilterApiDTO;
 import it.intesys.codylab.api.model.UsersApiDTO;
 import it.intesys.codylab.api.rest.UsersApi;
 import it.intesys.codylab.mapper.UserMapper;
@@ -8,6 +9,9 @@ import it.intesys.codylab.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -33,8 +37,44 @@ public class UserRestController implements UsersApi {
     }
 
     @Override
-    public ResponseEntity<UsersApiDTO> getUserByUsername(String username) {
-        User user = userService.findByUsername(username);
+    public ResponseEntity<UsersApiDTO> createUser(UsersApiDTO usersApiDTO) {
+        User user = userMapper.toEntity(usersApiDTO);
+        User savedUser = userService.findByUsername(user.getUsername());
+        if (savedUser != null) {
+            return ResponseEntity.status(409).build(); // Conflict if user already exists
+        }
+        savedUser = userService.createUser(user);
+        UsersApiDTO createdUserDto = userMapper.toApiDTO(savedUser);
+        return ResponseEntity.created(URI.create("/api/v1/users/" + createdUserDto.getId())).body(createdUserDto);
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteUser(Long id) {
+        User user = userService.findUtenteWithProgettiDirigente(id);
+        if (user != null) {
+            userService.deleteUser(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @Override
+    public ResponseEntity<UsersApiDTO> updateUser(Long id, UsersApiDTO usersApiDTO) {
+        User existingUser = userService.findUtenteWithProgettiDirigente(id);
+        if (existingUser == null) {
+            return ResponseEntity.notFound().build();
+        }
+        User userToUpdate = userMapper.toEntity(usersApiDTO);
+        userToUpdate.setId(id);
+        User updatedUser = userService.updateUser(userToUpdate);
+        UsersApiDTO updatedUserDto = userMapper.toApiDTO(updatedUser);
+        return ResponseEntity.ok(updatedUserDto);
+    }
+
+    @Override
+    public ResponseEntity<UsersApiDTO> getUserById(Long id) {
+        User user = userService.findUtenteWithProgettiDirigente(id);
         if (user != null) {
             UsersApiDTO dto = userMapper.toApiDTO(user);
             return ResponseEntity.ok(dto);
@@ -43,5 +83,14 @@ public class UserRestController implements UsersApi {
         }
     }
 
+    @Override
+    public ResponseEntity<List<UsersApiDTO>> getUsers(Integer pageNumber, Integer size, String sort, UserFilterApiDTO userFilter) {
+        List<User> users = userService.findAll();
+        if (users.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        List<UsersApiDTO> userDtos = userMapper.toApiDTOs(users);
+        return ResponseEntity.ok(userDtos);
+    }
 
 }
