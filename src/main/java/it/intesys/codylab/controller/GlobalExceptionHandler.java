@@ -1,20 +1,23 @@
 package it.intesys.codylab.controller;
 
 import it.intesys.codylab.api.model.ProblemApiDTO;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.OffsetDateTime;
+import java.util.NoSuchElementException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@RestController
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+@RestControllerAdvice
+public class GlobalExceptionHandler  {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ProblemApiDTO> handleInvalidJson(HttpMessageNotReadableException ex) {
@@ -27,6 +30,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     // You can define exception handling methods here
     // For example, to handle specific exceptions globally
 
+    @ExceptionHandler({ NoSuchElementException.class, EntityNotFoundException.class })
+    public ResponseEntity<ProblemApiDTO> handleNotFoundException(RuntimeException ex) {
+        ProblemApiDTO problem = new ProblemApiDTO();
+        problem.setTitle("Resource Not Found");
+        problem.setStatus(HttpStatus.NOT_FOUND.value());
+        problem.setDetail(ex.getMessage());
+        problem.setTimestamp(OffsetDateTime.now());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(problem);
+    }
 
 
      @ExceptionHandler(Exception.class)
