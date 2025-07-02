@@ -229,9 +229,8 @@ paths:
           content:
             application/json:
               schema:
-                type: array
                 items:
-                  $ref: '#/components/schemas/Tasks'
+                  $ref: '#/components/schemas/TasksPage'
         '204':
           description: Nessuna task trovata.
         '500':
@@ -394,9 +393,9 @@ paths:
           content:
             application/json:
               schema:
-                type: array
+
                 items:
-                  $ref: '#/components/schemas/Users'
+                  $ref: '#/components/schemas/UsersPage'
         '204':
           description: Nessun utente trovato.
         '500':
@@ -589,9 +588,9 @@ paths:
           content:
             application/json:
               schema:
-                type: array
+
                 items:
-                  $ref: '#/components/schemas/Slots'
+                  $ref: '#/components/schemas/SlotsPage'
         '204':
           description: Nessuno slot trovato.
         '500':
@@ -836,7 +835,7 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Projects'
-    UserPage:
+    UsersPage:
       type: object
       allOf:
         - $ref: '#/components/schemas/PaginationResponse'
@@ -846,26 +845,27 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Users'
-    TaskPage:
-        type: object
-        allOf:
-            - $ref: '#/components/schemas/PaginationResponse'
-            - type: object
-              properties:
-                content:
-                type: array
-                items:
-                    $ref: '#/components/schemas/Tasks'
-    SlotPage:
-        type: object
-        allOf:
-            - $ref: '#/components/schemas/PaginationResponse'
-            - type: object
-              properties:
-                content:
-                type: array
-                items:
-                    $ref: '#/components/schemas/Slots'
+    TasksPage:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/PaginationResponse'
+        - type: object
+          properties:
+            content:
+              type: array
+              items:
+                $ref: '#/components/schemas/Tasks'
+
+    SlotsPage:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/PaginationResponse'
+        - type: object
+          properties:
+            content:
+              type: array
+              items:
+                $ref: '#/components/schemas/Slots'
 
     PaginationResponse:
       type: object

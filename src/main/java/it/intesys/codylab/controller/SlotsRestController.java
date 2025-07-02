@@ -31,15 +31,15 @@ public class SlotsRestController implements SlotsApi {
         }
     }
 
-    @Override
-    public ResponseEntity<List<SlotsApiDTO>> getSlots(Integer pageNumber, Integer size, String sort, SlotFilterApiDTO slotFilter) {
-        List<SlotsApiDTO> slots = slotService.getSlots();
-        if (slots != null && !slots.isEmpty()) {
-            return ResponseEntity.ok(slots);
-        } else {
-            return ResponseEntity.noContent().build();
-        }
-    }
+//    @Override
+//    public ResponseEntity<List<SlotsApiDTO>> getSlots(Integer pageNumber, Integer size, String sort, SlotFilterApiDTO slotFilter) {
+//        List<SlotsApiDTO> slots = slotService.getSlots();
+//        if (slots != null && !slots.isEmpty()) {
+//            return ResponseEntity.ok(slots);
+//        } else {
+//            return ResponseEntity.noContent().build();
+//        }
+//    }
 
     @Override
     public ResponseEntity<SlotsApiDTO> getSlotById(Long id) {

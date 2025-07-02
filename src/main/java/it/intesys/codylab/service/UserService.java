@@ -4,6 +4,9 @@ import it.intesys.codylab.api.model.UserFilterApiDTO;
 import it.intesys.codylab.api.model.UsersApiDTO;
 import it.intesys.codylab.model.User;
 import it.intesys.codylab.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,6 +44,12 @@ public class UserService {
     }
     public List<User> findAll() {
         return (List<User>) userRepository.findAll();
+    }
+
+
+    public Page<User> findAllPaginated(int pageNumber, int size) {
+        Pageable pageable = PageRequest.of(pageNumber, size);
+        return userRepository.findAll(pageable);
     }
 
 

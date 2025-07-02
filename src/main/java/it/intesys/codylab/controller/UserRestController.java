@@ -2,16 +2,19 @@ package it.intesys.codylab.controller;
 
 import it.intesys.codylab.api.model.UserFilterApiDTO;
 import it.intesys.codylab.api.model.UsersApiDTO;
+import it.intesys.codylab.api.model.UsersPageApiDTO;
 import it.intesys.codylab.api.rest.UsersApi;
 import it.intesys.codylab.mapper.UserMapper;
 import it.intesys.codylab.model.User;
 import it.intesys.codylab.service.UserService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -84,13 +87,25 @@ public class UserRestController implements UsersApi {
     }
 
     @Override
-    public ResponseEntity<List<UsersApiDTO>> getUsers(Integer pageNumber, Integer size, String sort, UserFilterApiDTO userFilter) {
-        List<User> users = userService.findAll();
-        if (users.isEmpty()) {
+    public ResponseEntity<UsersPageApiDTO> getUsers(Integer pageNumber, Integer size, String sort, UserFilterApiDTO userFilter) {
+        Page<User> usersPage = userService.findAllPaginated(pageNumber, size);
+
+        if (usersPage.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        List<UsersApiDTO> userDtos = userMapper.toApiDTOs(users);
-        return ResponseEntity.ok(userDtos);
+
+        List<UsersApiDTO> userDtos = usersPage.getContent().stream()
+                .map(userMapper::toApiDTO)
+                .collect(Collectors.toList());
+
+        UsersPageApiDTO usersPageApiDTO = new UsersPageApiDTO();
+        usersPageApiDTO.setContent(userDtos);
+        usersPageApiDTO.setTotalElements(usersPage.getTotalElements());
+        usersPageApiDTO.setTotalPages(usersPage.getTotalPages());
+        usersPageApiDTO.setSize(usersPage.getSize());
+        usersPageApiDTO.setNumber(usersPage.getNumber());
+
+        return ResponseEntity.ok(usersPageApiDTO);
     }
 
 }

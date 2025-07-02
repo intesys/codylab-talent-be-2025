@@ -55,15 +55,15 @@ public class TaskRestController implements TasksApi {
         }
     }
 
-    @Override
-    public ResponseEntity<List<TasksApiDTO>> getTasks(Integer pageNumber, Integer size, String sort, TaskFilterApiDTO taskFilter) {
-        List<TasksApiDTO> tasks = taskService.getTasks();
-        if (tasks.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(tasks);
-
-    }
+//    @Override
+//    public ResponseEntity<List<TasksApiDTO>> getTasks(Integer pageNumber, Integer size, String sort, TaskFilterApiDTO taskFilter) {
+//        List<TasksApiDTO> tasks = taskService.getTasks();
+//        if (tasks.isEmpty()) {
+//            return ResponseEntity.noContent().build();
+//        }
+//        return ResponseEntity.ok(tasks);
+//
+//    }
 
     @Override
     public ResponseEntity<TasksApiDTO> updateTask(Long id, TasksApiDTO tasksApiDTO) {
