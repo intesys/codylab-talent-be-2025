@@ -104,11 +104,14 @@
                             <modelNameSuffix>ApiDTO</modelNameSuffix>
                             <configOptions>
                                 <configPackage>it.intesys.codylab.api.config</configPackage>
-                                <delegatePattern>false</delegatePattern>
-                                <useTags>true</useTags>
-                                <useSpringBoot3>true</useSpringBoot3>
-                                <openApiNullable>true</openApiNullable>
+                                <annotationLibrary>none</annotationLibrary>
+                                <documentationProvider>none</documentationProvider>
+                                <requestMappingMode>api_interface</requestMappingMode>
                                 <interfaceOnly>true</interfaceOnly>
+                                <dateLibrary>java8</dateLibrary>
+                                <library>spring-boot</library>
+                                <useSpringBoot3>true</useSpringBoot3>
+                                <performBeanValidation>true</performBeanValidation>
                             </configOptions>
                         </configuration>
                     </execution>

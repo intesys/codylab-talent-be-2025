@@ -359,29 +359,37 @@ Esericizi da completare:
   * Slot
   * User
 
-## Parte 9 - Testing
+## Parte 9 - Laboratorio di ripasso
+### Argomenti
+* Esercizi pratici di ripasso sui concetti visti fino ad ora (consolidamento competenze)
+
+## Parte 10 - Laboratorio di ripasso
+### Argomenti
+* Esercizi pratici di ripasso sui concetti visti fino ad ora (consolidamento competenze)
+
+## Parte 11 - Testing
 ### Argomenti
 * Unit Test
 
-## Parte 10 - Test di integrazione
+## Parte 12 - Test di integrazione
 ### Argomenti
 * Integration test
 
-## Parte 11 - Sicurezza
+## Parte 13 - Sicurezza
 ### Argomenti
 * Autenticazione e Autorizzazione
 * Ruoli e permessi
 * Json Web Token (JWT)
 * Spring Security
 
-## Parte 12 - DevOps
+## Parte 14 - DevOps
 ### Argomenti
 * Docker
 * Dockerfile
 * Docker Compose
 * Kubernetes su Docker
 
-## Parte 13 - Comunicazioni Asincrone
+## Parte 15 - Comunicazioni Asincrone
 ### Argomenti
 * Thread e Task
 * Comunicazioni asincrone tra microservizi
