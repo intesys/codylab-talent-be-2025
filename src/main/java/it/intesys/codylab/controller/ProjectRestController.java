@@ -1,7 +1,9 @@
 package it.intesys.codylab.controller;
 
+import it.intesys.codylab.api.model.ProblemApiDTO;
 import it.intesys.codylab.api.model.ProjectFilterApiDTO;
 import it.intesys.codylab.api.model.ProjectsApiDTO;
+import it.intesys.codylab.api.model.ProjectsPageApiDTO;
 import it.intesys.codylab.api.rest.ProjectsApi;
 import it.intesys.codylab.service.ProjectService;
 import org.springframework.http.ResponseEntity;
@@ -22,18 +24,18 @@ public class ProjectRestController implements ProjectsApi {
     }
 
     @Override
-    public ResponseEntity<List<ProjectsApiDTO>> getProjects(
+    public ResponseEntity<ProjectsPageApiDTO> getProjects(
             Integer pageNumber,
             Integer size,
             String sort,
             ProjectFilterApiDTO projectFilter) {
 
         List<ProjectsApiDTO> projects = projectService.getProjectByProjectFilter(projectFilter);
-        if (projects.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
+        ProjectsPageApiDTO projectsPageApiDTO = new ProjectsPageApiDTO();
+        projectsPageApiDTO.setContent(projects);
+        projectsPageApiDTO.setTotalElements((long) projects.size());
 
-        return ResponseEntity.ok(projects);
+        return ResponseEntity.ok(projectsPageApiDTO);
     }
 
     @Override

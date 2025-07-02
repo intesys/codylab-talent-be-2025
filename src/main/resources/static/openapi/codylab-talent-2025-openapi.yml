@@ -42,9 +42,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Projects'
+                $ref: '#/components/schemas/ProjectsPage'
         '204':
           description: Nessun progetto trovato.
         '500':
@@ -945,6 +943,40 @@ components:
             type: integer
             format: int64
           description: Elenco degli ID degli slot da filtrare.
+
+    ProjectsPage:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/PaginationResponse'
+        - type: object
+          properties:
+            content:
+              type: array
+              items:
+                $ref: '#/components/schemas/Projects'
+
+    PaginationResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          items: {}
+        totalElements:
+          type: integer
+          format: int64
+          description: Numero totale di elementi.
+        totalPages:
+          type: integer
+          format: int32
+          description: Numero totale di pagine.
+        size:
+          type: integer
+          format: int32
+          description: Dimensione della pagina corrente.
+        number:
+          type: integer
+          format: int32
+          description: Numero della pagina corrente.
 
     Problem:
       description: error occurred - see status code and problem object for more information.
