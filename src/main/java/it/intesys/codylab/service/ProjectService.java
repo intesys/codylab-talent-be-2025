@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,11 +30,7 @@ public class ProjectService {
         this.projectMapper = projectMapper;
     }
 
-    public List<ProjectsApiDTO> getProjects() {
-        return StreamSupport.stream(projectRepository.findAll().spliterator(), false)
-                .map(projectMapper::toApiDTO)
-                .collect(Collectors.toList());
-    }
+
 
     public ProjectsApiDTO getProjectById(Long id) {
         return projectRepository.findById(id)
@@ -95,6 +92,47 @@ public class ProjectService {
         Pageable pageable = PageRequest.of(pageNumber, size);
         return projectRepository.findAll(pageable);
     }
+
+//    public List<ProjectsApiDTO> getProjectByProjectFilter(ProjectFilterApiDTO filter) {
+//
+//        if(filter.getCodice()  != null && filter.getUsername() != null) {
+//            return getProjectByUsernameAndProjectCodes(filter);
+//        } else if (filter.getCodice() != null && filter.getUsername() == null) {
+//            return getProjectByProjectCodes(filter);
+//        } else if (filter.getCodice() == null && filter.getUsername() != null) {
+//            return getProjectByUsername(filter);
+//        }
+//        return getProjects();
+//    }
+//
+//
+//    private List<ProjectsApiDTO> getProjectByUsernameAndProjectCodes(ProjectFilterApiDTO filter) {
+//        List<Project> projects = projectRepository.findByCodiceAndUsername(filter.getUsername(), filter.getCodice());
+//        return projects.stream()
+//                .map(projectMapper::toApiDTO)
+//                .collect(Collectors.toList());
+//    }
+//
+//    private List<ProjectsApiDTO> getProjectByUsername(ProjectFilterApiDTO filter) {
+//        List<Project> projects = projectRepository.findByUsername(filter.getUsername());
+//        return projects.stream()
+//                .map(projectMapper::toApiDTO)
+//                .collect(Collectors.toList());
+//    }
+//
+//    private List<ProjectsApiDTO> getProjectByProjectCodes(ProjectFilterApiDTO filter) {
+//        List<Project> projects = projectRepository.findByCodice(filter.getCodice());
+//        return projects.stream()
+//                .map(projectMapper::toApiDTO)
+//                .collect(Collectors.toList());
+//    }
+
+//    private List<ProjectsApiDTO> getProjects() {
+//        return StreamSupport.stream(projectRepository.findAll().spliterator(), false)
+//                .map(projectMapper::toApiDTO)
+//                .collect(Collectors.toList());
+//    }
+
 }
 
 
