@@ -828,11 +828,22 @@ components:
 
     ProjectsPage:
       type: object
+      allOf:
+        - $ref: '#/components/schemas/PaginationResponse'
+        - type: object
+          properties:
+            content:
+              type: array
+              items:
+                $ref: '#/components/schemas/Projects'
+
+    PaginationResponse:
+      type: object
       properties:
         content:
           type: array
-          items:
-            $ref: '#/components/schemas/Projects'
+          items: {}
+          description: Lista degli elementi nella pagina corrente.
         totalElements:
           type: integer
           format: int64
