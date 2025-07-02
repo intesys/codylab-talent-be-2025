@@ -22,7 +22,18 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST.value())
                 .error("Bad Request")
                 .message("JSON non valido o malformato")
-                .details(e.getMessage())
+                .details(e.getMostSpecificCause() != null ? e.getMostSpecificCause().getMessage() : e.getMessage())
+                .timestamp(OffsetDateTime.now());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiErrorApiDTO> handleValidationException(MethodArgumentNotValidException e) {
+        ApiErrorApiDTO error = new ApiErrorApiDTO()
+                .status(HttpStatus.BAD_REQUEST.value())
+                .error("Bad Request")
+                .message("Errore di validazione")
+                .details(e.getBindingResult().toString())
                 .timestamp(OffsetDateTime.now());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
@@ -32,7 +43,7 @@ public class GlobalExceptionHandler {
         ApiErrorApiDTO error = new ApiErrorApiDTO()
                 .status(HttpStatus.NOT_FOUND.value())
                 .error("Not Found")
-                .message("Risorsa non trovata")
+                .message(e.getMessage() != null ? e.getMessage() : "Risorsa non trovata")
                 .details(e.getMessage())
                 .timestamp(OffsetDateTime.now());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
@@ -43,7 +54,7 @@ public class GlobalExceptionHandler {
         ApiErrorApiDTO error = new ApiErrorApiDTO()
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .error("Internal Server Error")
-                .message("AHAHAHAHAHAHHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAH")
+                .message("Si è verificato un errore interno")
                 .details(e.getMessage())
                 .timestamp(OffsetDateTime.now());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);

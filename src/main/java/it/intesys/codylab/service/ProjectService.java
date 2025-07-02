@@ -35,7 +35,6 @@ public class ProjectService {
                 .orElseThrow(() -> new NoSuchElementException("Project not found with id: " + id));
     }
 
-
     public ProjectsApiDTO createProject(ProjectsApiDTO projectsApiDTO) {
         projectsApiDTO.setId(null);
         Project project = projectMapper.toEntity(projectsApiDTO);
@@ -91,6 +90,7 @@ public class ProjectService {
         return projects.stream()
                 .map(projectMapper::toApiDTO)
                 .collect(Collectors.toList());
+
     }
 
     private List<ProjectsApiDTO> getProjectByProjectCodes(ProjectFilterApiDTO filter) {
