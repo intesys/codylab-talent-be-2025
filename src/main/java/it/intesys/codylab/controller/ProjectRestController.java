@@ -3,9 +3,14 @@ package it.intesys.codylab.controller;
 import it.intesys.codylab.api.model.*;
 import it.intesys.codylab.api.rest.ProjectsApi;
 import it.intesys.codylab.dto.ProjectDTO;
+import it.intesys.codylab.mapper.ProjectMapper;
+import it.intesys.codylab.model.Project;
 import it.intesys.codylab.service.ProjectService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,26 +26,36 @@ public class ProjectRestController implements ProjectsApi {
     private static final Logger logger = LoggerFactory.getLogger(ProjectRestController.class);
 
     private ProjectService projectService;
+    private ProjectMapper projectMapper;
 
-    public ProjectRestController(ProjectService projectService) {
+    public ProjectRestController(ProjectService projectService, ProjectMapper projectMapper) {
         this.projectService = projectService;
+        this.projectMapper = projectMapper;
     }
 
     @Override
     public ResponseEntity<ProjectsPageApiDTO> getProjects(Integer pageNumber, Integer size, String sort, ProjectFilterApiDTO projectFilter) {
-        logger.info("Fetching projects with filter: {}", projectFilter);
+        logger.info("Fetching paginated projects");
 
-            List<ProjectsApiDTO> projects = projectService.getProjectByUsername(projectFilter.getUsername());
-            ProjectsPageApiDTO projectsPageApiDTO = new ProjectsPageApiDTO();
-            projectsPageApiDTO.setContent(projects);
-            projectsPageApiDTO.setTotalElements((long) projects.size());
+        // Ottieni i progetti paginati dal service
+        Page<Project> pagedProjects = projectService.findAllPaginated(pageNumber, size);
 
-            /*getProjectByCodice(projectFilter.getCodice());*/
-            /* getProjectsByUserIdOrProjectIds(projectFilter);*/
-            /*getProjectByCodiceAndUsername(projectFilter.getCodice(), projectFilter.getUsername());*/
-            return ResponseEntity.ok(projectsPageApiDTO);
+        // Mappa da Project a ProjectsApiDTO
+        List<ProjectsApiDTO> projectDtos = pagedProjects.getContent()
+                .stream()
+                .map(projectMapper::toApiDTO)
+                .toList();
+
+        // Costruisci la risposta DTO
+        ProjectsPageApiDTO response = new ProjectsPageApiDTO();
+        response.setContent(projectDtos);
+        response.setTotalElements(pagedProjects.getTotalElements());
+        response.setTotalPages(pagedProjects.getTotalPages());
+        response.setSize(pagedProjects.getSize());
+        response.setNumber(pagedProjects.getNumber());
+
+        return ResponseEntity.ok(response);
     }
-
 
     @Override
     public ResponseEntity<ProjectsApiDTO> createProject(ProjectsApiDTO projectsApiDTO) {

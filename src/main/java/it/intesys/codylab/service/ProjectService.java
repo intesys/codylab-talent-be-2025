@@ -6,7 +6,11 @@ import it.intesys.codylab.api.model.ProjectsWithResponsabileApiDTO;
 import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.mapper.ProjectMapper;
 import it.intesys.codylab.model.Project;
+import it.intesys.codylab.model.User;
 import it.intesys.codylab.repository.ProjectRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -85,6 +89,11 @@ public class ProjectService {
         return projects.stream()
                 .map(projectMapper::toApiDTOWithResponsabile)
                 .collect(Collectors.toList());
+    }
+
+    public Page<Project> findAllPaginated(int pageNumber, int size) {
+        Pageable pageable = PageRequest.of(pageNumber, size);
+        return projectRepository.findAll(pageable);
     }
 }
 
