@@ -1,9 +1,6 @@
 package it.intesys.codylab.controller;
 
-import it.intesys.codylab.api.model.ProblemApiDTO;
-import it.intesys.codylab.api.model.ProjectFilterApiDTO;
-import it.intesys.codylab.api.model.ProjectsApiDTO;
-import it.intesys.codylab.api.model.ProjectsWithResponsabileApiDTO;
+import it.intesys.codylab.api.model.*;
 import it.intesys.codylab.api.rest.ProjectsApi;
 import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.service.ProjectService;
@@ -30,7 +27,21 @@ public class ProjectRestController implements ProjectsApi {
     }
 
     @Override
-    public ResponseEntity<List<ProjectsApiDTO>> getProjects(
+    public ResponseEntity<ProjectsPageApiDTO> getProjects(Integer pageNumber, Integer size, String sort, ProjectFilterApiDTO projectFilter) {
+        logger.info("Fetching projects with filter: {}", projectFilter);
+
+            List<ProjectsApiDTO> projects = projectService.getProjectByUsername(projectFilter.getUsername());
+            ProjectsPageApiDTO projectsPageApiDTO = new ProjectsPageApiDTO();
+            projectsPageApiDTO.setContent(projects);
+            projectsPageApiDTO.setTotalElements((long) projects.size());
+
+            /*getProjectByCodice(projectFilter.getCodice());*/
+            /* getProjectsByUserIdOrProjectIds(projectFilter);*/
+            /*getProjectByCodiceAndUsername(projectFilter.getCodice(), projectFilter.getUsername());*/
+            return ResponseEntity.ok(projectsPageApiDTO);
+    }
+
+    public ResponseEntity<List<ProjectsApiDTO>> xgetProjects(
             Integer pageNumber,
             Integer size,
             String sort,
