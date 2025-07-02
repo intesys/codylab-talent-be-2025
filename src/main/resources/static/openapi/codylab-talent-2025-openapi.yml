@@ -836,6 +836,36 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Projects'
+    UserPage:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/PaginationResponse'
+        - type: object
+          properties:
+            content:
+              type: array
+              items:
+                $ref: '#/components/schemas/Users'
+    TaskPage:
+        type: object
+        allOf:
+            - $ref: '#/components/schemas/PaginationResponse'
+            - type: object
+              properties:
+                content:
+                type: array
+                items:
+                    $ref: '#/components/schemas/Tasks'
+    SlotPage:
+        type: object
+        allOf:
+            - $ref: '#/components/schemas/PaginationResponse'
+            - type: object
+              properties:
+                content:
+                type: array
+                items:
+                    $ref: '#/components/schemas/Slots'
 
     PaginationResponse:
       type: object

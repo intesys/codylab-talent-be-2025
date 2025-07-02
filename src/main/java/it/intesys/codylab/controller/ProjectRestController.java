@@ -41,22 +41,6 @@ public class ProjectRestController implements ProjectsApi {
             return ResponseEntity.ok(projectsPageApiDTO);
     }
 
-    public ResponseEntity<List<ProjectsApiDTO>> xgetProjects(
-            Integer pageNumber,
-            Integer size,
-            String sort,
-            ProjectFilterApiDTO projectFilter) {
-
-        List<ProjectsApiDTO> projects = projectService.getProjectByUsername(projectFilter.getUsername());
-        /*getProjectByCodice(projectFilter.getCodice());*/
-        /* getProjectsByUserIdOrProjectIds(projectFilter);*/
-        /*getProjectByCodiceAndUsername(projectFilter.getCodice(), projectFilter.getUsername());*/
-        if (projects.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-
-        return ResponseEntity.ok(projects);
-    }
 
     @Override
     public ResponseEntity<ProjectsApiDTO> createProject(ProjectsApiDTO projectsApiDTO) {
