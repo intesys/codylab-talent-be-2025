@@ -54,8 +54,11 @@ public class ProjectRestController implements ProjectsApi {
         if (project == null) {
             return ResponseEntity.notFound().build();
         }
-
-        return ResponseEntity.ok(project);
+        ProjectsApiDTO dto = projectService.getProjectById(id);
+        if (dto == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(dto);
     }
 
     @Override

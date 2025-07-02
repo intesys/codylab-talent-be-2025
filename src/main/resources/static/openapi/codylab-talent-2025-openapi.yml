@@ -60,7 +60,7 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
     post:
       summary: Crea un nuovo progetto
       description: Crea un nuovo progetto e restituisce l'oggetto Project creato.
@@ -85,13 +85,20 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
+        '404':
+          description: Progetto non trovato.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+
         '500':
           description: Errore interno del server.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
 
   /projects/{id}:
     get:
@@ -122,7 +129,7 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
     put:
       summary: Aggiorna un progetto esistente
       description: Aggiorna i dettagli di un progetto esistente e restituisce l'oggetto Project aggiornato.
@@ -155,7 +162,7 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
         '404':
           description: Progetto non trovato.
         '500':
@@ -163,7 +170,7 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
     delete:
       summary: Elimina un progetto tramite il suo ID
       description: Elimina il progetto corrispondente all'ID fornito.
@@ -188,7 +195,7 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
 
   #  tasks
   /tasks:
@@ -236,7 +243,7 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
 
     post:
       summary: Crea una nuova task
@@ -262,13 +269,13 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
         '500':
           description: Errore interno del server.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
   /tasks/{id}:
     get:
       summary: Recupera una task tramite il suo ID
@@ -298,7 +305,7 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
     put:
       summary: Aggiorna una task esistente
       description: Aggiorna i dettagli di una task esistente e restituisce l'oggetto Task aggiornato.
@@ -331,7 +338,7 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
         '404':
           description: Task non trovata.
         '500':
@@ -339,7 +346,7 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
     delete:
       summary: Elimina una task tramite il suo ID
       description: Elimina la task corrispondente all'ID fornito.
@@ -364,7 +371,7 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
 
   #  users
   /users:
@@ -412,7 +419,7 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
 
     post:
       summary: Crea un nuovo utente
@@ -438,13 +445,13 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
         '500':
           description: Errore interno del server.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
   /users/{id}:
     get:
       summary: Recupera un utente tramite il suo ID
@@ -474,7 +481,7 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
     put:
       summary: Aggiorna un utente esistente
       description: Aggiorna i dettagli di un utente esistente e restituisce l'oggetto User aggiornato.
@@ -507,7 +514,7 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
         '404':
           description: Utente non trovato.
         '500':
@@ -515,7 +522,7 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
     delete:
       summary: Elimina un utente tramite il suo ID
       description: Elimina l'utente corrispondente all'ID fornito.
@@ -540,7 +547,7 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
 
   /slots:
     get:
@@ -576,7 +583,7 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
 
     post:
       summary: Crea un nuovo slot
@@ -602,13 +609,13 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
         '500':
           description: Errore interno del server.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
 
 
   /users/{id}/progettiGestiti:
@@ -640,7 +647,7 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
 
 
   /slots/{id}:
@@ -672,7 +679,7 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
     put:
       summary: Aggiorna uno slot esistente
       description: Aggiorna i dettagli di uno slot esistente e restituisce l'oggetto Slot aggiornato.
@@ -705,7 +712,7 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
         '404':
           description: Slot non trovato.
         '500':
@@ -713,7 +720,7 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
     delete:
       summary: Elimina uno slot tramite il suo ID
       description: Elimina lo slot corrispondente all'ID fornito.
@@ -738,7 +745,7 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: '#/components/schemas/ApiError'
 
 
 components:
@@ -806,6 +813,87 @@ components:
             summary: Ordinamento per ID in ordine ascendente
 
   schemas:
+    Pagination:
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+          format: int32
+          description: Numero della pagina corrente.
+        pageSize:
+          type: integer
+          format: int32
+          description: Numero di elementi per pagina.
+        totalCount:
+          type: integer
+          format: int32
+          description: Numero totale di elementi disponibili.
+    PaginationResponse:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Projects'  # O Tasks, Users, Slots a seconda del contesto
+    ProjectsPage:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Projects'
+    TasksPage:
+        type: object
+        properties:
+          pagination:
+            $ref: '#/components/schemas/Pagination'
+          items:
+            type: array
+            items:
+                $ref: '#/components/schemas/Tasks'
+    SlotsPage:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Slots'
+    UsersPage:
+        type: object
+        properties:
+          pagination:
+            $ref: '#/components/schemas/Pagination'
+          items:
+            type: array
+            items:
+                $ref: '#/components/schemas/Users'
+    ApiError:
+      type: object
+      properties:
+        details:
+            type: string
+            description: Descrizione dettagliata dell'errore.
+            example: Errore interno
+        status:
+          type: integer
+          format: int32
+          example: 500
+        error:
+          type: string
+          example: Internal Server Error
+        message:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+          example: 2025-07-02T14:00:00Z
+
     Projects:
       type: object
       properties:
