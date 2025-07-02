@@ -2,6 +2,7 @@ package it.intesys.codylab.controller;
 
 import it.intesys.codylab.api.model.SlotFilterApiDTO;
 import it.intesys.codylab.api.model.SlotsApiDTO;
+import it.intesys.codylab.api.model.SlotsPageApiDTO;
 import it.intesys.codylab.api.rest.SlotsApi;
 import it.intesys.codylab.service.SlotService;
 import org.springframework.http.ResponseEntity;
@@ -21,12 +22,12 @@ public class SlotRestController implements SlotsApi {
     }
 
     @Override
-    public ResponseEntity<List<SlotsApiDTO>> getSlots(Integer pageNumber, Integer size, String sort, SlotFilterApiDTO filter) {
+    public ResponseEntity<SlotsPageApiDTO> getSlots(Integer pageNumber, Integer size, String sort, SlotFilterApiDTO filter) {
         List<SlotsApiDTO> slots = slotService.getSlots();
-        if (slots.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(slots);
+        SlotsPageApiDTO slotsPage = new SlotsPageApiDTO();
+        slotsPage.setContent(slots);
+        slotsPage.setTotalElements((long) slots.size());
+        return ResponseEntity.ok(slotsPage);
     }
 
     @Override

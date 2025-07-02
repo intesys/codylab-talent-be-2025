@@ -2,6 +2,7 @@ package it.intesys.codylab.controller;
 
 import it.intesys.codylab.api.model.UserFilterApiDTO;
 import it.intesys.codylab.api.model.UsersApiDTO;
+import it.intesys.codylab.api.model.UsersPageApiDTO;
 import it.intesys.codylab.api.rest.UsersApi;
 import it.intesys.codylab.mapper.UserMapper;
 import it.intesys.codylab.model.User;
@@ -26,12 +27,12 @@ public class UserRestController implements UsersApi {
     }
 
     @Override
-    public ResponseEntity<List<UsersApiDTO>> getUsers(Integer pageNumber, Integer size, String sort, UserFilterApiDTO userFilterApiDTO) {
+    public ResponseEntity<UsersPageApiDTO> getUsers(Integer pageNumber, Integer size, String sort, UserFilterApiDTO userFilterApiDTO) {
         List<UsersApiDTO> users = userService.getUsers();
-        if (users.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(users);
+        UsersPageApiDTO usersPageApiDTO = new UsersPageApiDTO();
+        usersPageApiDTO.setContent(users);
+        usersPageApiDTO.setTotalElements((long) users.size());
+        return ResponseEntity.ok(usersPageApiDTO);
     }
 
     @Override

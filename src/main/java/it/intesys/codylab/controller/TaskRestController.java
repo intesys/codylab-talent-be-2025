@@ -2,6 +2,7 @@ package it.intesys.codylab.controller;
 
 import it.intesys.codylab.api.model.TaskFilterApiDTO;
 import it.intesys.codylab.api.model.TasksApiDTO;
+import it.intesys.codylab.api.model.TasksPageApiDTO;
 import it.intesys.codylab.api.rest.TasksApi;
 import it.intesys.codylab.service.TaskService;
 import org.springframework.http.ResponseEntity;
@@ -22,14 +23,12 @@ public class TaskRestController implements TasksApi {
     }
 
     @Override
-    public ResponseEntity<List<TasksApiDTO>> getTasks(Integer pageNumber, Integer size, String sort, TaskFilterApiDTO taskFilter) {
+    public ResponseEntity<TasksPageApiDTO> getTasks(Integer pageNumber, Integer size, String sort, TaskFilterApiDTO taskFilter) {
         List<TasksApiDTO> tasks = taskService.getTasks();
-
-        if (tasks.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-
-        return ResponseEntity.ok(tasks);
+        TasksPageApiDTO tasksPage = new TasksPageApiDTO();
+        tasksPage.setContent(tasks);
+        tasksPage.setTotalElements((long) tasks.size());
+        return ResponseEntity.ok(tasksPage);
     }
 
     @Override
