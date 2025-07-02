@@ -1,9 +1,12 @@
 package it.intesys.codylab.controller;
 
-import it.intesys.codylab.api.model.SlotFilterApiDTO;
-import it.intesys.codylab.api.model.SlotsApiDTO;
+import it.intesys.codylab.api.model.*;
 import it.intesys.codylab.api.rest.SlotsApi;
+import it.intesys.codylab.mapper.SlotMapper;
+import it.intesys.codylab.model.Project;
+import it.intesys.codylab.model.Slot;
 import it.intesys.codylab.service.SlotService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,9 +19,11 @@ import java.util.List;
 public class SlotsRestController implements SlotsApi {
 
     private final SlotService slotService;
+    private final SlotMapper slotMapper;
 
-    public SlotsRestController(SlotService slotService) {
+    public SlotsRestController(SlotService slotService, SlotMapper slotMapper) {
         this.slotService = slotService;
+        this.slotMapper = slotMapper;
     }
 
     @Override
@@ -31,7 +36,29 @@ public class SlotsRestController implements SlotsApi {
         }
     }
 
-//    @Override
+    @Override
+    public ResponseEntity<Object> getSlots(Integer pageNumber, Integer size, String sort, SlotFilterApiDTO slotFilter) {
+
+        Page<Slot> pagedSlots = slotService.findAllPaginated(pageNumber, size);
+
+        List<SlotsApiDTO> taskDtos = pagedSlots.getContent()
+                .stream()
+                .map(slotMapper::toApiDTO)
+                .toList();
+
+        SlotsPageApiDTO response = new SlotsPageApiDTO();
+        response.setContent(taskDtos);
+        response.setTotalElements(pagedSlots.getTotalElements());
+        response.setTotalPages(pagedSlots.getTotalPages());
+        response.setSize(pagedSlots.getSize());
+        response.setNumber(pagedSlots.getNumber());
+
+        return ResponseEntity.ok(response);
+
+
+    }
+
+    //    @Override
 //    public ResponseEntity<List<SlotsApiDTO>> getSlots(Integer pageNumber, Integer size, String sort, SlotFilterApiDTO slotFilter) {
 //        List<SlotsApiDTO> slots = slotService.getSlots();
 //        if (slots != null && !slots.isEmpty()) {
