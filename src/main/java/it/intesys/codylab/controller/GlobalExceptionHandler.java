@@ -3,7 +3,9 @@ package it.intesys.codylab.controller;
 import it.intesys.codylab.api.model.ProblemApiDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -11,11 +13,21 @@ import java.time.OffsetDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@RestControllerAdvice
+@RestController
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ProblemApiDTO> handleInvalidJson(HttpMessageNotReadableException ex) {
+        ProblemApiDTO problem = new ProblemApiDTO();
+        problem.setDetail("Il corpo della richiesta non è valido o manca: " + ex.getMostSpecificCause().getMessage());
+        problem.setTimestamp(OffsetDateTime.now());
+        problem.setStatus(HttpStatus.BAD_REQUEST.value());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problem);
+    }
     // You can define exception handling methods here
     // For example, to handle specific exceptions globally
+
+
 
      @ExceptionHandler(Exception.class)
      public ResponseEntity<ProblemApiDTO> handleSomeException(Exception ex) {
