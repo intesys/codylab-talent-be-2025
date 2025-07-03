@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -27,7 +28,7 @@ public class ProjectService {
     public ProjectsApiDTO getProjectById(Long id) {
         return projectRepository.findById(id)
                 .map(projectMapper::toApiDTO)
-                .orElse(null);
+                .orElseThrow(() -> new NoSuchElementException("Project not found with id: " + id));
     }
 
     public ProjectsApiDTO createProject(ProjectsApiDTO projectsApiDTO) {

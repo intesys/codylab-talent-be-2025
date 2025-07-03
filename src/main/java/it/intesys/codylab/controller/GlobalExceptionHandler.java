@@ -1,6 +1,7 @@
 package it.intesys.codylab.controller;
 
 import it.intesys.codylab.api.model.ProblemApiDTO;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.OffsetDateTime;
+import java.util.NoSuchElementException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -36,15 +38,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problem);
     }
 
-//    @ExceptionHandler(NoHandlerFoundException.class)
-//    public ResponseEntity<ProblemApiDTO> handleNoHandlerFoundException(NoHandlerFoundException ex) {
-//        ProblemApiDTO problem = new ProblemApiDTO();
-//        problem.setDetail("La risorsa richiesta non è stata trovata: " + ex.getRequestURL());
-//        problem.setTimestamp(OffsetDateTime.now());
-//        problem.setStatus(HttpStatus.NOT_FOUND.value());
-//        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(problem);
-//
-//    }
+    @ExceptionHandler({ NoSuchElementException.class, EntityNotFoundException.class })
+    public ResponseEntity<ProblemApiDTO> handleNotFoundException(RuntimeException ex) {
+        ProblemApiDTO problem = new ProblemApiDTO();
+        problem.setTitle("Resource Not Found");
+        problem.setStatus(HttpStatus.NOT_FOUND.value());
+        problem.setDetail(ex.getMessage());
+        problem.setTimestamp(OffsetDateTime.now());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(problem);
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ProblemApiDTO> handleGenericException(Exception ex) {
