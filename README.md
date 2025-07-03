@@ -369,7 +369,12 @@ Esericizi da completare:
 
 ## Parte 11 - Testing
 ### Argomenti
-* Unit Test
+* Introduzione ai test
+* Tipologie
+* Pattern
+* Test di unità
+  * JUnit
+  * Mockito
 
 ## Parte 12 - Test di integrazione
 ### Argomenti
