@@ -4,10 +4,12 @@ import it.intesys.codylab.api.model.UsersApiDTO;
 import it.intesys.codylab.mapper.UserMapper;
 import it.intesys.codylab.model.User;
 import it.intesys.codylab.repository.UserRepository;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import java.util.ArrayList;
@@ -36,7 +38,7 @@ public class UserService {
                     user.setProgettiResponsabili(null);
                     return userMapper.toApiDTO(user);
                 })
-                .orElse(null);
+                .orElseThrow(() -> new NoSuchElementException("User not found with id: " + id));
     }
 
     @Transactional  

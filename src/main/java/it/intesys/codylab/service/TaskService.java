@@ -14,6 +14,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -39,7 +40,7 @@ public class TaskService {
     public TasksApiDTO getTaskById(Long id) {
         return taskRepository.findById(id)
                 .map(taskMapper::toApiDTO)
-                .orElse(null);
+                .orElseThrow(() -> new NoSuchElementException("Task not found with id: " + id));
     }
 
     public TasksApiDTO createTask(TasksApiDTO taskDto) {

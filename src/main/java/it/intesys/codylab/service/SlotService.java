@@ -7,6 +7,7 @@ import it.intesys.codylab.repository.SlotRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -39,7 +40,7 @@ public class SlotService {
     public SlotsApiDTO getSlotById(Long id) {
         return slotRepository.findById(id)
                 .map(slotMapper::toApiDTO)
-                .orElse(null);
+                .orElseThrow(() -> new NoSuchElementException("Slot not found with id: " + id));
     }
 
     public SlotsApiDTO createSlot(SlotsApiDTO slotsApiDTO) {
