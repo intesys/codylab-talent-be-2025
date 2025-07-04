@@ -5,6 +5,7 @@ import it.intesys.codylab.api.model.TasksApiDTO;
 import it.intesys.codylab.api.model.TasksPageApiDTO;
 import it.intesys.codylab.api.rest.TasksApi;
 import it.intesys.codylab.service.TaskService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,11 +25,14 @@ public class TaskRestController implements TasksApi {
 
     @Override
     public ResponseEntity<TasksPageApiDTO> getTasks(Integer pageNumber, Integer size, String sort, TaskFilterApiDTO taskFilter) {
-        List<TasksApiDTO> tasks = taskService.getTasks();
-        TasksPageApiDTO tasksPage = new TasksPageApiDTO();
-        tasksPage.setContent(tasks);
-        tasksPage.setTotalElements((long) tasks.size());
-        return ResponseEntity.ok(tasksPage);
+        Page<TasksApiDTO> tasks = taskService.getTasks(taskFilter, pageNumber, size, sort);
+        TasksPageApiDTO tasksPageApiDTO = new TasksPageApiDTO();
+        tasksPageApiDTO.setContent(tasks.getContent());
+        tasksPageApiDTO.setTotalElements(tasks.getTotalElements());
+        tasksPageApiDTO.setTotalPages(tasks.getTotalPages());
+        tasksPageApiDTO.setNumber(tasks.getNumber());
+        tasksPageApiDTO.setSize(tasks.getSize());
+        return ResponseEntity.ok(tasksPageApiDTO);
     }
 
     @Override
