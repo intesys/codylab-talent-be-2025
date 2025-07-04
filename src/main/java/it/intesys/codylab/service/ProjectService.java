@@ -40,6 +40,13 @@ public class ProjectService {
     }
 
     public ProjectsApiDTO createProject(ProjectsApiDTO projectsApiDTO) {
+        if (projectsApiDTO == null) {
+            throw new IllegalArgumentException("Il progetto non può essere nullo");
+        }
+        if (projectsApiDTO.getCodice() == null) {
+            throw new IllegalArgumentException("Il codice del progetto non può essere nullo");
+        }
+
         Project project = projectMapper.toEntity(projectsApiDTO);
         Project savedProject = projectRepository.save(project);
         return projectMapper.toApiDTO(savedProject);
