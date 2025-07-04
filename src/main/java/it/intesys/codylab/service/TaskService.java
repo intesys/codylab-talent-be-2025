@@ -4,7 +4,6 @@ import it.intesys.codylab.api.model.TaskFilterApiDTO;
 import it.intesys.codylab.api.model.TasksApiDTO;
 import it.intesys.codylab.mapper.TaskMapper;
 import it.intesys.codylab.model.Task;
-import it.intesys.codylab.repository.ProjectRepository;
 import it.intesys.codylab.repository.TaskRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,8 +12,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class TaskService {

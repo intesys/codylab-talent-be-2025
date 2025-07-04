@@ -1,6 +1,5 @@
 package it.intesys.codylab.controller;
 
-import it.intesys.codylab.api.model.ProblemApiDTO;
 import it.intesys.codylab.api.model.ProjectFilterApiDTO;
 import it.intesys.codylab.api.model.ProjectsApiDTO;
 import it.intesys.codylab.api.model.ProjectsPageApiDTO;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
