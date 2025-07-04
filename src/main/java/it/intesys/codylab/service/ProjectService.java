@@ -32,7 +32,7 @@ public class ProjectService {
     public ProjectsApiDTO getProjectById(Long id) {
         return projectRepository.findById(id)
                 .map(projectMapper::toApiDTO)
-                .orElseThrow(() -> new NoSuchElementException("Project not found with id: " + id));
+                .orElseThrow(() -> new NoSuchElementException("Progetto non trovato"));
     }
 
     public ProjectsApiDTO createProject(ProjectsApiDTO projectsApiDTO) {
