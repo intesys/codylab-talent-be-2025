@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class SlotService {
@@ -47,7 +48,7 @@ public class SlotService {
     public SlotsApiDTO getSlotById(Long id) {
         return slotRepository.findById(id)
                 .map(slotMapper::toApiDTO)
-                .orElse(null);
+                .orElseThrow(() -> new NoSuchElementException("Slot not found with id: " + id));
     }
 
     public SlotsApiDTO createSlot(SlotsApiDTO slotsApiDTO) {
