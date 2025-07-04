@@ -155,10 +155,19 @@ class ProjectServiceTest {
         assertEquals("Il codice del progetto non può essere nullo", exception.getMessage());
         verify(projectRepository, never()).save(any(Project.class));
     }
-//
-//    @Test
-//    void deleteProject() {
-//    }
-//
-//
+
+    @DisplayName("Verifico che quando elimino un progetto viene chiamato il metodo deleteById")
+    @Test
+    void deleteProject() {
+        // ARRANGE
+        Long projectId = 1L;
+
+        // ACT
+        projectService.deleteProject(projectId);
+
+        // ASSERT
+        verify(projectRepository, times(1)).deleteById(projectId);
+    }
+
+
 }
