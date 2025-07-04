@@ -5,6 +5,7 @@ import it.intesys.codylab.api.model.SlotsApiDTO;
 import it.intesys.codylab.api.model.SlotsPageApiDTO;
 import it.intesys.codylab.api.rest.SlotsApi;
 import it.intesys.codylab.service.SlotService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,10 +24,13 @@ public class SlotRestController implements SlotsApi {
 
     @Override
     public ResponseEntity<SlotsPageApiDTO> getSlots(Integer pageNumber, Integer size, String sort, SlotFilterApiDTO filter) {
-        List<SlotsApiDTO> slots = slotService.getSlots();
+        Page<SlotsApiDTO> slots = slotService.getSlots(filter, pageNumber, size, sort);
         SlotsPageApiDTO slotsPage = new SlotsPageApiDTO();
-        slotsPage.setContent(slots);
-        slotsPage.setTotalElements((long) slots.size());
+        slotsPage.setContent(slots.getContent());
+        slotsPage.setTotalElements(slots.getTotalElements());
+        slotsPage.setTotalPages(slots.getTotalPages());
+        slotsPage.setNumber(slots.getNumber());
+        slotsPage.setSize(slots.getSize());
         return ResponseEntity.ok(slotsPage);
     }
 
