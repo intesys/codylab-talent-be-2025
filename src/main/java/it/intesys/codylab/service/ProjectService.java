@@ -2,12 +2,14 @@ package it.intesys.codylab.service;
 
 import it.intesys.codylab.api.model.ProjectFilterApiDTO;
 import it.intesys.codylab.api.model.ProjectsApiDTO;
-import it.intesys.codylab.controller.GlobalExceptionHandler;
-import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.mapper.ProjectMapper;
 import it.intesys.codylab.model.Project;
 import it.intesys.codylab.model.User;
 import it.intesys.codylab.repository.ProjectRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -15,13 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class ProjectService {
 
     private final ProjectRepository projectRepository;
-
     private final ProjectMapper projectMapper;
 
     public ProjectService(ProjectRepository projectRepository, ProjectMapper projectMapper) {
@@ -51,7 +51,7 @@ public class ProjectService {
 
     public void deleteProject(Long id) {
         Project project = projectRepository.findById(id).orElse(null);
-        if (project.getUsers() != null) {
+        if (project != null && project.getUsers() != null) {
             for (User user : new ArrayList<>(project.getUsers())) {
                 user.getProjects().remove(project);
             }
@@ -61,43 +61,23 @@ public class ProjectService {
         }
     }
 
-    public List<ProjectsApiDTO> getProjectByProjectFilter(ProjectFilterApiDTO filter) {
-
-        if(!CollectionUtils.isEmpty(filter.getProjectCodes()) && filter.getUsername() != null) {
-            return getProjectByUsernameAndProjectCodes(filter);
-        } else if (!CollectionUtils.isEmpty(filter.getProjectCodes()) && filter.getUsername() == null) {
-            return getProjectByProjectCodes(filter);
-        } else if (filter.getUsername() != null && CollectionUtils.isEmpty(filter.getProjectCodes())) {
-            return getProjectByUsername(filter);
+    public Page<ProjectsApiDTO> getProjects(ProjectFilterApiDTO filter, int pageNumber, int size, String sort) {
+        if (sort == null || sort.isBlank()) {
+            sort = "id";
         }
-        return getProjects();
-    }
+        Pageable pageable = PageRequest.of(pageNumber, size, Sort.by(sort));
 
-    private List<ProjectsApiDTO> getProjects() {
-        return StreamSupport.stream(projectRepository.findAll().spliterator(), false)
-                .map(projectMapper::toApiDTO)
-                .collect(Collectors.toList());
-    }
-    private List<ProjectsApiDTO> getProjectByUsernameAndProjectCodes(ProjectFilterApiDTO filter) {
-        List<Project> projects = projectRepository.findByUsernameAndProjectCodes(filter.getUsername(), filter.getProjectCodes());
-        return projects.stream()
-                .map(projectMapper::toApiDTO)
-                .collect(Collectors.toList());
-    }
+        Page<Project> projectPage;
+        if (!CollectionUtils.isEmpty(filter.getProjectCodes()) && filter.getUsername() != null) {
+            projectPage = projectRepository.findByUsernameAndProjectCodes(filter.getUsername(), filter.getProjectCodes(), pageable);
+        } else if (!CollectionUtils.isEmpty(filter.getProjectCodes())) {
+            projectPage = projectRepository.findByCodiceIn(filter.getProjectCodes(), pageable);
+        } else if (filter.getUsername() != null) {
+            projectPage = projectRepository.findByUsername(filter.getUsername(), pageable);
+        } else {
+            projectPage = projectRepository.findAll(pageable);
+        }
 
-    private List<ProjectsApiDTO> getProjectByUsername(ProjectFilterApiDTO filter) {
-        List<Project> projects = projectRepository.findByUsername(filter.getUsername());
-        return projects.stream()
-                .map(projectMapper::toApiDTO)
-                .collect(Collectors.toList());
-
+        return projectPage.map(projectMapper::toApiDTO);
     }
-
-    private List<ProjectsApiDTO> getProjectByProjectCodes(ProjectFilterApiDTO filter) {
-        List<Project> projects = projectRepository.findByCodiceIn(filter.getProjectCodes());
-        return projects.stream()
-                .map(projectMapper::toApiDTO)
-                .collect(Collectors.toList());
-    }
-
 }

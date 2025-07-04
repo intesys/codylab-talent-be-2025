@@ -1,20 +1,13 @@
 package it.intesys.codylab.controller;
 
-import it.intesys.codylab.api.model.ProjectFilterApiDTO;
-import it.intesys.codylab.api.model.ProjectsApiDTO;
+import it.intesys.codylab.api.model.*;
 import it.intesys.codylab.api.rest.ProjectsApi;
-import it.intesys.codylab.dto.ProjectDTO;
-import it.intesys.codylab.model.Project;
 import it.intesys.codylab.service.ProjectService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -39,13 +32,17 @@ public class ProjectRestController implements ProjectsApi {
         filter.setUsername(username);
         filter.setProjectCodes(projectCodes);
 
-        List<ProjectsApiDTO> projects = projectService.getProjectByProjectFilter(filter);
-        if (projects.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
+        if (pageNumber == null) pageNumber = 0;
+        if (size == null) size = 10;
 
-        return ResponseEntity.ok(projects);
+        Page<ProjectsApiDTO> pagedProjects = (Page<ProjectsApiDTO>) projectService.getProjects(filter, pageNumber, size, sort);
+
+        return ResponseEntity.ok(
+                pagedProjects.getContent()
+        );
     }
+
+
 
     @Override
     public ResponseEntity<ProjectsApiDTO> getProjectById(Long id) {
@@ -83,5 +80,13 @@ public class ProjectRestController implements ProjectsApi {
     public ResponseEntity<Void> deleteProject(Long id) {
         projectService.deleteProject(id);
         return ResponseEntity.noContent().build();
+    }
+
+    public ProjectService getProjectService() {
+        return projectService;
+    }
+
+    public void setProjectService(ProjectService projectService) {
+        this.projectService = projectService;
     }
 }
