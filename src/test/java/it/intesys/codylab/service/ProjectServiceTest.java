@@ -10,7 +10,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -62,5 +64,47 @@ public class ProjectServiceTest {
         // ACT & ASSERT
         RuntimeException exception = assertThrows(RuntimeException.class, () -> projectService.getProjectById(1L));
         assertEquals("Project not found with id: 1", exception.getMessage());
+    }
+
+    @DisplayName("Verifico che quando creo un progetto viene salvato correttamente")
+    @Test
+    void createProject() {
+        // ARRANGE
+        Project project = new Project();
+        project.setId(1L);
+        project.setCodice("PROJ123");
+
+        ProjectsApiDTO projectDTO = new ProjectsApiDTO();
+        projectDTO.setId(1L);
+        projectDTO.setCodice("PROJ123");
+
+        when(projectMapper.toEntity(projectDTO)).thenReturn(project);
+        when(projectRepository.save(project)).thenReturn(project);
+        when(projectMapper.toApiDTO(project)).thenReturn(projectDTO);
+
+        // ACT
+        ProjectsApiDTO createdProject = projectService.createProject(projectDTO);
+
+        // ASSERT
+        assertNotNull(createdProject);
+        assertEquals(1L, createdProject.getId());
+        assertEquals("PROJ123", createdProject.getCodice());
+        verify(projectRepository, times(1)).save(project);
+    }
+    @DisplayName("Verifico che quando creo un progetto con codice nullo solleva una eccezione")
+    @Test
+    void createProjectWithNullCodice() {
+        // ARRANGE
+        ProjectsApiDTO projectDTO = new ProjectsApiDTO();
+        projectDTO.setId(1L);
+        projectDTO.setCodice(null);
+
+        // ACT & ASSERT
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            projectService.createProject(projectDTO);
+        });
+
+        assertEquals("Il codice del progetto non può essere nullo", exception.getMessage());
+        verify(projectRepository, never()).save(any(Project.class));
     }
 }
