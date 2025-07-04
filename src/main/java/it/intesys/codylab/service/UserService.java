@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class UserService {
@@ -51,7 +52,7 @@ public class UserService {
                     user.setProjects(null);
                     return userMapper.toApiDTO(user);
                 })
-                .orElse(null);
+                .orElseThrow(() -> new NoSuchElementException("User not found with id: " + id));
     }
 
     public UsersApiDTO createUser(UsersApiDTO userDto) {
