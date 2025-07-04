@@ -6,6 +6,7 @@ import it.intesys.codylab.api.model.ProjectsApiDTO;
 import it.intesys.codylab.api.model.ProjectsPageApiDTO;
 import it.intesys.codylab.api.rest.ProjectsApi;
 import it.intesys.codylab.service.ProjectService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,10 +31,13 @@ public class ProjectRestController implements ProjectsApi {
             String sort,
             ProjectFilterApiDTO projectFilter) {
 
-        List<ProjectsApiDTO> projects = projectService.getProjectByProjectFilter(projectFilter);
+        Page<ProjectsApiDTO> pagedProjects = projectService.getProjects(projectFilter, pageNumber, size, sort);
         ProjectsPageApiDTO projectsPageApiDTO = new ProjectsPageApiDTO();
-        projectsPageApiDTO.setContent(projects);
-        projectsPageApiDTO.setTotalElements((long) projects.size());
+        projectsPageApiDTO.setContent(pagedProjects.getContent());
+        projectsPageApiDTO.setTotalElements(pagedProjects.getTotalElements());
+        projectsPageApiDTO.setTotalPages(pagedProjects.getTotalPages());
+        projectsPageApiDTO.setNumber(pagedProjects.getNumber());
+        projectsPageApiDTO.setSize(pagedProjects.getSize());
 
         return ResponseEntity.ok(projectsPageApiDTO);
     }
