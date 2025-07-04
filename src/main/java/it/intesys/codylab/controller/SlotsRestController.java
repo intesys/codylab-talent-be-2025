@@ -3,7 +3,6 @@ package it.intesys.codylab.controller;
 import it.intesys.codylab.api.model.*;
 import it.intesys.codylab.api.rest.SlotsApi;
 import it.intesys.codylab.mapper.SlotMapper;
-import it.intesys.codylab.model.Project;
 import it.intesys.codylab.model.Slot;
 import it.intesys.codylab.service.SlotService;
 import org.springframework.data.domain.Page;
@@ -37,7 +36,7 @@ public class SlotsRestController implements SlotsApi {
     }
 
     @Override
-    public ResponseEntity<Object> getSlots(Integer pageNumber, Integer size, String sort, SlotFilterApiDTO slotFilter) {
+    public ResponseEntity<SlotsPageApiDTO> getSlots(Integer pageNumber, Integer size, String sort, SlotFilterApiDTO slotFilter) {
 
         Page<Slot> pagedSlots = slotService.findAllPaginated(pageNumber, size);
 

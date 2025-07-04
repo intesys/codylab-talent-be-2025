@@ -229,8 +229,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/TasksPage'
+                $ref: '#/components/schemas/TasksPage'
         '204':
           description: Nessuna task trovata.
         '500':
@@ -393,8 +392,6 @@ paths:
           content:
             application/json:
               schema:
-
-                items:
                   $ref: '#/components/schemas/UsersPage'
         '204':
           description: Nessun utente trovato.
@@ -588,8 +585,6 @@ paths:
           content:
             application/json:
               schema:
-
-                items:
                   $ref: '#/components/schemas/SlotsPage'
         '204':
           description: Nessuno slot trovato.
