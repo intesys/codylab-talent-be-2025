@@ -11,4 +11,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findUtenteWithProgettiDirigente(@Param("id") Long id);
     @Query("SELECT u FROM User u LEFT JOIN FETCH u.progettiResponsabili p LEFT JOIN FETCH p.responsabile WHERE u.username = :username")
     User findUtenteWithProgettiDirigenteByUsername(@Param("username") String username);
+
+    boolean existsByUsername(String username);
+    boolean existsByUsernameAndIdNot(String username, Long id);
 }

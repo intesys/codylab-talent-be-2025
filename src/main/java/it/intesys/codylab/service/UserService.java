@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class UserService {
@@ -30,16 +31,42 @@ public class UserService {
         return userRepository.findUtenteWithProgettiDirigenteByUsername(username);
     }
     public User findById(Long id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("User not found with id: " + id));
     }
 
     public User createUser(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException("User cannot be null");
+        }
+
+        if (user.getUsername() == null || user.getUsername().trim().isEmpty()) {
+            throw new IllegalArgumentException("Username cannot be null or empty");
+        }
+
+        // Verifica se lo username esiste già
+        if (userRepository.existsByUsername(user.getUsername())) {
+            throw new IllegalArgumentException("Username already exists");
+        }
         return userRepository.save(user);
     }
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
     public User updateUser(User user) {
+        if (user == null || user.getId() == null) {
+            throw new IllegalArgumentException("Dati utente non validi");
+        }
+
+        // 2. Controlla se l'utente esiste
+        User existingUser = userRepository.findById(user.getId())
+                .orElseThrow(() -> new NoSuchElementException("Utente non trovato"));
+
+        // 3. Controlla se lo username esiste per altri utenti
+        if (!existingUser.getUsername().equals(user.getUsername()) &&
+                userRepository.existsByUsernameAndIdNot(user.getUsername(), user.getId())) {
+            throw new IllegalArgumentException("Username già in uso");
+        }
+
         return userRepository.save(user);
     }
     public List<User> findAll() {
