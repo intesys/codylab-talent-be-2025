@@ -35,6 +35,7 @@ public class SlotService {
     }
 
     public SlotsApiDTO getSlotById(Long id) {
+
         return slotRepository.findById(id)
                 .map(slotMapper::toApiDTO)
                 .orElse(null);
