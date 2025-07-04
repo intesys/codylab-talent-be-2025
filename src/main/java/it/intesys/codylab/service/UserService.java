@@ -1,9 +1,14 @@
 package it.intesys.codylab.service;
 
+import it.intesys.codylab.api.model.UserFilterApiDTO;
 import it.intesys.codylab.api.model.UsersApiDTO;
 import it.intesys.codylab.mapper.UserMapper;
 import it.intesys.codylab.model.User;
 import it.intesys.codylab.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,13 +26,25 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public List<UsersApiDTO> getUsers() {
-        return StreamSupport.stream(userRepository.findAll().spliterator(), false)
-                .map(user -> {
-                    user.setProjects(null);
-                    return userMapper.toApiDTO(user);
-                })
-                .collect(Collectors.toList());
+    public Page<UsersApiDTO> getUsers(UserFilterApiDTO filter, int pageNumber, int size, String sort) {
+        if (sort == null || sort.isBlank()) {
+            sort = "id";
+        }
+        Pageable pageable = PageRequest.of(pageNumber, size, Sort.by(sort));
+
+        Page<User> userPage;
+
+        if (!filter.getIds().isEmpty() && filter.getTaskId() != null) {
+            userPage = findByIdsAndTasksId(filter.getIds(), filter.getTaskId(), pageable);
+        } else if (filter.getTaskId() != null && filter.getIds().isEmpty()) {
+            userPage = findByTasksId(filter.getTaskId(), pageable);
+        } else if (filter.getTaskId() == null && !filter.getIds().isEmpty()) {
+            userPage = findByIds(filter.getIds(), pageable);
+        } else {
+            userPage = userRepository.findAll(pageable);
+        }
+
+        return userPage.map(userMapper::toApiDTO);
     }
 
     public UsersApiDTO getUserById(Long id) {
@@ -58,5 +75,18 @@ public class UserService {
 
     public User findUserWithProgettiResponsabile(Long id) {
         return userRepository.findUserWithProgettiResponsabile(id);
+    }
+
+
+    private Page<User> findByIdsAndTasksId(List<Long> ids, Long taskId, Pageable pageable) {
+        return userRepository.findByIdsAndTasksId(ids, taskId, pageable);
+    }
+
+    private Page<User> findByTasksId(Long taskId, Pageable pageable) {
+        return userRepository.findByTasksId(taskId, pageable);
+    }
+
+    private Page<User> findByIds(List<Long> ids, Pageable pageable) {
+        return userRepository.findByIds(ids, pageable);
     }
 }

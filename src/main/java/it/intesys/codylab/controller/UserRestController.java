@@ -7,6 +7,7 @@ import it.intesys.codylab.api.rest.UsersApi;
 import it.intesys.codylab.mapper.UserMapper;
 import it.intesys.codylab.model.User;
 import it.intesys.codylab.service.UserService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,10 +29,13 @@ public class UserRestController implements UsersApi {
 
     @Override
     public ResponseEntity<UsersPageApiDTO> getUsers(Integer pageNumber, Integer size, String sort, UserFilterApiDTO userFilterApiDTO) {
-        List<UsersApiDTO> users = userService.getUsers();
+        Page<UsersApiDTO> users = userService.getUsers(userFilterApiDTO, pageNumber, size, sort);
         UsersPageApiDTO usersPageApiDTO = new UsersPageApiDTO();
-        usersPageApiDTO.setContent(users);
-        usersPageApiDTO.setTotalElements((long) users.size());
+        usersPageApiDTO.setContent(users.getContent());
+        usersPageApiDTO.setTotalElements(users.getTotalElements());
+        usersPageApiDTO.setTotalPages(users.getTotalPages());
+        usersPageApiDTO.setNumber(users.getNumber());
+        usersPageApiDTO.setSize(users.getSize());
         return ResponseEntity.ok(usersPageApiDTO);
     }
 
