@@ -112,36 +112,53 @@ class ProjectServiceTest {
         assertEquals("Il codice del progetto non può essere nullo", exception.getMessage());
         verify(projectRepository, never()).save(any(Project.class));
     }
-//
-//    @Test
-//    void updateProject() {
-//    }
+
+    @DisplayName( "Verifico che quando modifico un progetto viene salvato correttamente")
+    @Test
+    void updateProject() {
+        // ARRANGE
+        Project project = new Project();
+        project.setId(1L);
+        project.setCodice("PROJ123");
+
+        ProjectsApiDTO projectDTO = new ProjectsApiDTO();
+        projectDTO.setId(1L);
+        projectDTO.setCodice("PROJ123");
+
+        when(projectMapper.toEntity(projectDTO)).thenReturn(project);
+        when(projectRepository.save(project)).thenReturn(project);
+        when(projectMapper.toApiDTO(project)).thenReturn(projectDTO);
+
+        // ACT
+        ProjectsApiDTO updatedProject = projectService.updateProject(1L, projectDTO);
+
+        // ASSERT
+        assertNotNull(updatedProject);
+        assertEquals(1L, updatedProject.getId());
+        assertEquals("PROJ123", updatedProject.getCodice());
+        verify(projectRepository, times(1)).save(project);
+    }
+
+    @DisplayName("Verifico che quando modifico un progetto con codice nullo solleva una eccezione")
+    @Test
+    void updateProjectWithNullCodice() {
+        // ARRANGE
+        ProjectsApiDTO projectDTO = new ProjectsApiDTO();
+        projectDTO.setId(1L);
+        projectDTO.setCodice(null);
+
+        // ACT & ASSERT
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            projectService.updateProject(1L, projectDTO);
+        });
+
+        assertEquals("Il codice del progetto non può essere nullo", exception.getMessage());
+        verify(projectRepository, never()).save(any(Project.class));
+    }
 //
 //    @Test
 //    void deleteProject() {
 //    }
 //
-//    @Test
-//    void getProjectByUserIdOrProjectIds() {
-//    }
 //
-//    @Test
-//    void getProjectByCodice() {
-//    }
-//
-//    @Test
-//    void getProjectByCodiceAndUsername() {
-//    }
-//
-//    @Test
-//    void getProjectByUsername() {
-//    }
-//
-//    @Test
-//    void getAllProjectsWithResponsabile() {
-//    }
-//
-//    @Test
-//    void findAllPaginated() {
-//    }
 }
