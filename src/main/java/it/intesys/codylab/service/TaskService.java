@@ -41,12 +41,33 @@ public class TaskService {
     }
 
     public TasksApiDTO createTask(TasksApiDTO tasksApiDTO) {
+        // 1. Validazione DTO nullo
+        if (tasksApiDTO == null) {
+            throw new IllegalArgumentException("Il task DTO non può essere nullo");
+        }
+
+        // 2. Validazione ID nullo
+        if (tasksApiDTO.getId() == null) {
+            throw new IllegalArgumentException("ID del task non può essere nullo.");
+        }
+
+        // 3. Business logic
         Task task = taskMapper.toEntity(tasksApiDTO);
         Task savedTask = taskRepository.save(task);
         return taskMapper.toApiDTO(savedTask);
     }
 
     public TasksApiDTO updateTask(Long id, TasksApiDTO tasksApiDTO) {
+
+
+        if (tasksApiDTO == null) {
+            throw new IllegalArgumentException("Il task DTO non può essere nullo");
+        }
+
+        if (tasksApiDTO.getId() == null) {
+            throw new IllegalArgumentException("ID del task non può essere nullo.");
+        }
+
         Task task = taskMapper.toEntity(tasksApiDTO);
         task.setId(id);
         Task updatedTask = taskRepository.save(task);
