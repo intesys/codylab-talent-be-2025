@@ -10,9 +10,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
 
-import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,11 +27,10 @@ public class ProjectServiceTest {
     @InjectMocks
     ProjectService projectService;
 
-
     @DisplayName("Verifico che quando chiamo un progetto esistente torna dei dati consistenti")
     @Test
     void getProjectById() {
-        // ARRANGE
+        //ARRANGE
         Project project = new Project();
         project.setId(1L);
         project.setCodice("PROJ123");
@@ -58,12 +56,17 @@ public class ProjectServiceTest {
     @DisplayName("Verifico che quando chiamo un progetto NON esistente solleva una eccezione")
     @Test
     void getProjectByIdNotFound() {
-        //ARRANGE
+        // ARRANGE
         when(projectRepository.findById(1L)).thenReturn(Optional.empty());
-        //when(projectMapper.toDTO(any(Project.class))).thenReturn(new ProjectDTO());
+
         // ACT & ASSERT
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> projectService.getProjectById(1L));
+        NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> {
+            projectService.getProjectById(1L);
+        });
+
         assertEquals("Project not found with id: 1", exception.getMessage());
+        verify(projectRepository, times(1)).findById(1L);
+        verify(projectMapper, never()).toApiDTO(any(Project.class));
     }
 
     @DisplayName("Verifico che quando creo un progetto viene salvato correttamente")
@@ -106,5 +109,59 @@ public class ProjectServiceTest {
 
         assertEquals("Il codice del progetto non può essere nullo", exception.getMessage());
         verify(projectRepository, never()).save(any(Project.class));
+    }
+
+    @DisplayName( "Verifico che quando modifico un progetto viene salvato correttamente")
+    @Test
+    void updateProject() {
+        // ARRANGE
+        Project project = new Project();
+        project.setId(1L);
+        project.setCodice("PROJ123");
+
+        ProjectsApiDTO projectDTO = new ProjectsApiDTO();
+        projectDTO.setId(1L);
+        projectDTO.setCodice("PROJ123");
+
+        when(projectMapper.toEntity(projectDTO)).thenReturn(project);
+        when(projectRepository.save(project)).thenReturn(project);
+        when(projectMapper.toApiDTO(project)).thenReturn(projectDTO);
+
+        // ACT
+        ProjectsApiDTO updatedProject = projectService.updateProject(1L, projectDTO);
+
+        // ASSERT
+        assertNotNull(updatedProject);
+        assertEquals(1L, updatedProject.getId());
+        assertEquals("PROJ123", updatedProject.getCodice());
+        verify(projectRepository, times(1)).save(project);
+    }
+
+    @DisplayName("Verifico che quando modifico un progetto con codice nullo solleva una eccezione")
+    @Test
+    void updateProjectWithNullCodice() {
+        // ARRANGE
+        ProjectsApiDTO projectDTO = new ProjectsApiDTO();
+        projectDTO.setId(1L);
+        projectDTO.setCodice(null);
+
+        // ACT & ASSERT
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            projectService.updateProject(1L, projectDTO);
+        });
+
+        assertEquals("Il codice del progetto non può essere nullo", exception.getMessage());
+        verify(projectRepository, never()).save(any(Project.class));
+    }
+
+    @DisplayName("Verifico che quando elimino un progetto viene chiamato il metodo deleteById")
+    @Test
+    void deleteProject() {
+        // ARRANGE
+        Long projectId = 1L;
+        // ACT
+        projectService.deleteProject(projectId);
+        // ASSERT
+        verify(projectRepository, times(1)).deleteById(projectId);
     }
 }
