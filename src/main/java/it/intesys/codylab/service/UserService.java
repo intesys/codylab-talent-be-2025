@@ -4,7 +4,10 @@ import it.intesys.codylab.api.model.UsersApiDTO;
 import it.intesys.codylab.mapper.UserMapper;
 import it.intesys.codylab.model.User;
 import it.intesys.codylab.repository.UserRepository;
-import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +20,7 @@ import java.util.ArrayList;
 @Service
 @Transactional  // Aggiungi questa annotazione alla classe
 public class UserService {
+    Pageable pageable = PageRequest.of(0, 10, Sort.by("id"));
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
@@ -26,8 +30,8 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public List<UsersApiDTO> getUsers() {
-        return StreamSupport.stream(userRepository.findAll().spliterator(), false)
+    public Page<UsersApiDTO> getUsers() {
+        return (Page<UsersApiDTO>) StreamSupport.stream(userRepository.findAll().spliterator(), false)
                 .map(userMapper::toApiDTO)
                 .collect(Collectors.toList());
     }
@@ -77,16 +81,12 @@ public class UserService {
         return userRepository.findUtenteWithProgettiDirigente(id);
     }
 
-    public List<UsersApiDTO> getUsers(
+    public Page<UsersApiDTO> getUsers(
             List<Long> ids,
             Long taskId,
-            Integer pageNumber,
-            Integer size,
-            String sort) {
+            Pageable pageable) {
 
-        List<User> users = (List<User>) userRepository.findAll();
-
-
+        List<User> users = userRepository.findAll();
 
         if (ids != null && !ids.isEmpty()) {
             users = users.stream()
@@ -100,13 +100,21 @@ public class UserService {
                     .toList();
         }
 
-        return users.stream()
+        List<UsersApiDTO> dtoList = users.stream()
                 .map(user -> {
-                    user.setProgettiResponsabili(null);
+                    user.setProgettiResponsabili(null); // se serve
                     return userMapper.toApiDTO(user);
                 })
                 .toList();
+
+        int start = (int) pageable.getOffset();
+        int end = Math.min(start + pageable.getPageSize(), dtoList.size());
+
+        List<UsersApiDTO> pagedList = start <= end ? dtoList.subList(start, end) : List.of();
+
+        return new org.springframework.data.domain.PageImpl<>(pagedList, pageable, dtoList.size());
     }
+
 
 
 }

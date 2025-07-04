@@ -4,6 +4,7 @@ import it.intesys.codylab.api.model.SlotFilterApiDTO;
 import it.intesys.codylab.api.model.SlotsApiDTO;
 import it.intesys.codylab.api.rest.SlotsApi;
 import it.intesys.codylab.service.SlotService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +30,10 @@ public class SlotRestController implements SlotsApi {
             String sort,
             String ids) {
 
+        if (pageNumber == null) pageNumber = 0;
+        if (size == null) size = 10;
+        if (sort == null || sort.isBlank()) sort = "id";
+
         List<Long> idList = null;
         if (ids != null && !ids.isBlank()) {
             try {
@@ -37,28 +42,20 @@ public class SlotRestController implements SlotsApi {
                         .map(Long::parseLong)
                         .collect(Collectors.toList());
             } catch (NumberFormatException e) {
-                return ResponseEntity.badRequest().build(); // se formato errato
+                return ResponseEntity.badRequest().build(); // formato errato
             }
         }
 
-        List<SlotsApiDTO> slots = slotService.getSlots(idList, pageNumber, size, sort);
+        // Passa idList anche se è null, il service gestirà il filtro
+        Page<SlotsApiDTO> slots = slotService.getSlots(idList, pageNumber, size, sort);
 
         if (slots == null || slots.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
 
-        return ResponseEntity.ok(slots);
+        return ResponseEntity.ok(slots.getContent());
     }
 
-
-    @Override
-    public ResponseEntity<SlotsApiDTO> getSlotById(Long id) {
-        SlotsApiDTO slot = slotService.getSlotById(id);
-        if (slot == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(slot);
-    }
 
     @Override
     public ResponseEntity<SlotsApiDTO> createSlot(SlotsApiDTO slotDto) {

@@ -4,6 +4,10 @@ import it.intesys.codylab.api.model.SlotsApiDTO;
 import it.intesys.codylab.mapper.SlotMapper;
 import it.intesys.codylab.model.Slot;
 import it.intesys.codylab.repository.SlotRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,18 +26,20 @@ public class SlotService {
         this.slotMapper = slotMapper;
     }
 
-    public List<SlotsApiDTO> getSlots(List<Long> idList, Integer pageNumber, Integer size, String sort) {
-        List<Slot> slots;
+    public Page<SlotsApiDTO> getSlots(List<Long> idList, Integer pageNumber, Integer size, String sort) {
+        Page<Slot> slots;
+
+        Pageable pageable = PageRequest.of(pageNumber, size, Sort.by(sort));
+
+        Page<Slot> slotPage;
 
         if (idList != null && !idList.isEmpty()) {
-            slots = slotRepository.findByIdIn(idList);
+            slotPage = slotRepository.findByIdIn(idList, pageable);
         } else {
-            slots = slotRepository.findAll();
+            slotPage = slotRepository.findAll(pageable);
         }
 
-        return slots.stream()
-                .map(slotMapper::toApiDTO)
-                .collect(Collectors.toList());
+        return slotPage.map(slotMapper::toApiDTO);
     }
 
 

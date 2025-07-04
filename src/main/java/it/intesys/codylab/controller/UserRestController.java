@@ -6,6 +6,10 @@ import it.intesys.codylab.api.rest.UsersApi;
 import it.intesys.codylab.mapper.UserMapper;
 import it.intesys.codylab.model.User;
 import it.intesys.codylab.service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,13 +39,22 @@ public class UserRestController implements UsersApi {
             @RequestParam(required = false) List<Long> ids,
             @RequestParam(required = false) Long taskId) {
 
-        List<UsersApiDTO> users = userService.getUsers(ids, taskId, pageNumber, size, sort);
+        if (pageNumber == null) pageNumber = 0;
+        if (size == null) size = 10;
+        if (sort == null || sort.isEmpty()) sort = "id";
+        if (ids == null) ids = List.of(); // lista vuota invece che null
 
-        if (users.isEmpty()) {
+        Pageable pageable = PageRequest.of(pageNumber, size, Sort.by(sort));
+
+        Page<UsersApiDTO> users = userService.getUsers(ids, taskId, pageable);
+
+        if (users == null || users.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(users);
+
+        return ResponseEntity.ok(users.getContent());
     }
+
 
 
 
