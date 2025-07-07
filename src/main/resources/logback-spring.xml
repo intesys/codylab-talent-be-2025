@@ -2,8 +2,14 @@
 <!DOCTYPE configuration>
 <configuration scan="false">
 
-    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
-    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+<!--    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>-->
+<!--    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>-->
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %X{TraceId} %X{B3-TraceId} [trace=%X{traceId}, span=%X{spanId}] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
 
     <springProfile name="!jsonconsole">
         <root level="info">

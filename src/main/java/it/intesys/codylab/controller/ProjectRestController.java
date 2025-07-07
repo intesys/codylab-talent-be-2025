@@ -3,6 +3,8 @@ package it.intesys.codylab.controller;
 import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.model.Project;
 import it.intesys.codylab.service.ProjectService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,8 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class ProjectRestController {
 
+    private static final Logger logger = LoggerFactory.getLogger(ProjectRestController.class);
+
     private ProjectService projectService;
 
     public ProjectRestController(ProjectService projectService) {
@@ -22,6 +26,9 @@ public class ProjectRestController {
 
     @GetMapping("/projects")
     public List<ProjectDTO> getProjects() {
+
+        logger.info("Fetching all projects");
+
         return projectService.findAll();
     }
 

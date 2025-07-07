@@ -7,4 +7,34 @@ codylab:
 
 logging:
   level:
+#    org.springframework.cloud.sleuth: debug
+#    org.springframework.cloud.sleuth.zipkin: debug
     root: info
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+    enabled: true
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+      export:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,env,threaddump,loggers,heapdump,conditions
+  endpoint:
+    env:
+      show-values: always
+
+#spring:
+#  zipkin:
+#    base-url: http://localhost:9411
+#  sleuth:
+#    enabled: true
+#    sampler:
+#      probability: 1.0
+#      rate: 10
+

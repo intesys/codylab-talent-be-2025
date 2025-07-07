@@ -16,5 +16,16 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  zipkin:
+      image: openzipkin/zipkin:3.5.1
+      container_name: zipkin
+      restart: always
+      env_file:
+        - .env
+      ports:
+        - "9411:9411"
+      environment:
+        - STORAGE_TYPE=mem
+
 volumes:
   postgres_data:
