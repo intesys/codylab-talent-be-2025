@@ -376,25 +376,39 @@ Esericizi da completare:
   * JUnit
   * Mockito
 
+**Esercizi**
+Scaricare il branch `main` e verificare quanto fatto.
+
+Lavorare sul branch che preferite.
+
+Esericizi da completare:
+* Creare la propria batteria di unit test
+
 ## Parte 12 - Test di integrazione
 ### Argomenti
-* Integration test
+* I test di integrazione
+* I test con la base dati
+* I test web
 
-## Parte 13 - Sicurezza
+## Parte 13 - MVC
+### Argomenti
+* MVC
+
+## Parte 14 - Sicurezza
 ### Argomenti
 * Autenticazione e Autorizzazione
 * Ruoli e permessi
 * Json Web Token (JWT)
 * Spring Security
 
-## Parte 14 - DevOps
+## Parte 15 - DevOps
 ### Argomenti
 * Docker
 * Dockerfile
 * Docker Compose
 * Kubernetes su Docker
 
-## Parte 15 - Comunicazioni Asincrone
+## Parte 16 - Comunicazioni Asincrone
 ### Argomenti
 * Thread e Task
 * Comunicazioni asincrone tra microservizi
