@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
         ApiErrorApiDTO error = new ApiErrorApiDTO()
                 .status(HttpStatus.BAD_REQUEST.value())
                 .error("Bad Request")
-                .message("JSON non valido o malformato")
+                .message("JSON non valido o malformato, correggi eventualmente il payload")
                 .details(e.getMostSpecificCause() != null ? e.getMostSpecificCause().getMessage() : e.getMessage())
                 .timestamp(OffsetDateTime.now());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
