@@ -9,8 +9,11 @@ import org.mapstruct.Mapping;
 public interface ProjectMapper {
 
     @Mapping(target = "dataInizio", source = "dataInizio", dateFormat = "dd-MM-yyyy")
+    @Mapping(target = "codice", source = "code")
     ProjectDTO toDTO(Project project);
 
     @Mapping(target = "dataInizio", source = "dataInizio", dateFormat = "dd-MM-yyyy")
+    @Mapping(target = "code", source = "codice")
     Project toEntity(ProjectDTO projectDTO);
+
 }

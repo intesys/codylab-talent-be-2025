@@ -28,7 +28,7 @@ public class ProjectService {
     }
 
     public ProjectDTO findByCodice(String codice) {
-        return projectMapper.toDTO( projectRepository.findByCodice(codice) );
+        return projectMapper.toDTO( projectRepository.findByCode(codice) );
     }
 
     public List<ProjectDTO> findAll() {
@@ -39,8 +39,15 @@ public class ProjectService {
 
     public ProjectDTO save(ProjectDTO projectDTO) {
         Project project = projectMapper.toEntity(projectDTO);
+        initProject(project);
         Project savedProject = projectRepository.save(project);
         return projectMapper.toDTO(savedProject);
+    }
+
+    private void initProject(Project project) {
+        if (project.getTasks() != null) {
+            project.getTasks().forEach(task -> task.setProject(project));
+        }
     }
 
     public void delete(Long id) {

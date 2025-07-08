@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ProjectRepository extends CrudRepository<Project, Long> {
 
-    Project findByCodice(String codice);
+    Project findByCode(String codice);
 
 }
