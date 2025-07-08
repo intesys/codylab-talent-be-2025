@@ -22,6 +22,7 @@ public class ProjectRestController implements ProjectsApi {
         this.projectService = projectService;
     }
 
+//    Restituizione tutti progetti
     @Override
     public ResponseEntity<ProjectsPageApiDTO> getProjects(
             Integer pageNumber,
