@@ -1,4 +1,4 @@
-package it.intesys.codylab.service;
+package it.intesys.codylab;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
