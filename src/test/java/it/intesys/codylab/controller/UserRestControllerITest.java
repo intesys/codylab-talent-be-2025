@@ -11,6 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -50,4 +51,30 @@ public class UserRestControllerITest {
                 .andExpect(jsonPath("$.nome").value("Mario"))
                 .andExpect(jsonPath("$.cognome").value("Rossi"));
     }
-}
+
+    @Test
+    void testCreateUser() throws Exception {
+        // 1. Crea un JSON per il nuovo utente
+        String newUserJson = "{"
+                + "\"username\":\"newuser\","
+                + "\"nome\":\"Giovanni\","
+                + "\"cognome\":\"Bianchi\","
+                + "\"mail\":\"giovanni@gmail.com\"," + "\"profilo\":\"DEV\","
+                + "\"orarioGiornaliero\":8.0"
+                + "}";
+        // 2. Esegui la richiesta POST
+        mockMvc.perform(post("/api/v1/users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(newUserJson))
+                .andDo(print())
+                .andExpect(status().isCreated())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.username").value("newuser"))
+                .andExpect(jsonPath("$.nome").value("Giovanni"))
+                .andExpect(jsonPath("$.cognome").value("Bianchi"));
+        // 3. Verifica che l'utente sia stato salvato nel database
+        User createdUser = userRepository.findByUsername("newuser");
+        assert createdUser != null;
+        assert createdUser.getNome().equals("Giovanni");
+        assert createdUser.getCognome().equals("Bianchi");
+}}
