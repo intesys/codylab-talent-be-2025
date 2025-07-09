@@ -1,0 +1,15 @@
+codylab:
+  datasource:
+    url: jdbc:tc:postgresql:15.3:///codylab
+    username: sa
+    password: password
+    driver: org.testcontainers.jdbc.ContainerDatabaseDriver
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
