@@ -1,7 +1,9 @@
 package it.intesys.codylab.controller;
 
+import it.intesys.codylab.api.model.ProjectsApiDTO;
 import it.intesys.codylab.model.User;
 import it.intesys.codylab.repository.UserRepository;
+import it.intesys.codylab.service.ProjectService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ class ProjectRestControllerITest {
 
     private Long savedUserId;
 
+    @Autowired
+    private ProjectService projectService;
+
     @BeforeEach
     void setup() {
         // Crea e salva un utente prima di ogni test
@@ -34,6 +39,7 @@ class ProjectRestControllerITest {
         user.setNome("Test User");
         User savedUser = userRepository.save(user);
         savedUserId = savedUser.getId();
+
     }
 
     @Test
@@ -144,4 +150,25 @@ class ProjectRestControllerITest {
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
-}
+    @Test
+    void getProjectsWithResponsabile() throws Exception {
+        // 1. Crea un responsabile
+        User responsabile = new User();
+        responsabile = userRepository.save(responsabile);
+
+        // 2. Crea un progetto associato
+        ProjectsApiDTO projectDTO = new ProjectsApiDTO();
+        projectDTO.setCodice("TEST001");
+        projectDTO.setNome("Progetto Test");
+        projectDTO.setResponsabileId(responsabile.getId());
+        projectService.createProject(projectDTO);
+
+        // 3. Chiama l'endpoint specifico
+        mockMvc.perform(get("/api/v1/projects-with-responsabile"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$[0].id").exists())
+                .andExpect(jsonPath("$[0].codice").value("TEST001"))
+                .andExpect(jsonPath("$[0].responsabile.id").value(responsabile.getId()));
+}}
