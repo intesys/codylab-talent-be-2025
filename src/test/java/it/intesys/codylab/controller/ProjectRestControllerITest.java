@@ -34,7 +34,7 @@ public class ProjectRestControllerITest {
 
 
     @Test
-    public void createProject() throws Exception {
+    void createProject() throws Exception {
         mockMvc.perform(post("/api/v1/projects")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"codice\":\"TEST001\",\"nome\":\"Test Project 001\",\"descrizione\":\"Test Description\"}"))
