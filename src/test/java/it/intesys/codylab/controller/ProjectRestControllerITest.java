@@ -25,7 +25,7 @@ public class ProjectRestControllerITest {
     private MockMvc mockMvc;
 
     @Test
-    void getProjects() throws Exception {
+    void getProjectsEmpty() throws Exception {
         mockMvc.perform(get("/api/v1/projects"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -34,7 +34,7 @@ public class ProjectRestControllerITest {
 
 
     @Test
-    public void createProject()  throws Exception{
+    public void createProject() throws Exception {
         mockMvc.perform(post("/api/v1/projects")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"codice\":\"TEST001\",\"nome\":\"Test Project 001\",\"descrizione\":\"Test Description\"}"))
@@ -42,5 +42,14 @@ public class ProjectRestControllerITest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.nome").value("Test Project 001"));
+    }
+
+    @Test
+    void getProjectsNotEmpty() throws Exception {
+        mockMvc.perform(get("/api/v1/projects"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content", hasSize(1)))
+                .andExpect(jsonPath("$.content[0].nome").value("Test Project 001"));
     }
 }
