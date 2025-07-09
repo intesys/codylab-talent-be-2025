@@ -39,7 +39,7 @@ public class ProjectServiceITest {
         projectsApiDTO.setCodice("PRJ001");
         projectsApiDTO.setNome("Test Project");
         projectsApiDTO.setDescrizione("This is a test project");
-        projectsApiDTO.setResponsabile(user.getId());
+        projectsApiDTO.setResponsabile(user.getId().toString());
 
         projectsApiDTO = projectService.createProject(projectsApiDTO);
 

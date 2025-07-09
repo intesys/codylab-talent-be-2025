@@ -795,8 +795,7 @@ components:
           type: integer
           description: Durata del progetto in giorni.
         responsabile:
-          type: integer
-          format: int64
+          type: string
           description: Nome del responsabile del progetto.
     Tasks:
       type: object
