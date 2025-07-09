@@ -69,6 +69,23 @@ public class ProjectServiceITest {
             System.out.println(projectApiDTO);
         }
     }
+    @Test
+    @Transactional
+    void createProject() {
+        ProjectsApiDTO projectsApiDTO = new ProjectsApiDTO();
+        projectsApiDTO.setCodice("TEST001");
+        projectsApiDTO.setNome("TEST001");
+        projectsApiDTO.setDescrizione("Test Project 001");
+
+        ProjectsApiDTO createdProject = projectService.createProject(projectsApiDTO);
+        assertNotNull(createdProject);
+        assertThat(createdProject.getId()).isNotNull();
+        assertThat(createdProject.getCodice()).isEqualTo("TEST001");
+
+        ProjectsApiDTO retrievedProject = projectService.getProjectById(createdProject.getId());
+        assertNotNull(retrievedProject);
+        assertThat(retrievedProject.getCodice()).isEqualTo("TEST001");
+    }
 
     @Test
     @Transactional

@@ -44,4 +44,13 @@ public class TestController {
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.nome").value("Test Project 001"));
     }
+
+    @Test
+    public void searchProjects_nonEmpty() throws Exception {
+        mockMvc.perform(get("/api/v1/projects"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1))) // Assuming at least one project exists
+                .andExpect(jsonPath("$[0].id").isNumber());
+    }
 }
