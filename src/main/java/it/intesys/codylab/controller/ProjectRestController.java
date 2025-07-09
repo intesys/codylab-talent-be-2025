@@ -91,24 +91,4 @@ public class ProjectRestController implements ProjectsApi {
         projectService.deleteProject(projectId);
         return ResponseEntity.noContent().build();
     }
-
-
-
-
-
-
-    /**
-     @GetMapping("/projects") public List<ProjectDTO> getProjects() {
-     return projectService.findAll();
-     }
-
-     @GetMapping("/project/{id}") public Project getProjectById(@PathVariable Long id) {
-     return projectService.getProjectById(id);
-     }
-
-     @GetMapping("/project/codice/{codice}") public ProjectDTO getProjectByCodice(@PathVariable String codice) {
-     return projectService.findByCodice(codice);
-     }
-
-     */
 }

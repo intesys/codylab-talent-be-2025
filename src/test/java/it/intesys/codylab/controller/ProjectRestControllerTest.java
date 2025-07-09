@@ -67,4 +67,81 @@ class ProjectRestControllerITest {
                 .andExpect(jsonPath("$.content[0].codice").value("TEST001"))
                 .andExpect(jsonPath("$.totalElements").value(1));
     }
+    @Test
+    void getProjectById() throws Exception {
+        // Prima crea un progetto
+        String projectJson = String.format(
+                "{\"codice\":\"TEST002\",\"nome\":\"Test Project 2\",\"descrizione\":\"Test Description 2\",\"responsabileId\":%d}",
+                savedUserId
+        );
+
+        String response = mockMvc.perform(post("/api/v1/projects")
+                        .contentType("application/json")
+                        .content(projectJson))
+                .andReturn().getResponse().getContentAsString();
+
+        Long projectId = Long.parseLong(response.split("\"id\":")[1].split(",")[0]);
+
+        mockMvc.perform(get("/api/v1/projects/" + projectId))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(projectId))
+                .andExpect(jsonPath("$.nome").value("Test Project 2"))
+                .andExpect(jsonPath("$.responsabileId").value(savedUserId));
+    }
+    @Test
+    void updateProject() throws Exception {
+        // Prima crea un progetto
+        String projectJson = String.format(
+                "{\"codice\":\"TEST003\",\"nome\":\"Test Project 3\",\"descrizione\":\"Test Description 3\",\"responsabileId\":%d}",
+                savedUserId
+        );
+
+        String response = mockMvc.perform(post("/api/v1/projects")
+                        .contentType("application/json")
+                        .content(projectJson))
+                .andReturn().getResponse().getContentAsString();
+
+        Long projectId = Long.parseLong(response.split("\"id\":")[1].split(",")[0]);
+
+        // Aggiorna il progetto
+        String updatedProjectJson = String.format(
+                "{\"codice\":\"TEST003\",\"nome\":\"Updated Project 3\",\"descrizione\":\"Updated Description 3\",\"responsabileId\":%d}",
+                savedUserId
+        );
+
+        mockMvc.perform(put("/api/v1/projects/" + projectId)
+                        .contentType("application/json")
+                        .content(updatedProjectJson))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(projectId))
+                .andExpect(jsonPath("$.nome").value("Updated Project 3"))
+                .andExpect(jsonPath("$.responsabileId").value(savedUserId));
+    }
+    @Test
+    void deleteProject() throws Exception {
+        // Prima crea un progetto
+        String projectJson = String.format(
+                "{\"codice\":\"TEST004\",\"nome\":\"Test Project 4\",\"descrizione\":\"Test Description 4\",\"responsabileId\":%d}",
+                savedUserId
+        );
+
+        String response = mockMvc.perform(post("/api/v1/projects")
+                        .contentType("application/json")
+                        .content(projectJson))
+                .andReturn().getResponse().getContentAsString();
+
+        Long projectId = Long.parseLong(response.split("\"id\":")[1].split(",")[0]);
+
+        // Elimina il progetto
+        mockMvc.perform(delete("/api/v1/projects/" + projectId))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+
+        // Verifica che il progetto non esista più
+        mockMvc.perform(get("/api/v1/projects/" + projectId))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
 }
