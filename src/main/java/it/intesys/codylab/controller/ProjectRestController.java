@@ -96,6 +96,7 @@ public class ProjectRestController implements ProjectsApi {
 
 
 
+
     /**
      @GetMapping("/projects") public List<ProjectDTO> getProjects() {
      return projectService.findAll();

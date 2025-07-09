@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -53,4 +55,5 @@ public class ProjectServiceITest {
         assertThat(retrievedProject.getCodice()).isEqualTo("TEST123");
         assertThat(retrievedProject.getResponsabileId()).isEqualTo(savedUser.getId());
     }
+
 }
