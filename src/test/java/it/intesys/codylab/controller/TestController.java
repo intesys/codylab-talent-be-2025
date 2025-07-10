@@ -53,4 +53,5 @@ public class TestController {
                 .andExpect(jsonPath("$", hasSize(1))) // Assuming at least one project exists
                 .andExpect(jsonPath("$[0].id").isNumber());
     }
+
 }

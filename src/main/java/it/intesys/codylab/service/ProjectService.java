@@ -80,4 +80,10 @@ public class ProjectService {
 
         return projectPage.map(projectMapper::toApiDTO);
     }
+
+    public List<ProjectsApiDTO> simpleGetProjects() {
+        return projectRepository.findAll().stream()
+                .map(projectMapper::toApiDTO)
+                .collect(Collectors.toList());
+    }
 }
