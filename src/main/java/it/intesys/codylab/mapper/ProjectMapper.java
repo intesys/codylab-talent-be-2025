@@ -33,6 +33,10 @@ public interface ProjectMapper {
     ProjectsWithResponsabileApiDTO toApiDTOWithResponsabile(Project project);
 
     List<ProjectDTO> toDTOList(List<Project> projects);
+
+    Project toEntity(ProjectDTO projectDTO);
+
+    ProjectDTO toDTO(Project savedProject);
 }
 
 

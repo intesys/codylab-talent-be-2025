@@ -39,7 +39,7 @@ public class ProjectService {
         return projectMapper.toDTOList(projects);
     }
 
-    @Transactional
+
     public List<ProjectDTO> delete(Long id) {
         // Elimina il progetto specifico
         Project project = projectRepository.findById(id)
@@ -54,6 +54,30 @@ public class ProjectService {
         return projectMapper.toDTOList(projectRepository.findAll());
     }
 
+    public List<ProjectDTO> create(ProjectDTO projectDTO) {
+        if (projectDTO == null) {
+            throw new IllegalArgumentException("Il progetto non può essere nullo");
+        }
+        if (projectDTO.getCodice() == null) {
+            throw new IllegalArgumentException("Il codice del progetto non può essere nullo");
+        }
+
+        Project project = projectMapper.toEntity(projectDTO);
+        Project savedProject = projectRepository.save(project);
+        return projectMapper.toDTOList(List.of(savedProject));
+    }
+
+    public ProjectDTO create (Project project) {
+        if (project == null) {
+            throw new IllegalArgumentException("Il progetto non può essere nullo");
+        }
+        if (project.getCodice() == null) {
+            throw new IllegalArgumentException("Il codice del progetto non può essere nullo");
+        }
+
+        Project savedProject = projectRepository.save(project);
+        return projectMapper.toDTO(savedProject);
+    }
 
 
     public ProjectsApiDTO getProjectById(Long id) {

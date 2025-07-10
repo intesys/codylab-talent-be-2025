@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Add Project</title>
+    <link rel="icon" href="data:,">
 </head>
 <body>
 <h1>Add New Project</h1>
@@ -19,7 +20,7 @@
     <br>
 
     <label for="dataInizio">Start Date:</label>
-    <input type="text" id="dataInizio" name="dataInizio" th:field="*{dataInizio}" pattern="\d{2}/\d{2}/\d{4}" required>
+    <input type="date" id="dataInizio" name="dataInizio" th:field="*{dataInizio}" pattern="\d{2}/\d{2}/\d{4}" required>
     <!--input type="date" id="dataInizio" name="dataInizio" th:field="*{dataInizio}" required-->
     <br>
 
