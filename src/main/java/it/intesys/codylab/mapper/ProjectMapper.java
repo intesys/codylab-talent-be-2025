@@ -11,6 +11,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", uses = {UserMapper.class,TaskMapper.class})
 public interface ProjectMapper {
 
@@ -29,6 +31,8 @@ public interface ProjectMapper {
     @Mapping(target = "responsabile", source = "responsabile")
 
     ProjectsWithResponsabileApiDTO toApiDTOWithResponsabile(Project project);
+
+    List<ProjectDTO> toDTOList(List<Project> projects);
 }
 
 

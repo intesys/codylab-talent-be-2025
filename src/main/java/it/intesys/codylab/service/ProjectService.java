@@ -6,13 +6,15 @@ import it.intesys.codylab.api.model.ProjectsWithResponsabileApiDTO;
 import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.mapper.ProjectMapper;
 import it.intesys.codylab.model.Project;
-import it.intesys.codylab.model.User;
 import it.intesys.codylab.repository.ProjectRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -29,6 +31,27 @@ public class ProjectService {
     public ProjectService(ProjectRepository projectRepository, ProjectMapper projectMapper) {
         this.projectRepository = projectRepository;
         this.projectMapper = projectMapper;
+    }
+
+    public List<ProjectDTO> findAll() {
+        List<Project> projects = StreamSupport.stream(projectRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
+        return projectMapper.toDTOList(projects);
+    }
+
+    @Transactional
+    public List<ProjectDTO> delete(Long id) {
+        // Elimina il progetto specifico
+        Project project = projectRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Project not found with id: " + id));
+        // Gestisci relazioni
+        project.setResponsabile(null);
+        project.getTasks().forEach(t -> t.setProject(null));
+
+        projectRepository.delete(project);
+
+        // Restituisci tutti i progetti rimanenti
+        return projectMapper.toDTOList(projectRepository.findAll());
     }
 
 
