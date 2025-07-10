@@ -9,6 +9,7 @@ import it.intesys.codylab.service.ProjectService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -76,11 +77,12 @@ public class ProjectRestController implements ProjectsApi {
         return ResponseEntity.notFound().build();
     }
 
-    /**
+
      @GetMapping("/projects") public List<ProjectDTO> getProjects() {
      return projectService.findAll();
      }
 
+     /**
      @GetMapping("/project/{id}") public Project getProjectById(@PathVariable Long id) {
      return projectService.getProjectById(id);
      }

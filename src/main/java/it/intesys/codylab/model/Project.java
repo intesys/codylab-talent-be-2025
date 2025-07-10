@@ -12,7 +12,7 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String code;
+    private String codice;
     private String nome;
     private String descrizione;
     private LocalDate dataInizio;
@@ -25,9 +25,9 @@ public class Project {
         // Default constructor
     }
 
-    public Project(Long id, String code, String nome, String descrizione, LocalDate dataInizio, Integer durata) {
+    public Project(Long id, String codice, String nome, String descrizione, LocalDate dataInizio, Integer durata) {
         this.id = id;
-        this.code = code;
+        this.codice = codice;
         this.nome = nome;
         this.descrizione = descrizione;
         this.dataInizio = dataInizio;
@@ -50,12 +50,12 @@ public class Project {
         this.id = id;
     }
 
-    public String getCode() {
-        return code;
+    public String getCodice() {
+        return codice;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setCodice(String code) {
+        this.codice = code;
     }
 
     public String getNome() {

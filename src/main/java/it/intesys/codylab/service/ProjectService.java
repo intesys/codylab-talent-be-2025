@@ -28,7 +28,7 @@ public class ProjectService {
     }
 
     public ProjectDTO findByCodice(String codice) {
-        return projectMapper.toDTO( projectRepository.findByCode(codice) );
+        return projectMapper.toDTO( projectRepository.findByCodice(codice) );
     }
 
     public List<ProjectDTO> findAll() {

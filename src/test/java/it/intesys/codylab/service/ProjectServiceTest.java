@@ -1,6 +1,5 @@
 package it.intesys.codylab.service;
 
-import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.mapper.ProjectMapper;
 import it.intesys.codylab.model.Project;
 import it.intesys.codylab.repository.ProjectRepository;
@@ -34,7 +33,7 @@ class ProjectServiceTest {
         //ARRANGE
         Project project = new Project();
         project.setId(1L);
-        project.setCode("PROJ123");
+        project.setCodice("PROJ123");
         when(projectRepository.findById(1L)).thenReturn(Optional.of(project));
         //when(projectMapper.toDTO(any(Project.class))).thenReturn(new ProjectDTO());
         //ACT
@@ -42,7 +41,7 @@ class ProjectServiceTest {
         //ASSERT
         assertNotNull(projectResult);
         assertEquals(1l, projectResult.getId());
-        assertEquals("PROJ123", projectResult.getCode());
+        assertEquals("PROJ123", projectResult.getCodice());
         verify(projectRepository, times(1)).findById(1L);
     }
 

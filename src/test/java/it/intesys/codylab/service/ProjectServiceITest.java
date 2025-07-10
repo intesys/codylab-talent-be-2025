@@ -45,7 +45,7 @@ public class ProjectServiceITest {
 
         Project project = projectService.getProjectById(projectDTO.getId());
         assertNotNull(project);
-        assertThat(project.getCode()).isEqualTo("TEST001");
+        assertThat(project.getCodice()).isEqualTo("TEST001");
 
         projectDTO = new ProjectDTO();
         projectDTO.setCodice("TEST002");
