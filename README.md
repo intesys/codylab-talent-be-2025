@@ -392,7 +392,15 @@ Esericizi da completare:
 
 ## Parte 13 - MVC
 ### Argomenti
-* MVC
+* Entità Model View Controller
+* Java Template Engine - Thymeleaf
+* Spring Boot e Spring MVC
+* Definizione viste hmtl con Thymeleaf
+  * Lista progetti
+  * Cancellazione di un progetto
+  * Creazione di un progetto - esercizio
+* Definizione controller MVC
+* Test con MockMvcTester
 
 ## Parte 14 - Sicurezza
 ### Argomenti
