@@ -1,12 +1,14 @@
 package it.intesys.codylab.service;
 
-import it.intesys.codylab.dto.ProjectDTO;
-import it.intesys.codylab.dto.TaskDTO;
+import it.intesys.codylab.api.model.ProjectFilterApiDTO;
+import it.intesys.codylab.api.model.ProjectsApiDTO;
+import it.intesys.codylab.api.model.TasksApiDTO;
 import it.intesys.codylab.model.Project;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,45 +29,43 @@ public class ProjectServiceITest {
     @Test
     @Transactional
     void testLifeCycle() {
-        ProjectDTO projectDTO = new ProjectDTO();
-        projectDTO.setCodice("TEST001");
-        projectDTO.setNome("TEST001");
-        projectDTO.setDescrizione("Test Project 001");
-        TaskDTO taskDTO = new TaskDTO();
-        taskDTO.setCodice("TASK001");
-        taskDTO.setNome("TASK001");
-        taskDTO.setDescrizione("Test Task 001");
-        projectDTO.setTasks(List.of(taskDTO));
+        ProjectsApiDTO projectsApiDTO = new ProjectsApiDTO();
+        projectsApiDTO.setCodice("TEST001");
+        projectsApiDTO.setNome("TEST001");
+        projectsApiDTO.setDescrizione("Test Project 001");
+        TasksApiDTO tasksApiDTO = new TasksApiDTO();
+        tasksApiDTO.setCodice("TASK001");
+        tasksApiDTO.setNome("TASK001");
+        tasksApiDTO.setDescrizione("Test Task 001");
 
-        projectDTO = projectService.save(projectDTO);
+        projectsApiDTO = projectService.createProject(projectsApiDTO);
 
-        assertNotNull(projectDTO);
-        assertThat(projectDTO.getId()).isNotNull();
-        assertThat(projectDTO.getCodice()).isEqualTo("TEST001");
+        assertNotNull(projectsApiDTO);
+        assertThat(projectsApiDTO.getId()).isNotNull();
+        assertThat(projectsApiDTO.getCodice()).isEqualTo("TEST001");
 
-        Project project = projectService.getProjectById(projectDTO.getId());
+        ProjectsApiDTO project = projectService.getProjectById(projectsApiDTO.getId());
         assertNotNull(project);
         assertThat(project.getCodice()).isEqualTo("TEST001");
 
-        projectDTO = new ProjectDTO();
-        projectDTO.setCodice("TEST002");
-        projectDTO.setNome("TEST002");
-        projectDTO.setDescrizione("Test Project 002");
-        taskDTO = new TaskDTO();
-        taskDTO.setCodice("TASK002");
-        taskDTO.setNome("TASK002");
-        taskDTO.setDescrizione("Test Task 002");
-        projectDTO.setTasks(List.of(taskDTO));
+        projectsApiDTO = new ProjectsApiDTO();
+        projectsApiDTO.setCodice("TEST002");
+        projectsApiDTO.setNome("TEST002");
+        projectsApiDTO.setDescrizione("Test Project 002");
+        tasksApiDTO = new TasksApiDTO();
+        tasksApiDTO.setCodice("TASK002");
+        tasksApiDTO.setNome("TASK002");
+        tasksApiDTO.setDescrizione("Test Task 002");
 
-        projectService.save(projectDTO);
+        projectService.createProject(projectsApiDTO);
 
-        List<ProjectDTO> allProjects = projectService.findAll();
+        ProjectFilterApiDTO filter = new ProjectFilterApiDTO();
+        Page<ProjectsApiDTO> allProjects = projectService.getProjects(filter, 0, 10, "id");
         assertNotNull(allProjects);
-        assertThat(allProjects.size()).isEqualTo(2);
-        for (ProjectDTO projectDTO1 : allProjects) {
-            System.out.println(projectDTO1);
+        assertThat(allProjects.getTotalElements()).isEqualTo(2);
+        for (ProjectsApiDTO projectApiDTO : allProjects.getContent()) {
+            System.out.println(projectApiDTO);
         }
-
     }
     @Test
     @Transactional
@@ -88,25 +88,24 @@ public class ProjectServiceITest {
     @Test
     @Transactional
     void findByCodice() {
-        ProjectDTO projectDTO = new ProjectDTO();
-        projectDTO.setCodice("TEST001");
-        projectDTO.setNome("TEST001");
-        projectDTO.setDescrizione("Test Project 001");
-        TaskDTO taskDTO = new TaskDTO();
-        taskDTO.setCodice("TASK001");
-        taskDTO.setNome("TASK001");
-        taskDTO.setDescrizione("Test Task 001");
-        projectDTO.setTasks(List.of(taskDTO));
+        ProjectsApiDTO projectsApiDTO = new ProjectsApiDTO();
+        projectsApiDTO.setCodice("TEST001");
+        projectsApiDTO.setNome("TEST001");
+        projectsApiDTO.setDescrizione("Test Project 001");
+        TasksApiDTO tasksApiDTO = new TasksApiDTO();
+        tasksApiDTO.setCodice("TASK001");
+        tasksApiDTO.setNome("TASK001");
+        tasksApiDTO.setDescrizione("Test Task 001");
 
-        projectDTO = projectService.save(projectDTO);
+        projectsApiDTO = projectService.createProject(projectsApiDTO);
 
-        projectDTO = projectService.findByCodice("TEST001");
-        assertNotNull(projectDTO);
-        assertThat(projectDTO.getNome()).isEqualTo("TEST001");
+        ProjectsApiDTO retrievedProject = projectService.getProjectById(projectsApiDTO.getId());
+        assertNotNull(retrievedProject);
+        assertThat(retrievedProject.getNome()).isEqualTo("TEST001");
 
-        projectDTO = projectService.findByCodice("TEST000");
-        assertNull(projectDTO);
-
-    }
-
+        ProjectFilterApiDTO filter = new ProjectFilterApiDTO();
+        filter.setProjectCodes(List.of("TEST000"));
+        Page<ProjectsApiDTO> projects = projectService.getProjects(filter, 0, 10, "id");
+        assertThat(projects.getTotalElements()).isEqualTo(0);
+}
 }

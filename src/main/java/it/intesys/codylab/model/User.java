@@ -25,12 +25,7 @@ public class User {
     private Double orarioGiornaliero;
 
 
-    @ManyToMany
-    @JoinTable(
-            name = "users_projects",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "project_id")
-    )
+    @OneToMany(mappedBy = "responsabile", fetch = FetchType.LAZY)
     private List<Project> projects;
 
     @ManyToMany

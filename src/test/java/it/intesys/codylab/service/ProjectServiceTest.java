@@ -1,5 +1,6 @@
 package it.intesys.codylab.service;
 
+import it.intesys.codylab.api.model.ProjectsApiDTO;
 import it.intesys.codylab.mapper.ProjectMapper;
 import it.intesys.codylab.model.Project;
 import it.intesys.codylab.repository.ProjectRepository;
@@ -37,7 +38,7 @@ class ProjectServiceTest {
         when(projectRepository.findById(1L)).thenReturn(Optional.of(project));
         //when(projectMapper.toDTO(any(Project.class))).thenReturn(new ProjectDTO());
         //ACT
-        Project projectResult = projectService.getProjectById(1L);
+        ProjectsApiDTO projectResult = projectService.getProjectById(1L);
         //ASSERT
         assertNotNull(projectResult);
         assertEquals(1l, projectResult.getId());
@@ -54,5 +55,5 @@ class ProjectServiceTest {
         // ACT & ASSERT
         RuntimeException exception = assertThrows(RuntimeException.class, () -> projectService.getProjectById(1L));
         assertEquals("Project not found with id: 1", exception.getMessage());
-    }
+}
 }

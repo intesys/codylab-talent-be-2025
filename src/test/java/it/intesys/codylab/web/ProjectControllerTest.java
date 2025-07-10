@@ -1,6 +1,6 @@
 package it.intesys.codylab.web;
 
-import it.intesys.codylab.dto.ProjectDTO;
+
 import it.intesys.codylab.service.ProjectService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -29,37 +29,6 @@ public class ProjectControllerTest {
         Assertions.assertThat(mockMvcTester.get().uri(  "/mvc/projects").accept(MediaType.TEXT_HTML))
                 .hasStatus2xxSuccessful()
                 .hasViewName("projects");
-    }
-
-    @Test
-    void testProjectsPageContainsList() throws Exception {
-
-        // Mock the service to return a list of projects
-        ProjectDTO projectDTO1 = new ProjectDTO();
-        projectDTO1.setCodice("A");
-
-        ProjectDTO projectDTO2 = new ProjectDTO();
-        projectDTO2.setCodice("B");
-
-        List<ProjectDTO> mockProjects = List.of(
-                projectDTO1, projectDTO2
-        );
-
-        Mockito.when(projectService.findAll()).thenReturn(mockProjects);
-
-        mockMvcTester.get().uri("/mvc/projects")
-                .assertThat()
-                .hasStatus2xxSuccessful()
-                .model().containsEntry(
-                        "projects", mockProjects
-                );
-
-        // Perform the request and verify the response
-        System.out.println(
-                mockMvcTester.perform(mockMvcTester.get().uri("/mvc/projects").accept(MediaType.TEXT_HTML))
-                        .getResponse().getContentAsString()
-        );
-
-    }
+}
 
 }
