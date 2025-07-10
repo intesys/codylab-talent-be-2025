@@ -5,6 +5,8 @@ import it.intesys.codylab.service.ProjectService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -23,6 +25,12 @@ public class ProjectController {
         List<ProjectDTO> projects = projectService.findAll();
         model.addAttribute("projects", projects);
         return "projects";
+    }
+
+    @PostMapping("/project/delete/{id}")
+    public String deleteProject(@PathVariable("id") Long id) {
+        projectService.delete(id);
+        return "redirect:/mvc/projects";
     }
 
 }
