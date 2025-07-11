@@ -4,7 +4,7 @@ info:
   description: API per la gestione del progetto CodyLab Talent 2025.
   version: 1.0.0
 servers:
-  - url: https://localhost:8090/api/v1
+  - url: http://localhost:8090/api/v1
     description: Server locale di sviluppo
 tags:
   - name: Projects
@@ -552,7 +552,7 @@ paths:
   /slots:
     get:
       summary: Recupera tutti gli slot
-      description: Restituisce una lista di oggetti Slot. È possibile filtrare per ID slot multipli (es. `1,2,3`) tramite il parametro `ids`.
+      description: Restituisce una lista di oggetti Slot. È possibile filtrare per ID slot multipli (es. 1,2,3) tramite il parametro ids.
       operationId: getSlots
       tags:
         - Slots
@@ -562,7 +562,7 @@ paths:
         - $ref: '#/components/parameters/Sort'
         - name: ids
           in: query
-          description: Elenco degli ID degli slot da filtrare, separati da virgola (es. `1,2,3`)
+          description: Elenco degli ID degli slot da filtrare, separati da virgola (es. 1,2,3)
           required: false
           schema:
             type: string
@@ -847,14 +847,14 @@ components:
           items:
             $ref: '#/components/schemas/Projects'
     TasksPage:
-        type: object
-        properties:
-          pagination:
-            $ref: '#/components/schemas/Pagination'
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        items:
+          type: array
           items:
-            type: array
-            items:
-                $ref: '#/components/schemas/Tasks'
+            $ref: '#/components/schemas/Tasks'
     SlotsPage:
       type: object
       properties:
@@ -865,21 +865,21 @@ components:
           items:
             $ref: '#/components/schemas/Slots'
     UsersPage:
-        type: object
-        properties:
-          pagination:
-            $ref: '#/components/schemas/Pagination'
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        items:
+          type: array
           items:
-            type: array
-            items:
-                $ref: '#/components/schemas/Users'
+            $ref: '#/components/schemas/Users'
     ApiError:
       type: object
       properties:
         details:
-            type: string
-            description: Descrizione dettagliata dell'errore.
-            example: Errore interno
+          type: string
+          description: Descrizione dettagliata dell'errore.
+          example: Errore interno
         status:
           type: integer
           format: int32
@@ -1003,12 +1003,12 @@ components:
           format: date
           description: Data di inizio dello slot.
         dataFine:
-            type: string
-            format: date
-            description: Data di fine dello slot.
+          type: string
+          format: date
+          description: Data di fine dello slot.
         durata:
-            type: integer
-            description: Durata dello slot in minuti.
+          type: integer
+          description: Durata dello slot in minuti.
 
     ProjectFilter:
       type: object
@@ -1038,18 +1038,18 @@ components:
 
 
     UserFilter:
-        type: object
-        properties:
-            ids:
-              type: array
-              items:
-                  type: integer
-                  format: int64
-              description: Elenco degli ID degli utenti da filtrare.
-            taskId:
-              type: integer
-              format: int64
-              description: ID della task associata all'utente.
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: Elenco degli ID degli utenti da filtrare.
+        taskId:
+          type: integer
+          format: int64
+          description: ID della task associata all'utente.
 
     SlotFilter:
       type: object

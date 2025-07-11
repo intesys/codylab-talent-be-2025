@@ -5,6 +5,6 @@ import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
 @ActiveProfiles("testcontainer")
-public class TestContainerProjectServiceITest extends ProjectServiceITest {
+public class TestContainerProjectServiceITest extends ProjectServiceITest{
 
-}
+        }

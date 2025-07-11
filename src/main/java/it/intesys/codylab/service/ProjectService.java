@@ -50,16 +50,10 @@ public class ProjectService {
     }
 
     public void deleteProject(Long id) {
-        Project project = projectRepository.findById(id).orElse(null);
-        if (project != null && project.getUsers() != null) {
-            for (User user : new ArrayList<>(project.getUsers())) {
-                user.getProjects().remove(project);
-            }
-            project.getTasks().clear();
-            project.getUsers().clear();
+
             projectRepository.deleteById(id);
         }
-    }
+
 
     public Page<ProjectsApiDTO> getProjects(ProjectFilterApiDTO filter, int pageNumber, int size, String sort) {
         if (sort == null || sort.isBlank()) {
@@ -84,6 +78,5 @@ public class ProjectService {
     public List<ProjectsApiDTO> simpleGetProjects() {
         return projectRepository.findAll().stream()
                 .map(projectMapper::toApiDTO)
-                .collect(Collectors.toList());
-    }
+                .collect(Collectors.toList());}
 }

@@ -323,32 +323,100 @@ Esercizi da completare:
 ## Parte 8 - API First
 ### Argomenti
 * Leggere e scrivere la specifica OpenAPI
+  * Lettura della specifica generata da java
+  * Dichiarazione, tags, paths, metodi, components
 * Scrittura specifica OpenAPI
+  * Dichiarazione openapi, info e tags
+  * Components schemas
+  * paths (nomi risorse al plurale)
+  * metodo GET e risposte
+  * Parametri e components parameters (la paginazione)
+  * metodo POST e risposte
+  * RequestBody e components requestBody
+  * Components headers
+  * I metodi con path variables: GET, PUT, DELETE
 * Generazione del controller REST dalla specifica OpenAPI
+  * plugin per la generazione
+  * implementazione dei metodi
 
-## Parte 9 - Testing
+**Esercizi**
+Scaricare il branch `8-openapi` e verificare quanto fatto.
+
+Lavorare sul branch che preferite (crearne anche in autonomia)
+
+Esericizi da completare:
+* Creare la specifica OpenAPI per la risorsa Project (con i campi previsti nelle lezioni precedenti):
+  * GET /projects
+  * GET /projects/{id}
+  * POST /projects
+  * PUT /projects/{id}
+  * DELETE /projects/{id}
+* Inserire il plugin per la generazione del controller REST dalla specifica OpenAPI (ricordarsi jackson nullable)
+* Modificare ProjectRestController in modo che implementi l'interfaccia generata dalla specifica OpenAPI
+* Implementare i metodi generati e aggiungere la logica completa fino alla persistenza dei progetti (service, mapper, repository)
+* Proseguire lo sviluppo con le CRUD delle altre risorse previste: 
+  * Task
+  * Slot
+  * User
+
+## Parte 9 - Laboratorio di ripasso
 ### Argomenti
-* Unit Test
+* Esercizi pratici di ripasso sui concetti visti fino ad ora (consolidamento competenze)
 
-## Parte 10 - Test di integrazione
+## Parte 10 - Laboratorio di ripasso
 ### Argomenti
-* Integration test
+* Esercizi pratici di ripasso sui concetti visti fino ad ora (consolidamento competenze)
 
-## Parte 11 - Sicurezza
+## Parte 11 - Testing
+### Argomenti
+* Introduzione ai test
+* Tipologie
+* Pattern
+* Test di unità
+  * JUnit
+  * Mockito
+
+**Esercizi**
+Scaricare il branch `main` e verificare quanto fatto.
+
+Lavorare sul branch che preferite.
+
+Esericizi da completare:
+* Creare la propria batteria di unit test
+
+## Parte 12 - Test di integrazione
+### Argomenti
+* I test di integrazione
+* I test con la base dati
+* I test web
+
+## Parte 13 - MVC
+### Argomenti
+* Entità Model View Controller
+* Java Template Engine - Thymeleaf
+* Spring Boot e Spring MVC
+* Definizione viste hmtl con Thymeleaf
+  * Lista progetti
+  * Cancellazione di un progetto
+  * Creazione di un progetto - esercizio
+* Definizione controller MVC
+* Test con MockMvcTester
+
+## Parte 14 - Sicurezza
 ### Argomenti
 * Autenticazione e Autorizzazione
 * Ruoli e permessi
 * Json Web Token (JWT)
 * Spring Security
 
-## Parte 12 - DevOps
+## Parte 15 - DevOps
 ### Argomenti
 * Docker
 * Dockerfile
 * Docker Compose
 * Kubernetes su Docker
 
-## Parte 13 - Comunicazioni Asincrone
+## Parte 16 - Comunicazioni Asincrone
 ### Argomenti
 * Thread e Task
 * Comunicazioni asincrone tra microservizi

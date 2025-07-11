@@ -2,7 +2,6 @@ package it.intesys.codylab.web;
 
 import it.intesys.codylab.api.model.ProjectsApiDTO;
 import it.intesys.codylab.api.rest.ProjectsApi;
-import it.intesys.codylab.dto.ProjectDTO;
 import it.intesys.codylab.model.Project;
 import it.intesys.codylab.service.ProjectService;
 import org.springframework.stereotype.Controller;
@@ -35,7 +34,7 @@ public class ProjectController {
 
     @GetMapping("/project/add")
     public String showAddProjectForm(Model model) {
-        model.addAttribute("project", new ProjectDTO());
+        model.addAttribute("project", new ProjectsApiDTO());
         return "project-add";
     }
 
@@ -43,6 +42,6 @@ public class ProjectController {
     public String addProject(@ModelAttribute("project") ProjectsApiDTO project) {
         projectService.createProject(project);
         return "redirect:/mvc/projects";
-    }
+}
 
 }

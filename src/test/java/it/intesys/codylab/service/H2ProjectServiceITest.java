@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SpringBootTest
-@ActiveProfiles("test")
+@ActiveProfiles("h2")
 public class H2ProjectServiceITest extends ProjectServiceITest {
 
 }

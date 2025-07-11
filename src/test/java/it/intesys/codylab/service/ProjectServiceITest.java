@@ -3,8 +3,6 @@ package it.intesys.codylab.service;
 import it.intesys.codylab.api.model.ProjectFilterApiDTO;
 import it.intesys.codylab.api.model.ProjectsApiDTO;
 import it.intesys.codylab.api.model.TasksApiDTO;
-import it.intesys.codylab.dto.ProjectDTO;
-import it.intesys.codylab.dto.TaskDTO;
 import it.intesys.codylab.model.Project;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -109,5 +107,5 @@ public class ProjectServiceITest {
         filter.setProjectCodes(List.of("TEST000"));
         Page<ProjectsApiDTO> projects = projectService.getProjects(filter, 0, 10, "id");
         assertThat(projects.getTotalElements()).isEqualTo(0);
-    }
+}
 }

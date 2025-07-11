@@ -88,5 +88,5 @@ public class ProjectRestController implements ProjectsApi {
 
     public void setProjectService(ProjectService projectService) {
         this.projectService = projectService;
-    }
+}
 }

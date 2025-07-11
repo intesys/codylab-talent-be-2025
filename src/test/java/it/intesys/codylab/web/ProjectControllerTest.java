@@ -1,6 +1,6 @@
 package it.intesys.codylab.web;
 
-import it.intesys.codylab.dto.ProjectDTO;
+
 import it.intesys.codylab.service.ProjectService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -29,6 +29,6 @@ public class ProjectControllerTest {
         Assertions.assertThat(mockMvcTester.get().uri(  "/mvc/projects").accept(MediaType.TEXT_HTML))
                 .hasStatus2xxSuccessful()
                 .hasViewName("projects");
-    }
+}
 
 }
