@@ -1,40 +1,45 @@
-
--- In database conventions, it is generally recommended to use lowercase for table names. This is because many database
--- systems (like PostgreSQL) treat table names as case-insensitive unless explicitly quoted. Using lowercase avoids potential
--- issues with case sensitivity and ensures consistency.
--- Best Practice:
--- Use lowercase for table names (e.g., user, project, task).
--- Use snake_case for multi-word table names (e.g., user_task).
-
 CREATE TABLE users (
                        id SERIAL PRIMARY KEY,
-                       nome VARCHAR NOT NULL,
-                       cognome VARCHAR NOT NULL,
-                       mail VARCHAR UNIQUE NOT NULL,
-                       profilo VARCHAR NOT NULL,
-                       orario_giornaliero DECIMAL NOT NULL
+                       first_name VARCHAR NOT NULL,
+                       last_name VARCHAR NOT NULL,
+                       email VARCHAR UNIQUE NOT NULL,
+                       profile VARCHAR NOT NULL,
+                       username VARCHAR UNIQUE NOT NULL,
+                       daily_hours DECIMAL NOT NULL
 );
 
 CREATE TABLE projects (
                           id SERIAL PRIMARY KEY,
-                          codice VARCHAR UNIQUE NOT NULL,
-                          nome VARCHAR NOT NULL,
-                          descrizione VARCHAR,
-                          data_inizio DATE NOT NULL,
-                          durata INTEGER NOT NULL
+                          code VARCHAR UNIQUE NOT NULL,
+                          name VARCHAR NOT NULL,
+                          description TEXT,
+                          start_date DATE NOT NULL,
+                          duration INTEGER NOT NULL,
+                          manager_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+                          state VARCHAR NOT NULL
 );
+
 CREATE TABLE tasks (
                        id SERIAL PRIMARY KEY,
-                       progetto_id INTEGER NOT NULL REFERENCES projects(id),
-                       codice VARCHAR UNIQUE NOT NULL,
-                       nome VARCHAR NOT NULL,
-                       descrizione VARCHAR,
-                       data_inizio DATE NOT NULL,
-                       durata INTEGER NOT NULL
+                       project_id INTEGER NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+                       code VARCHAR UNIQUE NOT NULL,
+                       name VARCHAR NOT NULL,
+                       description TEXT,
+                       start_date DATE NOT NULL,
+                       duration INTEGER NOT NULL,
+                       state VARCHAR NOT NULL
+);
+
+CREATE TABLE slots (
+                       id SERIAL PRIMARY KEY,
+                       task_id INTEGER NOT NULL REFERENCES tasks(id) ON DELETE CASCADE,
+                       start_date DATE NOT NULL,
+                       end_date DATE NOT NULL,
+                       duration INTEGER NOT NULL
 );
 
 CREATE TABLE users_tasks (
                              id SERIAL PRIMARY KEY,
-                             user_id INTEGER NOT NULL REFERENCES users(id),
-                             task_id INTEGER NOT NULL REFERENCES tasks(id)
+                             user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+                             task_id INTEGER NOT NULL REFERENCES tasks(id) ON DELETE CASCADE
 );
