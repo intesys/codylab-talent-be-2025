@@ -38,11 +38,12 @@ public class TestController {
     public void createProject()  throws Exception{
         mockMvc.perform(post("/api/v1/projects")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"codice\":\"TEST001\",\"nome\":\"Test Project 001\",\"descrizione\":\"Test Description\"}"))
+                        .content("{\"code\":\"TEST001\",\"name\":\"Test Project 001\",\"description\":\"Test Description\"}"))
+
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.nome").value("Test Project 001"));
+                .andExpect(jsonPath("$.code").value("TEST001"));
     }
 
     @Test

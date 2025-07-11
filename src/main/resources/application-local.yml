@@ -1,6 +1,6 @@
 codylab:
   datasource:
-    url: jdbc:postgresql://localhost:5432/gestione_progetti
+    url: jdbc:postgresql://localhost:5432/projects_management
     username: codylab
     password: cody|_ab2025
     driver: org.postgresql.Driver
