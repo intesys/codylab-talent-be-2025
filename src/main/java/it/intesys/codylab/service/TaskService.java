@@ -114,4 +114,3 @@ public class TaskService {
         return tasks.stream().map(taskMapper::toApiDTO).collect(Collectors.toList());
     }
 }
-

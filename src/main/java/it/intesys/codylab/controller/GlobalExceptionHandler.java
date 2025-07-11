@@ -8,7 +8,6 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.OffsetDateTime;
 import java.util.NoSuchElementException;
@@ -21,7 +20,7 @@ public class GlobalExceptionHandler {
         ApiErrorApiDTO error = new ApiErrorApiDTO()
                 .status(HttpStatus.BAD_REQUEST.value())
                 .error("Bad Request")
-                .message("JSON non valido o malformato, correggi eventualmente il payload")
+                .message("Invalid or malformed JSON, please check the payload")
                 .details(e.getMostSpecificCause() != null ? e.getMostSpecificCause().getMessage() : e.getMessage())
                 .timestamp(OffsetDateTime.now());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
@@ -32,18 +31,18 @@ public class GlobalExceptionHandler {
         ApiErrorApiDTO error = new ApiErrorApiDTO()
                 .status(HttpStatus.BAD_REQUEST.value())
                 .error("Bad Request")
-                .message("Errore di validazione")
+                .message("Validation error")
                 .details(e.getBindingResult().toString())
                 .timestamp(OffsetDateTime.now());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
-    @ExceptionHandler({ EntityNotFoundException.class, NoSuchElementException.class })
+    @ExceptionHandler({EntityNotFoundException.class, NoSuchElementException.class})
     public ResponseEntity<ApiErrorApiDTO> handleNotFoundException(Exception e) {
         ApiErrorApiDTO error = new ApiErrorApiDTO()
                 .status(HttpStatus.NOT_FOUND.value())
                 .error("Not Found")
-                .message(e.getMessage() != null ? e.getMessage() : "Risorsa non trovata")
+                .message(e.getMessage() != null ? e.getMessage() : "Resource not found")
                 .details(e.getMessage())
                 .timestamp(OffsetDateTime.now());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
@@ -54,7 +53,7 @@ public class GlobalExceptionHandler {
         ApiErrorApiDTO error = new ApiErrorApiDTO()
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .error("Internal Server Error")
-                .message("Si è verificato un errore interno")
+                .message("An internal error occurred")
                 .details(e.getMessage())
                 .timestamp(OffsetDateTime.now());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);

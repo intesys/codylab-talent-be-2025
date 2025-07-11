@@ -1,6 +1,5 @@
 package it.intesys.codylab.controller;
 
-import it.intesys.codylab.api.model.UserFilterApiDTO;
 import it.intesys.codylab.api.model.UsersApiDTO;
 import it.intesys.codylab.api.rest.UsersApi;
 import it.intesys.codylab.mapper.UserMapper;
@@ -11,7 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,7 +40,7 @@ public class UserRestController implements UsersApi {
         if (pageNumber == null) pageNumber = 0;
         if (size == null) size = 10;
         if (sort == null || sort.isEmpty()) sort = "id";
-        if (ids == null) ids = List.of(); // lista vuota invece che null
+        if (ids == null) ids = List.of();
 
         Pageable pageable = PageRequest.of(pageNumber, size, Sort.by(sort));
 
@@ -54,10 +52,6 @@ public class UserRestController implements UsersApi {
 
         return ResponseEntity.ok(users.getContent());
     }
-
-
-
-
 
     @Override
     public ResponseEntity<UsersApiDTO> getUserById(Long id) {
@@ -71,7 +65,7 @@ public class UserRestController implements UsersApi {
     @Override
     public ResponseEntity<UsersApiDTO> createUser(UsersApiDTO userDto) {
         userDto.setId(null);
-        userDto.setProgettiResponsabili(null);
+        userDto.setManagedProjects(null);
 
         UsersApiDTO createdUser = userService.createUser(userDto);
         URI location = URI.create("/api/v1/users/" + createdUser.getId());
@@ -93,15 +87,13 @@ public class UserRestController implements UsersApi {
         return ResponseEntity.noContent().build();
     }
 
-
     @Override
-    public ResponseEntity<UsersApiDTO> getUserWithProgettiGestiti(Long id) {
-        User user = userService.findUtenteWithProgettiDirigente(id);
-        if (user != null) {
-            UsersApiDTO dto = userMapper.toApiDTO(user);
-            return ResponseEntity.ok(dto);
-        } else {
+    public ResponseEntity<UsersApiDTO> getUserWithManagedProjects(Long id) {
+        User user = userService.findUserWithProjectManagers(id);
+        if (user == null) {
             return ResponseEntity.notFound().build();
         }
+        UsersApiDTO dto = userMapper.toApiDTO(user);
+        return ResponseEntity.ok(dto);
     }
 }

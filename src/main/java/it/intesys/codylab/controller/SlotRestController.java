@@ -42,11 +42,10 @@ public class SlotRestController implements SlotsApi {
                         .map(Long::parseLong)
                         .collect(Collectors.toList());
             } catch (NumberFormatException e) {
-                return ResponseEntity.badRequest().build(); // formato errato
+                return ResponseEntity.badRequest().build();
             }
         }
 
-        // Passa idList anche se è null, il service gestirà il filtro
         Page<SlotsApiDTO> slots = slotService.getSlots(idList, pageNumber, size, sort);
 
         if (slots == null || slots.isEmpty()) {
@@ -55,7 +54,6 @@ public class SlotRestController implements SlotsApi {
 
         return ResponseEntity.ok(slots.getContent());
     }
-
 
     @Override
     public ResponseEntity<SlotsApiDTO> createSlot(SlotsApiDTO slotDto) {

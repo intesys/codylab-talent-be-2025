@@ -1,8 +1,6 @@
 package it.intesys.codylab.web;
 
 import it.intesys.codylab.api.model.ProjectsApiDTO;
-import it.intesys.codylab.api.rest.ProjectsApi;
-import it.intesys.codylab.model.Project;
 import it.intesys.codylab.service.ProjectService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,20 +12,21 @@ import java.util.List;
 @RequestMapping("/mvc")
 public class ProjectController {
 
-    private ProjectService projectService;
+    private final ProjectService projectService;
 
     public ProjectController(ProjectService projectService) {
         this.projectService = projectService;
     }
+
     @GetMapping("/projects")
-    public String projects(Model model) {
+    public String getProjects(Model model) {
         List<ProjectsApiDTO> projects = projectService.simpleGetProjects();
         model.addAttribute("projects", projects);
         return "projects";
     }
 
     @PostMapping("/project/delete/{id}")
-    public String deleteProject(@PathVariable("id") Long id) {
+    public String deleteProject(@PathVariable Long id) {
         projectService.deleteProject(id);
         return "redirect:/mvc/projects";
     }
@@ -39,9 +38,9 @@ public class ProjectController {
     }
 
     @PostMapping("/project")
-    public String addProject(@ModelAttribute("project") ProjectsApiDTO project) {
+    public String addProject(@ModelAttribute ProjectsApiDTO project) {
         projectService.createProject(project);
         return "redirect:/mvc/projects";
-}
+    }
 
 }

@@ -10,41 +10,37 @@ import org.mapstruct.Named;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    // Mapping da Entity a DTO - ignora le relazioni complesse
-    @Mapping(target = "progettiResponsabili", ignore = true)
+    @Mapping(target = "managedProjects", ignore = true)
     UsersApiDTO toApiDTO(User user);
 
-    // Non usare questo metodo direttamente - usa updateUserFromDto invece
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "progettiResponsabili", ignore = true)
+    @Mapping(target = "managedProjects", ignore = true)
     @Mapping(target = "projects", ignore = true)
     @Mapping(target = "tasks", ignore = true)
     User toEntity(UsersApiDTO usersApiDTO);
 
-    // Metodo personalizzato per aggiornare un utente esistente
     @Named("updateUser")
     default User updateUserFromDto(UsersApiDTO dto, @MappingTarget User user) {
         if (dto == null) {
             return user;
         }
-        
-        // Aggiorna solo i campi base, mai le relazioni
-        if (dto.getNome() != null) {
-            user.setNome(dto.getNome());
+
+        if (dto.getFirstName() != null) {
+            user.setFirstName(dto.getFirstName());
         }
-        if (dto.getCognome() != null) {
-            user.setCognome(dto.getCognome());
+        if (dto.getLastName() != null) {
+            user.setLastName(dto.getLastName());
         }
         if (dto.getUsername() != null) {
             user.setUsername(dto.getUsername());
         }
-        if (dto.getMail() != null) {
-            user.setMail(dto.getMail());
+        if (dto.getEmail() != null) {
+            user.setEmail(dto.getEmail());
         }
-        if (dto.getProfilo() != null) {
-            user.setProfilo(dto.getProfilo());
+        if (dto.getProfile() != null) {
+            user.setProfile(dto.getProfile());
         }
-        
+
         return user;
     }
 

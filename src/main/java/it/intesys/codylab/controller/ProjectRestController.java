@@ -42,8 +42,6 @@ public class ProjectRestController implements ProjectsApi {
         );
     }
 
-
-
     @Override
     public ResponseEntity<ProjectsApiDTO> getProjectById(Long id) {
         ProjectsApiDTO project = projectService.getProjectById(id);
@@ -51,11 +49,8 @@ public class ProjectRestController implements ProjectsApi {
         if (project == null) {
             return ResponseEntity.notFound().build();
         }
-        ProjectsApiDTO dto = projectService.getProjectById(id);
-        if (dto == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(dto);
+
+        return ResponseEntity.ok(project);
     }
 
     @Override
@@ -88,5 +83,5 @@ public class ProjectRestController implements ProjectsApi {
 
     public void setProjectService(ProjectService projectService) {
         this.projectService = projectService;
-}
+    }
 }

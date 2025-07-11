@@ -12,20 +12,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
+    private String firstName;
 
-    private String cognome;
+    private String lastName;
 
     private String username;
 
-    private String mail;
+    private String email;
 
-    private String profilo;
+    private String profile;
 
-    private Double orarioGiornaliero;
+    private Double dailyHours;
 
-
-    @OneToMany(mappedBy = "responsabile", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "manager", fetch = FetchType.LAZY)
     private List<Project> projects;
 
     @ManyToMany
@@ -36,22 +35,20 @@ public class User {
     )
     private List<Task> tasks;
 
-
-    @OneToMany(mappedBy = "responsabile", fetch = FetchType.LAZY)
-    private List<Project> progettiResponsabili;
+    @OneToMany(mappedBy = "manager", fetch = FetchType.LAZY)
+    private List<Project> managedProjects;
 
     public User() {
         // Default constructor
     }
 
-    public void setProgettiResponsabili(List<Project> progettiResponsabili) {
-        this.progettiResponsabili = progettiResponsabili;
+    public void setManagedProjects(List<Project> managedProjects) {
+        this.managedProjects = managedProjects;
     }
 
     public List<Project> getProjects() {
         return projects;
     }
-
 
     public void setProjects(List<Project> projects) {
         this.projects = projects;
@@ -73,20 +70,20 @@ public class User {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getCognome() {
-        return cognome;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setCognome(String cognome) {
-        this.cognome = cognome;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getUsername() {
@@ -97,48 +94,55 @@ public class User {
         this.username = username;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getProfilo() {
-        return profilo;
+    public String getProfile() {
+        return profile;
     }
 
-    public void setProfilo(String profilo) {
-        this.profilo = profilo;
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 
-    public Double getOrarioGiornaliero() {
-        return orarioGiornaliero;
+    public Double getDailyHours() {
+        return dailyHours;
     }
 
-    public void setOrarioGiornaliero(Double orarioGiornaliero) {
-        this.orarioGiornaliero = orarioGiornaliero;
+    public void setDailyHours(Double dailyHours) {
+        this.dailyHours = dailyHours;
     }
 
-    public List<Project> getProgettiResponsabili() {
-        return progettiResponsabili;
+    public List<Project> getManagedProjects() {
+        return managedProjects;
     }
 
-
-    public void setProgettiResponsabili(Object o) {
+    public void setManagedProjects(Object o) {
         if (o instanceof List) {
-            this.progettiResponsabili = (List<Project>) o;
+            this.managedProjects = (List<Project>) o;
         } else {
-            this.progettiResponsabili = null;
+            this.managedProjects = null;
         }
     }
 
     public Long getTaskId() {
-        if (this.tasks != null && this.tasks.size() > 0) {
+        if (this.tasks != null && !this.tasks.isEmpty()) {
             return this.tasks.get(0).getId();
         } else {
             return null;
+        }
+    }
+
+    public void setProjectManagers(Object o) {
+        if (o instanceof List) {
+            this.managedProjects = (List<Project>) o;
+        } else {
+            this.managedProjects = null;
         }
     }
 }

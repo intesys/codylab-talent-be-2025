@@ -4,7 +4,6 @@ import it.intesys.codylab.api.model.ProjectFilterApiDTO;
 import it.intesys.codylab.api.model.ProjectsApiDTO;
 import it.intesys.codylab.mapper.ProjectMapper;
 import it.intesys.codylab.model.Project;
-import it.intesys.codylab.model.User;
 import it.intesys.codylab.repository.ProjectRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,7 +12,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -32,7 +30,7 @@ public class ProjectService {
     public ProjectsApiDTO getProjectById(Long id) {
         return projectRepository.findById(id)
                 .map(projectMapper::toApiDTO)
-                .orElseThrow(() -> new NoSuchElementException("Progetto non trovato"));
+                .orElseThrow(() -> new NoSuchElementException("Project not found"));
     }
 
     public ProjectsApiDTO createProject(ProjectsApiDTO projectsApiDTO) {
@@ -50,10 +48,8 @@ public class ProjectService {
     }
 
     public void deleteProject(Long id) {
-
-            projectRepository.deleteById(id);
-        }
-
+        projectRepository.deleteById(id);
+    }
 
     public Page<ProjectsApiDTO> getProjects(ProjectFilterApiDTO filter, int pageNumber, int size, String sort) {
         if (sort == null || sort.isBlank()) {
@@ -65,7 +61,7 @@ public class ProjectService {
         if (!CollectionUtils.isEmpty(filter.getProjectCodes()) && filter.getUsername() != null) {
             projectPage = projectRepository.findByUsernameAndProjectCodes(filter.getUsername(), filter.getProjectCodes(), pageable);
         } else if (!CollectionUtils.isEmpty(filter.getProjectCodes())) {
-            projectPage = projectRepository.findByCodiceIn(filter.getProjectCodes(), pageable);
+            projectPage = projectRepository.findByCodeIn(filter.getProjectCodes(), pageable);
         } else if (filter.getUsername() != null) {
             projectPage = projectRepository.findByUsername(filter.getUsername(), pageable);
         } else {
@@ -78,5 +74,6 @@ public class ProjectService {
     public List<ProjectsApiDTO> simpleGetProjects() {
         return projectRepository.findAll().stream()
                 .map(projectMapper::toApiDTO)
-                .collect(Collectors.toList());}
+                .collect(Collectors.toList());
+    }
 }

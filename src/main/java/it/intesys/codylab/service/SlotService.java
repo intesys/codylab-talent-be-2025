@@ -12,14 +12,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class SlotService {
 
-    private SlotRepository slotRepository;
-    private SlotMapper slotMapper;
+    private final SlotRepository slotRepository;
+    private final SlotMapper slotMapper;
 
     public SlotService(SlotRepository slotRepository, SlotMapper slotMapper) {
         this.slotRepository = slotRepository;
@@ -27,12 +25,9 @@ public class SlotService {
     }
 
     public Page<SlotsApiDTO> getSlots(List<Long> idList, Integer pageNumber, Integer size, String sort) {
-        Page<Slot> slots;
-
         Pageable pageable = PageRequest.of(pageNumber, size, Sort.by(sort));
 
         Page<Slot> slotPage;
-
         if (idList != null && !idList.isEmpty()) {
             slotPage = slotRepository.findByIdIn(idList, pageable);
         } else {
@@ -41,7 +36,6 @@ public class SlotService {
 
         return slotPage.map(slotMapper::toApiDTO);
     }
-
 
     public SlotsApiDTO getSlotById(Long id) {
         return slotRepository.findById(id)

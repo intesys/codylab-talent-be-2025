@@ -8,13 +8,13 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface SlotMapper {
 
-    @Mapping(source = "dataInizio", target = "dataInizio", dateFormat = "dd/MM/yyyy")
-    @Mapping(source = "dataFine", target = "dataFine", dateFormat = "dd/MM/yyyy")
+    @Mapping(source = "startDate", target = "startDate", dateFormat = "dd/MM/yyyy")
+    @Mapping(source = "endDate", target = "endDate", dateFormat = "dd/MM/yyyy")
     @Mapping(source = "task.id", target = "taskId")
     SlotsApiDTO toApiDTO(Slot slot);
 
-    @Mapping(source = "dataInizio", target = "dataInizio", dateFormat = "dd/MM/yyyy")
-    @Mapping(source = "dataFine", target = "dataFine", dateFormat = "dd/MM/yyyy")
+    @Mapping(source = "startDate", target = "startDate", dateFormat = "dd/MM/yyyy")
+    @Mapping(source = "endDate", target = "endDate", dateFormat = "dd/MM/yyyy")
     @Mapping(source = "taskId", target = "task.id")
     Slot toEntity(SlotsApiDTO slotsApiDTO);
 }

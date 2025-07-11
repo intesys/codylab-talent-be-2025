@@ -27,11 +27,11 @@ public class TaskRestController implements TasksApi {
             Integer size,
             String sort,
             Long userId,
-            List<Long> tasksIds) {
+            List<Long> taskIds) {
 
         TaskFilterApiDTO filter = new TaskFilterApiDTO();
         filter.setUserId(userId);
-        filter.setIds(tasksIds);
+        filter.setIds(taskIds);
 
         List<TasksApiDTO> tasks = taskService.getTasksByFilter(filter);
 

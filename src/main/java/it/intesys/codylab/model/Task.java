@@ -6,17 +6,17 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name="tasks")
+@Table(name = "tasks")
 public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String codice;
-    private String nome;
-    private String descrizione;
-    private LocalDate dataInizio;
-    private Integer durata;
+    private String code;
+    private String name;
+    private String description;
+    private LocalDate startDate;
+    private Integer duration;
 
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
@@ -63,43 +63,43 @@ public class Task {
         this.id = id;
     }
 
-    public String getCodice() {
-        return codice;
+    public String getCode() {
+        return code;
     }
 
-    public void setCodice(String codice) {
-        this.codice = codice;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDescrizione() {
-        return descrizione;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public LocalDate getDataInizio() {
-        return dataInizio;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setDataInizio(LocalDate dataInizio) {
-        this.dataInizio = dataInizio;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public Integer getDurata() {
-        return durata;
+    public Integer getDuration() {
+        return duration;
     }
 
-    public void setDurata(Integer durata) {
-        this.durata = durata;
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 }

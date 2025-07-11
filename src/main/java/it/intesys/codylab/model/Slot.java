@@ -15,14 +15,14 @@ public class Slot {
     @JoinColumn(name = "task_id", nullable = false)
     private Task task;
 
-    @Column(name = "data_inizio", nullable = false)
-    private LocalDate dataInizio;
+    @Column(name = "start_date", nullable = false)
+    private LocalDate startDate;
 
-    @Column(name = "data_fine", nullable = false)
-    private LocalDate dataFine;
+    @Column(name = "end_date", nullable = false)
+    private LocalDate endDate;
 
-    @Column(name = "durata", nullable = false)
-    private Integer durata;
+    @Column(name = "duration", nullable = false)
+    private Integer duration;
 
     public Long getId() {
         return id;
@@ -40,27 +40,27 @@ public class Slot {
         this.task = task;
     }
 
-    public LocalDate getDataInizio() {
-        return dataInizio;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setDataInizio(LocalDate dataInizio) {
-        this.dataInizio = dataInizio;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public LocalDate getDataFine() {
-        return dataFine;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
-    public void setDataFine(LocalDate dataFine) {
-        this.dataFine = dataFine;
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
-    public Integer getDurata() {
-        return durata;
+    public Integer getDuration() {
+        return duration;
     }
 
-    public void setDurata(Integer durata) {
-        this.durata = durata;
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 }

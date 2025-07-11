@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface SlotRepository extends JpaRepository<Slot, Long> {
 
-
     Page<Slot> findByIdIn(List<Long> ids, Pageable pageable);
 
 }

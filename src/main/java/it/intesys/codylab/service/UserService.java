@@ -18,7 +18,7 @@ import java.util.stream.StreamSupport;
 import java.util.ArrayList;
 
 @Service
-@Transactional  // Aggiungi questa annotazione alla classe
+@Transactional
 public class UserService {
     Pageable pageable = PageRequest.of(0, 10, Sort.by("id"));
 
@@ -39,20 +39,20 @@ public class UserService {
     public UsersApiDTO getUserById(Long id) {
         return userRepository.findUserWithoutProjects(id)
                 .map(user -> {
-                    user.setProgettiResponsabili(null);
+                    user.setProjectManagers(null);
                     return userMapper.toApiDTO(user);
                 })
                 .orElseThrow(() -> new NoSuchElementException("User not found with id: " + id));
     }
 
-    @Transactional  
+    @Transactional
     public UsersApiDTO createUser(UsersApiDTO userDto) {
         User newUser = new User();
         newUser = userMapper.updateUserFromDto(userDto, newUser);
         newUser.setProjects(new ArrayList<>());
         newUser.setTasks(new ArrayList<>());
-        newUser.setProgettiResponsabili(new ArrayList<>());
-        
+        newUser.setProjectManagers(new ArrayList<>());
+
         User savedUser = userRepository.save(newUser);
         return userMapper.toApiDTO(savedUser);
     }
@@ -60,11 +60,11 @@ public class UserService {
     @Transactional
     public UsersApiDTO updateUser(Long id, UsersApiDTO userDto) {
         User existingUser = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Utente non trovato con id: " + id));
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
         existingUser = userMapper.updateUserFromDto(userDto, existingUser);
-        
+
         User savedUser = userRepository.save(existingUser);
-        
+
         return userMapper.toApiDTO(savedUser);
     }
 
@@ -72,13 +72,13 @@ public class UserService {
         User user = userRepository.findById(id).orElse(null);
         assert user != null;
         user.getTasks().clear();
-        user.getProgettiResponsabili().clear();
+        user.getManagedProjects().clear();
         user.getProjects().clear();
         userRepository.deleteById(id);
     }
 
-    public User findUtenteWithProgettiDirigente(Long id) {
-        return userRepository.findUtenteWithProgettiDirigente(id);
+    public User findUserWithProjectManagers(Long id) {
+        return userRepository.findUserWithManagedProjects(id);
     }
 
     public Page<UsersApiDTO> getUsers(
@@ -102,7 +102,7 @@ public class UserService {
 
         List<UsersApiDTO> dtoList = users.stream()
                 .map(user -> {
-                    user.setProgettiResponsabili(null); // se serve
+                    user.setProjectManagers(null);
                     return userMapper.toApiDTO(user);
                 })
                 .toList();
@@ -114,7 +114,4 @@ public class UserService {
 
         return new org.springframework.data.domain.PageImpl<>(pagedList, pageable, dtoList.size());
     }
-
-
-
 }
