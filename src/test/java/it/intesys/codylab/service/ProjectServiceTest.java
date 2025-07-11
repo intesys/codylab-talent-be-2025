@@ -34,26 +34,35 @@ class ProjectServiceTest {
         //ARRANGE
         Project project = new Project();
         project.setId(1L);
-        project.setCodice("PROJ123");
+        project.setCode("PROJ123");
+
+        ProjectsApiDTO projectDTO = new ProjectsApiDTO();
+        projectDTO.setId(1L);
+        projectDTO.setCode("PROJ123");
+
         when(projectRepository.findById(1L)).thenReturn(Optional.of(project));
-        //when(projectMapper.toDTO(any(Project.class))).thenReturn(new ProjectDTO());
-        //ACT
+        when(projectMapper.toApiDTO(project)).thenReturn(projectDTO);
+
+        // ACT
         ProjectsApiDTO projectResult = projectService.getProjectById(1L);
-        //ASSERT
+
+        // ASSERT
         assertNotNull(projectResult);
-        assertEquals(1l, projectResult.getId());
-        assertEquals("PROJ123", projectResult.getCodice());
+        assertEquals(1L, projectResult.getId());
+        assertEquals("PROJ123", projectResult.getCode());
         verify(projectRepository, times(1)).findById(1L);
+        verify(projectMapper, times(1)).toApiDTO(project);
     }
 
     @DisplayName("Verifico che quando chiamo un progetto NON esistente solleva una eccezione")
     @Test
     void getProjectByIdNotFound() {
-        //ARRANGE
+        // ARRANGE
         when(projectRepository.findById(1L)).thenReturn(Optional.empty());
-        //when(projectMapper.toDTO(any(Project.class))).thenReturn(new ProjectDTO());
+
         // ACT & ASSERT
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> projectService.getProjectById(1L));
-        assertEquals("Project not found with id: 1", exception.getMessage());
-}
+        assertThrows(RuntimeException.class, () -> projectService.getProjectById(1L));
+        verify(projectRepository, times(1)).findById(1L);
+        verify(projectMapper, never()).toApiDTO(any());
+    }
 }

@@ -30,32 +30,32 @@ public class ProjectServiceITest {
     @Transactional
     void testLifeCycle() {
         ProjectsApiDTO projectsApiDTO = new ProjectsApiDTO();
-        projectsApiDTO.setCodice("TEST001");
-        projectsApiDTO.setNome("TEST001");
-        projectsApiDTO.setDescrizione("Test Project 001");
+        projectsApiDTO.setCode("TEST001");
+        projectsApiDTO.setName("TEST001");
+        projectsApiDTO.setDescription("Test Project 001");
         TasksApiDTO tasksApiDTO = new TasksApiDTO();
-        tasksApiDTO.setCodice("TASK001");
-        tasksApiDTO.setNome("TASK001");
-        tasksApiDTO.setDescrizione("Test Task 001");
+        tasksApiDTO.setCode("TASK001");
+        tasksApiDTO.setName("TASK001");
+        tasksApiDTO.setDescription("Test Task 001");
 
         projectsApiDTO = projectService.createProject(projectsApiDTO);
 
         assertNotNull(projectsApiDTO);
         assertThat(projectsApiDTO.getId()).isNotNull();
-        assertThat(projectsApiDTO.getCodice()).isEqualTo("TEST001");
+        assertThat(projectsApiDTO.getCode()).isEqualTo("TEST001");
 
         ProjectsApiDTO project = projectService.getProjectById(projectsApiDTO.getId());
         assertNotNull(project);
-        assertThat(project.getCodice()).isEqualTo("TEST001");
+        assertThat(project.getCode()).isEqualTo("TEST001");
 
         projectsApiDTO = new ProjectsApiDTO();
-        projectsApiDTO.setCodice("TEST002");
-        projectsApiDTO.setNome("TEST002");
-        projectsApiDTO.setDescrizione("Test Project 002");
+        projectsApiDTO.setCode("TEST002");
+        projectsApiDTO.setName("TEST002");
+        projectsApiDTO.setDescription("Test Project 002");
         tasksApiDTO = new TasksApiDTO();
-        tasksApiDTO.setCodice("TASK002");
-        tasksApiDTO.setNome("TASK002");
-        tasksApiDTO.setDescrizione("Test Task 002");
+        tasksApiDTO.setCode("TASK002");
+        tasksApiDTO.setName("TASK002");
+        tasksApiDTO.setDescription("Test Task 002");
 
         projectService.createProject(projectsApiDTO);
 
@@ -71,37 +71,37 @@ public class ProjectServiceITest {
     @Transactional
     void createProject() {
         ProjectsApiDTO projectsApiDTO = new ProjectsApiDTO();
-        projectsApiDTO.setCodice("TEST001");
-        projectsApiDTO.setNome("TEST001");
-        projectsApiDTO.setDescrizione("Test Project 001");
+        projectsApiDTO.setCode("TEST001");
+        projectsApiDTO.setName("TEST001");
+        projectsApiDTO.setDescription("Test Project 001");
 
         ProjectsApiDTO createdProject = projectService.createProject(projectsApiDTO);
         assertNotNull(createdProject);
         assertThat(createdProject.getId()).isNotNull();
-        assertThat(createdProject.getCodice()).isEqualTo("TEST001");
+        assertThat(createdProject.getCode()).isEqualTo("TEST001");
 
         ProjectsApiDTO retrievedProject = projectService.getProjectById(createdProject.getId());
         assertNotNull(retrievedProject);
-        assertThat(retrievedProject.getCodice()).isEqualTo("TEST001");
+        assertThat(retrievedProject.getCode()).isEqualTo("TEST001");
     }
 
     @Test
     @Transactional
     void findByCodice() {
         ProjectsApiDTO projectsApiDTO = new ProjectsApiDTO();
-        projectsApiDTO.setCodice("TEST001");
-        projectsApiDTO.setNome("TEST001");
-        projectsApiDTO.setDescrizione("Test Project 001");
+        projectsApiDTO.setCode("TEST001");
+        projectsApiDTO.setName("TEST001");
+        projectsApiDTO.setDescription("Test Project 001");
         TasksApiDTO tasksApiDTO = new TasksApiDTO();
-        tasksApiDTO.setCodice("TASK001");
-        tasksApiDTO.setNome("TASK001");
-        tasksApiDTO.setDescrizione("Test Task 001");
+        tasksApiDTO.setCode("TASK001");
+        tasksApiDTO.setName("TASK001");
+        tasksApiDTO.setDescription("Test Task 001");
 
         projectsApiDTO = projectService.createProject(projectsApiDTO);
 
         ProjectsApiDTO retrievedProject = projectService.getProjectById(projectsApiDTO.getId());
         assertNotNull(retrievedProject);
-        assertThat(retrievedProject.getNome()).isEqualTo("TEST001");
+        assertThat(retrievedProject.getName()).isEqualTo("TEST001");
 
         ProjectFilterApiDTO filter = new ProjectFilterApiDTO();
         filter.setProjectCodes(List.of("TEST000"));
