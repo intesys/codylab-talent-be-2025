@@ -5,6 +5,10 @@
 </head>
 <body>
 <h1>Add New Project</h1>
+<div th:if="${managerError}" style="color: #ff001e; font-weight: bold; margin-bottom: 10px;">
+    <p th:text="${managerError}"></p>
+</div>
+
 <form th:action="@{/mvc/project}" th:object="${project}" method="post">
     <label for="code">Code:</label>
     <input type="text" id="code" name="code" th:field="*{code}" required>

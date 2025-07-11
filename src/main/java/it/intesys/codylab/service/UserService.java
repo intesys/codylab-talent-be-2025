@@ -114,4 +114,8 @@ public class UserService {
 
         return new org.springframework.data.domain.PageImpl<>(pagedList, pageable, dtoList.size());
     }
+
+    public boolean existsByUsername(String manager) {
+        return userRepository.existsByUsername(manager);
+    }
 }
