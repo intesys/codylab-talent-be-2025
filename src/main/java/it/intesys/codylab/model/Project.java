@@ -9,6 +9,8 @@ import java.util.List;
 @Table(name = "projects")
 public class Project {
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,6 +19,8 @@ public class Project {
     private String description;
     private LocalDate startDate;
     private Integer duration;
+    @Enumerated(EnumType.STRING)
+    private ProjectState state;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> tasks;
@@ -92,4 +96,10 @@ public class Project {
     public void setManager(User manager) {
         this.manager = manager;
     }
-}
+
+    public ProjectState getState() {
+        return state;
+    }
+    public void setState(ProjectState state) {
+        this.state = state;
+}}

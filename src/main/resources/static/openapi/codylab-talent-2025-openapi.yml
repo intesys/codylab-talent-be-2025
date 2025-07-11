@@ -900,9 +900,17 @@ components:
         duration:
           type: integer
           description: Project duration in days.
+        state:
+          type: string
+          description: Project state (e.g., open, closed, deleted).
         manager:
           type: string
           description: Project manager name.
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tasks'
+
     Tasks:
       type: object
       properties:
@@ -934,6 +942,9 @@ components:
         duration:
           type: integer
           description: Task duration in days.
+        state:
+            type: string
+            description: Task state (e.g., in progress, completed, deleted).
     Users:
       type: object
       properties:

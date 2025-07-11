@@ -15,4 +15,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT u FROM User u WHERE u.id = :id")
     Optional<User> findUserWithoutProjects(@Param("id") Long id);
 
+    Optional<User> findByUsername(String username);
+
 }

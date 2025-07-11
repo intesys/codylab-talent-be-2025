@@ -5,6 +5,7 @@ import it.intesys.codylab.api.model.ProjectsApiDTO;
 import it.intesys.codylab.mapper.ProjectMapper;
 import it.intesys.codylab.model.Project;
 import it.intesys.codylab.repository.ProjectRepository;
+import it.intesys.codylab.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,10 +22,12 @@ public class ProjectService {
 
     private final ProjectRepository projectRepository;
     private final ProjectMapper projectMapper;
+    private final UserRepository userRepository;
 
-    public ProjectService(ProjectRepository projectRepository, ProjectMapper projectMapper) {
+    public ProjectService(ProjectRepository projectRepository, ProjectMapper projectMapper, UserRepository userRepository) {
         this.projectRepository = projectRepository;
         this.projectMapper = projectMapper;
+        this.userRepository = userRepository;
     }
 
     public ProjectsApiDTO getProjectById(Long id) {
@@ -35,7 +38,7 @@ public class ProjectService {
 
     public ProjectsApiDTO createProject(ProjectsApiDTO projectsApiDTO) {
         projectsApiDTO.setId(null);
-        Project project = projectMapper.toEntity(projectsApiDTO);
+        Project project = projectMapper.toEntityWithUser(projectsApiDTO, userRepository);
         Project savedProject = projectRepository.save(project);
         return projectMapper.toApiDTO(savedProject);
     }

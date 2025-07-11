@@ -21,6 +21,18 @@
     <label for="duration">Duration (days):</label>
     <input type="number" id="duration" name="duration" th:field="*{duration}" required>
     <br>
+    <label for="state">State:</label>
+    <select id="state" name="state" th:field="*{state}" required>
+        <option value="">-- Select State --</option>
+        <option th:each="state : ${T(it.intesys.codylab.model.ProjectState).values()}"
+                th:value="${state.name()}"
+                th:text="${state.name()}">
+        </option>
+    </select>
+    <br>
+    <label for="manager">Manager:</label>
+    <input type="text" id="manager" name="manager" th:field="*{manager}" required>
+    <br>
     <button type="submit">Add Project</button>
 </form>
 <a href th:href="@{/mvc/projects}">Back to Projects</a>

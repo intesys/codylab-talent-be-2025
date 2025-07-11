@@ -17,6 +17,8 @@ public class Task {
     private String description;
     private LocalDate startDate;
     private Integer duration;
+    @Enumerated(EnumType.STRING)
+    private TaskState state;
 
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
@@ -101,5 +103,12 @@ public class Task {
 
     public void setDuration(Integer duration) {
         this.duration = duration;
+    }
+
+    public TaskState getState() {
+        return state;
+    }
+    public void setState(TaskState state) {
+        this.state = state;
     }
 }

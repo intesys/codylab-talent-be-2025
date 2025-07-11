@@ -2,9 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Projects</title>
+
 </head>
 <body>
 <h1>Project List</h1>
+
 
 <ul>
     <li th:each="project : ${projects}">
@@ -17,6 +19,7 @@
 </ul>
 
 <a href="/mvc/project/add">Add New Project</a>
+
 
 </body>
 </html>

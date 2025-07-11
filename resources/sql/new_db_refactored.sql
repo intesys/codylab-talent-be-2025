@@ -6,6 +6,7 @@ CREATE TABLE users (
                        last_name VARCHAR NOT NULL,
                        email VARCHAR UNIQUE NOT NULL,
                        profile VARCHAR NOT NULL,
+                        username VARCHAR UNIQUE NOT NULL,
                        daily_hours DECIMAL NOT NULL
 );
 
