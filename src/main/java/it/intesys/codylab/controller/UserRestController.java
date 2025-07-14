@@ -96,4 +96,20 @@ public class UserRestController implements UsersApi {
         UsersApiDTO dto = userMapper.toApiDTO(user);
         return ResponseEntity.ok(dto);
     }
+
+    @Override
+    public ResponseEntity<UsersApiDTO> getUserByUsername(String username) {
+        if (username == null || username.isEmpty()) {
+            return ResponseEntity.badRequest().build();  // opzionale, non è definito nel tuo OpenAPI
+        }
+
+        UsersApiDTO userDto = userService.getUserByUsername(username);
+
+        if (userDto == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(userDto);
+    }
+
 }

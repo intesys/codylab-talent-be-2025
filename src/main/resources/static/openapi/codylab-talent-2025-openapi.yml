@@ -635,6 +635,35 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/ApiError'
+  /users/username/{username}:
+    get:
+      summary: Retrieve a user by their username
+      description: Returns the User object corresponding to the provided username.
+      operationId: getUserByUsername
+      tags:
+        - Users
+      parameters:
+        - name: username
+          in: path
+          description: Username of the user.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User successfully retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+        '404':
+          description: User not found.
+        '500':
+          description: Internal server error.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
   /slots/{id}:
     get:
       summary: Retrieve a slot by its ID

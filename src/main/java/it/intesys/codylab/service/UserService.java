@@ -121,4 +121,11 @@ public class UserService {
     public boolean existsByUsername(String manager) {
         return userRepository.existsByUsername(manager);
     }
+
+    public UsersApiDTO getUserByUsername(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new NoSuchElementException("User not found with username: " + username));
+        user.setProjectManagers(null);
+        return userMapper.toApiDTO(user);
+    }
 }
