@@ -37,3 +37,9 @@ VALUES (1, '2025-01-01', '2025-01-31', 30),
        (4, '2025-03-21', '2025-05-05', 45),
        (5, '2024-12-01', '2024-12-15', 15),
        (6, '2024-12-16', '2025-01-15', 30);
+
+drop table if exists users_tasks;
+drop table if exists slots;
+drop table if exists tasks;
+drop table if exists projects;
+drop table if exists users;
