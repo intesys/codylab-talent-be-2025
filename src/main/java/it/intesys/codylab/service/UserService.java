@@ -52,7 +52,10 @@ public class UserService {
         newUser.setProjects(new ArrayList<>());
         newUser.setTasks(new ArrayList<>());
         newUser.setProjectManagers(new ArrayList<>());
-
+        newUser = userMapper.updateUserFromDto(userDto, newUser);
+        if (newUser.getDailyHours() == null) {
+            newUser.setDailyHours(0.0);
+        }
         User savedUser = userRepository.save(newUser);
         return userMapper.toApiDTO(savedUser);
     }
