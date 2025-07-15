@@ -53,6 +53,7 @@ public class TaskService {
     public TasksApiDTO updateTask(Long id, TasksApiDTO taskDto) {
         Task task = taskMapper.toEntity(taskDto);
         task.setId(id);
+        task.setSlots(taskRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Task not found with id: " + id)).getSlots());
         Task updatedTask = taskRepository.save(task);
         return taskMapper.toApiDTO(updatedTask);
     }
