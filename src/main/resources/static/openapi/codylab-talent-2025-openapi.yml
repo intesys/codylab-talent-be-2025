@@ -902,7 +902,7 @@ components:
           description: Project duration in days.
         state:
           type: string
-          enum: [in  progress, completed, deleted]
+          enum: [open, closed, deleted]
           description: Project state (e.g., open, closed, deleted).
         manager:
           type: string
