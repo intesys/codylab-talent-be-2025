@@ -46,6 +46,8 @@ public class ProjectService {
     public ProjectsApiDTO updateProject(Long id, ProjectsApiDTO projectsApiDTO) {
         Project project = projectMapper.toEntity(projectsApiDTO);
         project.setId(id);
+        project.setTasks(projectRepository.findById(id).orElseThrow().getTasks());
+        project.setManager(projectRepository.findById(id).orElseThrow().getManager());
         Project updatedProject = projectRepository.save(project);
         return projectMapper.toApiDTO(updatedProject);
     }
