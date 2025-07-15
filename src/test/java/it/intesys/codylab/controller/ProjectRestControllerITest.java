@@ -1,5 +1,7 @@
 package it.intesys.codylab.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import it.intesys.codylab.api.model.ProjectsApiDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,11 +19,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles("test")
+@ActiveProfiles("testcontainer")
 class ProjectRestControllerITest {
 
     @Autowired
     private MockMvc mockMvc;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Test
     void simpleSearchProjects() throws Exception {
@@ -34,7 +38,15 @@ class ProjectRestControllerITest {
 
     @Test
     void createProject()  throws Exception{
-        String newProjectJson = "{ \"name\": \"New Project\", \"description\": \"A new project for testing\" }";
+//        String newProjectJson = "{ \"name\": \"New Project\", \"description\": \"A new project for testing\" }";
+        ProjectsApiDTO projectsApiDTO = new ProjectsApiDTO();
+        projectsApiDTO.setName("New Project");
+        projectsApiDTO.setDescription("A new project for testing");
+        projectsApiDTO.setState(ProjectsApiDTO.StateEnum.OPEN);
+        projectsApiDTO.setCode("NP");
+        String newProjectJson = objectMapper.writeValueAsString(projectsApiDTO);
+//        String newProjectJson = projectsApiDTO.toString();
+
 
         mockMvc.perform(post("/api/v1/projects")
                 .contentType("application/json")
@@ -45,4 +57,5 @@ class ProjectRestControllerITest {
                 .andExpect(jsonPath("$.name").value("New Project"))
                 .andExpect(jsonPath("$.description").value("A new project for testing"));
     }
+
 }

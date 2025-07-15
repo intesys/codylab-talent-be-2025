@@ -931,6 +931,7 @@ components:
           description: Project duration in days.
         state:
           type: string
+          enum: [open, closed, deleted]
           description: Project state (e.g., open, closed, deleted).
         manager:
           type: string
@@ -973,6 +974,7 @@ components:
           description: Task duration in days.
         state:
             type: string
+            enum: [in progress, completed, deleted]
             description: Task state (e.g., in progress, completed, deleted).
     Users:
       type: object
