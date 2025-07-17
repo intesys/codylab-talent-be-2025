@@ -1,0 +1,8 @@
+ARG KEYCLOAK_IMAGE="quay.io/keycloak/keycloak:24.0.2"
+
+FROM ${KEYCLOAK_IMAGE}
+
+#COPY /custom-claim-mapper/*.jar /opt/keycloak/providers/
+COPY /resources/realm-config/*.json /opt/keycloak/data/import/
+
+RUN /opt/keycloak/bin/kc.sh build --features="token-exchange"

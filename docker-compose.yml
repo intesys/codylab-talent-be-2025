@@ -15,3 +15,18 @@ services:
       retries: 10
     ports:
       - "5432:5432"
+  codylab-keycloak:
+    build:
+      context: .
+      dockerfile: Dockerfile-keycloak
+    command:
+      - start-dev
+      - --import-realm
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_HTTP_PORT=9090
+      - KC_HTTPS_PORT=9443
+    ports:
+      - 127.0.0.1:9090:9090
+      - 127.0.0.1:9443:9443
