@@ -20,21 +20,10 @@ public class SecurityConfig {
                     .csrf(AbstractHttpConfigurer::disable)// Disable CSRF for simplicity, not recommended for production
                     .authorizeHttpRequests(authorize -> authorize.requestMatchers("/api/v1/projects/**").authenticated()
                             .anyRequest().permitAll())
-            .httpBasic(Customizer.withDefaults());
+                    .oauth2Login(Customizer.withDefaults());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return http.build();
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails userDetails = User.withDefaultPasswordEncoder()
-                .username("user")
-                .password("password")
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(userDetails);
     }
 }
