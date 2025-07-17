@@ -17,6 +17,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
         try {
             http
+                    .cors(Customizer.withDefaults())
                     .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize    .requestMatchers("/api/v1/projects/**").authenticated()
                         .anyRequest().permitAll())
