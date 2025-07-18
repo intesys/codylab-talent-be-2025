@@ -2,6 +2,7 @@ package it.intesys.codylab.controller;
 
 import it.intesys.codylab.api.model.ProjectFilterApiDTO;
 import it.intesys.codylab.api.model.ProjectsApiDTO;
+import it.intesys.codylab.api.model.TasksApiDTO;
 import it.intesys.codylab.api.rest.ProjectsApi;
 import it.intesys.codylab.model.Project;
 import it.intesys.codylab.service.ProjectService;
@@ -37,6 +38,26 @@ public class ProjectRestController implements ProjectsApi {
                     ProjectsApiDTO dto = new ProjectsApiDTO();
                     dto.setId(project.getId());
                     dto.setName(project.getName());
+                    dto.setCode(project.getCode());
+                    dto.setDescription(project.getDescription());
+                    dto.setStartDate(project.getStartDate());
+                    dto.setDuration(project.getDuration());
+                    dto.setState(ProjectsApiDTO.StateEnum.valueOf(project.getState().name()));
+                    dto.setManager(project.getManager().getUsername());
+                    List<TasksApiDTO> tasks = project.getTasks().stream().map(task -> {
+                                TasksApiDTO taskdto = new TasksApiDTO();
+                                taskdto.setProjectId(project.getId());
+                                taskdto.setId(task.getId());
+                                taskdto.setName(task.getName());
+                                taskdto.setCode(task.getCode());
+                                taskdto.setDescription(task.getDescription());
+                                taskdto.setStartDate(task.getStartDate());
+                                taskdto.setDuration(task.getDuration());
+                                taskdto.setState(TasksApiDTO.StateEnum.valueOf(task.getState().name()));
+                                return taskdto;
+                            }
+                    ).collect(Collectors.toList());
+                    dto.setTasks(tasks);
                     return dto;
                 })
                 .collect(Collectors.toList());

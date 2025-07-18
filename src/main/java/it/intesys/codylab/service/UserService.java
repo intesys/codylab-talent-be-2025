@@ -14,8 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 @Transactional
@@ -29,12 +27,6 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public Page<UsersApiDTO> getUsers() {
-        return (Page<UsersApiDTO>) StreamSupport.stream(userRepository.findAll().spliterator(), false)
-                .map(userMapper::toApiDTO)
-                .collect(Collectors.toList());
-    }
-
     public UsersApiDTO getUserById(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("User not found with id: " + id));
@@ -45,6 +37,7 @@ public class UserService {
     public UsersApiDTO createUser(UsersApiDTO userDto) {
         User newUser = new User();
         newUser = userMapper.updateUserFromDto(userDto, newUser);
+        newUser.setId(null);
         newUser.setProjects(new ArrayList<>());
         newUser.setTasks(new ArrayList<>());
         newUser.setProjectManagers(new ArrayList<>());

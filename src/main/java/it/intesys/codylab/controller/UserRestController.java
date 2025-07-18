@@ -40,7 +40,6 @@ public class UserRestController implements UsersApi {
         if (size == null) size = 10;
         if (sort == null || sort.isEmpty()) sort = "id";
         if (ids == null) ids = List.of();
-
         Pageable pageable = PageRequest.of(pageNumber, size, Sort.by(sort));
 
         Page<UsersApiDTO> users = userService.getUsers(ids, taskId, pageable);

@@ -31,6 +31,7 @@ public class ProjectService {
     }
 
     public List<Project> findUserWithProjectManagers(Long id) {
+        this.userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("User not found"));
         return projectRepository.findProjectsManagedByUser(id);
     }
 

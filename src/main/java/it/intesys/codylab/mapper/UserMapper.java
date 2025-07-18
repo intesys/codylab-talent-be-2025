@@ -1,18 +1,22 @@
 package it.intesys.codylab.mapper;
 
 import it.intesys.codylab.api.model.UsersApiDTO;
+import it.intesys.codylab.model.Task;
 import it.intesys.codylab.model.User;
+import it.intesys.codylab.api.model.TasksApiDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {TaskMapper.class})
 public interface UserMapper {
 
     @Mapping(target = "managedProjects", ignore = true)
+    @Mapping(target = "tasks", source = "tasks")
     UsersApiDTO toApiDTO(User user);
 
     List<UsersApiDTO> toApiDTO(List<User> users);
