@@ -86,14 +86,4 @@ public class UserRestController implements UsersApi {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
-
-    @Override
-    public ResponseEntity<UsersApiDTO> getUserWithManagedProjects(Long id) {
-        User user = userService.findUserWithProjectManagers(id);
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        }
-        UsersApiDTO dto = userMapper.toApiDTO(user);
-        return ResponseEntity.ok(dto);
-    }
 }

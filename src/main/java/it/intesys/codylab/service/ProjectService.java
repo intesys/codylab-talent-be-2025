@@ -30,6 +30,11 @@ public class ProjectService {
         this.userRepository = userRepository;
     }
 
+    public List<Project> findUserWithProjectManagers(Long id) {
+        this.userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("User not found"));
+        return projectRepository.findProjectsManagedByUser(id);
+    }
+
     public ProjectsApiDTO getProjectById(Long id) {
         return projectRepository.findById(id)
                 .map(projectMapper::toApiDTO)

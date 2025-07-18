@@ -7,10 +7,11 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {TaskMapper.class})
 public interface UserMapper {
 
     @Mapping(target = "managedProjects", ignore = true)
+    @Mapping(target = "tasks", source = "tasks")
     UsersApiDTO toApiDTO(User user);
 
     @Mapping(target = "id", ignore = true)
