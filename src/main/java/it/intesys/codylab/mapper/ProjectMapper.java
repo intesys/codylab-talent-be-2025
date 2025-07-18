@@ -4,14 +4,12 @@ import it.intesys.codylab.api.model.ProjectsApiDTO;
 import it.intesys.codylab.model.Project;
 import it.intesys.codylab.model.User;
 import it.intesys.codylab.repository.UserRepository;
-import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper(componentModel = "spring", uses = {TaskMapper.class})
 public interface ProjectMapper {
+
 
     @Mapping(target = "startDate", source = "startDate", dateFormat = "dd-MM-yyyy")
     @Mapping(target = "manager", source = "manager.username")

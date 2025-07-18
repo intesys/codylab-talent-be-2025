@@ -30,6 +30,10 @@ public class ProjectService {
         this.userRepository = userRepository;
     }
 
+    public List<Project> findUserWithProjectManagers(Long id) {
+        return projectRepository.findProjectsManagedByUser(id);
+    }
+
     public ProjectsApiDTO getProjectById(Long id) {
         return projectRepository.findById(id)
                 .map(projectMapper::toApiDTO)

@@ -3,7 +3,6 @@ package it.intesys.codylab.controller;
 import it.intesys.codylab.api.model.UsersApiDTO;
 import it.intesys.codylab.api.rest.UsersApi;
 import it.intesys.codylab.mapper.UserMapper;
-import it.intesys.codylab.model.User;
 import it.intesys.codylab.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -85,16 +84,6 @@ public class UserRestController implements UsersApi {
     public ResponseEntity<Void> deleteUser(Long id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @Override
-    public ResponseEntity<UsersApiDTO> getUserWithManagedProjects(Long id) {
-        User user = userService.findUserWithProjectManagers(id);
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        }
-        UsersApiDTO dto = userMapper.toApiDTO(user);
-        return ResponseEntity.ok(dto);
     }
 
     @Override

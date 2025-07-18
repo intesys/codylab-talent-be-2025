@@ -11,19 +11,18 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-import java.util.ArrayList;
 
 @Service
 @Transactional
 public class UserService {
-    Pageable pageable = PageRequest.of(0, 10, Sort.by("id"));
-
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    Pageable pageable = PageRequest.of(0, 10, Sort.by("id"));
 
     public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
@@ -37,12 +36,9 @@ public class UserService {
     }
 
     public UsersApiDTO getUserById(Long id) {
-        return userRepository.findUserWithoutProjects(id)
-                .map(user -> {
-                    user.setProjectManagers(null);
-                    return userMapper.toApiDTO(user);
-                })
+        User user = userRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("User not found with id: " + id));
+        return userMapper.toApiDTO(user);
     }
 
     @Transactional
@@ -78,10 +74,6 @@ public class UserService {
         user.getManagedProjects().clear();
         user.getProjects().clear();
         userRepository.deleteById(id);
-    }
-
-    public User findUserWithProjectManagers(Long id) {
-        return userRepository.findUserWithManagedProjects(id);
     }
 
     public Page<UsersApiDTO> getUsers(

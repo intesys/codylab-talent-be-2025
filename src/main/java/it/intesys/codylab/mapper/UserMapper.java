@@ -7,11 +7,15 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
     @Mapping(target = "managedProjects", ignore = true)
     UsersApiDTO toApiDTO(User user);
+
+    List<UsersApiDTO> toApiDTO(List<User> users);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "managedProjects", ignore = true)
@@ -24,7 +28,6 @@ public interface UserMapper {
         if (dto == null) {
             return user;
         }
-
         if (dto.getFirstName() != null) {
             user.setFirstName(dto.getFirstName());
         }
@@ -40,7 +43,6 @@ public interface UserMapper {
         if (dto.getProfile() != null) {
             user.setProfile(dto.getProfile());
         }
-
         return user;
     }
 
