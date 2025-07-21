@@ -976,6 +976,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Projects'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tasks'
     Slots:
       type: object
       properties:
