@@ -38,9 +38,8 @@ public class UserService {
         User newUser = new User();
         newUser = userMapper.updateUserFromDto(userDto, newUser);
         newUser.setId(null);
-        newUser.setProjects(new ArrayList<>());
         newUser.setTasks(new ArrayList<>());
-        newUser.setProjectManagers(new ArrayList<>());
+        newUser.setManagedProjects(new ArrayList<>());
         newUser = userMapper.updateUserFromDto(userDto, newUser);
         if (newUser.getDailyHours() == null) {
             newUser.setDailyHours(0.0);
@@ -54,7 +53,6 @@ public class UserService {
         User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
         existingUser = userMapper.updateUserFromDto(userDto, existingUser);
-
         User savedUser = userRepository.save(existingUser);
 
         return userMapper.toApiDTO(savedUser);
@@ -65,7 +63,7 @@ public class UserService {
         assert user != null;
         user.getTasks().clear();
         user.getManagedProjects().clear();
-        user.getProjects().clear();
+        user.getManagedProjects().clear();
         userRepository.deleteById(id);
     }
 
@@ -90,7 +88,7 @@ public class UserService {
 
         List<UsersApiDTO> dtoList = users.stream()
                 .map(user -> {
-                    user.setProjectManagers(null);
+                    user.setManagedProjects(null);
                     return userMapper.toApiDTO(user);
                 })
                 .toList();
@@ -110,7 +108,7 @@ public class UserService {
     public UsersApiDTO getUserByUsername(String username) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new NoSuchElementException("User not found with username: " + username));
-        user.setProjectManagers(null);
+        user.setManagedProjects(null);
         return userMapper.toApiDTO(user);
     }
 }

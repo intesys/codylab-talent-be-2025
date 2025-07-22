@@ -23,8 +23,7 @@ public interface UserMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "managedProjects", ignore = true)
-    @Mapping(target = "projects", ignore = true)
-    @Mapping(target = "tasks", ignore = true)
+    @Mapping(target = "tasks", source = "tasks")
     User toEntity(UsersApiDTO usersApiDTO);
 
     @Named("updateUser")
@@ -47,6 +46,26 @@ public interface UserMapper {
         if (dto.getProfile() != null) {
             user.setProfile(dto.getProfile());
         }
+        if (dto.getTasks() != null) {
+            List<Task> tasks = dto.getTasks().stream().map(taskApiDto -> {
+                Task task = new Task();
+
+                // Map i campi di TasksApiDTO in Task
+                task.setId(taskApiDto.getId());
+                task.setCode(taskApiDto.getCode());
+                task.setName(taskApiDto.getName());
+                task.setDescription(taskApiDto.getDescription());
+                task.setStartDate(taskApiDto.getStartDate());
+                task.setDuration(taskApiDto.getDuration());
+
+                // Aggiungi altri campi se necessario
+                return task;
+            }).collect(Collectors.toList());
+
+            // Imposta la lista di Task sull'utente
+            user.setTasks(tasks);
+        }
+
         return user;
     }
 

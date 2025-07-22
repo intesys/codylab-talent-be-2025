@@ -24,9 +24,6 @@ public class User {
 
     private Double dailyHours;
 
-    @OneToMany(mappedBy = "manager", fetch = FetchType.LAZY)
-    private List<Project> projects;
-
     @ManyToMany
     @JoinTable(
             name = "users_tasks",
@@ -42,17 +39,6 @@ public class User {
         // Default constructor
     }
 
-    public void setManagedProjects(List<Project> managedProjects) {
-        this.managedProjects = managedProjects;
-    }
-
-    public List<Project> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(List<Project> projects) {
-        this.projects = projects;
-    }
 
     public List<Task> getTasks() {
         return tasks;
@@ -135,14 +121,6 @@ public class User {
             return this.tasks.get(0).getId();
         } else {
             return null;
-        }
-    }
-
-    public void setProjectManagers(Object o) {
-        if (o instanceof List) {
-            this.managedProjects = (List<Project>) o;
-        } else {
-            this.managedProjects = null;
         }
     }
 }
