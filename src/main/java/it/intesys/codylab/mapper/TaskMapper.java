@@ -9,11 +9,11 @@ import org.mapstruct.Mapping;
 public interface TaskMapper {
 
     @Mapping(source = "startDate", target = "startDate", dateFormat = "dd/MM/yyyy")
-    @Mapping(source = "project.id", target = "projectId")
+    @Mapping(source = "project.name", target = "projectName")
     TasksApiDTO toApiDTO(Task task);
 
     @Mapping(source = "startDate", target = "startDate", dateFormat = "dd/MM/yyyy")
-    @Mapping(source = "projectId", target = "project.id")
+    @Mapping(source = "projectName", target = "project.name")
     Task toEntity(TasksApiDTO tasksApiDTO);
 
 }
