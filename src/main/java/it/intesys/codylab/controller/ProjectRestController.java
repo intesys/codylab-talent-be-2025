@@ -46,7 +46,7 @@ public class ProjectRestController implements ProjectsApi {
                     dto.setManager(project.getManager().getUsername());
                     List<TasksApiDTO> tasks = project.getTasks().stream().map(task -> {
                                 TasksApiDTO taskdto = new TasksApiDTO();
-                                taskdto.setProjectName(project.getName());
+                                taskdto.setProjectId(project.getId());
                                 taskdto.setId(task.getId());
                                 taskdto.setName(task.getName());
                                 taskdto.setCode(task.getCode());
