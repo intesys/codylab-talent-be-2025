@@ -3,7 +3,6 @@ package it.intesys.codylab.mapper;
 import it.intesys.codylab.api.model.UsersApiDTO;
 import it.intesys.codylab.model.Task;
 import it.intesys.codylab.model.User;
-import it.intesys.codylab.api.model.TasksApiDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -45,6 +44,9 @@ public interface UserMapper {
         }
         if (dto.getProfile() != null) {
             user.setProfile(dto.getProfile());
+        }
+        if (dto.getDailyHours() != null) {
+            user.setDailyHours(dto.getDailyHours());
         }
         if (dto.getTasks() != null) {
             List<Task> tasks = dto.getTasks().stream().map(taskApiDto -> {
