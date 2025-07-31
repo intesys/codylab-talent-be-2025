@@ -21,16 +21,6 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   security:
     oauth2:
-      client:
-        provider:
-          keycloak:
-            issuer-uri: http://localhost:9090/realms/codylab
-        registration:
-          codylab-2025:
-            client-id: codylab-client
-            client-secret: oiJWmrarerSQWrutUAGaGKKQpZrpYcnK
-            provider: keycloak
-            scope:
-              - openid
-              - email
-              - profile
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9090/realms/codylab

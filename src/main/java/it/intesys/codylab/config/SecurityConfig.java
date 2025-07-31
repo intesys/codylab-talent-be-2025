@@ -26,9 +26,6 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/projects/**", "/api/v1/users/**").authenticated()
                         .anyRequest().permitAll()
                 )
-                .oauth2Login(oauth -> oauth
-                        .defaultSuccessUrl("http://localhost:5173", true)
-                )
                 .exceptionHandling(ex -> ex
                         .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 );
