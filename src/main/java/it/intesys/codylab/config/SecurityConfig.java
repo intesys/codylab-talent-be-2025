@@ -23,13 +23,11 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/v1/projects/**", "/api/v1/users/**").authenticated()
-                        .anyRequest().permitAll()
+                        .requestMatchers("/api/**").permitAll()
                 )
-                .exceptionHandling(ex -> ex
+                .exceptionHandling(exceptions -> exceptions
                         .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 );
-
         return http.build();
     }
 
