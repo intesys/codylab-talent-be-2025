@@ -13,8 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChainOLD(HttpSecurity http) throws Exception {
         try {
             http
                     .csrf(AbstractHttpConfigurer::disable)// Disable CSRF for simplicity, not recommended for production
@@ -22,6 +21,19 @@ public class SecurityConfig {
                             .anyRequest().permitAll())
                     .oauth2Login(Customizer.withDefaults());
         } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return http.build();
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        try {
+            http
+                    .csrf(AbstractHttpConfigurer::disable)// Disable CSRF for simplicity, not recommended for production
+                    .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll());
+        } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
         return http.build();
