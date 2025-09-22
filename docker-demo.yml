@@ -1,0 +1,83 @@
+name: codylab-talent-be-2025
+services:
+  codylab-postgresql:
+    image: postgres:15.3
+    container_name: codylab-postgresql
+    environment:
+      - POSTGRES_DB=projects_management  # Crea questo database di default
+      - POSTGRES_USER=codylab
+      - POSTGRES_PASSWORD=cody|_ab2025
+    healthcheck:
+      test: [ 'CMD-SHELL', 'pg_isready -U codylab -d projects_management' ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  codylab-keycloak:
+    build:
+      context: .
+      dockerfile: Dockerfile-keycloak
+    container_name: codylab-keycloak
+    command:
+      - start-dev
+      - --import-realm
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_HTTP_PORT=9090
+      - KC_HTTPS_PORT=9443
+      # USA LO STESSO DATABASE DELL'APPLICAZIONE TEMPORANEAMENTE
+      - KC_DB=postgres
+      - KC_DB_URL=jdbc:postgresql://codylab-postgresql:5432/projects_management
+      - KC_DB_USERNAME=codylab
+      - KC_DB_PASSWORD=cody|_ab2025
+    depends_on:
+      codylab-postgresql:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:9090:9090"
+      - "127.0.0.1:9443:9443"
+
+  codylab-2025-api:
+    image: intesys/codylab-2025:main
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: codylab-2025-api
+    depends_on:
+      codylab-postgresql:
+        condition: service_healthy
+      codylab-keycloak:
+        condition: service_started
+    environment:
+      # Spring Boot standard properties
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://codylab-postgresql:5432/projects_management
+      - SPRING_DATASOURCE_USERNAME=codylab
+      - SPRING_DATASOURCE_PASSWORD=cody|_ab2025
+      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=org.postgresql.Driver
+
+      # CodyLab custom properties
+      - CODYLAB_DATASOURCE_DRIVER=org.postgresql.Driver
+      - CODYLAB_DATASOURCE_URL=jdbc:postgresql://codylab-postgresql:5432/projects_management
+      - CODYLAB_DATASOURCE_USERNAME=codylab
+      - CODYLAB_DATASOURCE_PASSWORD=cody|_ab2025
+
+      # Altre proprietà Spring
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_PROFILES_ACTIVE=dev
+      - SERVER_PORT=8090
+      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_ISSUER_URI=http://codylab-keycloak:9090/realms/codylab
+      - KEYCLOAK_AUTH_SERVER_URL=http://codylab-keycloak:9090/
+      - KEYCLOAK_REALM=codylab-realm
+      - KEYCLOAK_RESOURCE=codylab-client
+      - KEYCLOAK_PUBLIC_CLIENT=true
+      - KEYCLOAK_SSL_REQUIRED=external
+    ports:
+      - "127.0.0.1:8090:8090"
+
+volumes:
+  postgres_data:
