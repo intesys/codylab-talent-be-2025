@@ -17,6 +17,8 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./sql:/docker-entrypoint-initdb.d:ro
+    networks:
+      - gaetano-pensaci-tu
 
   codylab-keycloak:
     build:
@@ -41,6 +43,8 @@ services:
     ports:
       - "127.0.0.1:9090:9090"
       - "127.0.0.1:9443:9443"
+    networks:
+      - gaetano-pensaci-tu
 
   codylab-2025-api:
     image: intesys/codylab-2025:main
@@ -73,6 +77,11 @@ services:
       - KEYCLOAK_SSL_REQUIRED=external
     ports:
       - "127.0.0.1:8090:8090"
+    networks:
+      - gaetano-pensaci-tu
 
 volumes:
   postgres_data:
+networks:
+  gaetano-pensaci-tu:
+    driver: bridge
