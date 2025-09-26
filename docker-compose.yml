@@ -1,4 +1,4 @@
-name: codylab-talent-be-2025
+name: demo-codylab-talent-be-2025
 services:
   codylab-postgresql:
     image: postgres:15.3

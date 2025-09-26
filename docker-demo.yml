@@ -1,4 +1,4 @@
-name: codylab-talent-be-2025
+name: demo-codylab-talent-be-2025
 services:
   codylab-postgresql:
     image: postgres:15.3
@@ -46,7 +46,7 @@ services:
     image: intesys/codylab-2025:main
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: DockerFile
     container_name: codylab-2025-api
     depends_on:
       codylab-postgresql:
@@ -66,10 +66,12 @@ services:
       - CODYLAB_DATASOURCE_USERNAME=codylab
       - CODYLAB_DATASOURCE_PASSWORD=cody|_ab2025
 
-      # Altre proprietà Spring
+      # Altre proprietà Spring - AGGIUNGI LA PORTA ACTUATOR
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_PROFILES_ACTIVE=dev
       - SERVER_PORT=8090
+      - MANAGEMENT_SERVER_PORT=8091
+      - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE=health,info,livenessstate,readinessstate  # 👈 E QUESTA
       - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_ISSUER_URI=http://codylab-keycloak:9090/realms/codylab
       - KEYCLOAK_AUTH_SERVER_URL=http://codylab-keycloak:9090/
       - KEYCLOAK_REALM=codylab-realm
@@ -78,6 +80,7 @@ services:
       - KEYCLOAK_SSL_REQUIRED=external
     ports:
       - "127.0.0.1:8090:8090"
+      - "127.0.0.1:8091:8091"
 
 volumes:
   postgres_data:
