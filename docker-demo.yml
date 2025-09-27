@@ -56,10 +56,10 @@ services:
       codylab-keycloak:
         condition: service_started
     environment:
-      - CODYLAB_DATASOURCE_URL=jdbc:postgresql://codylab-postgresql:5432/projects_management
-      - CODYLAB_DATASOURCE_USERNAME=codylab
-      - CODYLAB_DATASOURCE_PASSWORD=cody|_ab2025
-      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+      - codylab.datasource.driver=org.postgresql.Driver
+      - codylab.datasource.url=jdbc:postgresql://codylab-postgresql:5432/projects_management
+      - codylab.datasource.username=codylab
+      - codylab.datasource.password=cody|_ab2025
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_PROFILES_ACTIVE=dev
       - SERVER_PORT=8090
@@ -90,15 +90,10 @@ services:
       - "3000:3000"
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_SMTP_ENABLED=true
-      - GF_SMTP_HOST=smtp.gmail.com:587
-      - GF_SMTP_USER=suadmarianetflix2025@gmail.com
-      - GF_SMTP_PASSWORD=Maria2025!!!
-      - GF_SMTP_FROM_ADDRESS=suadmarianetflix2025@gmail.com
-      - GF_SMTP_FROM_NAME=Grafana
-      - GF_SMTP_SKIP_VERIFY=false
     depends_on:
       - prometheus
+    volumes:
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini
     networks:
       - gaetano-pensaci-tu
 
